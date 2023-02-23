@@ -1,0 +1,69 @@
+<MainLayout>:
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'img/background.png'
+    FloatLayout:
+        Button:
+            size_hint: 0.13,None
+            height: self.width
+            pos_hint: {'right': 1, 'top': 1}
+            background_color: 0,0,0,0
+            Image:
+                source: 'img/setting_icon.png'
+                size: self.parent.size
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                keep_ratio: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+
+    FloatLayout:
+        orientation: 'horizontal'
+        size_hint: 1, 0.1
+        pos_hint: {'x': 0, 'y': 0}
+        spacing: 10  # Add spacing between buttons
+        padding: 10  # Add padding around the buttons
+        canvas:
+            Color:
+                rgba: 0, 1, 0, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Button:
+            size_hint: None, 1  # Make width fixed
+            width: self.height  # Make width equal to height
+            pos_hint: {'x': 0}
+            canvas:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Ellipse:
+                    pos: self.pos
+                    size: self.size
+            background_normal: ''
+            background_color: 0, 0, 0, 0
+        Button:
+            size_hint: None, 1  # Make width fixed
+            width: self.height  # Make width equal to height
+            pos_hint: {'center_x': 0.5}
+            canvas:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Ellipse:
+                    pos: self.pos
+                    size: self.size
+            background_normal: ''
+            background_color: 0, 0, 0, 0
+        Button:
+            size_hint: None, 1  # Make width fixed
+            width: self.height  # Make width equal to height
+            pos_hint: {'right': 1}
+            canvas:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Ellipse:
+                    pos: self.pos
+                    size: self.size
+            background_normal: ''
+            background_color: 0, 0, 0, 0
