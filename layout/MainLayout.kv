@@ -28,10 +28,9 @@
             Image:
                 source: 'layout/img/setting_icon.png'
                 height: float(self.parent.height*0.8)
+                width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                allow_stretch: False
-                keep_ratio: True
                 color: 1, 1, 1, 1  # Set image color to full opacity
 
     FloatLayout: # Middle screen
@@ -67,16 +66,17 @@
             callable_id: 'home'
             size_hint: float(1/6), None  # Make width fixed
             height: self.width  # Make width equal to height
-            pos_hint: {'center_x': float(1/12), 'center_y':0.5}
+            pos_hint: {'center_x': float(1.00001/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
             on_press: root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/home_button.png'
                 height: float(self.parent.height*0.6)
+                width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 allow_stretch: False
-                keep_ratio: True
+                keep_ratio: False
                 color: 1, 1, 1, 1  # Set image color to full opacity
         Button:
             id: plant_profile
@@ -89,10 +89,9 @@
             Image:
                 source: 'layout/img/plant_button.png'
                 height: float(self.parent.height*0.6)
+                width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                allow_stretch: False
-                keep_ratio: True
                 color: 1, 1, 1, 1  # Set image color to full opacity
         Button:
             id: calendar
@@ -105,10 +104,9 @@
             Image:
                 source: 'layout/img/calendar_button.png'
                 height: float(self.parent.height*0.6)
+                width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                allow_stretch: False
-                keep_ratio: True
                 color: 1, 1, 1, 1  # Set image color to full opacity
         Button:
             id: community
@@ -121,10 +119,9 @@
             Image:
                 source: 'layout/img/community_button.png'
                 height: float(self.parent.height*0.6)
+                width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                allow_stretch: False
-                keep_ratio: True
                 color: 1, 1, 1, 1  # Set image color to full opacity
         Button:
             id: wiki
@@ -137,10 +134,9 @@
             Image:
                 source: 'layout/img/wiki_button.png'
                 height: float(self.parent.height*0.6)
+                width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                allow_stretch: False
-                keep_ratio: True
                 color: 1, 1, 1, 1  # Set image color to full opacity
         Button:
             id: shopping
@@ -153,8 +149,7 @@
             Image:
                 source: 'layout/img/shopping_button.png'
                 height: float(self.parent.height*0.6)
+                width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                allow_stretch: False
-                keep_ratio: True
                 color: 1, 1, 1, 1  # Set image color to full opacity

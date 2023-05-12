@@ -2,32 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c8d3c64-286f-4f73-a94f-e05dc96f5b77" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app_layout.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/layout/MainLayout.kv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/layout/img/background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/layout/img/setting_icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main_gpt3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/John/info.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/John/log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/John/recent_log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/John/summary.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/John2/info.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/John2/log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/John2/recent_log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/John2/summary.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/Mary/info.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/Mary/log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/Mary/recent_log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/Mary/summary.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/Merilyn/info.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/Merilyn/log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/Merilyn/recent_log.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/plants/Merilyn/summary.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/profile/user/user.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/MainLayout.kv" beforeDir="false" afterPath="$PROJECT_DIR$/layout/MainLayout.kv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -365,7 +341,7 @@
       <workItem from="1683895072476" duration="433000" />
       <workItem from="1683895522168" duration="39000" />
       <workItem from="1683895562835" duration="30000" />
-      <workItem from="1683895606211" duration="21323000" />
+      <workItem from="1683895606211" duration="22911000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1683895109776</created>
@@ -374,7 +350,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683895109776</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update">
+      <created>1683918111677</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1683918111677</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,7 +383,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Plant_reminder$app_layout__1_.coverage" NAME="app_layout (1) Coverage Results" MODIFIED="1677167815548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1683918010402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1683919543778" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/virtual_chatbot$main.coverage" NAME="main Coverage Results" MODIFIED="1676883756855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/virtual_chatbot$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1677165676152" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/virtual_chatbot$main_gpt3.coverage" NAME="main_gpt3 Coverage Results" MODIFIED="1676890193190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
