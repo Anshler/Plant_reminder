@@ -8,12 +8,11 @@ from kivy.config import Config
 from kivy.animation import Animation
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
+from utils.dict_encoding import HomeButtons2Num
 
 Config.set('graphics', 'resizable', '1')
 Config.set('graphics', 'width', '400')
 Config.set('graphics', 'height', '700')
-
-homeButtons2num = {'home':0, 'plant_profile':1,'calendar':2,'community':3,'wiki':4,'shopping':5}
 
 # Declare Main pages ----------------------------------------
 class HomePage(Screen):
@@ -36,18 +35,18 @@ class UltilityBars(FloatLayout):
         print('setting')
 
     def home_buttons_animation(self, instance):
-        if homeButtons2num[instance.name] != self.parent.Previous_home_buttons:
-            animate = Animation(pos_hint=instance.pos_hint, duration=.25)
+        if HomeButtons2Num[instance.name] != self.parent.Previous_home_buttons:
+            animate = Animation(pos_hint=instance.pos_hint, duration=0.25)
             animate.start(self.ids.home_highlight)
             for a in range(len(self.parent.children)): # Can't call ids from parent (dun kno why), so iterate instead
                 if self.parent.children[a].name == 'main_pages':
-                    self.parent.children[a].current = instance.name
-                    if homeButtons2num[instance.name] > self.parent.Previous_home_buttons:
+                    self.parent.children[a].transition.duration = 0.25
+                    if HomeButtons2Num[instance.name] > self.parent.Previous_home_buttons:
                         self.parent.children[a].transition.direction = 'left'
                     else:
                         self.parent.children[a].transition.direction = 'right'
-
-                    self.parent.Previous_home_buttons = homeButtons2num[instance.name]
+                    self.parent.children[a].current = instance.name
+                    self.parent.Previous_home_buttons = HomeButtons2Num[instance.name]
                     break
 class MasterScreen(FloatLayout):
     Previous_home_buttons = 0
