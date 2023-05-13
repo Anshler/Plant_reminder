@@ -1,10 +1,62 @@
-<MainLayout>:
+MasterScreen:
+    id: master
+    MainPagesManager:
+    UltilityBars:
+
+
+
+<MainPagesManager>:
+    name: 'main_pages'
+    HomePage:
+    PlantProfilePage:
+    CalendarPage:
+    CommunityPage:
+    WikiPage:
+    ShoppingPage:
+
+
+<HomePage>:
+    name: 'home'
     canvas:
         Rectangle:
             pos: self.pos
             size: self.size
             source: 'layout/img/background.png'
+<PlantProfilePage>:
+    name: 'plant_profile'
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'layout/img/background2.png'
+<CalendarPage>:
+    name: 'calendar'
+    Image:
+        source: 'layout/img/background3.png'
+        keep_ratio: True
+        color: 1, 1, 1, 1  # Set image color to full opacity
+<CommunityPage>:
+    name: 'community'
+    Image:
+        source: 'layout/img/background4.png'
+        keep_ratio: True
+        color: 1, 1, 1, 1  # Set image color to full opacity
 
+<WikiPage>:
+    name: 'wiki'
+    Image:
+        source: 'layout/img/background5.png'
+        keep_ratio: True
+        color: 1, 1, 1, 1  # Set image color to full opacity
+<ShoppingPage>:
+    name: 'shopping'
+    Image:
+        source: 'layout/img/background6.png'
+        keep_ratio: True
+        color: 1, 1, 1, 1  # Set image color to full opacity
+
+<UltilityBars>:
+    name: 'ultility_bars'
     FloatLayout: # upper bar, mainly for setting
         Button: # setting button
             size_hint: float(1/6),None
@@ -12,7 +64,8 @@
             pos_hint: {'center_x': float(11/12)}
             center_y: float(self.parent.height-self.parent.width+self.center_x)
             background_color: 0,0,0,0
-            on_press: root.open_setting()
+            on_press:
+                root.open_setting(self)
 
             FloatLayout:
                 height: float(self.parent.height*0.75)
@@ -33,8 +86,6 @@
                 center_y: self.parent.center_y
                 color: 1, 1, 1, 1  # Set image color to full opacity
 
-    FloatLayout: # Middle screen
-
     FloatLayout: # bottom bar
         orientation: 'horizontal'
         size_hint: 1, None
@@ -52,7 +103,7 @@
             id:home_highlight
             size_hint: float(0.9/6), None
             height: self.width
-            pos_hint: {'center_x': float(1/12), 'center_y': 0.5}
+            pos_hint: {'center_x': float(1.00001/12), 'center_y': 0.5}
             canvas:
                 Color:
                     rgba: float(176/255), float(211/255), float(141/255), 1
@@ -63,12 +114,13 @@
         # All the selection buttons
         Button:
             id: home
-            callable_id: 'home'
+            name: 'home'
             size_hint: float(1/6), None  # Make width fixed
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(1.00001/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press: root.home_buttons_animation(self)
+            on_press:
+                root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/home_button.png'
                 height: float(self.parent.height*0.6)
@@ -80,12 +132,13 @@
                 color: 1, 1, 1, 1  # Set image color to full opacity
         Button:
             id: plant_profile
-            callable_id: 'plant_profile'
+            name: 'plant_profile'
             size_hint: float(1/6), None  # Make width fixed
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(3/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press: root.home_buttons_animation(self)
+            on_press:
+                root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/plant_button.png'
                 height: float(self.parent.height*0.6)
@@ -95,12 +148,13 @@
                 color: 1, 1, 1, 1  # Set image color to full opacity
         Button:
             id: calendar
-            callable_id: 'calendar'
+            name: 'calendar'
             size_hint: float(1/6), None  # Make width fixed
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(5/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press: root.home_buttons_animation(self)
+            on_press:
+                root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/calendar_button.png'
                 height: float(self.parent.height*0.6)
@@ -110,12 +164,13 @@
                 color: 1, 1, 1, 1  # Set image color to full opacity
         Button:
             id: community
-            callable_id: 'community'
+            name: 'community'
             size_hint: float(1/6), None  # Make width fixed
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(7/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press: root.home_buttons_animation(self)
+            on_press:
+                root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/community_button.png'
                 height: float(self.parent.height*0.6)
@@ -125,12 +180,13 @@
                 color: 1, 1, 1, 1  # Set image color to full opacity
         Button:
             id: wiki
-            callable_id: 'wiki'
+            name: 'wiki'
             size_hint: float(1/6), None  # Make width fixed
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(9/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press: root.home_buttons_animation(self)
+            on_press:
+                root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/wiki_button.png'
                 height: float(self.parent.height*0.6)
@@ -140,12 +196,13 @@
                 color: 1, 1, 1, 1  # Set image color to full opacity
         Button:
             id: shopping
-            callable_id: 'shopping'
+            name: 'shopping'
             size_hint: float(1/6), None  # Make width fixed
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(11/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press: root.home_buttons_animation(self)
+            on_press:
+                root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/shopping_button.png'
                 height: float(self.parent.height*0.6)
