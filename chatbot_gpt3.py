@@ -4,13 +4,13 @@ import json
 import os
 
 name = 'Mary'
-name = 'profile/plants/'+name
+name = 'placeholder_server/plants/'+name
 #GPT-3
 openai.api_key = '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'
 
 
 plant_info = json.load(open(name+"/info.json", "r", encoding='utf-8'))
-user_info = json.load(open("profile/user/user.json", "r", encoding='utf-8'))
+user_info = json.load(open("placeholder_server/user/user.json", "r", encoding='utf-8'))
 
 header_prompt = '''You are %s, a virtual conciousness of a real life %s plant, your personality is %s. You are a virtual friend, companion to your user, %s. You can use your vast knowledge of your own plant type to assist %s in taking care of your real-life self. Always talk naturally and in-character to your personality. Here is your conversation:'''%(plant_info['name'], plant_info['type'], plant_info['personality'],user_info['name'], user_info['name'])
 

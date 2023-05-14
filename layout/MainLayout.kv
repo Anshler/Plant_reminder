@@ -1,6 +1,6 @@
 WindowManager:
-    #LoginScreen:
-        #id: login_screen
+    LoginScreen:
+        id: login_screen
     MasterScreen:
         id: master_screen
     #SettingScreen:
@@ -14,9 +14,10 @@ WindowManager:
         Rectangle:
             pos: self.pos
             size: self.size
-    FloatLayout:
-        size_hint: 0.8,None
-        height: self.width/4
+
+    FloatLayout: # Title
+        size_hint: None,0.12
+        width: self.height*4
         pos_hint: {'x': 0.075, 'top': 0.975}
 
         Label:
@@ -25,14 +26,169 @@ WindowManager:
             color: 51/255, 54/255, 71/255, 1
             pos_hint: {'x': 0, 'center_y': 1}
             text_size: self.size
-            font_size: self.parent.height*0.4
+            font_size: self.parent.height*0.25
             bold: True
         Label:
+            id: welcome2
             text: 'Welcome to a house of indoor plant lovers'
             color: 124/255, 130/255, 161/255,1
             pos_hint: {'x': 0, 'y': 0.25}
             text_size: self.size
-            font_size: self.parent.height/5
+            font_size: self.parent.height*0.15
+
+
+
+    FloatLayout: # Authentication
+        size_hint: None, 0.32
+        width: self.height*1.35
+        pos_hint: {'center_x':0.5,'y':0.5}
+
+        FloatLayout:
+            pos_hint: {'center_x':0.5,'center_y':0.9}
+            Image:
+                source: 'layout/img/usrnm.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                color: 1, 1, 1, 1  # Set image color to full opacity
+            MDTextField:
+                id: username
+                hint_text: 'google account or username'
+                #color_mode: 'accent'
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+
+        FloatLayout:
+            pos_hint: {'center_x':0.5, 'center_y':0.6}
+            Image:
+                source: 'layout/img/psswrd.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                color: 1, 1, 1, 1  # Set image color to full opacity
+            MDTextField:
+                id: password
+                hint_text: 'case sensitive'
+                #color_mode: 'accent'
+                password: True
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+
+        Button:
+            id: login_button
+            name: 'login_button'
+            size_hint: 1,None
+            height: self.width/6
+            pos_hint: {'center_x':0.5,'y':0}
+            background_color: 0,0,0,0
+            on_press: root.press_login_animation(self)
+            on_release: root.login(self)
+            Image:
+                id: login_button_image
+                color: 1, 1, 1, 1  # Set image color to full opacity
+                source: 'layout/img/login.png'
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+
+        Button:
+            id: forget_password
+            name: 'forget_password'
+            text: 'forget password?'
+            size_hint: 0.4,0.1
+            pos_hint: {'right':1,'center_y':0.4}
+            font_size: self.height*0.6
+            color: 124/255, 130/255, 161/255,1
+            background_color: 0,0,0,0
+            on_press:
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+        Label:
+            id: wrong
+            name: 'wrong'
+            text: 'username or password incorrect.'
+            size_hint: 0.4,0.1
+            pos_hint: {'x':0.12,'center_y':0.4}
+            font_size: self.height*0.6
+            color: 0,0,0,0
+            background_color: 0,0,0,0
+
+    Label:
+        id: or
+        text: 'Or'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+        font_size: self.parent.height*0.03
+        color: 124/255, 130/255, 161/255,1
+
+    Button:
+        id: sign_up
+        name: 'sign_up'
+        text: 'Don\'t have an account? Sign Up'
+        size_hint: 0.7,0.05
+        pos_hint: {'center_x':0.5,'center_y':0.125}
+        font_size: self.height*0.5
+        color: 51/255, 54/255, 71/255, 1
+        background_color: 0,0,0,0
+        on_press:
+            root.press_button(self)
+        on_release:
+            root.release_button(self)
+
+    FloatLayout: # Signin other method
+        size_hint: None, 0.32
+        width: self.height*1.35
+        pos_hint: {'center_x':0.5,'center_y':0.175}
+
+        Button:
+            id: login_google
+            name: 'login_google'
+            size_hint: 1,None
+            height: self.width/6
+            pos_hint: {'center_x':0.5,'center_y':0.9}
+            background_color: 0,0,0,0
+            on_press:
+                root.press_other_login(self)
+            on_release:
+                root.release_other_login(self)
+            Image:
+                id: login_google_image
+                source: 'layout/img/signin_google.png'
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                color: 1, 1, 1, 1  # Set image color to full opacity
+
+        Button:
+            id: login_facebook
+            name: 'login_facebook'
+            size_hint: 1,None
+            height: self.width/6
+            pos_hint: {'center_x':0.5,'center_y':0.6}
+            background_color: 0,0,0,0
+            on_press:
+                root.press_other_login(self)
+            on_release:
+                root.release_other_login(self)
+            Image:
+                id: login_facebook_image
+                source: 'layout/img/signin_facebook.png'
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                color: 1, 1, 1, 1  # Set image color to full opacity
+
 
 
 <MasterScreen>:
