@@ -1,11 +1,19 @@
 MasterScreen:
     id: master
+    Button:
+        id: swipe
+        background_color: 0,0,0,0
+        on_release: root.swipe_home_buttons(self)
+        collide_children: False
     MainPagesManager:
-    UltilityBars:
+        id:main_pages
+    UtilityBars:
+        id:utility_bars
 
 
 
 <MainPagesManager>:
+    id:main_pages
     name: 'main_pages'
     HomePage:
     PlantProfilePage:
@@ -22,6 +30,13 @@ MasterScreen:
             pos: self.pos
             size: self.size
             source: 'layout/img/background.png'
+    Button:
+        text: 'home page'
+        size_hint: 0.8,0.25
+        pos_hint: {'center_x': 0.5, 'center_y':0.5}
+        background_color: 0,0,0,0.5
+        on_release: root.test(self)
+        collide_children: False
 <PlantProfilePage>:
     name: 'plant_profile'
     canvas:
@@ -55,8 +70,8 @@ MasterScreen:
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
 
-<UltilityBars>:
-    name: 'ultility_bars'
+<UtilityBars>:
+    name: 'utility_bars'
     FloatLayout: # upper bar, mainly for setting
         Button: # setting button
             size_hint: float(1/6),None
@@ -64,7 +79,7 @@ MasterScreen:
             pos_hint: {'center_x': float(11/12)}
             center_y: float(self.parent.height-self.parent.width+self.center_x)
             background_color: 0,0,0,0
-            on_press:
+            on_release:
                 root.open_setting(self)
 
             FloatLayout:
@@ -119,7 +134,7 @@ MasterScreen:
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(1.00001/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press:
+            on_release:
                 root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/home_button.png'
@@ -137,7 +152,7 @@ MasterScreen:
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(3/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press:
+            on_release:
                 root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/plant_button.png'
@@ -153,7 +168,7 @@ MasterScreen:
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(5/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press:
+            on_release:
                 root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/calendar_button.png'
@@ -169,7 +184,7 @@ MasterScreen:
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(7/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press:
+            on_release:
                 root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/community_button.png'
@@ -185,7 +200,7 @@ MasterScreen:
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(9/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press:
+            on_release:
                 root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/wiki_button.png'
@@ -201,7 +216,7 @@ MasterScreen:
             height: self.width  # Make width equal to height
             pos_hint: {'center_x': float(11/12), 'center_y':0.5}
             background_color: 0, 0, 0, 0
-            on_press:
+            on_release:
                 root.home_buttons_animation(self)
             Image:
                 source: 'layout/img/shopping_button.png'
