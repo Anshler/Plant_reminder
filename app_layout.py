@@ -47,10 +47,14 @@ class UtilityBars(FloatLayout):
             self.parent.ids.main_pages.current = instance.name
             self.parent.Previous_home_buttons = HomeButtons2Num[instance.name]
 
-class MasterScreen(FloatLayout):
+class MasterScreen(Screen):
     Previous_home_buttons = 0
     def swipe_home_buttons(self, instance):
         print('swipe')
+    pass
+class LoginScreen(Screen):
+    pass
+class WindowManager(ScreenManager):
     pass
 
 kv = Builder.load_file('layout/MainLayout.kv')
