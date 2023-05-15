@@ -1,16 +1,41 @@
 WindowManager:
     LoginScreen:
         id: login_screen
+        name: 'login_screen'
+        level: 0
+    # Forget password
+    ForgetPasswordEmailScreen:
+        id: forget_password_email_screen
+        name: 'forget_password_email_screen'
+        level: 1
+    ForgetPasswordNewPassScreen:
+        id: forget_password_new_pass_screen
+        name: 'forget_password_new_pass_screen'
+        level: 2
+    ForgetPasswordOTPScreen:
+        id: forget_password_otp_screen
+        name: 'forget_password_otp_screen'
+        level: 3
+    # Sign up
+    SignUpScreen:
+        id: sign_up_screen
+        name: 'sign_up_screen'
+        level: 1
+    SignUpOTPScreen:
+        id: sign_up_top_screen
+        name: 'sign_up_top_screen'
+        level: 2
+    # Main screen
     MasterScreen:
         id: master_screen
+        name: 'master_screen'
+        level: 0
     #SettingScreen:
 
 <LoginScreen>:
-    id: login_screen
-    name: 'login_screen'
     canvas:
         Color:
-            rgba: 1,1,1,1
+            rgba: app.background_color
         Rectangle:
             pos: self.pos
             size: self.size
@@ -23,7 +48,7 @@ WindowManager:
         Label:
             id: welcome
             text: 'WELCOME!'
-            color: 51/255, 54/255, 71/255, 1
+            color: app.primary_font_color
             pos_hint: {'x': 0, 'center_y': 1}
             text_size: self.size
             font_size: self.parent.height*0.25
@@ -31,12 +56,10 @@ WindowManager:
         Label:
             id: welcome2
             text: 'Welcome to a house of indoor plant lovers'
-            color: 124/255, 130/255, 161/255,1
+            color: app.secondary_font_color
             pos_hint: {'x': 0, 'y': 0.25}
             text_size: self.size
             font_size: self.parent.height*0.15
-
-
 
     FloatLayout: # Authentication
         size_hint: None, 0.32
@@ -54,6 +77,7 @@ WindowManager:
             MDTextField:
                 id: username
                 hint_text: 'username or email'
+                max_text_length: 50
                 size_hint: 0.7,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -71,7 +95,7 @@ WindowManager:
             MDTextField:
                 id: password
                 hint_text: 'case sensitive'
-                #color_mode: 'accent'
+                max_text_length: 50
                 password: True
                 size_hint: 0.7,None
                 height: self.width/6
@@ -98,6 +122,15 @@ WindowManager:
                 center_y: self.parent.center_y
                 allow_stretch: True
                 color: 1, 1, 1, 1  # Set image color to full opacity
+            Label:
+                id: login_button_text
+                text: 'Login'
+                color: app.background_color
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                font_size: self.height/3
 
         Button:
             id: forget_password
@@ -106,12 +139,21 @@ WindowManager:
             size_hint: 0.4,0.1
             pos_hint: {'right':1,'center_y':0.4}
             font_size: self.height*0.6
-            color: root.ids.welcome2.color
+            color: app.secondary_font_color
             background_color: 0,0,0,0
+            disabled: False
             on_press:
                 root.press_button(self)
             on_release:
                 root.release_button(self)
+            Image:
+                id: forget_password_image
+                color: 0,0,0,0  # Set image color to full opacity
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
         Label:
             id: wrong
             name: 'wrong'
@@ -127,7 +169,7 @@ WindowManager:
         text: 'Or'
         pos_hint: {'center_x': 0.5, 'center_y': 0.4}
         font_size: self.parent.height*0.03
-        color: root.ids.welcome2.color
+        color: app.secondary_font_color
 
     Button:
         id: sign_up
@@ -136,12 +178,19 @@ WindowManager:
         size_hint: 0.7,0.05
         pos_hint: {'center_x':0.5,'center_y':0.125}
         font_size: self.height*0.5
-        color: root.ids.welcome.color
+        color: app.primary_font_color
         background_color: 0,0,0,0
         on_press:
             root.press_button(self)
         on_release:
             root.release_button(self)
+        Image:
+            id: sign_up_image
+            color: 0,0,0,0  # Set image color to full opacity
+            width: self.parent.width
+            height: self.parent.height
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
 
     FloatLayout: # Signin other method
         size_hint: None, 0.32
@@ -167,6 +216,15 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 color: 1, 1, 1, 1  # Set image color to full opacity
+            Label:
+                id: login_google_text
+                text: 'Sign in with Google'
+                color: app.secondary_font_color
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                font_size: self.height/3
 
         Button:
             id: login_facebook
@@ -187,37 +245,163 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 color: 1, 1, 1, 1  # Set image color to full opacity
+            Label:
+                id: login_facebook_text
+                text: 'Sign in with Facebook'
+                color: app.secondary_font_color
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                font_size: self.height/3
 
+<ForgetPasswordEmailScreen>:
+    canvas:
+        Color:
+            rgba: app.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
+    FloatLayout: # Title
+        size_hint: None,0.12
+        width: self.height*4
+        pos_hint: {'x': 0.075, 'top': 0.975}
+
+        Label:
+            id: forget_password_title
+            text: 'Forgot Password?'
+            color: app.primary_font_color
+            pos_hint: {'x': 0, 'center_y': 1}
+            text_size: self.size
+            font_size: self.parent.height*0.25
+            bold: True
+        Label:
+            id: forget_password_title2
+            text: 'Enter this so we can send you the reset code'
+            color: app.secondary_font_color
+            pos_hint: {'x': 0, 'y': 0.25}
+            text_size: self.size
+            font_size: self.parent.height*0.15
+
+    FloatLayout: # Enter email
+        size_hint: None, 0.32
+        width: self.height*1.35
+        pos_hint: {'center_x':0.5,'y':0.5}
+
+        FloatLayout:
+            pos_hint: {'center_x':0.5,'center_y':0.9}
+            Image:
+                source: 'layout/img/usrnm.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                color: 1, 1, 1, 1  # Set image color to full opacity
+            MDTextField:
+                id: username_forget
+                hint_text: 'username or email'
+                max_text_length: 50
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+
+        Button:
+            id: next_forget_button
+            name: 'next_forget_button'
+            size_hint: 1,None
+            height: self.width/6
+            pos_hint: {'center_x':0.5, 'center_y':0.6}
+            background_color: 0,0,0,0
+            on_press: root.press_next_animation(self)
+            on_release: root.to_otp(self)
+            Image:
+                id: next_forget_button_image
+                color: 1, 1, 1, 1  # Set image color to full opacity
+                source: 'layout/img/login.png'
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+            Label:
+                id: next_forget_button_text
+                text: 'Next'
+                color: app.background_color
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                font_size: self.height/3
+
+    Button:
+        id: remember_pass_back
+        name: 'remember_pass_back'
+        text: 'Remember the password? Try again'
+        size_hint: 0.7,0.05
+        pos_hint: {'center_x':0.5,'center_y':0.125}
+        font_size: self.height*0.5
+        color: app.primary_font_color
+        background_color: 0,0,0,0
+        on_press:
+            root.press_button(self)
+        on_release:
+            root.release_button(self)
+        Image:
+            id: remember_pass_back_image
+            color: 0,0,0,0  # Set image color to full opacity
+            width: self.parent.width
+            height: self.parent.height
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
 
 <MasterScreen>:
-    id: master_screen
-    name: 'master_screen'
     Button:
         id: swipe
         background_color: 0,0,0,0
         on_release: root.swipe_home_buttons(self)
         collide_children: False
     MainPagesManager:
-        id:main_pages
+        id: main_pages
+        name: 'main_pages'
+        level: 0
     UtilityBars:
         id:utility_bars
+        name: 'utility_bars'
+        level:0
 
 
 
 <MainPagesManager>:
-    id:main_pages
-    name: 'main_pages'
     HomePage:
+        id: home_page
+        name: 'home_page'
+        level: 0
     PlantProfilePage:
+        id: plant_profile_page
+        name: 'plant_profile_page'
+        level: 0
     CalendarPage:
+        id: calendar_page
+        name: 'calendar_page'
+        level: 0
     CommunityPage:
+        id: community_page
+        name: 'community_page'
+        level: 0
     WikiPage:
+        id: wiki_page
+        name: 'wiki_page'
+        level: 0
     ShoppingPage:
+        id: shopping_page
+        name: 'shopping_page'
+        level: 0
 
 
 <HomePage>:
-    name: 'home'
     canvas:
         Rectangle:
             pos: self.pos
@@ -231,41 +415,40 @@ WindowManager:
         background_color: 0,0,0,0.5
         on_release: root.test(self)
         collide_children: False
+
 <PlantProfilePage>:
-    name: 'plant_profile'
     canvas:
         Rectangle:
             pos: self.pos
             size: self.size
             source: 'layout/img/background2.png'
+
 <CalendarPage>:
-    name: 'calendar'
     Image:
         source: 'layout/img/background3.png'
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
+
 <CommunityPage>:
-    name: 'community'
     Image:
         source: 'layout/img/background4.png'
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
 
+
 <WikiPage>:
-    name: 'wiki'
     Image:
         source: 'layout/img/background5.png'
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
+
 <ShoppingPage>:
-    name: 'shopping'
     Image:
         source: 'layout/img/background6.png'
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
 
 <UtilityBars>:
-    name: 'utility_bars'
     FloatLayout: # upper bar, mainly for setting
         Button: # setting button
             size_hint: None,1/12

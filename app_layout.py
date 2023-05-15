@@ -6,9 +6,9 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.config import Config
 from kivy.animation import Animation
-from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from utils.dict_encoding import HomeButtons2Num
+
 import json,time
 
 
@@ -48,7 +48,7 @@ class UtilityBars(FloatLayout):
                 self.parent.ids.main_pages.transition.direction = 'left'
             else:
                 self.parent.ids.main_pages.transition.direction = 'right'
-            self.parent.ids.main_pages.current = instance.name
+            self.parent.ids.main_pages.current = instance.name+'_page'
             self.parent.Previous_home_buttons = HomeButtons2Num[instance.name]
 
 class MasterScreen(Screen):
@@ -94,45 +94,101 @@ class LoginScreen(Screen):
             self.parent.transition.direction = 'up'
             self.parent.current = 'master_screen'
         else:
-            animate = Animation(color = (208/255, 0, 0,1),duration=0.2)+Animation(duration=1)+Animation(color = (0,0,0,0),duration=0.5)
+            animate = Animation(color = MDApp.get_running_app().wrong_pass_warn,
+                                duration=0.2)+Animation(duration=1)+Animation(color = (0,0,0,0),duration=0.5)
             animate.start(self.ids.wrong)
 
     def press_button(self,instance):
-        animate = Animation(width=instance.width * 0.95, height=instance.height * 0.95,
+        change_size = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled = True,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
         if instance.name == 'login_google':
-            animate.start(self.ids.login_google_image)
+            change_size.start(self.ids.login_google_image)
         elif instance.name == 'login_facebook':
-            animate.start(self.ids.login_facebook_image)
+            change_size.start(self.ids.login_facebook_image)
+        elif instance.name == 'forget_password':
+            change_size.start(self.ids.forget_password_image)
+            instance.color = MDApp.get_running_app().press_word_button
         else:
-            instance.color = (1, 1, 110 / 255, 1)
-        instance.disabled = True
-
-
+            change_size.start(self.ids.sign_up_image)
+            instance.color = MDApp.get_running_app().press_word_button
     def release_button(self,instance):
-        animate = Animation(duration=0.5) + Animation(width=instance.width, height=instance.height,
+        change_size = Animation(duration=0.5) + Animation(width=instance.width, height=instance.height, disabled = False,
                                                       center_x=instance.center_x, center_y=instance.center_y,
                                                       duration=0.01)
-        animate2 = Animation(duration=0.5)
+        change_color = Animation(duration=0.5)
+
+        # Google login--------------------------------------
         if instance.name == 'login_google':
-            animate.start(self.ids.login_google_image)
+            change_size.start(self.ids.login_google_image)
             print('login google')
+
+        # Facebook login------------------------------------
         elif instance.name == 'login_facebook':
-            animate.start(self.ids.login_facebook_image)
+            change_size.start(self.ids.login_facebook_image)
             print('login facebook')
+
+        # Forget password-----------------------------------
         elif instance.name == 'forget_password':
-            animate2 += Animation(color=self.ids.welcome2.color, duration=0.1)
-            animate2.start(instance)
-            print('forget password')
+            change_size.start(self.ids.forget_password_image)
+            change_color += Animation(color=MDApp.get_running_app().secondary_font_color, duration=0.1)
+            change_color.start(instance)
+            self.parent.transition.duration = 0.5
+            self.parent.transition.direction = 'left'
+            self.parent.current = 'forget_password_email_screen'
+
+        # Sign up-------------------------------------------
         else:
-            animate2 += Animation(color=self.ids.welcome.color, duration=0.1)
-            animate2.start(instance)
+            change_size.start(self.ids.sign_up_image)
+            change_color += Animation(color=MDApp.get_running_app().primary_font_color, duration=0.1)
+            change_color.start(instance)
             print('signup')
-        instance.disabled=False
+class ForgetPasswordEmailScreen(Screen):
+    def press_next_animation(self,instance): # Shrink button
+        animate = Animation(width=instance.width*0.95, height= instance.height*0.95, disabled = True,
+                            center_x = instance.center_x, center_y = instance.center_y, duration=0.01)
+        animate.start(self.ids.next_forget_button_image)
+        self.ids.next_forget_button_image.source = 'layout/img/login_pressed.png'
+    def to_otp(self,instance):
+        # Send the request to to server to notify
+        # request_function()
+        animate = Animation(width=instance.width, height=instance.height, disabled=False,
+                            center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        animate.start(self.ids.next_forget_button_image)
+        self.ids.next_forget_button_image.source = 'layout/img/login.png'
+        self.parent.transition.duration = 0.5
+        self.parent.transition.direction = 'left'
+        self.parent.current = 'forget_password_new_pass_screen'
+    def press_button(self,instance):
+        change_size = Animation(disabled=True)
+        change_size.start(self.ids.remember_pass_back_image)
+        instance.color = MDApp.get_running_app().press_word_button
+    def release_button(self,instance):
+        change_size = Animation(disabled=False)
+        change_size.start(self.ids.remember_pass_back_image)
+        change_color = Animation(duration=0.5)+Animation(color=MDApp.get_running_app().primary_font_color, duration=0.1)
+        change_color.start(instance)
+        self.parent.transition.duration = 0.5
+        self.parent.transition.direction = 'right'
+        self.parent.current = 'login_screen'
+
+class ForgetPasswordNewPassScreen(Screen):
+    pass
+class ForgetPasswordOTPScreen(Screen):
+    pass
+class SignUpScreen(Screen):
+    pass
+class SignUpOTPScreen(Screen):
+    pass
 class WindowManager(ScreenManager):
     pass
 
 class PlantApp(MDApp):
+    previous_screen = [0]
+    primary_font_color= 0,0,0,1
+    secondary_font_color= 124 / 255, 130 / 255, 161 / 255, 1
+    background_color = 1,1,1,1
+    wrong_pass_warn = 208/255, 0, 0,1
+    press_word_button = 1, 1, 110 / 255, 1
     def build(self):
         kv = Builder.load_file('layout/MainLayout.kv')
         return kv
