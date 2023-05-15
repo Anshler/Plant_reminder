@@ -5,10 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_layout.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/layout/MainLayout.kv" beforeDir="false" afterPath="$PROJECT_DIR$/layout/MainLayout.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/img/login.png" beforeDir="false" afterPath="$PROJECT_DIR$/layout/img/login.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/img/login_pressed.png" beforeDir="false" afterPath="$PROJECT_DIR$/layout/img/login_pressed.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/img/signin_facebook.png" beforeDir="false" afterPath="$PROJECT_DIR$/layout/img/signin_facebook.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/img/signin_google.png" beforeDir="false" afterPath="$PROJECT_DIR$/layout/img/signin_google.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/placeholder_server/user/user.json" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/user.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +200,8 @@
       <workItem from="1683986758592" duration="17167000" />
       <workItem from="1684039582153" duration="34253000" />
       <workItem from="1684130294203" duration="15072000" />
-      <workItem from="1684151571703" duration="14607000" />
+      <workItem from="1684151571703" duration="14750000" />
+      <workItem from="1684167329649" duration="12523000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1683895109776</created>
@@ -282,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684138347839</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="update">
+      <created>1684166387465</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1684166387465</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,7 +313,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Plant_reminder$app_layout__1_.coverage" NAME="app_layout (1) Coverage Results" MODIFIED="1677167815548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1684166278600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1684179880147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/virtual_chatbot$main.coverage" NAME="main Coverage Results" MODIFIED="1676883756855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/virtual_chatbot$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1677165676152" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/virtual_chatbot$main_gpt3.coverage" NAME="main_gpt3 Coverage Results" MODIFIED="1676890193190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
