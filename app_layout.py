@@ -8,9 +8,8 @@ from kivy.config import Config
 from kivy.animation import Animation
 from kivy.uix.screenmanager import ScreenManager, Screen
 from utils.dict_encoding import HomeButtons2Num
-
+from utils.config import *
 import json,time
-
 
 Config.set('graphics', 'resizable', '1')
 Config.set('graphics', 'width', '350')
@@ -258,12 +257,11 @@ class WindowManager(ScreenManager):
     pass
 
 class PlantApp(MDApp):
-    previous_screen = [(None,0)]
-    primary_font_color= 0,0,0,1
-    secondary_font_color= 124 / 255, 130 / 255, 161 / 255, 1
-    background_color = 1,1,1,1
-    wrong_pass_warn = 208/255, 0, 0,1
-    press_word_button = 1, 1, 110 / 255, 1
+    primary_font_color = primary_font_color
+    secondary_font_color = secondary_font_color
+    background_color = background_color
+    wrong_pass_warn = wrong_pass_warn
+    press_word_button = press_word_button
     def build(self):
         kv = Builder.load_file('layout/MainLayout.kv')
         return kv

@@ -1,0 +1,25 @@
+theme:
+  default:
+    primary_font_color: [0.2, 0.21, 0.28, 1]
+    secondary_font_color: [0.49, 0.51, 0.63, 1]
+    background_color: [0.99, 0.99, 0.99, 1]
+    wrong_pass_warn: [0.75, 0, 0, 1]
+    press_word_button: [1, 1, 0.5, 1]
+  dark:
+    primary_font_color: [0.9, 0.9, 0.9, 1]
+    secondary_font_color: [0.8, 0.8, 0.8, 1]
+    background_color: [0, 0, 0, 1]
+    wrong_pass_warn: [0.75, 0, 0, 1]
+    press_word_button: [1, 1, 0.5, 1]
+  contrast_light:
+    primary_font_color: [0, 0, 0, 1]
+    secondary_font_color: [0, 0, 0, 1]
+    background_color: [1, 1, 1, 1]
+    wrong_pass_warn: [1, 0, 0, 1]
+    press_word_button: [1, 1, 0, 1]
+  contrast_dark:
+    primary_font_color: [1, 1, 1, 1]
+    secondary_font_color: [1, 1, 1, 1]
+    background_color: [0, 0, 0, 1]
+    wrong_pass_warn: [1, 0, 0, 1]
+    press_word_button: [1, 1, 0, 1]
