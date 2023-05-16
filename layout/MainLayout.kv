@@ -317,7 +317,7 @@ WindowManager:
                 pos_hint: {'center_x':0.5,'center_y':0.5}
                 color: 1, 1, 1, 1  # Set image color to full opacity
             MDTextField:
-                id: username_forget
+                id: email_forget
                 hint_text: 'email account'
                 max_text_length: 50
                 size_hint: 0.7,None
@@ -357,7 +357,7 @@ WindowManager:
         Label:
             id: wrong_email
             name: 'wrong_email'
-            text: 'wrong email.'
+            text: 'wrong email'
             size_hint: 0.4,0.1
             pos_hint: {'x':0.12,'center_y':0.4}
             font_size: self.height*0.6
@@ -432,9 +432,10 @@ WindowManager:
             pos_hint: {'center_x':1.000001/12,'center_y':0.9}
             font_size: self.height*0.6
             multiline: False
+            disabled : False if otp_pass2.text == '' else True
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             on_text:
-                if len(self.text) >= 1: self.text = self.text[0]
+                if len(self.text) > 1: self.text = self.text[0]
                 if len(self.text) >= 1: otp_pass2.focus = True
 
         TextInput:
@@ -446,7 +447,9 @@ WindowManager:
             font_size: self.height*0.6
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             multiline: False
+            disabled : False if otp_pass1.text != '' and otp_pass3.text == '' else True
             on_text:
+                if len(self.text) == 0: otp_pass1.focus = True
                 if len(self.text) >= 1: self.text = self.text[0]
                 if len(self.text) >= 1: otp_pass3.focus = True
         TextInput:
@@ -458,7 +461,9 @@ WindowManager:
             font_size: self.height*0.6
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             multiline: False
+            disabled : False if otp_pass2.text != '' and otp_pass4.text == '' else True
             on_text:
+                if len(self.text) == 0: otp_pass2.focus = True
                 if len(self.text) >= 1: self.text = self.text[0]
                 if len(self.text) >= 1: otp_pass4.focus = True
         TextInput:
@@ -470,7 +475,9 @@ WindowManager:
             font_size: self.height*0.6
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             multiline: False
+            disabled : False if otp_pass3.text != '' and otp_pass5.text == '' else True
             on_text:
+                if len(self.text) == 0: otp_pass3.focus = True
                 if len(self.text) >= 1: self.text = self.text[0]
                 if len(self.text) >= 1: otp_pass5.focus = True
         TextInput:
@@ -482,7 +489,9 @@ WindowManager:
             font_size: self.height*0.6
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             multiline: False
+            disabled: False if otp_pass4.text != '' and otp_pass6.text == '' else True
             on_text:
+                if len(self.text) == 0: otp_pass4.focus = True
                 if len(self.text) >= 1: self.text = self.text[0]
                 if len(self.text) >= 1: otp_pass6.focus = True
         TextInput:
@@ -494,7 +503,10 @@ WindowManager:
             font_size: self.height*0.6
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             multiline: False
-            on_text: if len(self.text) >= 1: self.text = self.text[0]
+            disabled: False if otp_pass5.text != '' else True
+            on_text:
+                if len(self.text) == 0: otp_pass5.focus = True
+                if len(self.text) >= 1: self.text = self.text[0]
 
         Button:
             id: confirm_otp_button
@@ -507,14 +519,14 @@ WindowManager:
             on_release: root.to_new_pass(self)
             Image:
                 id: confirm_otp_button_image
-                color: 1, 1, 1, 1  # Set image color to full opacity
                 source: 'layout/img/login.png'
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 allow_stretch: True
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: (1, 1, 1, 1)  if otp_pass6.text != '' else (1,1,1,0.5)
+                disabled: False if otp_pass6.text != '' else True
             Label:
                 id: confirm_otp_button_text
                 text: 'Confirm'
@@ -524,6 +536,15 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 font_size: self.height/3
+        Label:
+            id: wrong_otp
+            name: 'wrong_otp'
+            text: 'wrong otp'
+            size_hint: 0.4,0.1
+            pos_hint: {'x':0.12,'center_y':0.4}
+            font_size: self.height*0.6
+            color: 0,0,0,0
+            background_color: 0,0,0,0
 
     Button:
         id: resend_code
@@ -556,7 +577,7 @@ WindowManager:
     FloatLayout: # Title
         size_hint: None,0.12
         width: self.height*4
-        pos_hint: {'x': 0.075, 'top': 0.925}
+        pos_hint: {'x': 0.075, 'top': 0.975}
 
         Label:
             id: create_new_pass_title
@@ -568,11 +589,93 @@ WindowManager:
             bold: True
         Label:
             id: create_new_pass_title2
-            text: 'please dont forget it too!'
+            text: 'Please dont forget it too!'
             color: app.secondary_font_color
             pos_hint: {'x': 0, 'y': 0.25}
             text_size: self.size
             font_size: self.parent.height*0.15
+
+    FloatLayout: # New pass
+        size_hint: None, 0.32
+        width: self.height*1.35
+        pos_hint: {'center_x':0.5,'y':0.5}
+
+        FloatLayout:
+            pos_hint: {'center_x':0.5,'center_y':0.9}
+            Image:
+                source: 'layout/img/psswrd.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                color: 1, 1, 1, 1  # Set image color to full opacity
+            MDTextField:
+                id: new_password
+                hint_text: 'case sensitive'
+                max_text_length: 50
+                password: True
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+
+        FloatLayout:
+            pos_hint: {'center_x':0.5, 'center_y':0.6}
+            Image:
+                source: 'layout/img/psswrd.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                color: 1, 1, 1, 1  # Set image color to full opacity
+            MDTextField:
+                id: new_password2
+                hint_text: 'repeat password'
+                max_text_length: 50
+                password: True
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+
+        Button:
+            id: confirm_new_pass_button
+            name: 'confirm_new_pass_button'
+            size_hint: 1,None
+            height: self.width/6
+            pos_hint: {'center_x':0.5,'y':0}
+            background_color: 0,0,0,0
+            on_press: root.press_confirm_animation(self)
+            on_release: root.login(self)
+            Image:
+                id: confirm_new_pass_button_image
+                source: 'layout/img/login.png'
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                color: (1, 1, 1, 1) if new_password.text == new_password2.text else (1,1,1,0.5)
+                disabled: False if new_password.text == new_password2.text else True
+            Label:
+                id: confirm_new_pass_button_text
+                text: 'Confirm'
+                color: app.background_color
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                font_size: self.height/3
+        Label:
+            id: wrong
+            name: 'wrong'
+            text: 'new password must be different from old'
+            size_hint: 0.4,0.1
+            pos_hint: {'center_x':0.5,'center_y':0.4}
+            font_size: self.height*0.6
+            color: 0,0,0,0
+            background_color: 0,0,0,0
+
 
 <MasterScreen>:
     Button:
