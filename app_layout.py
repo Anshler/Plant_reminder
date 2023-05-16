@@ -6,7 +6,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.config import Config
 from kivy.animation import Animation
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition, SwapTransition
 from utils.dict_encoding import HomeButtons2Num
 from utils.config import *
 from utils.password_format_check import isPasswordFormat
@@ -59,7 +59,18 @@ class MasterScreen(Screen):
     def swipe_home_buttons(self, instance):
         print('swipe')
     pass
+
+class StartUp(Screen):
+    def on_enter(self, *args):
+        animate = Animation(duration=1)+Animation(color = (1,1,1,1),duration=2)+Animation(duration=2)
+        animate.start(self.ids.logo)
+        animate.bind(on_complete = self.to_login)
+    def to_login(self, *args):
+        self.parent.transition = FadeTransition()
+        self.parent.current = 'login_screen'
 class LoginScreen(Screen):
+    def on_enter(self, *args):
+        self.parent.transition = SlideTransition()
     def press_login_animation(self,instance): # Shrink button
         animate = Animation(width=instance.width*0.95, height= instance.height*0.95, disabled = True,
                             center_x = instance.center_x, center_y = instance.center_y, duration=0.01)
