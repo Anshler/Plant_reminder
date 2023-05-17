@@ -1,4 +1,6 @@
-# this would all be api call
+# validation for signup, signin, ...
+# this would all be replaced with api call
+
 try:
     from importlib import resources
 except ImportError:
@@ -61,3 +63,25 @@ def simple_otp_validation(text) -> bool:
 def get_otp():
     # Call the OTP program as a separate process
     subprocess.Popen("python " + str(resources.path('utils', 'otp_generator.py')))
+
+def simple_new_user_validation(username) -> bool:
+    # This would be an api call
+    try:
+        auth = yaml.safe_load(open('placeholder_server/user/user.yaml', encoding='utf-8'))
+        for user in auth:
+            if auth[user]['username'].lower() == username.lower():
+                return False
+    except: return False
+    return True
+def simple_new_email_validation(email) -> bool:
+    # This would be an api call
+    try:
+        auth = yaml.safe_load(open('placeholder_server/user/user.yaml', encoding='utf-8'))
+        for user in auth:
+            if auth[user]['email'].lower() == email.lower():
+                return False
+    except: return False
+    return True
+
+def simple_signup_vadilation(username, email, password):
+    print(username,email,password)

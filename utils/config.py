@@ -1,11 +1,13 @@
+# set configuration e.g: theme
+
 try:
     from importlib import resources
 except ImportError:
     import importlib_resources as resources
 import yaml
 
-meta_config = yaml.safe_load(open(resources.path('config','meta_config.yaml'),encoding='utf-8'))
-theme = yaml.safe_load(open(resources.path('config','theme.yaml'),encoding='utf-8'))
+meta_config = yaml.safe_load(open(resources.path('app_config','meta_config.yaml'),encoding='utf-8'))
+theme = yaml.safe_load(open(resources.path('app_config','theme.yaml'),encoding='utf-8'))
 
 primary_font_color= theme[meta_config['theme']]['primary_font_color']
 secondary_font_color= theme[meta_config['theme']]['secondary_font_color']

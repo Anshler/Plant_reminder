@@ -20,8 +20,8 @@ WindowManager:
         id: sign_up_screen
         name: 'sign_up_screen'
     SignUpOTPScreen:
-        id: sign_up_top_screen
-        name: 'sign_up_top_screen'
+        id: sign_up_otp_screen
+        name: 'sign_up_otp_screen'
     # Main screen
     MasterScreen:
         id: master_screen
@@ -79,26 +79,7 @@ WindowManager:
         pos_hint: {'center_x':0.5,'y':0.5}
 
         FloatLayout:
-            pos_hint: {'center_x':0.5,'center_y':0.9}
-            Image:
-                source: 'layout/img/usrnm.png'
-                size_hint: 1,None
-                height: self.width/6
-                pos_hint: {'center_x':0.5,'center_y':0.5}
-                color: 1, 1, 1, 1  # Set image color to full opacity
-                allow_stretch: True
-            MDTextField:
-                id: username
-                hint_text: 'username or email'
-                max_text_length: 50
-                size_hint: 0.7,None
-                height: self.width/6
-                pos_hint: {'center_x':0.5,'center_y':0.5}
-                text_size: self.size
-                font_size: self.width/10
-
-        FloatLayout:
-            pos_hint: {'center_x':0.5, 'center_y':0.6}
+            pos_hint: {'center_x':0.5, 'center_y':0.6275}
             Image:
                 source: 'layout/img/psswrd.png'
                 size_hint: 1,None
@@ -111,6 +92,25 @@ WindowManager:
                 hint_text: 'case sensitive'
                 max_text_length: 50
                 password: True
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+
+        FloatLayout:
+            pos_hint: {'center_x':0.5,'center_y':0.8875}
+            Image:
+                source: 'layout/img/usrnm.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                color: 1, 1, 1, 1  # Set image color to full opacity
+                allow_stretch: True
+            MDTextField:
+                id: username
+                hint_text: 'username or email'
+                max_text_length: 50
                 size_hint: 0.7,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -334,31 +334,12 @@ WindowManager:
         width: self.height*1.35
         pos_hint: {'center_x':0.5,'y':0.5}
 
-        FloatLayout:
-            pos_hint: {'center_x':0.5,'center_y':0.9}
-            Image:
-                source: 'layout/img/usrnm.png'
-                size_hint: 1,None
-                height: self.width/6
-                pos_hint: {'center_x':0.5,'center_y':0.5}
-                color: 1, 1, 1, 1  # Set image color to full opacity
-                allow_stretch: True
-            MDTextField:
-                id: email_forget
-                hint_text: 'email account'
-                max_text_length: 50
-                size_hint: 0.7,None
-                height: self.width/6
-                pos_hint: {'center_x':0.5,'center_y':0.5}
-                text_size: self.size
-                font_size: self.width/10
-
         Button:
             id: next_forget_button
             name: 'next_forget_button'
             size_hint: 1,None
             height: self.width/6
-            pos_hint: {'center_x':0.5, 'center_y':0.6}
+            pos_hint: {'center_x':0.5, 'center_y':0.6275}
             background_color: 0,0,0,0
             on_press: root.press_next_animation(self)
             on_release: root.to_otp(self)
@@ -381,10 +362,30 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 font_size: self.height/3
+
+        FloatLayout:
+            pos_hint: {'center_x':0.5,'center_y':0.8875}
+            Image:
+                source: 'layout/img/email.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                color: 1, 1, 1, 1  # Set image color to full opacity
+                allow_stretch: True
+            MDTextField:
+                id: email_forget
+                hint_text: 'email account'
+                max_text_length: 50
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+
         Label:
             id: wrong_email
             name: 'wrong_email'
-            text: 'wrong email'
+            text: 'email not found'
             size_hint: 0.4,0.1
             pos_hint: {'x':0.12,'center_y':0.4}
             font_size: self.height*0.6
@@ -441,7 +442,7 @@ WindowManager:
             bold: True
         Label:
             id: verification_code_title2
-            text: 'Enter 6-digit code we sent to your email and phone'
+            text: 'Enter 6-digit code we sent to your email'
             color: app.secondary_font_color
             pos_hint: {'x': 0, 'y': 0.25}
             text_size: self.size
@@ -457,7 +458,7 @@ WindowManager:
             input_filter: 'int'
             size_hint: 0.9/6,None
             height: self.width
-            pos_hint: {'center_x':1.000001/12,'center_y':0.9}
+            pos_hint: {'center_x':1.000001/12,'center_y':0.8875}
             font_size: self.height*0.6
             multiline: False
             disabled : False if otp_pass2.text == '' else True
@@ -471,7 +472,7 @@ WindowManager:
             input_filter: 'int'
             size_hint: 0.9/6,None
             height: self.width
-            pos_hint: {'center_x': 3/12,'center_y':0.9}
+            pos_hint: {'center_x': 3/12,'center_y':0.8875}
             font_size: self.height*0.6
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             multiline: False
@@ -485,7 +486,7 @@ WindowManager:
             input_filter: 'int'
             size_hint: 0.9/6,None
             height: self.width
-            pos_hint: {'center_x': 5/12,'center_y':0.9}
+            pos_hint: {'center_x': 5/12,'center_y':0.8875}
             font_size: self.height*0.6
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             multiline: False
@@ -499,7 +500,7 @@ WindowManager:
             input_filter: 'int'
             size_hint: 0.9/6,None
             height: self.width
-            pos_hint: {'center_x': 7/12,'center_y':0.9}
+            pos_hint: {'center_x': 7/12,'center_y':0.8875}
             font_size: self.height*0.6
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             multiline: False
@@ -513,7 +514,7 @@ WindowManager:
             input_filter: 'int'
             size_hint: 0.9/6,None
             height: self.width
-            pos_hint: {'center_x': 9/12,'center_y':0.9}
+            pos_hint: {'center_x': 9/12,'center_y':0.8875}
             font_size: self.height*0.6
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             multiline: False
@@ -527,7 +528,7 @@ WindowManager:
             input_filter: 'int'
             size_hint: 0.9/6,None
             height: self.width
-            pos_hint: {'center_x': 11/12,'center_y':0.9}
+            pos_hint: {'center_x': 11/12,'center_y':0.8875}
             font_size: self.height*0.6
             cursor_color: 0.1843, 0.6549, 0.8313, .5
             multiline: False
@@ -541,7 +542,7 @@ WindowManager:
             name: 'confirm_otp_button'
             size_hint: 1,None
             height: self.width/6
-            pos_hint: {'center_x':0.5,'center_y':0.6}
+            pos_hint: {'center_x':0.5,'center_y':0.6275}
             background_color: 0,0,0,0
             on_press: root.press_confirm_animation(self)
             on_release: root.to_new_pass(self)
@@ -630,27 +631,7 @@ WindowManager:
         pos_hint: {'center_x':0.5,'y':0.5}
 
         FloatLayout:
-            pos_hint: {'center_x':0.5,'center_y':0.9}
-            Image:
-                source: 'layout/img/psswrd.png'
-                size_hint: 1,None
-                height: self.width/6
-                pos_hint: {'center_x':0.5,'center_y':0.5}
-                allow_stretch: True
-                color: 1, 1, 1, 1  # Set image color to full opacity
-            MDTextField:
-                id: new_password
-                hint_text: 'case sensitive'
-                max_text_length: 50
-                password: True
-                size_hint: 0.7,None
-                height: self.width/6
-                pos_hint: {'center_x':0.5,'center_y':0.5}
-                text_size: self.size
-                font_size: self.width/10
-
-        FloatLayout:
-            pos_hint: {'center_x':0.5, 'center_y':0.6}
+            pos_hint: {'center_x':0.5, 'center_y':0.6275}
             Image:
                 source: 'layout/img/psswrd.png'
                 size_hint: 1,None
@@ -661,6 +642,25 @@ WindowManager:
             MDTextField:
                 id: new_password2
                 hint_text: 'repeat password'
+                max_text_length: 50
+                password: True
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+        FloatLayout:
+            pos_hint: {'center_x':0.5,'center_y':0.8875}
+            Image:
+                source: 'layout/img/psswrd.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+            MDTextField:
+                id: new_password
+                hint_text: 'case sensitive'
                 max_text_length: 50
                 password: True
                 size_hint: 0.7,None
@@ -707,6 +707,450 @@ WindowManager:
             color: 0,0,0,0
             background_color: 0,0,0,0
 
+<SignUpScreen>:
+    canvas:
+        Color:
+            rgba: app.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout: # Signup button
+        size_hint: None, 0.32
+        width: self.height*1.35
+        pos_hint: {'center_x':0.5,'y':0.2525}
+        Button:
+            id: sign_up_button
+            name: 'sign_up_button'
+            size_hint: 1,None
+            height: self.width/6
+            pos_hint: {'center_x':0.5, 'center_y':0.6275}
+            background_color: 0,0,0,0
+            on_press: root.press_signup_animation(self)
+            on_release: root.signup(self)
+            Image:
+                id: sign_up_button_image
+                source: 'layout/img/login.png'
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                color: (1, 1, 1, 1)  if password_sign_up.text == password_sign_up2.text else (1,1,1,0.5)
+                disabled: False if password_sign_up.text == password_sign_up2.text else True
+            Label:
+                id: sign_up_button_text
+                text: 'Sign up'
+                color: app.background_color
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                font_size: self.height/3
+        Label:
+            id: wrong
+            name: 'wrong'
+            text: 'username already exist'
+            size_hint: 0.4,0.1
+            pos_hint: {'center_x':0.5,'center_y':0.4}
+            font_size: self.height*0.6
+            color: 0,0,0,0
+            background_color: 0,0,0,0
+
+    FloatLayout: # Title
+        size_hint: None,0.12
+        width: self.height*4
+        pos_hint: {'x': 0.075, 'top': 0.975}
+
+        Label:
+            id: welcome_sign_up
+            text: 'WELCOME!'
+            color: app.primary_font_color
+            pos_hint: {'x': 0, 'center_y': 1}
+            text_size: self.size
+            font_size: self.parent.height*0.25
+            bold: True
+        Label:
+            id: welcome_sign_up2
+            text: 'You can start using the app after sign up'
+            color: app.secondary_font_color
+            pos_hint: {'x': 0, 'y': 0.25}
+            text_size: self.size
+            font_size: self.parent.height*0.15
+
+    FloatLayout: # Signup
+        size_hint: None, 0.32
+        width: self.height*1.35
+        pos_hint: {'center_x':0.5,'y':0.5}
+
+        FloatLayout:
+            pos_hint: {'center_x':0.5, 'center_y':0.1125}
+            Image:
+                source: 'layout/img/psswrd.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+            MDTextField:
+                id: password_sign_up2
+                hint_text: 'repeat password'
+                max_text_length: 50
+                password: True
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+
+        FloatLayout:
+            pos_hint: {'center_x':0.5, 'center_y':0.3725}
+            Image:
+                source: 'layout/img/psswrd.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+            MDTextField:
+                id: password_sign_up
+                hint_text: 'password'
+                max_text_length: 50
+                password: True
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+
+        FloatLayout:
+            pos_hint: {'center_x':0.5, 'center_y':0.6275}
+            Image:
+                source: 'layout/img/email.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+            MDTextField:
+                id: email_sign_up
+                hint_text: 'email account'
+                max_text_length: 50
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+        FloatLayout:
+            pos_hint: {'center_x':0.5,'center_y':0.8875}
+            Image:
+                source: 'layout/img/usrnm.png'
+                size_hint: 1,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                color: 1, 1, 1, 1  # Set image color to full opacity
+                allow_stretch: True
+            MDTextField:
+                id: username_sign_up
+                hint_text: 'username'
+                max_text_length: 50
+                size_hint: 0.7,None
+                height: self.width/6
+                pos_hint: {'center_x':0.5,'center_y':0.5}
+                text_size: self.size
+                font_size: self.width/10
+
+    Button:
+        id: sign_in
+        name: 'sign_in'
+        text: 'Already have an account? Sign in'
+        size_hint: 0.7,0.05
+        pos_hint: {'center_x':0.5,'center_y':0.125}
+        font_size: self.height*0.5
+        color: app.primary_font_color
+        background_color: 0,0,0,0
+        on_press:
+            root.press_button(self)
+        on_release:
+            root.release_button(self)
+        Image:
+            id: sign_in_image
+            color: 0,0,0,0  # Set image color to full opacity
+            width: self.parent.width
+            height: self.parent.height
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+            allow_stretch: True
+
+    FloatLayout: # Signin other method
+        size_hint: None, 0.32
+        width: self.height*1.35
+        pos_hint: {'center_x':0.5,'center_y':0.175}
+
+        Button:
+            id: login_google
+            name: 'login_google'
+            size_hint: 1,None
+            height: self.width/6
+            pos_hint: {'center_x':0.5,'center_y':0.9}
+            background_color: 0,0,0,0
+            on_press:
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+            Image:
+                id: login_google_image
+                source: 'layout/img/signin_google.png'
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                color: 1, 1, 1, 1  # Set image color to full opacity
+                allow_stretch: True
+            Label:
+                id: login_google_text
+                text: 'Sign in with Google'
+                color: app.secondary_font_color
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                font_size: self.height/3
+
+        Button:
+            id: login_facebook
+            name: 'login_facebook'
+            size_hint: 1,None
+            height: self.width/6
+            pos_hint: {'center_x':0.5,'center_y':0.6}
+            background_color: 0,0,0,0
+            on_press:
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+            Image:
+                id: login_facebook_image
+                source: 'layout/img/signin_facebook.png'
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                color: 1, 1, 1, 1  # Set image color to full opacity
+                allow_stretch: True
+            Label:
+                id: login_facebook_text
+                text: 'Sign in with Facebook'
+                color: app.secondary_font_color
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                font_size: self.height/3
+
+<SignUpOTPScreen>:
+    canvas:
+        Color:
+            rgba: app.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout: # Back_button_region
+        size_hint: 1, 1.15/12
+        pos_hint: {'center_x': 0.5, 'top': 1}
+        canvas:
+            Color:
+                rgba: 0, 0, 0, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Button:
+            id: back_button
+            size_hint: None, 0.9/1.25
+            width: self.height
+            pos_hint: {'center_x': 1.00001/12, 'center_y': 0.5}
+            background_color: 0,0,0,0
+            on_press:
+                root.press_back(self)
+            on_release:
+                root.release_back(self)
+            Image:
+                id: back_button_image
+                source: 'layout/img/backbutton.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                width: self.parent.width
+                height: self.parent.height
+                allow_stretch: True
+
+    FloatLayout: # Title
+        size_hint: None,0.12
+        width: self.height*4
+        pos_hint: {'x': 0.075, 'top': 0.925}
+
+        Label:
+            id: verification_code_title
+            text: 'Verification Code'
+            color: app.primary_font_color
+            pos_hint: {'x': 0, 'center_y': 1}
+            text_size: self.size
+            font_size: self.parent.height*0.25
+            bold: True
+        Label:
+            id: verification_code_title2
+            text: 'Enter 6-digit code we sent to your email'
+            color: app.secondary_font_color
+            pos_hint: {'x': 0, 'y': 0.25}
+            text_size: self.size
+            font_size: self.parent.height*0.15
+
+    FloatLayout: # OTP
+        size_hint: None, 0.32
+        width: self.height*1.35
+        pos_hint: {'center_x':0.5,'y':0.5}
+
+        TextInput:
+            id: otp_pass1
+            input_filter: 'int'
+            size_hint: 0.9/6,None
+            height: self.width
+            pos_hint: {'center_x':1.000001/12,'center_y':0.8875}
+            font_size: self.height*0.6
+            multiline: False
+            disabled : False if otp_pass2.text == '' else True
+            cursor_color: 0.1843, 0.6549, 0.8313, .5
+            on_text:
+                if len(self.text) > 1: self.text = self.text[0]
+                if len(self.text) >= 1: otp_pass2.focus = True
+
+        TextInput:
+            id: otp_pass2
+            input_filter: 'int'
+            size_hint: 0.9/6,None
+            height: self.width
+            pos_hint: {'center_x': 3/12,'center_y':0.8875}
+            font_size: self.height*0.6
+            cursor_color: 0.1843, 0.6549, 0.8313, .5
+            multiline: False
+            disabled : False if otp_pass1.text != '' and otp_pass3.text == '' else True
+            on_text:
+                if len(self.text) == 0: otp_pass1.focus = True
+                if len(self.text) >= 1: self.text = self.text[0]
+                if len(self.text) >= 1: otp_pass3.focus = True
+        TextInput:
+            id: otp_pass3
+            input_filter: 'int'
+            size_hint: 0.9/6,None
+            height: self.width
+            pos_hint: {'center_x': 5/12,'center_y':0.8875}
+            font_size: self.height*0.6
+            cursor_color: 0.1843, 0.6549, 0.8313, .5
+            multiline: False
+            disabled : False if otp_pass2.text != '' and otp_pass4.text == '' else True
+            on_text:
+                if len(self.text) == 0: otp_pass2.focus = True
+                if len(self.text) >= 1: self.text = self.text[0]
+                if len(self.text) >= 1: otp_pass4.focus = True
+        TextInput:
+            id: otp_pass4
+            input_filter: 'int'
+            size_hint: 0.9/6,None
+            height: self.width
+            pos_hint: {'center_x': 7/12,'center_y':0.8875}
+            font_size: self.height*0.6
+            cursor_color: 0.1843, 0.6549, 0.8313, .5
+            multiline: False
+            disabled : False if otp_pass3.text != '' and otp_pass5.text == '' else True
+            on_text:
+                if len(self.text) == 0: otp_pass3.focus = True
+                if len(self.text) >= 1: self.text = self.text[0]
+                if len(self.text) >= 1: otp_pass5.focus = True
+        TextInput:
+            id: otp_pass5
+            input_filter: 'int'
+            size_hint: 0.9/6,None
+            height: self.width
+            pos_hint: {'center_x': 9/12,'center_y':0.8875}
+            font_size: self.height*0.6
+            cursor_color: 0.1843, 0.6549, 0.8313, .5
+            multiline: False
+            disabled: False if otp_pass4.text != '' and otp_pass6.text == '' else True
+            on_text:
+                if len(self.text) == 0: otp_pass4.focus = True
+                if len(self.text) >= 1: self.text = self.text[0]
+                if len(self.text) >= 1: otp_pass6.focus = True
+        TextInput:
+            id: otp_pass6
+            input_filter: 'int'
+            size_hint: 0.9/6,None
+            height: self.width
+            pos_hint: {'center_x': 11/12,'center_y':0.8875}
+            font_size: self.height*0.6
+            cursor_color: 0.1843, 0.6549, 0.8313, .5
+            multiline: False
+            disabled: False if otp_pass5.text != '' else True
+            on_text:
+                if len(self.text) == 0: otp_pass5.focus = True
+                if len(self.text) >= 1: self.text = self.text[0]
+
+        Button:
+            id: confirm_otp_button
+            name: 'confirm_otp_button'
+            size_hint: 1,None
+            height: self.width/6
+            pos_hint: {'center_x':0.5,'center_y':0.6275}
+            background_color: 0,0,0,0
+            on_press: root.press_confirm_animation(self)
+            on_release: root.to_master_screen(self)
+            Image:
+                id: confirm_otp_button_image
+                source: 'layout/img/login.png'
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                color: (1, 1, 1, 1)  if otp_pass6.text != '' else (1,1,1,0.5)
+                disabled: False if otp_pass6.text != '' else True
+            Label:
+                id: confirm_otp_button_text
+                text: 'Confirm'
+                color: app.background_color
+                width: self.parent.width
+                height: self.parent.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                font_size: self.height/3
+        Label:
+            id: wrong_otp
+            name: 'wrong_otp'
+            text: 'wrong otp'
+            size_hint: 0.4,0.1
+            pos_hint: {'x':0.12,'center_y':0.4}
+            font_size: self.height*0.6
+            color: 0,0,0,0
+            background_color: 0,0,0,0
+
+    Button:
+        id: resend_code
+        name: 'resend_code'
+        text: 'Didn’t receive the code? Send again'
+        size_hint: 0.7,0.05
+        pos_hint: {'center_x':0.5,'center_y':0.125}
+        font_size: self.height*0.5
+        color: app.primary_font_color
+        background_color: 0,0,0,0
+        on_press:
+            root.press_button(self)
+        on_release:
+            root.release_button(self)
+        Image:
+            id: resend_code_image
+            color: 0,0,0,0  # Set image color to full opacity
+            width: self.parent.width
+            height: self.parent.height
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+            allow_stretch: True
 
 <MasterScreen>:
     Button:
