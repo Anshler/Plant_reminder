@@ -449,11 +449,14 @@ class WindowManager(ScreenManager):
     pass
 
 class PlantApp(MDApp):
-    primary_font_color = primary_font_color
-    secondary_font_color = secondary_font_color
-    background_color = background_color
-    wrong_pass_warn = wrong_pass_warn
-    press_word_button = press_word_button
+    theme = theme
+    language = language
+
+    primary_font_color = theme_list[theme]['primary_font_color']
+    secondary_font_color = theme_list[theme]['secondary_font_color']
+    background_color = theme_list[theme]['background_color']
+    wrong_pass_warn = theme_list[theme]['wrong_pass_warn']
+    press_word_button = theme_list[theme]['press_word_button']
     def build(self):
         kv = Builder.load_file('layout/MainLayout.kv')
         return kv
