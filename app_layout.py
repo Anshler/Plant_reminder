@@ -452,12 +452,12 @@ class PlantApp(MDApp):
     theme = theme
     language = language
 
-    primary_font_color = theme_list[theme]['primary_font_color']
-    secondary_font_color = theme_list[theme]['secondary_font_color']
-    background_color = theme_list[theme]['background_color']
-    wrong_pass_warn = theme_list[theme]['wrong_pass_warn']
-    press_word_button = theme_list[theme]['press_word_button']
     def build(self):
+        self.primary_font_color = theme_list[self.theme]['primary_font_color']
+        self.secondary_font_color = theme_list[self.theme]['secondary_font_color']
+        self.background_color = theme_list[self.theme]['background_color']
+        self.wrong_pass_warn = theme_list[self.theme]['wrong_pass_warn']
+        self.press_word_button = theme_list[self.theme]['press_word_button']
         kv = Builder.load_file('layout/MainLayout.kv')
         return kv
 
