@@ -1,6 +1,4 @@
 WindowManager:
-    DummyScreen:
-        name: 'Dummy'
     StartUp:
         id: start_up
         name: 'start_up'
@@ -29,11 +27,6 @@ WindowManager:
         id: master_screen
         name: 'master_screen'
     #SettingScreen:
-
-<DummyScreen@Screen>:
-    on_kv_post: self.parent.current = 'start_up'  # change screen after kv is initialized
-    Label:
-        text: root.name
 
 <StartUp>:
     canvas:

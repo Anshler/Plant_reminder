@@ -61,7 +61,7 @@ class MasterScreen(Screen):
     pass
 
 class StartUp(Screen):
-    def on_enter(self, *args):
+    def on_kv_post(self, *args):
         animate = Animation(duration=1)+Animation(color = (1,1,1,1),duration=2)+Animation(duration=2)
         animate.start(self.ids.logo)
         animate.bind(on_complete = self.to_login)
