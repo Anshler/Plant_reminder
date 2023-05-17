@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c8d3c64-286f-4f73-a94f-e05dc96f5b77" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/app_config/had_startup.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/had_startup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_layout.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/meta_config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/meta_config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/theme.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/theme.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/MainLayout.kv" beforeDir="false" afterPath="$PROJECT_DIR$/layout/MainLayout.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/img/usrnm.png" beforeDir="false" afterPath="$PROJECT_DIR$/layout/img/usrnm.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/otp.txt" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/otp.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/user.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testt.py" beforeDir="false" afterPath="$PROJECT_DIR$/testt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/dict_encoding.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dict_encoding.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/otp_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/otp_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/password_format_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/format_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/validation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_config/had_startup.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/had_startup.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,7 +228,7 @@
       <workItem from="1684316723386" duration="45000" />
       <workItem from="1684317262988" duration="29000" />
       <workItem from="1684318496913" duration="68000" />
-      <workItem from="1684326049036" duration="14658000" />
+      <workItem from="1684326049036" duration="15241000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1683895109776</created>
@@ -370,7 +356,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684294101410</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="update">
+      <created>1684341346257</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1684341346257</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
