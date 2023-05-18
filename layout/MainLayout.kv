@@ -124,8 +124,11 @@ WindowManager:
             height: self.width/6
             pos_hint: {'center_x':0.5,'y':0}
             background_color: 0,0,0,0
-            on_press: root.press_login_animation(self)
-            on_release: root.login(self)
+            on_press:
+                root.press_login_animation(self)
+                app.play_sound('next.wav')
+            on_release:
+                root.login(self)
             Image:
                 id: login_button_image
                 color: 1, 1, 1, 1  # Set image color to full opacity
@@ -158,6 +161,7 @@ WindowManager:
             disabled: False
             on_press:
                 root.press_button(self)
+                app.play_sound('next2.wav')
             on_release:
                 root.release_button(self)
             Image:
@@ -197,6 +201,7 @@ WindowManager:
         background_color: 0,0,0,0
         on_press:
             root.press_button(self)
+            app.play_sound('next2.wav')
         on_release:
             root.release_button(self)
         Image:
@@ -222,6 +227,7 @@ WindowManager:
             background_color: 0,0,0,0
             on_press:
                 root.press_button(self)
+                app.play_sound('next2.wav')
             on_release:
                 root.release_button(self)
             Image:
@@ -252,6 +258,7 @@ WindowManager:
             background_color: 0,0,0,0
             on_press:
                 root.press_button(self)
+                app.play_sound('next2.wav')
             on_release:
                 root.release_button(self)
             Image:
@@ -296,6 +303,7 @@ WindowManager:
             pos_hint: {'center_x': 1.00001/12, 'center_y': 0.5}
             background_color: 0,0,0,0
             on_press:
+                app.play_sound('sliding.wav')
                 root.press_back(self)
             on_release:
                 root.release_back(self)
@@ -342,7 +350,9 @@ WindowManager:
             pos_hint: {'center_x':0.5, 'center_y':0.6275}
             background_color: 0,0,0,0
             on_press: root.press_next_animation(self)
-            on_release: root.to_otp(self)
+            on_release:
+                root.to_otp(self)
+                app.play_sound('next.wav')
             Image:
                 id: next_forget_button_image
                 color: 1, 1, 1, 1  # Set image color to full opacity
@@ -415,6 +425,7 @@ WindowManager:
             pos_hint: {'center_x': 1.00001/12, 'center_y': 0.5}
             background_color: 0,0,0,0
             on_press:
+                app.play_sound('sliding.wav')
                 root.press_back(self)
             on_release:
                 root.release_back(self)
@@ -544,7 +555,9 @@ WindowManager:
             height: self.width/6
             pos_hint: {'center_x':0.5,'center_y':0.6275}
             background_color: 0,0,0,0
-            on_press: root.press_confirm_animation(self)
+            on_press:
+                root.press_confirm_animation(self)
+                app.play_sound('next.wav')
             on_release: root.to_new_pass(self)
             Image:
                 id: confirm_otp_button_image
@@ -586,6 +599,7 @@ WindowManager:
         background_color: 0,0,0,0
         on_press:
             root.press_button(self)
+            app.play_sound('next2.wav')
         on_release:
             root.release_button(self)
         Image:
@@ -676,7 +690,9 @@ WindowManager:
             height: self.width/6
             pos_hint: {'center_x':0.5,'y':0}
             background_color: 0,0,0,0
-            on_press: root.press_confirm_animation(self)
+            on_press:
+                root.press_confirm_animation(self)
+                app.play_sound('next.wav')
             on_release: root.login(self)
             Image:
                 id: confirm_new_pass_button_image
@@ -726,7 +742,9 @@ WindowManager:
             height: self.width/6
             pos_hint: {'center_x':0.5, 'center_y':0.6275}
             background_color: 0,0,0,0
-            on_press: root.press_signup_animation(self)
+            on_press:
+                root.press_signup_animation(self)
+                app.play_sound('next.wav')
             on_release: root.signup(self)
             Image:
                 id: sign_up_button_image
@@ -871,6 +889,7 @@ WindowManager:
         background_color: 0,0,0,0
         on_press:
             root.press_button(self)
+            app.play_sound('next2.wav')
         on_release:
             root.release_button(self)
         Image:
@@ -896,6 +915,7 @@ WindowManager:
             background_color: 0,0,0,0
             on_press:
                 root.press_button(self)
+                app.play_sound('next2.wav')
             on_release:
                 root.release_button(self)
             Image:
@@ -926,6 +946,7 @@ WindowManager:
             background_color: 0,0,0,0
             on_press:
                 root.press_button(self)
+                app.play_sound('next2.wav')
             on_release:
                 root.release_button(self)
             Image:
@@ -970,6 +991,7 @@ WindowManager:
             pos_hint: {'center_x': 1.00001/12, 'center_y': 0.5}
             background_color: 0,0,0,0
             on_press:
+                app.play_sound('sliding.wav')
                 root.press_back(self)
             on_release:
                 root.release_back(self)
@@ -1099,7 +1121,9 @@ WindowManager:
             height: self.width/6
             pos_hint: {'center_x':0.5,'center_y':0.6275}
             background_color: 0,0,0,0
-            on_press: root.press_confirm_animation(self)
+            on_press:
+                root.press_confirm_animation(self)
+                app.play_sound('next.wav')
             on_release: root.to_master_screen(self)
             Image:
                 id: confirm_otp_button_image
@@ -1141,6 +1165,7 @@ WindowManager:
         background_color: 0,0,0,0
         on_press:
             root.press_button(self)
+            app.play_sound('next2.wav')
         on_release:
             root.release_button(self)
         Image:
@@ -1239,6 +1264,7 @@ WindowManager:
             width: self.height
             pos_hint: {'center_x': 11/12, 'top':1}
             background_color: 0,0,0,0
+            on_press: app.play_sound('sliding.wav')
             on_release:
                 root.open_setting(self)
 
@@ -1295,6 +1321,7 @@ WindowManager:
             width: self.height  # Make width equal to height
             pos_hint: {'center_x': 1.00001/12, 'center_y':0.5}
             background_color: 0, 0, 0, 0
+            on_press: app.play_sound('next2.wav')
             on_release:
                 root.home_buttons_animation(self)
             Image:
@@ -1313,6 +1340,7 @@ WindowManager:
             width: self.height  # Make width equal to height
             pos_hint: {'center_x': 3/12, 'center_y':0.5}
             background_color: 0, 0, 0, 0
+            on_press: app.play_sound('next2.wav')
             on_release:
                 root.home_buttons_animation(self)
             Image:
@@ -1329,6 +1357,7 @@ WindowManager:
             width: self.height  # Make width equal to height
             pos_hint: {'center_x': 5/12, 'center_y':0.5}
             background_color: 0, 0, 0, 0
+            on_press: app.play_sound('next2.wav')
             on_release:
                 root.home_buttons_animation(self)
             Image:
@@ -1345,6 +1374,7 @@ WindowManager:
             width: self.height  # Make width equal to height
             pos_hint: {'center_x': 7/12, 'center_y':0.5}
             background_color: 0, 0, 0, 0
+            on_press: app.play_sound('next2.wav')
             on_release:
                 root.home_buttons_animation(self)
             Image:
@@ -1361,6 +1391,7 @@ WindowManager:
             width: self.height  # Make width equal to height
             pos_hint: {'center_x': 9/12, 'center_y':0.5}
             background_color: 0, 0, 0, 0
+            on_press: app.play_sound('next2.wav')
             on_release:
                 root.home_buttons_animation(self)
             Image:
@@ -1377,6 +1408,7 @@ WindowManager:
             width: self.height  # Make width equal to height
             pos_hint: {'center_x': 11/12, 'center_y':0.5}
             background_color: 0, 0, 0, 0
+            on_press: app.play_sound('next2.wav')
             on_release:
                 root.home_buttons_animation(self)
             Image:

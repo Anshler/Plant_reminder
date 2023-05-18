@@ -7,6 +7,7 @@ from kivy.lang import Builder
 from kivy.config import Config
 from kivy.animation import Animation
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition, SwapTransition
+from kivy.core.audio import SoundLoader
 from utils.dict_encoding import HomeButtons2Num
 from utils.config import *
 from utils.format_check import isPasswordFormat,isUsernameFormat
@@ -449,8 +450,15 @@ class WindowManager(ScreenManager):
     pass
 
 class PlantApp(MDApp):
+
     theme = theme
     language = language
+    volume = volume
+    def play_sound(self, filename):
+        sound = SoundLoader.load('soundfx/'+filename)
+        if sound:
+            sound.volume = self.volume
+            sound.play()
 
     def build(self):
         self.primary_font_color = theme_list[self.theme]['primary_font_color']

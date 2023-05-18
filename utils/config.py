@@ -11,3 +11,10 @@ theme_list = yaml.safe_load(open(resources.path('app_config','theme.yaml'),encod
 
 theme = meta_config['theme']
 language = meta_config['language']
+volume = meta_config['volume']
+
+def save_new_config(theme,language):
+    meta_config['theme'] = theme
+    meta_config['language'] = language
+    with open(resources.path('app_config','meta_config.yaml'),'w',encoding='utf-8') as f:
+        yaml.dump(meta_config,f)
