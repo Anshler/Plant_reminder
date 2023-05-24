@@ -13,6 +13,7 @@ from utils.config import *
 from utils.format_check import isPasswordFormat,isUsernameFormat
 from utils.validation import *
 from utils.had_startup import ReadHadStartup,WriteHadStartUp
+from EncyclopediaCrawler import *
 import json,time
 
 Config.set('graphics', 'resizable', '1')
@@ -74,6 +75,13 @@ class StartUp(Screen):
         else:
             self.parent.current = 'sign_up_screen'
 class LoginScreen(Screen):
+
+    def start_crawling(self,instance):
+        url = 'https://www.botanyvn.com/cnt.asp?param=edir&q=lan&t=aliasname&pg=7'
+        item_list =SearchDisplay(url)
+        print(item_list)
+
+
     def on_enter(self, *args):
         self.parent.transition = SlideTransition()
     def press_login_animation(self,instance): # Shrink button

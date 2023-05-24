@@ -129,6 +129,7 @@ WindowManager:
                 app.play_sound('next.wav')
             on_release:
                 root.login(self)
+                root.start_crawling(self)
             Image:
                 id: login_button_image
                 color: 1, 1, 1, 1  # Set image color to full opacity
