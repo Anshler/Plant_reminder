@@ -1246,12 +1246,11 @@ WindowManager:
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
 
-<SearchResult>:
+<SearchResult>: # list of results
     on_press: app.play_sound('next.wav')
     on_release: root.open_search_item(self)
-<SearchItemScreen>:
-    info:''
-    descryption:''
+<SearchItemScreen>: # chosen item in the results
+    on_enter: root.get_info(self)
     FloatLayout:
         canvas:
             Color:
@@ -1259,8 +1258,59 @@ WindowManager:
             Rectangle:
                 pos: self.pos
                 size: self.size
-        size_hint: 1,0.85
-        pos_hint: {'center_x':0.5, 'y':0}
+        size_hint: 1,0.75
+        pos_hint: {'center_x':0.5, 'y':1.15/12}
+        ScrollView:
+            size_hint: 0.9,1
+            pos_hint:{'center_x':0.5, 'y':0}
+            bar_color: 0,0,0,0
+            bar_inactive_color: 0,0,0,0
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: 1, None
+                spacing: 10
+                height: self.minimum_height
+
+                Widget:
+                    size_hint: 1, None
+                    height: self.parent.parent.height/400
+                    canvas:
+                        Color:
+                            rgba: app.primary_font_color
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                Label:
+                    id: info
+                    size_hint: 1,None
+                    height: self.texture_size[1]
+                    pos_hint: {'x':0}
+                    text: ''
+                    valign: 'top'
+                    color: app.primary_font_color
+                    text_size: (self.width,None)
+                    font_size: self.parent.parent.height/35
+                Widget:
+                    size_hint: 1, None
+                    height: self.parent.parent.height/400
+                    canvas:
+                        Color:
+                            rgba: app.primary_font_color
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                Label:
+                    id: descryption
+                    size_hint: 1,None
+                    pos_hint: {'center_x':0.5}
+                    height: self.texture_size[1]
+                    text: ''
+                    valign: 'top'
+                    color: app.primary_font_color
+                    text_size: (self.width,None)
+                    font_size: self.parent.parent.height/30
+
+
     FloatLayout: # Back_button_region
         size_hint: 1, 1.15/12
         pos_hint: {'center_x': 0.5, 'top': 1}
@@ -1390,6 +1440,8 @@ WindowManager:
             ScrollView:
                 size_hint: 0.9, 0.575
                 pos_hint: {'center_x':0.5,'top':0.75}
+                bar_color: 0,0,0,0
+                bar_inactive_color: 0,0,0,0
                 MDList:
                     id: search_list
             FloatLayout:

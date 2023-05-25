@@ -36,18 +36,21 @@ class SearchResult(ThreeLineListItem):
         self.parent.parent.parent.parent.parent.ids.search_bar.disabled = True
         self.parent.parent.parent.parent.parent.ids.search_button.disabled = True
 
+        # update information to wiki_page class
         self.parent.parent.parent.parent.parent.item_url = instance.url
         info, descryption = SearchItem(instance.url)
         self.parent.parent.parent.parent.parent.item_info = info
         self.parent.parent.parent.parent.parent.item_descryption = descryption
 
+        # change screen
         self.parent.parent.parent.parent.transition.duration = 0.5
         self.parent.parent.parent.parent.transition.direction = 'left'
         self.parent.parent.parent.parent.current = 'encyclopedia_search_item'
 
-        print(self.parent.parent.parent.parent.parent.item_info)
-        print(self.parent.parent.parent.parent.parent.item_descryption)
 class SearchItemScreen(Screen):
+    def get_info(self,instance):
+        self.ids.info.text = self.parent.parent.item_info
+        self.ids.descryption.text = self.parent.parent.item_descryption
     def press_back(self, instance):  # Back button
         animate = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
@@ -62,6 +65,7 @@ class SearchItemScreen(Screen):
         self.parent.parent.ids.search_bar.disabled = False
         self.parent.parent.ids.search_button.disabled = False
 
+        # change screen
         self.parent.transition.duration = 0.5
         self.parent.transition.direction = 'right'
         self.parent.current = 'encyclopedia_search_screen'

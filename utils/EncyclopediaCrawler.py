@@ -64,7 +64,7 @@ def SearchItem(url):
     except:
         info = ''
     try:
-        descryption = '\n'.join([a.get_text() for a in fieldsets[1].find_all('p')])
+        descryption = '\n\n'.join([a.get_text() for a in fieldsets[1].find_all('p')])
     except:
         descryption = ''
 
