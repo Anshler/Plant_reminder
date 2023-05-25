@@ -30,13 +30,49 @@ class CalendarPage(Screen):
 class CommunityPage(Screen):
     pass
 class SearchResult(ThreeLineListItem):
-    def test(self,instance):
-        print(instance.url)
+    def open_search_item(self,instance):
+        # disable the buttons
+        self.parent.parent.parent.parent.parent.ids.filter_button.disabled = True
+        self.parent.parent.parent.parent.parent.ids.search_bar.disabled = True
+        self.parent.parent.parent.parent.parent.ids.search_button.disabled = True
+
+        self.parent.parent.parent.parent.parent.item_url = instance.url
+        info, descryption = SearchItem(instance.url)
+        self.parent.parent.parent.parent.parent.item_info = info
+        self.parent.parent.parent.parent.parent.item_descryption = descryption
+
+        self.parent.parent.parent.parent.transition.duration = 0.5
+        self.parent.parent.parent.parent.transition.direction = 'left'
+        self.parent.parent.parent.parent.current = 'encyclopedia_search_item'
+
+        print(self.parent.parent.parent.parent.parent.item_info)
+        print(self.parent.parent.parent.parent.parent.item_descryption)
+class SearchItemScreen(Screen):
+    def press_back(self, instance):  # Back button
+        animate = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
+                            center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        animate.start(self.ids.back_button_image)
+
+    def release_back(self, instance):
+        animate = Animation(width=instance.width, height=instance.height, disabled=False,
+                            center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        animate.start(self.ids.back_button_image)
+        # re-enable the button
+        self.parent.parent.ids.filter_button.disabled = False
+        self.parent.parent.ids.search_bar.disabled = False
+        self.parent.parent.ids.search_button.disabled = False
+
+        self.parent.transition.duration = 0.5
+        self.parent.transition.direction = 'right'
+        self.parent.current = 'encyclopedia_search_screen'
 class WikiPage(Screen):
     first_page_url = ''
     previous_page_url = ''
     next_page_url = ''
     last_page_url = ''
+    item_url = ''
+    item_info = ''
+    item_descryption = ''
     def start_crawling(self,direction=''):
         self.ids.first_page.allowed = False
         self.ids.previous_page.allowed = False
@@ -64,7 +100,8 @@ class WikiPage(Screen):
         if item_list == []:
             display_item = SearchResult(text='No search result found!',
                                         secondary_text='-',
-                                        tertiary_text='pleade try again with another keyword')
+                                        tertiary_text='pleade try again with another keyword',
+                                        disabled = True)
             self.ids.search_list.add_widget(display_item)
             return
 
@@ -114,12 +151,13 @@ class WikiPage(Screen):
         self.ids.curr_over_total.text = str(curr_page)+'/'+str(total_page)
         for item in item_list:
             display_item = SearchResult(id='_'.join(item['name'].split()),
-                                                         text=item['name'],
-                                                         secondary_text=item['type'],
-                                                         tertiary_text=item['info'])
+                                        text=item['name'],
+                                        secondary_text=item['type'],
+                                        tertiary_text=item['info'],
+                                        disabled = False)
             setattr(display_item,'url',item['url'])
             self.ids.search_list.add_widget(display_item)
-        print(self.ids.search_list.ids)
+
     def press_button(self,instance):
         change_size = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled = True,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
