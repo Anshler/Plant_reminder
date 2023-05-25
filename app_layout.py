@@ -1,26 +1,22 @@
-from kivy.app import App
-from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.widget import Widget
-from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.config import Config
 from kivy.animation import Animation
-from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition, SwapTransition
+from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition
 from kivy.core.audio import SoundLoader
 from utils.dict_encoding import HomeButtons2Num
 from utils.config import *
 from utils.format_check import isPasswordFormat,isUsernameFormat
 from utils.validation import *
 from utils.had_startup import ReadHadStartup,WriteHadStartUp
-from EncyclopediaCrawler import *
-import json,time
+from utils.EncyclopediaCrawler import *
 
 Config.set('graphics', 'resizable', '1')
 Config.set('graphics', 'width', '350')
 Config.set('graphics', 'height', '700')
 
 from kivymd.app import MDApp
+from kivymd.uix.list import ThreeLineListItem
 
 # Declare Main pages ----------------------------------------
 class HomePage(Screen):
@@ -33,7 +29,112 @@ class CalendarPage(Screen):
     pass
 class CommunityPage(Screen):
     pass
+class SearchResult(ThreeLineListItem):
+    def test(self,instance):
+        print(instance.url)
 class WikiPage(Screen):
+    first_page_url = ''
+    previous_page_url = ''
+    next_page_url = ''
+    last_page_url = ''
+    def start_crawling(self,direction=''):
+        self.ids.first_page.allowed = False
+        self.ids.previous_page.allowed = False
+        self.ids.next_page.allowed = False
+        self.ids.last_page.allowed = False
+
+        self.ids.curr_over_total.text=''
+        if self.ids.search_bar.text == '':
+            return
+        self.ids.search_list.clear_widgets()
+
+        if direction == 'first':
+            url = self.first_page_url
+        elif direction == 'previous':
+            url = self.previous_page_url
+        elif direction=='next':
+            url = self.next_page_url
+        elif direction=='last':
+            url = self.last_page_url
+        else:
+            content = '%20'.join(self.ids.search_bar.text.strip().split())
+            url = 'https://www.botanyvn.com/cnt.asp?param=edir&q='+content+'&t=comname'
+
+        item_list,page_list =SearchDisplay(url)
+        if item_list == []:
+            display_item = SearchResult(text='No search result found!',
+                                        secondary_text='-',
+                                        tertiary_text='pleade try again with another keyword')
+            self.ids.search_list.add_widget(display_item)
+            return
+
+        # Get total page count and current page number
+        total_page = len(page_list)+1
+        curr_page = 1
+        if '&pg=' in url:
+            curr_page = int(url.split('&pg=')[1])
+
+        if total_page ==1:
+            self.first_page_url=''
+            self.ids.first_page.allowed = False
+            self.previous_page_url=''
+            self.ids.previous_page.allowed = False
+            self.next_page_url=''
+            self.ids.next_page.allowed = False
+            self.last_page_url=''
+            self.ids.last_page.allowed = False
+        elif curr_page == 1 and total_page != curr_page:
+            self.first_page_url = ''
+            self.ids.first_page.allowed = False
+            self.previous_page_url = ''
+            self.ids.previous_page.allowed = False
+            self.next_page_url = url.split('&pg=')[0]+'&pg='+str(curr_page+1)
+            self.ids.next_page.allowed = True
+            self.last_page_url = url.split('&pg=')[0]+'&pg='+str(total_page)
+            self.ids.last_page.allowed = True
+        elif total_page == curr_page:
+            self.first_page_url = url.split('&pg=')[0]+'&pg=1'
+            self.ids.first_page.allowed = True
+            self.previous_page_url = url.split('&pg=')[0]+'&pg='+str(curr_page-1)
+            self.ids.previous_page.allowed = True
+            self.next_page_url = ''
+            self.ids.next_page.allowed = False
+            self.last_page_url = ''
+            self.ids.last_page.allowed = False
+        else:
+            self.first_page_url = url.split('&pg=')[0] + '&pg=1'
+            self.ids.first_page.allowed = True
+            self.previous_page_url = url.split('&pg=')[0] + '&pg=' + str(curr_page - 1)
+            self.ids.previous_page.allowed = True
+            self.next_page_url = url.split('&pg=')[0] + '&pg=' + str(curr_page + 1)
+            self.ids.next_page.allowed = True
+            self.last_page_url = url.split('&pg=')[0] + '&pg=' + str(total_page)
+            self.ids.last_page.allowed = True
+
+        self.ids.curr_over_total.text = str(curr_page)+'/'+str(total_page)
+        for item in item_list:
+            display_item = SearchResult(id='_'.join(item['name'].split()),
+                                                         text=item['name'],
+                                                         secondary_text=item['type'],
+                                                         tertiary_text=item['info'])
+            setattr(display_item,'url',item['url'])
+            self.ids.search_list.add_widget(display_item)
+        print(self.ids.search_list.ids)
+    def press_button(self,instance):
+        change_size = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled = True,
+                            center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'filter_button':
+            change_size.start(self.ids.filter_button_image)
+        else:
+            change_size.start(self.ids.search_button_image)
+    def release_button(self,instance):
+        change_size = Animation(width=instance.width, height=instance.height, disabled = False,
+                            center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'filter_button':
+            change_size.start(self.ids.filter_button_image)
+        else:
+            change_size.start(self.ids.search_button_image)
+
     pass
 class ShoppingPage(Screen):
     pass
@@ -75,13 +176,6 @@ class StartUp(Screen):
         else:
             self.parent.current = 'sign_up_screen'
 class LoginScreen(Screen):
-
-    def start_crawling(self,instance):
-        url = 'https://www.botanyvn.com/cnt.asp?param=edir&q=lan&t=aliasname&pg=7'
-        item_list =SearchDisplay(url)
-        print(item_list)
-
-
     def on_enter(self, *args):
         self.parent.transition = SlideTransition()
     def press_login_animation(self,instance): # Shrink button
@@ -472,8 +566,16 @@ class PlantApp(MDApp):
         self.primary_font_color = theme_list[self.theme]['primary_font_color']
         self.secondary_font_color = theme_list[self.theme]['secondary_font_color']
         self.background_color = theme_list[self.theme]['background_color']
+        self.primary_background_color = theme_list[self.theme]['primary_background_color']
+
+        self.secondary_background_color = theme_list[self.theme]['secondary_background_color']
+        self.secondary_background_color_fade = list(self.secondary_background_color)
+        self.secondary_background_color_fade[3] = 0
+        self.secondary_background_color_fade = tuple(self.secondary_background_color_fade)
+
         self.wrong_pass_warn = theme_list[self.theme]['wrong_pass_warn']
         self.press_word_button = theme_list[self.theme]['press_word_button']
+        self.highlight_button = theme_list[self.theme]['highlight_button']
         kv = Builder.load_file('layout/MainLayout.kv')
         return kv
 

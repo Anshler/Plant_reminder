@@ -1,27 +1,29 @@
+#:import Gradient kivy_gradient.Gradient
+
 WindowManager:
-    StartUp:
-        id: start_up
-        name: 'start_up'
-    LoginScreen:
-        id: login_screen
-        name: 'login_screen'
+    #StartUp:
+        #id: start_up
+        #name: 'start_up'
+    #LoginScreen:
+        #id: login_screen
+        #name: 'login_screen'
     # Forget password
-    ForgetPasswordEmailScreen:
-        id: forget_password_email_screen
-        name: 'forget_password_email_screen'
-    ForgetPasswordOTPScreen:
-        id: forget_password_otp_screen
-        name: 'forget_password_otp_screen'
-    ForgetPasswordNewPassScreen:
-        id: forget_password_new_pass_screen
-        name: 'forget_password_new_pass_screen'
+    #ForgetPasswordEmailScreen:
+        #id: forget_password_email_screen
+        #name: 'forget_password_email_screen'
+    #ForgetPasswordOTPScreen:
+        #id: forget_password_otp_screen
+        #name: 'forget_password_otp_screen'
+    #ForgetPasswordNewPassScreen:
+        #id: forget_password_new_pass_screen
+        #name: 'forget_password_new_pass_screen'
     # Sign up
-    SignUpScreen:
-        id: sign_up_screen
-        name: 'sign_up_screen'
-    SignUpOTPScreen:
-        id: sign_up_otp_screen
-        name: 'sign_up_otp_screen'
+    #SignUpScreen:
+        #id: sign_up_screen
+        #name: 'sign_up_screen'
+    #SignUpOTPScreen:
+        #id: sign_up_otp_screen
+        #name: 'sign_up_otp_screen'
     # Main screen
     MasterScreen:
         id: master_screen
@@ -129,7 +131,6 @@ WindowManager:
                 app.play_sound('next.wav')
             on_release:
                 root.login(self)
-                root.start_crawling(self)
             Image:
                 id: login_button_image
                 color: 1, 1, 1, 1  # Set image color to full opacity
@@ -1245,12 +1246,174 @@ WindowManager:
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
 
+<SearchResult>:
+    on_press: root.test(self)
 
 <WikiPage>:
-    Image:
-        source: 'layout/img/background5.png'
-        keep_ratio: True
-        color: 1, 1, 1, 1  # Set image color to full opacity
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'layout/img/background.png'
+
+    FloatLayout:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                texture: Gradient.vertical(app.secondary_background_color, app.secondary_background_color_fade)
+        size_hint: 1, 0.275
+        pos_hint: {'y':0.825}
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: app.secondary_background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size_hint: 1, 0.825
+        pos_hint: {'y':0}
+
+    BoxLayout:
+        size_hint: 0.8,1/12
+        pos_hint: {'center_x':0.5, 'top':11/12}
+        MDLabel:
+            id: encyclopedia
+            text: 'ENCYCLOPEDIA'
+            #font_style: 'H1'
+            color: app.primary_background_color
+            halign: 'center'
+            font_size: self.parent.height/2
+            bold: True
+    FloatLayout: # Search bar
+        size_hint: 0.9, 0.06
+        pos_hint: {'center_x':0.5,'top':10/12}
+
+        Button: # filter button
+            id: filter_button
+            name:'filter_button'
+            size_hint: (None,0.75)
+            width: self.height
+            pos_hint: {'x':0,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                root.press_button(self)
+                app.play_sound('search.wav')
+            on_release:
+                root.release_button(self)
+            Image:
+                id: filter_button_image
+                source: 'layout/img/filter.png'
+                size: self.parent.size
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+        MDTextField:
+            id: search_bar
+            max_text_length: 50
+            mode: 'round'
+            size_hint: None,1
+            width: self.parent.width*0.75
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            text_size: self.size
+            font_size: self.height/2
+            fill_color_normal: (0,0,0,0.0001)
+            text_color_focus: app.primary_background_color
+            line_color_focus: app.primary_background_color
+        Button: # search_button
+            id:search_button
+            name: 'search_button'
+            size_hint: (None,0.75)
+            width: self.height
+            pos_hint: {'right':1,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                root.press_button(self)
+                app.play_sound('search.wav')
+            on_release:
+                root.release_button(self)
+                root.start_crawling(self)
+            Image:
+                id: search_button_image
+                source: 'layout/img/search.png'
+                size: self.parent.size
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+
+    ScrollView:
+        size_hint: 0.9, 0.575
+        pos_hint: {'center_x':0.5,'top':0.75}
+        MDList:
+            id: search_list
+    FloatLayout:
+        id:search_page_selector
+        size_hint:1,1.15/12
+        pos_hint: {'center_x':0.5, 'y':1.15/12}
+        Label:
+            id:curr_over_total
+            size_hint: None,None
+            height: self.parent.height
+            width: self.height*4
+            pos_hint:{'center_x':0.5, 'center_y':0.5}
+            color: app.primary_background_color
+            halign: 'center'
+            valign: 'center'
+            text_size: self.size
+            font_size: self.height/2
+        MDIconButton:
+            id: first_page
+            allowed: False
+            icon: 'skip-previous'
+            icon_color: app.primary_background_color
+            icon_size: self.parent.height
+            pos_hint: {'center_x':1/6}
+            center_y: self.parent.center_y
+            disabled: True if not self.allowed else False
+            opacity: 0.5 if not self.allowed else 1
+            on_press: app.play_sound('search.wav')
+            on_release: root.start_crawling('first')
+        MDIconButton:
+            id: previous_page
+            allowed: False
+            icon: 'chevron-left'
+            icon_color: app.primary_background_color
+            icon_size: self.parent.height
+            pos_hint: {'center_x':1/3}
+            center_y: self.parent.center_y
+            disabled: True if not self.allowed else False
+            opacity: 0.5 if not self.allowed else 1
+            on_press: app.play_sound('search.wav')
+            on_release: root.start_crawling('previous')
+        MDIconButton:
+            id: next_page
+            allowed: False
+            icon: 'chevron-right'
+            icon_color: app.primary_background_color
+            icon_size: self.parent.height
+            pos_hint: {'center_x':2/3}
+            center_y: self.parent.center_y
+            disabled: True if not self.allowed else False
+            opacity: 0.5 if not self.allowed else 1
+            on_press: app.play_sound('search.wav')
+            on_release: root.start_crawling('next')
+        MDIconButton:
+            id: last_page
+            allowed: False
+            icon: 'skip-next'
+            icon_color: app.primary_background_color
+            icon_size: self.parent.height
+            pos_hint: {'center_x':5/6}
+            center_y: self.parent.center_y
+            disabled: True if not self.allowed else False
+            opacity: 0.5 if not self.allowed else 1
+            on_press: app.play_sound('search.wav')
+            on_release: root.start_crawling('last')
+
+
+
 
 <ShoppingPage>:
     Image:
@@ -1260,10 +1423,19 @@ WindowManager:
 
 <UtilityBars>:
     FloatLayout: # upper bar, mainly for setting
+        size_hint: 1, 1.15/12
+        pos_hint: {'center_x': 0.5, 'top': 1}
+        canvas:
+            Color:
+                rgba: 0,0,0,0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
         Button: # setting button
-            size_hint: None,1/12
+            size_hint: None,1/1.15
             width: self.height
-            pos_hint: {'center_x': 11/12, 'top':1}
+            pos_hint: {'center_x': 11/12, 'center_y':0.5}
             background_color: 0,0,0,0
             on_press: app.play_sound('sliding.wav')
             on_release:
@@ -1290,14 +1462,12 @@ WindowManager:
                 color: 1, 1, 1, 1  # Set image color to full opacity
 
     FloatLayout: # bottom bar
-        orientation: 'horizontal'
         size_hint: 1, 1.15/12
-        #height: self.width*1.25/6
         pos_hint: {'center_x': 0.5, 'y': 0}
 
         canvas:
             Color:
-                rgba: 1, 1, 1, 1
+                rgba: app.background_color
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -1309,7 +1479,7 @@ WindowManager:
             pos_hint: {'center_x': 1.00001/12, 'center_y': 0.5}
             canvas:
                 Color:
-                    rgba: 176/255, 211/255, 141/255, 1
+                    rgba: app.highlight_button
                 Rectangle:
                     pos: self.pos
                     size: self.size
