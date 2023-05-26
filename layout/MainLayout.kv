@@ -1,29 +1,29 @@
 #:import Gradient kivy_gradient.Gradient
 
 WindowManager:
-    #StartUp:
-        #id: start_up
-        #name: 'start_up'
-    #LoginScreen:
-        #id: login_screen
-        #name: 'login_screen'
+    StartUp:
+        id: start_up
+        name: 'start_up'
+    LoginScreen:
+        id: login_screen
+        name: 'login_screen'
     # Forget password
-    #ForgetPasswordEmailScreen:
-        #id: forget_password_email_screen
-        #name: 'forget_password_email_screen'
-    #ForgetPasswordOTPScreen:
-        #id: forget_password_otp_screen
-        #name: 'forget_password_otp_screen'
-    #ForgetPasswordNewPassScreen:
-        #id: forget_password_new_pass_screen
-        #name: 'forget_password_new_pass_screen'
+    ForgetPasswordEmailScreen:
+        id: forget_password_email_screen
+        name: 'forget_password_email_screen'
+    ForgetPasswordOTPScreen:
+        id: forget_password_otp_screen
+        name: 'forget_password_otp_screen'
+    ForgetPasswordNewPassScreen:
+        id: forget_password_new_pass_screen
+        name: 'forget_password_new_pass_screen'
     # Sign up
-    #SignUpScreen:
-        #id: sign_up_screen
-        #name: 'sign_up_screen'
-    #SignUpOTPScreen:
-        #id: sign_up_otp_screen
-        #name: 'sign_up_otp_screen'
+    SignUpScreen:
+        id: sign_up_screen
+        name: 'sign_up_screen'
+    SignUpOTPScreen:
+        id: sign_up_otp_screen
+        name: 'sign_up_otp_screen'
     # Main screen
     MasterScreen:
         id: master_screen
@@ -1217,32 +1217,32 @@ WindowManager:
         Rectangle:
             pos: self.pos
             size: self.size
-            source: 'layout/img/background.png'
+            source: 'layout/img/home.png'
 
-    Button:
-        text: 'home page'
-        size_hint: 0.8,0.25
-        pos_hint: {'center_x': 0.5, 'center_y':0.5}
-        background_color: 0,0,0,0.5
-        on_release: root.test(self)
-        collide_children: False
+    #Button:
+        #text: 'home page'
+        #size_hint: 0.8,0.25
+        #pos_hint: {'center_x': 0.5, 'center_y':0.5}
+        #background_color: 0,0,0,0.5
+        #on_release: root.test(self)
+        #collide_children: False
 
 <PlantProfilePage>:
     canvas:
         Rectangle:
             pos: self.pos
             size: self.size
-            source: 'layout/img/background2.png'
+            source: 'layout/img/profile.png'
 
 <CalendarPage>:
     Image:
-        source: 'layout/img/background3.png'
+        source: 'layout/img/calendar.png'
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
 
 <CommunityPage>:
     Image:
-        source: 'layout/img/background4.png'
+        source: 'layout/img/community.png'
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
 
@@ -1517,7 +1517,7 @@ WindowManager:
 
 <ShoppingPage>:
     Image:
-        source: 'layout/img/background6.png'
+        source: 'layout/img/shopping.png'
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
 

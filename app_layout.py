@@ -4,6 +4,7 @@ from kivy.config import Config
 from kivy.animation import Animation
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition
 from kivy.core.audio import SoundLoader
+import operator
 from utils.dict_encoding import HomeButtons2Num
 from utils.config import *
 from utils.format_check import isPasswordFormat,isUsernameFormat
@@ -225,6 +226,7 @@ class LoginScreen(Screen):
                             center_x = instance.center_x, center_y = instance.center_y, duration=0.01)
         animate.start(self.ids.login_button_image)
         self.ids.login_button_image.source = 'layout/img/login_pressed.png'
+
     def login(self,instance): # Expand button and validate
         # Make api call
         # request function()
@@ -238,6 +240,8 @@ class LoginScreen(Screen):
         self.ids.login_button_image.source = 'layout/img/login.png'
 
         if isUser: # Validated
+            # set startup status
+            WriteHadStartUp()
             # reset these fields
             self.ids.username.text = ''
             self.ids.password.text = ''
@@ -430,6 +434,8 @@ class ForgetPasswordNewPassScreen(Screen):
         animate.start(self.ids.confirm_new_pass_button_image)
         self.ids.confirm_new_pass_button_image.source = 'layout/img/login.png'
         if isNew:
+            # set startup status
+            WriteHadStartUp()
             # reset all these fields
             self.parent.ids.forget_password_email_screen.ids.email_forget.text = ''
             self.ids.new_password.text = ''
@@ -598,6 +604,38 @@ class PlantApp(MDApp):
     theme = theme
     language = language
     volume = volume
+    theme_list = theme_list
+    @property
+    def primary_font_color(self):
+        return self.theme_list[self.theme]['primary_font_color']
+        return self.theme_list[self.theme]['primary_font_color']
+    @property
+    def secondary_font_color(self):
+        return self.theme_list[self.theme]['secondary_font_color']
+    @property
+    def background_color(self):
+        return self.theme_list[self.theme]['background_color']
+    @property
+    def primary_background_color(self):
+        return self.theme_list[self.theme]['primary_background_color']
+    @property
+    def secondary_background_color(self):
+        return self.theme_list[self.theme]['secondary_background_color']
+    @property
+    def secondary_background_color_fade(self):
+        color = list(self.secondary_background_color)
+        color[3] = 0
+        return tuple(color)
+    @property
+    def wrong_pass_warn(self):
+        return self.theme_list[self.theme]['wrong_pass_warn']
+    @property
+    def press_word_button(self):
+        return self.theme_list[self.theme]['press_word_button']
+    @property
+    def highlight_button(self):
+        return self.theme_list[self.theme]['highlight_button']
+
     def play_sound(self, filename):
         sound = SoundLoader.load('soundfx/'+filename)
         if sound:
@@ -605,19 +643,6 @@ class PlantApp(MDApp):
             sound.play()
 
     def build(self):
-        self.primary_font_color = theme_list[self.theme]['primary_font_color']
-        self.secondary_font_color = theme_list[self.theme]['secondary_font_color']
-        self.background_color = theme_list[self.theme]['background_color']
-        self.primary_background_color = theme_list[self.theme]['primary_background_color']
-
-        self.secondary_background_color = theme_list[self.theme]['secondary_background_color']
-        self.secondary_background_color_fade = list(self.secondary_background_color)
-        self.secondary_background_color_fade[3] = 0
-        self.secondary_background_color_fade = tuple(self.secondary_background_color_fade)
-
-        self.wrong_pass_warn = theme_list[self.theme]['wrong_pass_warn']
-        self.press_word_button = theme_list[self.theme]['press_word_button']
-        self.highlight_button = theme_list[self.theme]['highlight_button']
         kv = Builder.load_file('layout/MainLayout.kv')
         return kv
 
