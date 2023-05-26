@@ -17,7 +17,7 @@ Config.set('graphics', 'width', '350')
 Config.set('graphics', 'height', '700')
 
 from kivymd.app import MDApp
-from kivymd.uix.list import ThreeLineListItem
+from kivymd.uix.list import ThreeLineIconListItem, ThreeLineAvatarListItem
 
 # Declare Main pages ----------------------------------------
 class HomePage(Screen):
@@ -30,7 +30,7 @@ class CalendarPage(Screen):
     pass
 class CommunityPage(Screen):
     pass
-class SearchResult(ThreeLineListItem):
+class SearchResult(ThreeLineIconListItem):
     def open_search_item(self,instance):
         # disable the buttons
         self.parent.parent.parent.parent.parent.ids.filter_button.disabled = True

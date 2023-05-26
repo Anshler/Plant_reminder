@@ -1,29 +1,29 @@
 #:import Gradient kivy_gradient.Gradient
 
 WindowManager:
-    StartUp:
-        id: start_up
-        name: 'start_up'
-    LoginScreen:
-        id: login_screen
-        name: 'login_screen'
+    #StartUp:
+        #id: start_up
+        #name: 'start_up'
+    #LoginScreen:
+        #id: login_screen
+        #name: 'login_screen'
     # Forget password
-    ForgetPasswordEmailScreen:
-        id: forget_password_email_screen
-        name: 'forget_password_email_screen'
-    ForgetPasswordOTPScreen:
-        id: forget_password_otp_screen
-        name: 'forget_password_otp_screen'
-    ForgetPasswordNewPassScreen:
-        id: forget_password_new_pass_screen
-        name: 'forget_password_new_pass_screen'
+    #ForgetPasswordEmailScreen:
+        #id: forget_password_email_screen
+        #name: 'forget_password_email_screen'
+    #ForgetPasswordOTPScreen:
+        #id: forget_password_otp_screen
+        #name: 'forget_password_otp_screen'
+    #ForgetPasswordNewPassScreen:
+        #id: forget_password_new_pass_screen
+        #name: 'forget_password_new_pass_screen'
     # Sign up
-    SignUpScreen:
-        id: sign_up_screen
-        name: 'sign_up_screen'
-    SignUpOTPScreen:
-        id: sign_up_otp_screen
-        name: 'sign_up_otp_screen'
+    #SignUpScreen:
+        #id: sign_up_screen
+        #name: 'sign_up_screen'
+    #SignUpOTPScreen:
+        #id: sign_up_otp_screen
+        #name: 'sign_up_otp_screen'
     # Main screen
     MasterScreen:
         id: master_screen
@@ -1249,6 +1249,10 @@ WindowManager:
 <SearchResult>: # list of results
     on_press: app.play_sound('next.wav')
     on_release: root.open_search_item(self)
+    IconLeftWidgetWithoutTouch:
+        icon: 'leaf-circle'
+        icon_color: app.primary_background_color
+        icon_size: self.height*0.65
 <SearchItemScreen>: # chosen item in the results
     on_enter: root.get_info(self)
     FloatLayout:
@@ -1280,7 +1284,7 @@ WindowManager:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                Label:
+                MDLabel:
                     id: info
                     size_hint: 1,None
                     height: self.texture_size[1]
@@ -1289,7 +1293,8 @@ WindowManager:
                     valign: 'top'
                     color: app.primary_font_color
                     text_size: (self.width,None)
-                    font_size: self.parent.parent.height/35
+                    font_size: self.parent.parent.height/30
+                    font_style: 'H2'
                 Widget:
                     size_hint: 1, None
                     height: self.parent.parent.height/400
@@ -1299,7 +1304,7 @@ WindowManager:
                         Rectangle:
                             pos: self.pos
                             size: self.size
-                Label:
+                MDLabel:
                     id: descryption
                     size_hint: 1,None
                     pos_hint: {'center_x':0.5}
@@ -1309,6 +1314,7 @@ WindowManager:
                     color: app.primary_font_color
                     text_size: (self.width,None)
                     font_size: self.parent.parent.height/30
+                    font_style: 'Body2'
 
 
     FloatLayout: # Back_button_region
@@ -1438,7 +1444,7 @@ WindowManager:
             id: encyclopedia_search_screen
             name: 'encyclopedia_search_screen'
             ScrollView:
-                size_hint: 0.9, 0.575
+                size_hint: 1, 0.575
                 pos_hint: {'center_x':0.5,'top':0.75}
                 bar_color: 0,0,0,0
                 bar_inactive_color: 0,0,0,0

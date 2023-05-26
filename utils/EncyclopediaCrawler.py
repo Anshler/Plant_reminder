@@ -53,7 +53,6 @@ def SearchItem(url):
     response.encoding = 'utf-8'
     # Parse the HTML content with BeautifulSoup
     soup = BeautifulSoup(response.text, 'html.parser')
-
     # Find all <fieldset> elements with class="roundBox"
     fieldsets = soup.find_all('fieldset', class_='roundBox')[:2]
     try:
@@ -71,5 +70,5 @@ def SearchItem(url):
     return info, descryption
 
 
-#items, pages = SearchDisplay('https://www.botanyvn.com/cnt.asp?param=edir&q=chim%20te&t=comname')
+items, pages = SearchDisplay('https://www.botanyvn.com/cnt.asp?param=edir&q=chim%20te&t=comname')
 #info, descryption = SearchItem('https://www.botanyvn.com/cnt.asp?param=edir&v=Acanthophippium%20striatum&list=species')
