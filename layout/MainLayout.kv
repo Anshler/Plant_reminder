@@ -1250,7 +1250,7 @@ WindowManager:
     on_press: app.play_sound('next.wav')
     on_release: root.open_search_item(self)
     IconLeftWidgetWithoutTouch:
-        icon: 'leaf-circle'
+        icon: 'settings-helper'
         icon_color: app.primary_background_color
         icon_size: self.height*0.65
 <SearchItemScreen>: # chosen item in the results
@@ -1270,20 +1270,17 @@ WindowManager:
             bar_color: 0,0,0,0
             bar_inactive_color: 0,0,0,0
             BoxLayout:
+                canvas:
+                    Color:
+                        rgba: 1,1,1,0.2
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
                 orientation: 'vertical'
                 size_hint: 1, None
                 spacing: 10
                 height: self.minimum_height
 
-                Widget:
-                    size_hint: 1, None
-                    height: self.parent.parent.height/400
-                    canvas:
-                        Color:
-                            rgba: app.primary_font_color
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
                 MDLabel:
                     id: info
                     size_hint: 1,None
@@ -1292,7 +1289,7 @@ WindowManager:
                     text: ''
                     valign: 'top'
                     color: app.primary_font_color
-                    text_size: (self.width,None)
+                    text_size: (self.width*0.9,None)
                     font_size: self.parent.parent.height/30
                     font_style: 'H2'
                 Widget:
@@ -1312,7 +1309,7 @@ WindowManager:
                     text: ''
                     valign: 'top'
                     color: app.primary_font_color
-                    text_size: (self.width,None)
+                    text_size: (self.width*0.9,None)
                     font_size: self.parent.parent.height/30
                     font_style: 'Body2'
 
@@ -1443,16 +1440,24 @@ WindowManager:
         Screen:
             id: encyclopedia_search_screen
             name: 'encyclopedia_search_screen'
+
             ScrollView:
-                size_hint: 1, 0.575
+                size_hint: 0.9, float(0.75-1.15/12*2)
                 pos_hint: {'center_x':0.5,'top':0.75}
                 bar_color: 0,0,0,0
                 bar_inactive_color: 0,0,0,0
                 MDList:
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,0.2
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                    spacing: 20
                     id: search_list
-            FloatLayout:
+            FloatLayout: # search page changer
                 id:search_page_selector
-                size_hint:1,1.15/12
+                size_hint: 1, 1.15/12
                 pos_hint: {'center_x':0.5, 'y':1.15/12}
                 Label:
                     id:curr_over_total
@@ -1483,7 +1488,7 @@ WindowManager:
                     icon: 'chevron-left'
                     icon_color: app.primary_background_color
                     icon_size: self.parent.height
-                    pos_hint: {'center_x':1/3}
+                    pos_hint: {'center_x':1/3, 'center_y':0.5}
                     center_y: self.parent.center_y
                     disabled: True if not self.allowed else False
                     opacity: 0.5 if not self.allowed else 1
