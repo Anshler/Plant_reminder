@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1c8d3c64-286f-4f73-a94f-e05dc96f5b77" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_layout.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/layout/MainLayout.kv" beforeDir="false" afterPath="$PROJECT_DIR$/layout/MainLayout.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testt.py" beforeDir="false" afterPath="$PROJECT_DIR$/testt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/EncyclopediaCrawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/EncyclopediaCrawler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +270,9 @@
       <workItem from="1685103420142" duration="7727000" />
       <workItem from="1685124521254" duration="6170000" />
       <workItem from="1685172776063" duration="7168000" />
-      <workItem from="1685184479958" duration="3698000" />
+      <workItem from="1685184479958" duration="4460000" />
+      <workItem from="1685207273840" duration="11000" />
+      <workItem from="1685354935115" duration="18869000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1683895109776</created>
@@ -481,7 +484,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685131545413</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="update">
+      <created>1685190922676</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1685190922676</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -514,7 +524,7 @@
     <SUITE FILE_PATH="coverage/virtual_chatbot$testt.coverage" NAME="testt Coverage Results" MODIFIED="1676882858987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$otp.coverage" NAME="otp Coverage Results" MODIFIED="1684239521871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$app_layout__1_.coverage" NAME="app_layout (1) Coverage Results" MODIFIED="1677167815548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1685190763610" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1685374342246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$BotanySpider.coverage" NAME="BotanySpider Coverage Results" MODIFIED="1684941219746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$New_scraper.coverage" NAME="New_scraper Coverage Results" MODIFIED="1684944642790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$testt.coverage" NAME="testt Coverage Results" MODIFIED="1685190356300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

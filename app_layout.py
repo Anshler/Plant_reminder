@@ -2,7 +2,10 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.lang import Builder
 from kivy.config import Config
 from kivy.animation import Animation
-from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition
+from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition,FallOutTransition, CardTransition, WipeTransition
+from kivy.clock import Clock
+from datetime import datetime
+from datetime import timedelta
 from kivy.core.audio import SoundLoader
 import operator
 from utils.dict_encoding import HomeButtons2Num
@@ -18,9 +21,15 @@ Config.set('graphics', 'height', '700')
 
 from kivymd.app import MDApp
 from kivymd.uix.list import ThreeLineIconListItem, ThreeLineAvatarListItem
+from kivy.uix.dropdown import DropDown
 
 # Declare Main pages ----------------------------------------
 class HomePage(Screen):
+    def update_time(self,*args):
+        MDApp.get_running_app().now = datetime.now().strftime('%H:%M')
+        self.ids.current_time.text = MDApp.get_running_app().now
+        MDApp.get_running_app().today = datetime.today().strftime('%A, %d %B')
+        self.ids.current_date.text = MDApp.get_running_app().today
     def test(self,instance):
         print('home page')
     pass
@@ -44,6 +53,8 @@ class SearchResult(ThreeLineIconListItem):
         self.parent.parent.parent.parent.parent.item_descryption = descryption
 
         # change screen
+        self.parent.parent.parent.parent.transition = CardTransition()
+        self.parent.parent.parent.parent.transition.mode = 'push'
         self.parent.parent.parent.parent.transition.duration = 0.5
         self.parent.parent.parent.parent.transition.direction = 'left'
         self.parent.parent.parent.parent.current = 'encyclopedia_search_item'
@@ -67,9 +78,21 @@ class SearchItemScreen(Screen):
         self.parent.parent.ids.search_button.disabled = False
 
         # change screen
+        self.parent.transition.mode = 'pop'
         self.parent.transition.duration = 0.5
         self.parent.transition.direction = 'right'
         self.parent.current = 'encyclopedia_search_screen'
+class FilterScreen(Screen):
+    def change_filter(self,instance):
+        self.ids.none_filter.background_color = (0,0,0,0)
+        self.ids.comname_filter.background_color = (0, 0, 0, 0)
+        self.ids.sciname_filter.background_color = (0, 0, 0, 0)
+        instance.background_color = MDApp.get_running_app().background_color
+    def shut_selector(self,instance):
+        self.parent.parent.parent.parent.ids.filter_button.content = instance.content
+        self.parent.transition.direction = 'up'
+        self.parent.transition.duration = 0.2
+        self.parent.current = 'filter_null'
 class WikiPage(Screen):
     first_page_url = ''
     previous_page_url = ''
@@ -78,6 +101,7 @@ class WikiPage(Screen):
     item_url = ''
     item_info = ''
     item_descryption = ''
+
     def start_crawling(self,direction=''):
         self.ids.first_page.allowed = False
         self.ids.previous_page.allowed = False
@@ -99,7 +123,8 @@ class WikiPage(Screen):
             url = self.last_page_url
         else:
             content = '%20'.join(self.ids.search_bar.text.strip().split())
-            url = 'https://www.botanyvn.com/cnt.asp?param=edir&q='+content+'&t=comname'
+            url = 'https://www.botanyvn.com/cnt.asp?param=edir&q='+content+'&t='+self.ids.filter_button.content
+            print(url)
 
         item_list,page_list =SearchDisplay(url)
         if item_list == []:
@@ -163,6 +188,15 @@ class WikiPage(Screen):
             setattr(display_item,'url',item['url'])
             self.ids.search_list.add_widget(display_item)
 
+    def load_filter_selector(self,instance):
+        self.ids.filter_selector_manager.transition = SlideTransition()
+        self.ids.filter_selector_manager.transition.duration = 0.2
+        if self.ids.filter_selector_manager.current == 'filter_null':
+            self.ids.filter_selector_manager.transition.direction = 'down'
+            self.ids.filter_selector_manager.current = 'filter_select'
+        else:
+            self.ids.filter_selector_manager.transition.direction = 'up'
+            self.ids.filter_selector_manager.current = 'filter_null'
     def press_button(self,instance):
         change_size = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled = True,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
@@ -215,7 +249,8 @@ class StartUp(Screen):
     def to_next(self, *args):
         self.parent.transition = FadeTransition()
         if ReadHadStartup():
-            self.parent.current = 'login_screen'
+            Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.home_page.update_time, 1)
+            self.parent.current = 'master_screen'
         else:
             self.parent.current = 'sign_up_screen'
 class LoginScreen(Screen):
@@ -643,6 +678,8 @@ class PlantApp(MDApp):
             sound.play()
 
     def build(self):
+        self.now = datetime.now().strftime('%H:%M')
+        self.today = datetime.today().strftime('%A, %d %B')
         kv = Builder.load_file('layout/MainLayout.kv')
         return kv
 

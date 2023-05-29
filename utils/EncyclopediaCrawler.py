@@ -57,13 +57,14 @@ def SearchItem(url):
     fieldsets = soup.find_all('fieldset', class_='roundBox')[:2]
     try:
         info = fieldsets[0].find('p').get_text()
+        info = '\n'+info
         info = re.sub(r'(Tên tiếng Anh:)', r'\n\1', info)
         info = re.sub(r'(Tên tiếng Việt:)', r'\n\1', info)
         info = re.sub(r'(Tên khác:)', r'\n\1', info)
     except:
         info = ''
     try:
-        descryption = '\n\n'.join([a.get_text() for a in fieldsets[1].find_all('p')])
+        descryption = '\n\n'.join([a.get_text() for a in fieldsets[1].find_all('p')]) + '\n'
     except:
         descryption = ''
 
