@@ -87,7 +87,7 @@ class FilterScreen(Screen):
         self.ids.none_filter.background_color = (0,0,0,0)
         self.ids.comname_filter.background_color = (0, 0, 0, 0)
         self.ids.sciname_filter.background_color = (0, 0, 0, 0)
-        instance.background_color = MDApp.get_running_app().background_color
+        instance.background_color = MDApp.get_running_app().highlight_button
     def shut_selector(self,instance):
         self.parent.parent.parent.parent.ids.filter_button.content = instance.content
         self.parent.transition.direction = 'up'
@@ -124,7 +124,6 @@ class WikiPage(Screen):
         else:
             content = '%20'.join(self.ids.search_bar.text.strip().split())
             url = 'https://www.botanyvn.com/cnt.asp?param=edir&q='+content+'&t='+self.ids.filter_button.content
-            print(url)
 
         item_list,page_list =SearchDisplay(url)
         if item_list == []:
