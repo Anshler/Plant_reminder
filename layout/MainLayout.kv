@@ -1180,11 +1180,23 @@ WindowManager:
             allow_stretch: True
 
 <MasterScreen>:
+    FloatLayout:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'layout/img/background.png'
+        #VideoPlayer:
+            #id: background_video
+            #source: 'layout/img/plant.mp4'
+            #state: 'play'
+            #options: {'eos': 'loop'}
+            #allow_stretch: True
+            #allow_fullscreen: False
     Button:
         id: swipe
         background_color: 0,0,0,0
-        on_release: root.swipe_home_buttons(self)
-        collide_children: False
+        on_press: root.swipe_home_buttons(self)
     MainPagesManager:
         id: main_pages
         name: 'main_pages'
@@ -1213,11 +1225,6 @@ WindowManager:
         name: 'shopping_page'
 
 <HomePage>:
-    canvas:
-        Rectangle:
-            pos: self.pos
-            size: self.size
-            source: 'layout/img/background.png'
     Label:
         id:current_time
         size_hint: None,0.1
@@ -1253,12 +1260,191 @@ WindowManager:
         #on_release: root.test(self)
         #collide_children: False
 
+
+<PlantSelector>:
+    name: ''
+    represent_color: 0,0,0,0
+    avatar: ''
+    next_action: ''
+    size_hint: 1,None
+    height: self.parent.parent.height/5
+
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+        canvas:
+            Color:
+                rgba: root.represent_color
+            Line:
+                width: self.height/50
+                circle:(self.center_x*0.3, self.center_y, self.height*0.8/2)
+
+    FitImage:
+        source: root.avatar
+        size_hint: None,None
+        mipmap:True
+        height: self.parent.height*0.7
+        width: self.height
+        pos_hint: {'center_x':0.15, 'center_y':0.5}
+        radius: self.height, self.height, self.height, self.height
+
+
 <PlantProfilePage>:
-    canvas:
-        Rectangle:
-            pos: self.pos
-            size: self.size
-            source: 'layout/img/profile.png'
+    # background
+    FloatLayout:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                texture: Gradient.vertical(app.secondary_background_color, app.secondary_background_color_fade)
+        size_hint: 1, 0.2
+        pos_hint: {'y':0.8}
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: app.secondary_background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size_hint: 1, 0.8
+        pos_hint: {'y':0}
+    #----------------------------------------------------------------------------
+    BoxLayout: # text
+        size_hint: 0.8,1/12
+        pos_hint: {'center_x':0.5, 'top':11/12}
+        MDLabel:
+            id: garden
+            text: 'GARDEN'
+            color: app.primary_font_color
+            halign: 'center'
+            font_size: self.parent.height/2
+            bold: True
+    FloatLayout: # Search bar
+        size_hint: 0.9, 0.06
+        pos_hint: {'center_x':0.5,'top':10/12}
+
+        Button: # filter button
+            id: filter_button
+            name:'filter_button'
+            content: ''
+            size_hint: (None,0.75)
+            width: self.height
+            pos_hint: {'x':0,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                root.press_button(self)
+                app.play_sound('search.wav')
+            on_release:
+                root.release_button(self)
+                root.load_filter_selector(self)
+            Image:
+                id: filter_button_image
+                source: 'layout/img/filter.png'
+                size: self.parent.size
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+
+        FloatLayout:
+            canvas:
+                Color:
+                    rgba: 0.9,0.9,0.9,1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 0.75,1
+            pos_hint: {'center_x':0.5, 'center_y':0.5}
+            MDTextField:
+                id: search_bar
+                max_text_length: 50
+                size_hint: None,None
+                height: self.parent.height
+                width: self.parent.width*0.9
+                text_color_focus: app.primary_background_color
+                line_color_focus: app.primary_background_color
+                pos_hint: {'center_x':0.5,'center_y':0.6}
+                text_size: self.size
+                font_size: self.height/3
+        Button: # search_button
+            id:search_button
+            name: 'search_button'
+            size_hint: (None,0.75)
+            width: self.height
+            pos_hint: {'right':1,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                root.press_button(self)
+                app.play_sound('search.wav')
+            on_release:
+                root.release_button(self)
+                root.start_crawling(self)
+            Image:
+                id: search_button_image
+                source: 'layout/img/search.png'
+                size: self.parent.size
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
+
+    ScreenManager:
+        Screen:
+            id: profile_display
+            name: 'profile_display'
+
+            # scroll view------------------------------------------------
+            FloatLayout: # scrollview vackground
+                canvas:
+                    Color:
+                        rgba: app.background_color
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint: 1, 1
+                pos_hint: {'center_x':0.5,'top':0.75}
+            FloatLayout:
+                canvas:
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                        texture: Gradient.vertical((0,0,0,0), (0,0,0,0.1))
+                size_hint: 1, 0.1/12
+                pos_hint: {'top':0.75}
+            ScrollView:
+                size_hint: 1, float(0.75-1.15/12)
+                pos_hint: {'center_x':0.5,'top':0.75}
+                bar_color: 0,0,0,0
+                bar_inactive_color: 0,0,0,0
+                BoxLayout:
+                    size_hint: 1,None
+                    height: self.minimum_height
+                    pos_hint: {'top': 1}
+                    id: profile_display_box
+                    orientation: 'vertical'
+                    spacing: 1
+
+                    PlantSelector:
+                        name: 'add_new_box'
+                        represent_color: 1,0,1,1
+                        avatar: 'layout/img/background.png'
+                        next_action: ''
+
+                    PlantSelector:
+                        name: 'example'
+                        represent_color: 1,0,0,1
+                        avatar: 'layout/img/background2.png'
+                        next_action: ''
+
+                    PlantSelector:
+                        name: 'example2'
+                        represent_color: 0,0,1,1
+                        avatar: 'layout/img/background3.png'
+                        next_action: ''
+
+        Screen:
+            id: new_plant
+            name: 'new_plant'
 
 <CalendarPage>:
     Image:
@@ -1276,6 +1462,7 @@ WindowManager:
     on_press: app.play_sound('next.wav')
     on_release: root.open_search_item(self)
     IconLeftWidgetWithoutTouch:
+        id: icon
         icon: 'settings-helper'
         icon_color: app.primary_background_color
         icon_size: self.height*0.65
@@ -1421,20 +1608,15 @@ WindowManager:
 
 
 <WikiPage>:
-    canvas:
-        Rectangle:
-            pos: self.pos
-            size: self.size
-            source: 'layout/img/background.png'
-
+    # background
     FloatLayout:
         canvas:
             Rectangle:
                 pos: self.pos
                 size: self.size
                 texture: Gradient.vertical(app.secondary_background_color, app.secondary_background_color_fade)
-        size_hint: 1, 0.275
-        pos_hint: {'y':0.825}
+        size_hint: 1, 0.2
+        pos_hint: {'y':0.8}
     FloatLayout:
         canvas:
             Color:
@@ -1442,10 +1624,10 @@ WindowManager:
             Rectangle:
                 pos: self.pos
                 size: self.size
-        size_hint: 1, 0.825
+        size_hint: 1, 0.8
         pos_hint: {'y':0}
-
-    BoxLayout:
+    #------------------------------------------------------------------
+    BoxLayout: # text
         size_hint: 0.8,1/12
         pos_hint: {'center_x':0.5, 'top':11/12}
         MDLabel:
@@ -1482,19 +1664,26 @@ WindowManager:
                 center_y: self.parent.center_y
                 allow_stretch: True
                 color: 1, 1, 1, 1  # Set image color to full opacity
-
-        MDTextField:
-            id: search_bar
-            max_text_length: 50
-            mode: 'round'
-            size_hint: None,1
-            width: self.parent.width*0.75
-            pos_hint: {'center_x':0.5,'center_y':0.5}
-            text_size: self.size
-            font_size: self.height/2
-            fill_color_normal: (0,0,0,0.0001)
-            text_color_focus: app.primary_background_color
-            line_color_focus: app.primary_background_color
+        FloatLayout:
+            canvas:
+                Color:
+                    rgba: 0.9,0.9,0.9,1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+            size_hint: 0.75,1
+            pos_hint: {'center_x':0.5, 'center_y':0.5}
+            MDTextField:
+                id: search_bar
+                max_text_length: 50
+                size_hint: None,None
+                height: self.parent.height
+                width: self.parent.width*0.9
+                text_color_focus: app.primary_background_color
+                line_color_focus: app.primary_background_color
+                pos_hint: {'center_x':0.5,'center_y':0.6}
+                text_size: self.size
+                font_size: self.height/3
         Button: # search_button
             id:search_button
             name: 'search_button'
@@ -1520,7 +1709,6 @@ WindowManager:
         Screen:
             id: encyclopedia_search_screen
             name: 'encyclopedia_search_screen'
-
             ScrollView:
                 size_hint: 0.9, float(0.75-1.15/12*2)
                 pos_hint: {'center_x':0.5,'top':0.75}
@@ -1545,7 +1733,6 @@ WindowManager:
                     name: 'filter_null'
                 FilterScreen:
                     name: 'filter_select'
-
             FloatLayout: # search page changer
                 id:search_page_selector
                 size_hint: 1, 1.15/12
@@ -1663,6 +1850,14 @@ WindowManager:
                 allow_stretch: True
                 color: 1, 1, 1, 1  # Set image color to full opacity
 
+    FloatLayout:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                texture: Gradient.vertical((0,0,0,0.1), (0,0,0,0))
+        size_hint: 1, 0.1/12
+        pos_hint: {'y':1.15/12}
     FloatLayout: # bottom bar
         size_hint: 1, 1.15/12
         pos_hint: {'center_x': 0.5, 'y': 0}

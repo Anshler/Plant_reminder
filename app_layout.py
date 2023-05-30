@@ -4,6 +4,7 @@ from kivy.config import Config
 from kivy.animation import Animation
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition,FallOutTransition, CardTransition, WipeTransition
 from kivy.clock import Clock
+from kivy.uix.videoplayer import VideoPlayer
 from datetime import datetime
 from datetime import timedelta
 from kivy.core.audio import SoundLoader
@@ -19,6 +20,7 @@ Config.set('graphics', 'resizable', '1')
 Config.set('graphics', 'width', '350')
 Config.set('graphics', 'height', '700')
 
+from kivy.core.window import Window
 from kivymd.app import MDApp
 from kivymd.uix.list import ThreeLineIconListItem, ThreeLineAvatarListItem
 from kivy.uix.dropdown import DropDown
@@ -32,6 +34,8 @@ class HomePage(Screen):
         self.ids.current_date.text = MDApp.get_running_app().today
     def test(self,instance):
         print('home page')
+    pass
+class PlantSelector(FloatLayout):
     pass
 class PlantProfilePage(Screen):
     pass
@@ -127,10 +131,12 @@ class WikiPage(Screen):
 
         item_list,page_list =SearchDisplay(url)
         if item_list == []:
-            display_item = SearchResult(text='No search result found!',
+            display_item = SearchResult(id = 'not_found',
+                                        text='No search result found!',
                                         secondary_text='-',
                                         tertiary_text='pleade try again with another keyword',
                                         disabled = True)
+            print(display_item.ids)
             self.ids.search_list.add_widget(display_item)
             return
 
@@ -185,6 +191,7 @@ class WikiPage(Screen):
                                         tertiary_text=item['info'],
                                         disabled = False)
             setattr(display_item,'url',item['url'])
+            display_item.height = self.height / 10
             self.ids.search_list.add_widget(display_item)
 
     def load_filter_selector(self,instance):
@@ -236,9 +243,13 @@ class UtilityBars(FloatLayout):
 
 class MasterScreen(Screen):
     Previous_home_buttons = 0
+    current_filter_screen = ''
     def swipe_home_buttons(self, instance):
         print('swipe')
-    pass
+
+
+
+
 
 class StartUp(Screen):
     def on_kv_post(self, *args):
