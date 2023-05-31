@@ -22,8 +22,7 @@ Config.set('graphics', 'height', '700')
 
 from kivy.core.window import Window
 from kivymd.app import MDApp
-from kivymd.uix.list import ThreeLineIconListItem, ThreeLineAvatarListItem
-from kivy.uix.dropdown import DropDown
+from kivymd.uix.list import ThreeLineIconListItem
 
 # Declare Main pages ----------------------------------------
 class HomePage(Screen):
@@ -36,12 +35,6 @@ class HomePage(Screen):
         print('home page')
     pass
 class PlantSelector(FloatLayout):
-    def press_button(self,instance):
-        instance.background_color = (0.5,0.5,0.5,0.25)
-    def release_button(self,instance):
-        animate = Animation(duration = 0.1)+Animation(duration=0.1, background_color=(0,0,0,0))
-        animate.start(instance)
-class PlantAdd(FloatLayout):
     def press_button(self,instance):
         instance.background_color = (0.5,0.5,0.5,0.25)
     def release_button(self,instance):
@@ -268,9 +261,6 @@ class StartUp(Screen):
         Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.home_page.update_time, 1)
 
         # update plant profile at load
-        default_plant = PlantAdd(height = Window.size[1]*0.15)
-        self.parent.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
-            default_plant)
         if MDApp.get_running_app().plant_list is not None:
             for callable_id in MDApp.get_running_app().plant_list:
                 default_plant = PlantSelector(height = Window.size[1]*0.15)

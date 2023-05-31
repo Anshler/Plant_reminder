@@ -1,6 +1,6 @@
 #:import Gradient kivy_gradient.Gradient
 #: import ew kivy.uix.effectwidget
-
+#: import Window kivy.core.window.Window
 WindowManager:
     StartUp:
         id: start_up
@@ -1269,51 +1269,6 @@ WindowManager:
             size: self.size
             pos: self.pos
 
-<PlantAdd>:
-    callable_id: ''
-    name: 'default_add_plant'
-    size_hint: 1,None
-
-    Button:
-        size_hint: 1,1
-        pos_hint: {'center_x': 0.5, 'center_y':0.5}
-        background_down: 'layout/img/white_blank.png'
-        background_normal: 'layout/img/white_blank.png'
-        background_color: 0,0,0,0
-        on_press:
-            app.play_sound('next2.wav')
-            root.press_button(self)
-        on_release:
-            root.release_button(self)
-    # images for 'add new plant' widget
-    Image:
-        source: 'layout/img/add_new_background.png'
-        color: 0.5,0.5,0.5,0.5
-        size_hint: None,None
-        height: self.parent.height*0.7
-        width: self.height
-        allow_stretch: True
-        pos_hint: {'center_x':0.15, 'center_y':0.5}
-    Image:
-        source: 'layout/img/seed-plus.png'
-        color: 0.5,0.5,0.5,0.5
-        size_hint: None,None
-        height: self.parent.height*0.5
-        width: self.height
-        allow_stretch: True
-        pos_hint: {'center_x':0.15, 'center_y':0.5}
-
-    FloatLayout:
-        canvas:
-            Color:
-                rgba: 0.5,0.5,0.5,0.5
-            Rectangle:
-                size:self.size
-                pos: self.pos
-        size_hint: 1,None
-        height: self.parent.height/100
-        pos_hint: {'y':0}
-
 
 <PlantSelector>:
     callable_id: ''
@@ -1330,7 +1285,7 @@ WindowManager:
         background_normal: 'layout/img/white_blank.png'
         background_color: 0,0,0,0
         on_press:
-            app.play_sound('next2.wav')
+            app.play_sound('next.wav')
             root.press_button(self)
         on_release:
             root.release_button(self)
@@ -1472,7 +1427,7 @@ WindowManager:
             name: 'profile_display'
 
             # scroll view------------------------------------------------
-            FloatLayout: # scrollview vackground
+            FloatLayout: # scrollview background
                 canvas:
                     Color:
                         rgba: app.background_color
@@ -1501,6 +1456,16 @@ WindowManager:
                     height: self.minimum_height
                     pos_hint: {'top': 1}
                     orientation: 'vertical'
+            MDIconButton:
+                size_hint: None,0.1
+                width: self.height
+                pos_hint: {"center_x": 0.85, "y": 1.5/12}
+                icon: 'seed-plus'
+                icon_color: app.primary_background_color
+                icon_size: self.height*0.7
+                md_bg_color: app.highlight_button
+                on_press: app.play_sound('search.wav')
+
 
         Screen:
             id: new_plant_item
