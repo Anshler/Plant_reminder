@@ -1,4 +1,5 @@
 #:import Gradient kivy_gradient.Gradient
+#: import ew kivy.uix.effectwidget
 
 WindowManager:
     StartUp:
@@ -1260,14 +1261,79 @@ WindowManager:
         #on_release: root.test(self)
         #collide_children: False
 
+<Test>:
+    canvas:
+        Color:
+            rgba: 1,1,0,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<PlantAdd>:
+    callable_id: ''
+    name: 'default_add_plant'
+    size_hint: 1,None
+
+    Button:
+        size_hint: 1,1
+        pos_hint: {'center_x': 0.5, 'center_y':0.5}
+        background_down: 'layout/img/white_blank.png'
+        background_normal: 'layout/img/white_blank.png'
+        background_color: 0,0,0,0
+        on_press:
+            app.play_sound('next2.wav')
+            root.press_button(self)
+        on_release:
+            root.release_button(self)
+    # images for 'add new plant' widget
+    Image:
+        source: 'layout/img/add_new_background.png'
+        color: 0.5,0.5,0.5,0.5
+        size_hint: None,None
+        height: self.parent.height*0.7
+        width: self.height
+        allow_stretch: True
+        pos_hint: {'center_x':0.15, 'center_y':0.5}
+    Image:
+        source: 'layout/img/seed-plus.png'
+        color: 0.5,0.5,0.5,0.5
+        size_hint: None,None
+        height: self.parent.height*0.5
+        width: self.height
+        allow_stretch: True
+        pos_hint: {'center_x':0.15, 'center_y':0.5}
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 0.5,0.5,0.5,0.5
+            Rectangle:
+                size:self.size
+                pos: self.pos
+        size_hint: 1,None
+        height: self.parent.height/100
+        pos_hint: {'y':0}
+
 
 <PlantSelector>:
+    callable_id: ''
     name: ''
     represent_color: 0,0,0,0
     avatar: ''
     next_action: ''
     size_hint: 1,None
-    height: self.parent.parent.height/5
+
+    Button:
+        size_hint: 1,1
+        pos_hint: {'center_x': 0.5, 'center_y':0.5}
+        background_down: 'layout/img/white_blank.png'
+        background_normal: 'layout/img/white_blank.png'
+        background_color: 0,0,0,0
+        on_press:
+            app.play_sound('next2.wav')
+            root.press_button(self)
+        on_release:
+            root.release_button(self)
 
     FloatLayout:
         size_hint: 1,1
@@ -1277,19 +1343,31 @@ WindowManager:
                 rgba: root.represent_color
             Line:
                 width: self.height/50
-                circle:(self.center_x*0.3, self.center_y, self.height*0.8/2)
+                circle:(self.center_x*0.3, self.center_y, self.height*0.7/2)
 
     FitImage:
         source: root.avatar
         size_hint: None,None
         mipmap:True
-        height: self.parent.height*0.7
+        height: self.parent.height*0.6
         width: self.height
         pos_hint: {'center_x':0.15, 'center_y':0.5}
         radius: self.height, self.height, self.height, self.height
 
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 0.5,0.5,0.5,0.5
+            Rectangle:
+                size:self.size
+                pos: self.pos
+        size_hint: 1,None
+        height: self.parent.height/100
+        pos_hint: {'y':0}
+
 
 <PlantProfilePage>:
+    id: plant_profile_page
     # background
     FloatLayout:
         canvas:
@@ -1412,39 +1490,24 @@ WindowManager:
                 size_hint: 1, 0.1/12
                 pos_hint: {'top':0.75}
             ScrollView:
+                id: profile_display_box_scrollview
                 size_hint: 1, float(0.75-1.15/12)
                 pos_hint: {'center_x':0.5,'top':0.75}
                 bar_color: 0,0,0,0
                 bar_inactive_color: 0,0,0,0
                 BoxLayout:
+                    id: profile_display_box
                     size_hint: 1,None
                     height: self.minimum_height
                     pos_hint: {'top': 1}
-                    id: profile_display_box
                     orientation: 'vertical'
-                    spacing: 1
-
-                    PlantSelector:
-                        name: 'add_new_box'
-                        represent_color: 1,0,1,1
-                        avatar: 'layout/img/background.png'
-                        next_action: ''
-
-                    PlantSelector:
-                        name: 'example'
-                        represent_color: 1,0,0,1
-                        avatar: 'layout/img/background2.png'
-                        next_action: ''
-
-                    PlantSelector:
-                        name: 'example2'
-                        represent_color: 0,0,1,1
-                        avatar: 'layout/img/background3.png'
-                        next_action: ''
 
         Screen:
-            id: new_plant
-            name: 'new_plant'
+            id: new_plant_item
+            name: 'new_plant_item'
+        Screen:
+            id: curr_plant_item
+            name: 'curr_plant_item'
 
 <CalendarPage>:
     Image:

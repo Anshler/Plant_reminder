@@ -36,7 +36,17 @@ class HomePage(Screen):
         print('home page')
     pass
 class PlantSelector(FloatLayout):
-    pass
+    def press_button(self,instance):
+        instance.background_color = (0.5,0.5,0.5,0.25)
+    def release_button(self,instance):
+        animate = Animation(duration = 0.1)+Animation(duration=0.1, background_color=(0,0,0,0))
+        animate.start(instance)
+class PlantAdd(FloatLayout):
+    def press_button(self,instance):
+        instance.background_color = (0.5,0.5,0.5,0.25)
+    def release_button(self,instance):
+        animate = Animation(duration = 0.1)+Animation(duration=0.1, background_color=(0,0,0,0))
+        animate.start(instance)
 class PlantProfilePage(Screen):
     pass
 class CalendarPage(Screen):
@@ -248,18 +258,34 @@ class MasterScreen(Screen):
         print('swipe')
 
 
-
-
-
 class StartUp(Screen):
     def on_kv_post(self, *args):
         animate = Animation(duration=1)+Animation(color = (1,1,1,1),duration=2)+Animation(duration=2)
         animate.start(self.ids.logo)
         animate.bind(on_complete = self.to_next)
+
+        # update time at load
+        Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.home_page.update_time, 1)
+
+        # update plant profile at load
+        default_plant = PlantAdd(height = Window.size[1]*0.15)
+        self.parent.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
+            default_plant)
+        if MDApp.get_running_app().plant_list is not None:
+            for callable_id in MDApp.get_running_app().plant_list:
+                default_plant = PlantSelector(height = Window.size[1]*0.15)
+                setattr(default_plant, 'callable_id', callable_id)
+                setattr(default_plant, 'name', MDApp.get_running_app().plant_list[callable_id]['name'])
+                setattr(default_plant, 'represent_color', MDApp.get_running_app().plant_list[callable_id]['represent_color'])
+                setattr(default_plant, 'avatar', MDApp.get_running_app().plant_list[callable_id]['avatar'])
+                setattr(default_plant, 'next_action', MDApp.get_running_app().plant_list[callable_id]['next_action'])
+                self.parent.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
+                    default_plant)
+
+
     def to_next(self, *args):
         self.parent.transition = FadeTransition()
         if ReadHadStartup():
-            Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.home_page.update_time, 1)
             self.parent.current = 'master_screen'
         else:
             self.parent.current = 'sign_up_screen'
@@ -650,9 +676,10 @@ class PlantApp(MDApp):
     language = language
     volume = volume
     theme_list = theme_list
+    plant_list = plant_list
+
     @property
     def primary_font_color(self):
-        return self.theme_list[self.theme]['primary_font_color']
         return self.theme_list[self.theme]['primary_font_color']
     @property
     def secondary_font_color(self):

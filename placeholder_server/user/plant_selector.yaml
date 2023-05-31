@@ -1,0 +1,10 @@
+plant0:
+  name: 'example'
+  represent_color: [1,0,0,1]
+  avatar: 'layout/img/background2.png'
+  next_action: ''
+plant1:
+  name: 'example2'
+  represent_color: [0,0,1,1]
+  avatar: 'layout/img/background3.png'
+  next_action: ''
