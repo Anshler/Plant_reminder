@@ -2,19 +2,24 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.lang import Builder
 from kivy.config import Config
 from kivy.animation import Animation
+from kivy.uix.popup import Popup
+from kivy.graphics import Color, Rectangle
+from kivy.core.audio import SoundLoader
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition,FallOutTransition, CardTransition, WipeTransition
 from kivy.clock import Clock
+from kivy.uix.colorpicker import ColorPicker
 from kivy.uix.videoplayer import VideoPlayer
 from datetime import datetime
 from datetime import timedelta
-from kivy.core.audio import SoundLoader
 import operator
 from utils.dict_encoding import HomeButtons2Num
+from utils.random_color import *
 from utils.config import *
 from utils.format_check import isPasswordFormat,isUsernameFormat
 from utils.validation import *
 from utils.had_startup import ReadHadStartup,WriteHadStartUp
 from utils.EncyclopediaCrawler import *
+
 
 Config.set('graphics', 'resizable', '1')
 Config.set('graphics', 'width', '350')
@@ -36,12 +41,86 @@ class HomePage(Screen):
     pass
 class PlantSelector(FloatLayout):
     def press_button(self,instance):
+        instance.disabled = True
         instance.background_color = (0.5,0.5,0.5,0.25)
     def release_button(self,instance):
+        instance.disabled = False
         animate = Animation(duration = 0.1)+Animation(duration=0.1, background_color=(0,0,0,0))
         animate.start(instance)
+class CancelNewPlantPopup(Popup):
+    def press_button(self,instance):
+        instance.disabled = True
+        instance.color = MDApp.get_running_app().press_word_button
+    def release_button(self,instance):
+        instance.disabled = False
+        if instance.text == 'quit':
+            instance.color = MDApp.get_running_app().wrong_pass_warn
+        else:
+            instance.color = MDApp.get_running_app().primary_font_color
+    def quit_create(self,inctance):
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
+        self.dismiss()
+
+class PlantColorPickerPopUp(Popup):
+    def on_pre_open(self):
+        self.ids.color_picker.color = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.represent_color
+    def press_button(self,instance):
+        instance.disabled = True
+        instance.color = MDApp.get_running_app().press_word_button
+    def release_button(self,instance):
+        instance.disabled = False
+        if instance.text == 'apply':
+            instance.color = MDApp.get_running_app().wrong_pass_warn
+        else:
+            instance.color = MDApp.get_running_app().primary_font_color
+    def apply_color(self,instance):
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.represent_color = self.ids.color_picker.color
+        self.dismiss()
+
+class NewPlantScreen(Screen):
+    def on_pre_enter(self, *args):
+        self.represent_color = GetRGBA()
+    def on_enter(self, *args):
+        self.parent.parent.ids.overlay2.background_color = (0,0,0,0.5)
+    def press_cancel_button(self,instance):
+        instance.disabled = True
+        instance.color = MDApp.get_running_app().press_word_button
+    def release_cancel_button(self,instance):
+        instance.disabled = False
+        instance.color = MDApp.get_running_app().wrong_pass_warn
+    def quit_screen(self):
+        self.parent.parent.ids.overlay2.background_color = (0,0,0,0)
+        self.parent.transition.mode = 'pop'
+        self.parent.transition.duration = 0.25
+        self.parent.transition.direction = 'down'
+        self.parent.current = 'profile_display'
+
+    def press_button(self,instance):
+        change_size = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
+                                center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'plant_avatar_picker':
+            change_size.start(self.ids.plant_avatar_picker_image)
+        else:
+            change_size.start(self.ids.plant_color_picker_image)
+    def release_button(self,instance):
+        change_size = Animation(width=instance.width, height=instance.height, disabled=False,
+                                center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'plant_avatar_picker':
+            change_size.start(self.ids.plant_avatar_picker_image)
+        else:
+            change_size.start(self.ids.plant_color_picker_image)
+
 class PlantProfilePage(Screen):
-    pass
+    def add_new_plant(self,instance):
+        self.ids.overlay.canvas.clear()
+        with self.ids.overlay.canvas:
+            Color(0,0,0,0.5)
+            Rectangle(pos=self.pos, size=self.size)
+        self.ids.profile_and_add.transition = CardTransition()
+        self.ids.profile_and_add.transition.mode = 'push'
+        self.ids.profile_and_add.transition.duration = 0.25
+        self.ids.profile_and_add.transition.direction = 'up'
+        self.ids.profile_and_add.current = 'new_plant_screen'
 class CalendarPage(Screen):
     pass
 class CommunityPage(Screen):
@@ -697,7 +776,6 @@ class PlantApp(MDApp):
     @property
     def highlight_button(self):
         return self.theme_list[self.theme]['highlight_button']
-
     def play_sound(self, filename):
         sound = SoundLoader.load('soundfx/'+filename)
         if sound:

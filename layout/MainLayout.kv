@@ -1,6 +1,6 @@
-#:import Gradient kivy_gradient.Gradient
-#: import ew kivy.uix.effectwidget
+#: import Gradient kivy_gradient.Gradient
 #: import Window kivy.core.window.Window
+#: import Factory kivy.factory.Factory
 WindowManager:
     StartUp:
         id: start_up
@@ -1307,7 +1307,7 @@ WindowManager:
         height: self.parent.height*0.6
         width: self.height
         pos_hint: {'center_x':0.15, 'center_y':0.5}
-        radius: self.height, self.height, self.height, self.height
+        radius: self.height/2, self.height/2, self.height/2, self.height/2
 
     FloatLayout:
         canvas:
@@ -1319,6 +1319,308 @@ WindowManager:
         size_hint: 1,None
         height: self.parent.height/100
         pos_hint: {'y':0}
+
+<CancelNewPlantPopup>:
+    auto_dismiss: False
+    size_hint: 0.8,0.2
+    pos_hint: {'center_x': 0.5, 'y': 0.5}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: 'Are you sure you want to quit creation?'
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/7
+    separator_color: 0.5,0.5,0.5,0.25
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+        # line decorator
+        FloatLayout:
+            size_hint: None, 1
+            width: '2dp'
+            pos_hint: {'center_x':0.5, 'y':0}
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.25
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'right':0.5, 'y':0}
+            text: 'cancel'
+            color: app.primary_font_color
+            bold: True
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/2
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.dismiss()
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'x':0.5, 'y':0}
+            text: 'quit'
+            bold: True
+            color: app.wrong_pass_warn
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/2
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.quit_create(self)
+
+<PlantColorPickerPopUp>:
+    auto_dismiss: False
+    size_hint: 1,0.8
+    pos_hint: {'center_x': 0.5, 'y': 1.15/12}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: 'Pick a color to represent your plant'
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/30
+    separator_color: 0.5,0.5,0.5,0.25
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        FloatLayout:
+            size_hint: 1,0.8
+            pos_hint: {'center_x': 0.5, 'top': 1}
+            canvas:
+                Color:
+                    rgba: 0,0,0,1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            ColorPicker:
+                id: color_picker
+                size_hint: 1,1
+                pos_hint: {'center_x': 0.5, 'top': 1}
+                color: 0,0,0,0
+        FloatLayout:
+            size_hint: 1,0.2
+            pos_hint: {'center_x': 0.5, 'y': 0}
+            # line decorator
+            FloatLayout:
+                size_hint: None, 1
+                width: '2dp'
+                pos_hint: {'center_x':0.5, 'y':0}
+                canvas:
+                    Color:
+                        rgba: 0.5,0.5,0.5,0.25
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Button:
+                size_hint: 0.5,1
+                pos_hint: {'right':0.5, 'y':0}
+                text: 'cancel'
+                bold: True
+                color: app.primary_font_color
+                text_size: self.size
+                valign: 'center'
+                halign: 'center'
+                font_size: self.height/4
+                background_color: 0,0,0,0
+                on_press:
+                    app.play_sound('sliding.wav')
+                    root.press_button(self)
+                on_release:
+                    root.release_button(self)
+                    root.dismiss()
+            Button:
+                size_hint: 0.5,1
+                pos_hint: {'x':0.5, 'y':0}
+                text: 'apply'
+                color: app.wrong_pass_warn
+                text_size: self.size
+                bold: True
+                valign: 'center'
+                halign: 'center'
+                font_size: self.height/4
+                background_color: 0,0,0,0
+                on_press:
+                    app.play_sound('next.wav')
+                    root.press_button(self)
+                on_release:
+                    root.release_button(self)
+                    root.apply_color(self)
+
+<NewPlantScreen>:
+    represent_color: 0,0,0,0
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_y':0.35}
+        canvas:
+            Color:
+                rgba: app.background_color
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+        Image:
+            size_hint: None, 0.03
+            width: self.height*2
+            pos_hint: {'center_x': 0.5, 'center_y': 0.975}
+            source: 'layout/img/two_dash.png'
+            color: app.primary_font_color
+            allow_stretch: True
+        Button:
+            size_hint: 0.25,0.05
+            pos_hint: {'right': 0.95, 'top': 1}
+            text: 'cancel'
+            color: app.wrong_pass_warn
+            valign: 'center'
+            halign: 'center'
+            text_size: self.size
+            font_size: self.height*0.6
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('search.wav')
+                root.press_cancel_button(self)
+            on_release:
+                Factory.CancelNewPlantPopup().open()
+                root.release_cancel_button(self)
+
+        ScrollView:
+            size_hint: 1, float(0.95-1.15/12)
+            pos_hint: {'center_x':0.5,'top':0.95}
+            bar_color: 0,0,0,0
+            bar_inactive_color: 0,0,0,0
+            BoxLayout:
+                size_hint: 1,None
+                height: self.minimum_height
+                pos_hint: {'top': 1}
+                orientation: 'vertical'
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.12
+                    Label:
+                        size_hint: 0.5,0.75
+                        pos_hint: {'center_x': 0.5, 'top':1}
+                        text: 'Create'
+                        color: app.primary_font_color
+                        halign: 'center'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.6
+                        bold: True
+                    Label:
+                        size_hint: 1,0.35
+                        pos_hint: {'center_x': 0.5, 'y':0.05}
+                        text: 'Let\'s add a new plant to your garden!'
+                        color: app.secondary_font_color
+                        halign: 'center'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.6
+                    FloatLayout:
+                        size_hint: 1, None
+                        height: '2dp'
+                        pos_hint: {'center_x':0.5, 'y':0}
+                        canvas:
+                            Color:
+                                rgba: 0.5,0.5,0.5,0.25
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.5
+                    FloatLayout:
+                        size_hint: None, 1
+                        width: self.height*1.5
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                        Image:
+                            id: color_wheel
+                            size_hint: None, 0.7
+                            width: self.height
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                            source: 'layout/img/color_wheel.png'
+                            allow_stretch: True
+                            color: root.represent_color
+                        FitImage:
+                            id: color_wheel
+                            size_hint: None, 0.6
+                            width: self.height
+                            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                            source: 'layout/img/default_plant_avatar.png'
+                            allow_stretch: True
+                            radius: self.height/2, self.height/2, self.height/2, self.height/2
+                        Button:
+                            id: plant_avatar_picker
+                            name: 'plant_avatar_picker'
+                            size_hint: None, 0.15
+                            width: self.height
+                            pos_hint: {'center_x': 0.65, 'center_y': 0.4}
+                            background_color: 0,0,0,0
+                            on_press:
+                                app.play_sound('search.wav')
+                                root.press_button(self)
+                            on_release:
+                                root.release_button(self)
+                            Image:
+                                id: plant_avatar_picker_image
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/camera.png'
+                                allow_stretch: True
+                                color: app.primary_font_color
+                        Image:
+                            id: plant_represent_color
+                            size_hint: 0.53,0.03
+                            pos_hint: {'x': 0.2,'center_y': 0.1}
+                            source: ''
+                            allow_stretch: True
+                            color: root.represent_color
+                        Button:
+                            id: color_picker
+                            name: 'color_picker'
+                            size_hint: None, 0.075
+                            width: self.height
+                            pos_hint: {'right': 0.8, 'center_y': 0.1}
+                            background_color: 0,0,0,0
+                            on_press:
+                                app.play_sound('search.wav')
+                                root.press_button(self)
+                            on_release:
+                                Factory.PlantColorPickerPopUp().open()
+                                root.release_button(self)
+                            Image:
+                                id: plant_color_picker_image
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/color_picker.png'
+                                allow_stretch: True
+                                color: 0.5,0.5,0.5,0.5
+
+                    FloatLayout:
+                        size_hint: 1, None
+                        height: '2dp'
+                        pos_hint: {'center_x':0.5, 'y':0}
+                        canvas:
+                            Color:
+                                rgba: 0.5,0.5,0.5,0.25
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
 
 
 <PlantProfilePage>:
@@ -1341,6 +1643,12 @@ WindowManager:
                 size: self.size
         size_hint: 1, 0.8
         pos_hint: {'y':0}
+
+    Button:
+        id: overlay2
+        disabled: True
+        background_disabled_normal: ''
+        background_color: 0,0,0,0
     #----------------------------------------------------------------------------
     BoxLayout: # text
         size_hint: 0.8,1/12
@@ -1421,42 +1729,54 @@ WindowManager:
                 allow_stretch: True
                 color: 1, 1, 1, 1  # Set image color to full opacity
 
-    ScreenManager:
+    ScreenManager: # contain profile page and page for new plant item
+        id: profile_and_add
         Screen:
+            on_enter: overlay.canvas.clear()
             id: profile_display
             name: 'profile_display'
+            ScreenManager: # switch between normal and chat mode
+                id: normal_and_chat
+                Screen:
+                    id: normal_profile
+                    name: 'normal_profile'
 
-            # scroll view------------------------------------------------
-            FloatLayout: # scrollview background
-                canvas:
-                    Color:
-                        rgba: app.background_color
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-                size_hint: 1, 1
-                pos_hint: {'center_x':0.5,'top':0.75}
-            FloatLayout:
-                canvas:
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-                        texture: Gradient.vertical((0,0,0,0), (0,0,0,0.1))
-                size_hint: 1, 0.1/12
-                pos_hint: {'top':0.75}
-            ScrollView:
-                id: profile_display_box_scrollview
-                size_hint: 1, float(0.75-1.15/12)
-                pos_hint: {'center_x':0.5,'top':0.75}
-                bar_color: 0,0,0,0
-                bar_inactive_color: 0,0,0,0
-                BoxLayout:
-                    id: profile_display_box
-                    size_hint: 1,None
-                    height: self.minimum_height
-                    pos_hint: {'top': 1}
-                    orientation: 'vertical'
-            MDIconButton:
+                    # scroll view------------------------------------------------
+                    FloatLayout: # scrollview background
+                        canvas:
+                            Color:
+                                rgba: app.background_color
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        size_hint: 1, 1
+                        pos_hint: {'center_x':0.5,'top':0.75}
+                    FloatLayout:
+                        canvas:
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                                texture: Gradient.vertical((0,0,0,0), (0,0,0,0.1))
+                        size_hint: 1, 0.1/12
+                        pos_hint: {'top':0.75}
+                    ScrollView:
+                        id: profile_display_box_scrollview
+                        size_hint: 1, float(0.75-1.15/12)
+                        pos_hint: {'center_x':0.5,'top':0.75}
+                        bar_color: 0,0,0,0
+                        bar_inactive_color: 0,0,0,0
+                        BoxLayout:
+                            id: profile_display_box
+                            size_hint: 1,None
+                            height: self.minimum_height
+                            pos_hint: {'top': 1}
+                            orientation: 'vertical'
+
+                Screen
+                    id: chat_profile
+                    name: 'chat_profile'
+
+            MDIconButton: # add new plant button
                 size_hint: None,0.1
                 width: self.height
                 pos_hint: {"center_x": 0.85, "y": 1.5/12}
@@ -1465,14 +1785,18 @@ WindowManager:
                 icon_size: self.height*0.7
                 md_bg_color: app.highlight_button
                 on_press: app.play_sound('search.wav')
-
-
-        Screen:
-            id: new_plant_item
-            name: 'new_plant_item'
-        Screen:
-            id: curr_plant_item
-            name: 'curr_plant_item'
+                on_release: root.add_new_plant(self)
+            FloatLayout:
+                id: overlay
+                canvas:
+                    Color:
+                        rgba: 0,0,0,0
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+        NewPlantScreen:
+            id: new_plant_screen
+            name: 'new_plant_screen'
 
 <CalendarPage>:
     Image:
