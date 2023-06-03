@@ -5,6 +5,7 @@ from kivy.animation import Animation
 from kivy.uix.popup import Popup
 from kivy.graphics import Color, Rectangle
 from kivy.core.audio import SoundLoader
+from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition,FallOutTransition, CardTransition, WipeTransition
 from kivy.clock import Clock
 from kivy.uix.colorpicker import ColorPicker
@@ -76,9 +77,30 @@ class PlantColorPickerPopUp(Popup):
     def apply_color(self,instance):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.represent_color = self.ids.color_picker.color
         self.dismiss()
+class YearButton(Button):
+    def press_button(self, instance):
+        instance.disabled = True
+        instance.background_color = MDApp.get_running_app().highlight_button
 
+    def release_button(self, instance):
+        text = instance.text if instance.text != 'None' else ''
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.age_text.text = text
+        self.parent.parent.parent.parent.parent.parent.dismiss()
+        instance.disabled = False
+        instance.background_color = MDApp.get_running_app().background_color
+class PlantYearSelectionPopup(Popup):
+    def on_pre_open(self, *args):
+        self.ids.scroll_view.scroll_y = 1
+        self.ids.year_display.clear_widgets()
+        year = datetime.now().year
+        year_box = YearButton(text='None', height=Window.size[1] / 15)
+        self.ids.year_display.add_widget(year_box)
+        for a in reversed(range(year-100,year+1)):
+            year_box = YearButton(text=str(a), height = Window.size[1]/15)
+            self.ids.year_display.add_widget(year_box)
 class NewPlantScreen(Screen):
     def on_pre_enter(self, *args):
+        self.ids.scroll_view.scroll_y = 1
         self.represent_color = GetRGBA()
     def on_enter(self, *args):
         self.parent.parent.ids.overlay2.background_color = (0,0,0,0.5)
@@ -100,15 +122,19 @@ class NewPlantScreen(Screen):
                                 center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
         if instance.name == 'plant_avatar_picker':
             change_size.start(self.ids.plant_avatar_picker_image)
-        else:
+        elif instance.name == 'plant_color_picker':
             change_size.start(self.ids.plant_color_picker_image)
+        else:
+            change_size.start(self.ids.set_age_image)
     def release_button(self,instance):
         change_size = Animation(width=instance.width, height=instance.height, disabled=False,
                                 center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
         if instance.name == 'plant_avatar_picker':
             change_size.start(self.ids.plant_avatar_picker_image)
-        else:
+        elif instance.name == 'plant_color_picker':
             change_size.start(self.ids.plant_color_picker_image)
+        else:
+            change_size.start(self.ids.set_age_image)
 
 class PlantProfilePage(Screen):
     def add_new_plant(self,instance):
@@ -146,7 +172,8 @@ class SearchResult(ThreeLineIconListItem):
         self.parent.parent.parent.parent.current = 'encyclopedia_search_item'
 
 class SearchItemScreen(Screen):
-    def get_info(self,instance):
+    def on_pre_enter(self, *args):
+        self.ids.scroll_view.scroll_y = 1
         self.ids.info.text = self.parent.parent.item_info
         self.ids.descryption.text = self.parent.parent.item_descryption
     def press_back(self, instance):  # Back button
@@ -189,6 +216,7 @@ class WikiPage(Screen):
     item_descryption = ''
 
     def start_crawling(self,direction=''):
+        self.ids.scroll_view.scroll_y = 1
         self.ids.first_page.allowed = False
         self.ids.previous_page.allowed = False
         self.ids.next_page.allowed = False
