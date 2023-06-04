@@ -8,6 +8,7 @@ from kivy.core.audio import SoundLoader
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition,FallOutTransition, CardTransition, WipeTransition
 from kivy.clock import Clock
+from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.colorpicker import ColorPicker
 from kivy.uix.videoplayer import VideoPlayer
 from datetime import datetime
@@ -29,6 +30,7 @@ Config.set('graphics', 'height', '700')
 from kivy.core.window import Window
 from kivymd.app import MDApp
 from kivymd.uix.list import ThreeLineIconListItem
+from kivymd.uix.behaviors import CommonElevationBehavior
 
 # Declare Main pages ----------------------------------------
 class HomePage(Screen):
@@ -60,6 +62,20 @@ class CancelNewPlantPopup(Popup):
             instance.color = MDApp.get_running_app().primary_font_color
     def quit_create(self,inctance):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
+        self.dismiss()
+
+class ConfirmNextStepPopup(Popup):
+    def press_button(self,instance):
+        instance.disabled = True
+        instance.color = MDApp.get_running_app().press_word_button
+    def release_button(self,instance):
+        instance.disabled = False
+        if instance.text == 'confirm':
+            instance.color = MDApp.get_running_app().wrong_pass_warn
+        else:
+            instance.color = MDApp.get_running_app().primary_font_color
+    def confirm(self,inctance):
+        #MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
         self.dismiss()
 
 class PlantColorPickerPopUp(Popup):
@@ -98,10 +114,25 @@ class PlantYearSelectionPopup(Popup):
         for a in reversed(range(year-100,year+1)):
             year_box = YearButton(text=str(a), height = Window.size[1]/15)
             self.ids.year_display.add_widget(year_box)
+class ShadowButton(CommonElevationBehavior,Button):
+    pass
 class NewPlantScreen(Screen):
     def on_pre_enter(self, *args):
         self.ids.scroll_view.scroll_y = 1
         self.represent_color = GetRGBA()
+        # name (auto)
+        self.specie_detection = ''
+        self.ids.color_wheel.source = 'layout/img/default_plant_avatar.png'
+        self.ids.toggle_manual.active = False
+        # name (manual)
+        self.ids.manual_input_text.text = ''
+        # age
+        self.ids.age_text.text = ''
+        # location
+        self.ids.location_text.text = ''
+        self.ids.scroll_view_extra.scroll_y = 1
+        # extra notes
+        self.ids.extra_notes_text.text = ''
     def on_enter(self, *args):
         self.parent.parent.ids.overlay2.background_color = (0,0,0,0.5)
     def press_cancel_button(self,instance):
@@ -124,8 +155,10 @@ class NewPlantScreen(Screen):
             change_size.start(self.ids.plant_avatar_picker_image)
         elif instance.name == 'plant_color_picker':
             change_size.start(self.ids.plant_color_picker_image)
-        else:
+        elif instance.name == 'set_age':
             change_size.start(self.ids.set_age_image)
+        else:
+            change_size.start(self.ids.confirm_new_plant)
     def release_button(self,instance):
         change_size = Animation(width=instance.width, height=instance.height, disabled=False,
                                 center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
@@ -133,8 +166,12 @@ class NewPlantScreen(Screen):
             change_size.start(self.ids.plant_avatar_picker_image)
         elif instance.name == 'plant_color_picker':
             change_size.start(self.ids.plant_color_picker_image)
-        else:
+        elif instance.name == 'set_age':
             change_size.start(self.ids.set_age_image)
+        else:
+            change_size = Animation(size_hint = (0.8,0.8), disabled=False,
+                                    center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+            change_size.start(self.ids.confirm_new_plant)
 
 class PlantProfilePage(Screen):
     def add_new_plant(self,instance):
@@ -375,7 +412,9 @@ class StartUp(Screen):
                 setattr(default_plant, 'name', MDApp.get_running_app().plant_list[callable_id]['name'])
                 setattr(default_plant, 'represent_color', MDApp.get_running_app().plant_list[callable_id]['represent_color'])
                 setattr(default_plant, 'avatar', MDApp.get_running_app().plant_list[callable_id]['avatar'])
-                setattr(default_plant, 'next_action', MDApp.get_running_app().plant_list[callable_id]['next_action'])
+                setattr(default_plant, 'age', MDApp.get_running_app().plant_list[callable_id]['age'])
+                setattr(default_plant, 'location', MDApp.get_running_app().plant_list[callable_id]['location'])
+                setattr(default_plant, 'extra', MDApp.get_running_app().plant_list[callable_id]['extra'])
                 self.parent.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
                     default_plant)
 

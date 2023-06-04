@@ -1275,7 +1275,9 @@ WindowManager:
     name: ''
     represent_color: 0,0,0,0
     avatar: ''
-    next_action: ''
+    age: ''
+    location: ''
+    extra: ''
     size_hint: 1,None
 
     Button:
@@ -1381,6 +1383,67 @@ WindowManager:
                 root.release_button(self)
                 root.quit_create(self)
 
+<ConfirmNextStepPopup>:
+    auto_dismiss: False
+    size_hint: 0.8,0.2
+    pos_hint: {'center_x': 0.5, 'y': 0.5}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: 'Are you sure all info are correct?'
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/7
+    separator_color: 0.5,0.5,0.5,0.25
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+        # line decorator
+        FloatLayout:
+            size_hint: None, 1
+            width: '2dp'
+            pos_hint: {'center_x':0.5, 'y':0}
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.25
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'right':0.5, 'y':0}
+            text: 'cancel'
+            color: app.primary_font_color
+            bold: True
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/2
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.dismiss()
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'x':0.5, 'y':0}
+            text: 'confirm'
+            bold: True
+            color: app.wrong_pass_warn
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/2
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.confirm(self)
+
 <PlantColorPickerPopUp>:
     auto_dismiss: False
     size_hint: 1,0.8
@@ -1470,7 +1533,7 @@ WindowManager:
     color: app.primary_font_color
     font_size: self.height/3
     on_press:
-        app.play_sound('search.wav')
+        app.play_sound('next2.wav')
         root.press_button(self)
     on_release:
         root.release_button(self)
@@ -1506,8 +1569,8 @@ WindowManager:
                 height: self.minimum_height
                 orientation: 'vertical'
 
-
 <NewPlantScreen>:
+    specie_detection: ''
     represent_color: 0,0,0,0
     FloatLayout:
         size_hint: 1,1
@@ -1542,466 +1605,518 @@ WindowManager:
                 Factory.CancelNewPlantPopup().open()
                 root.release_cancel_button(self)
 
-        ScrollView:
-            id: scroll_view
-            size_hint: 1, float(0.95-0.15-1.15/12)
-            pos_hint: {'center_x':0.5,'top':0.95}
-            bar_color: 0,0,0,0
-            bar_inactive_color: 0,0,0,0
-            BoxLayout:
-                size_hint: 1,None
-                height: self.minimum_height
-                pos_hint: {'top': 1}
-                orientation: 'vertical'
+        ScreenManager:
+            size_hint: 1,1
+            pos_hint: {'center_y': 0.5,'center_x':0.5}
+            Screen:
+                name: 'new_plant_step1'
+                ScrollView:
+                    id: scroll_view
+                    size_hint: 1, float(0.95-0.15-1.15/12)
+                    pos_hint: {'center_x':0.5,'top':0.95}
+                    bar_color: 0,0,0,0
+                    bar_inactive_color: 0,0,0,0
+                    BoxLayout:
+                        size_hint: 1,None
+                        height: self.minimum_height
+                        pos_hint: {'top': 1}
+                        orientation: 'vertical'
 
-                # Titles
-                FloatLayout:
-                    size_hint: 1,None
-                    height: self.parent.parent.height*0.146
-                    Label:
-                        size_hint: 0.5,0.75
-                        pos_hint: {'center_x': 0.5, 'top':1}
-                        text: 'Create'
-                        color: app.primary_font_color
-                        halign: 'center'
-                        valign: 'center'
-                        text_size: self.size
-                        font_size: self.height*0.6
-                        bold: True
-                    Label:
-                        size_hint: 1,0.35
-                        pos_hint: {'center_x': 0.5, 'y':0.05}
-                        text: 'Let\'s add a new plant to your garden!'
-                        color: app.secondary_font_color
-                        halign: 'center'
-                        valign: 'center'
-                        text_size: self.size
-                        font_size: self.height*0.6
-                    FloatLayout:
-                        size_hint: 1, None
-                        height: '2dp'
-                        pos_hint: {'center_x':0.5, 'y':0}
-                        canvas:
-                            Color:
-                                rgba: 0.5,0.5,0.5,0.25
-                            Rectangle:
-                                size: self.size
-                                pos: self.pos
-
-                # Color wheel and avatar
-                FloatLayout:
-                    size_hint: 1,None
-                    height: self.parent.parent.height*0.6
-                    # auto detect specie (the title)
-                    FloatLayout:
-                        size_hint: None,None
-                        height: scroll_view.height/20
-                        width: self.height*13
-                        pos_hint: {'x':0.1, 'top': 0.95}
-                        MDLabel:
-                            size_hint: 0.9, 1
-                            pos_hint: {'x': 0.1, 'center_y':0.5}
-                            text: 'AVATAR/AUTO-DETECT'
-                            bold: True
-                            font_style: 'Caption'
-                            color: app.primary_background_color
-                            halign: 'left'
-                            valign: 'center'
-                            text_size: self.size
-                            font_size: self.height*0.75
-                        Button:
-                            disabled: True
-                            size_hint: None, 1
-                            width: self.height
-                            pos_hint: {'x': 0, 'center_y': 0.5}
-                            background_color: 0,0,0,0
-                            Image:
-                                size_hint: None,None
-                                width: self.parent.width
-                                height: self.parent.height
-                                center_x: self.parent.center_x
-                                center_y: self.parent.center_y
-                                source: 'layout/img/camera.png'
-                                allow_stretch: True
-                                color: app.primary_background_color
-                    FloatLayout:
-                        size_hint: None, 1
-                        width: self.height*1.5
-                        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                        # color wheel
-                        Image:
-                            id: color_wheel
-                            size_hint: None, 0.7
-                            width: self.height
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.45}
-                            source: 'layout/img/color_wheel.png'
-                            allow_stretch: True
-                            color: root.represent_color
-                        FitImage:
-                            id: color_wheel
-                            size_hint: None, 0.6
-                            width: self.height
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.45}
-                            source: 'layout/img/default_plant_avatar.png'
-                            allow_stretch: True
-                            radius: self.height/2, self.height/2, self.height/2, self.height/2
-                        Button:
-                            id: plant_avatar_picker
-                            name: 'plant_avatar_picker'
-                            size_hint: None, 0.15
-                            width: self.height
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.45}
-                            background_color: 0,0,0,0
-                            on_press:
-                                app.play_sound('search.wav')
-                                root.press_button(self)
-                            on_release:
-                                root.release_button(self)
-                            Image:
-                                id: plant_avatar_picker_image
-                                size_hint: None,None
-                                width: self.parent.width
-                                height: self.parent.height
-                                center_x: self.parent.center_x
-                                center_y: self.parent.center_y
-                                source: 'layout/img/camera.png'
-                                allow_stretch: True
+                        # Titles
+                        FloatLayout:
+                            size_hint: 1,None
+                            height: self.parent.parent.height*0.146
+                            Label:
+                                size_hint: 0.5,0.75
+                                pos_hint: {'center_x': 0.5, 'top':1}
+                                text: 'Create'
                                 color: app.primary_font_color
-                        # color picker
-                        Image:
-                            id: plant_represent_color
-                            size_hint: 0.03,0.6
-                            pos_hint: {'center_x': 0.8,'center_y': 0.5}
-                            source: ''
-                            allow_stretch: True
-                            color: root.represent_color
-                        Button:
-                            id: color_picker
-                            name: 'color_picker'
-                            size_hint: None, 0.075
-                            width: self.height
-                            pos_hint: {'center_x': 0.8, 'y': 0.1}
-                            background_color: 0,0,0,0
-                            on_press:
-                                app.play_sound('search.wav')
-                                root.press_button(self)
-                            on_release:
-                                Factory.PlantColorPickerPopUp().open()
-                                root.release_button(self)
-                            Image:
-                                id: plant_color_picker_image
-                                size_hint: None,None
-                                width: self.parent.width
-                                height: self.parent.height
-                                center_x: self.parent.center_x
-                                center_y: self.parent.center_y
-                                source: 'layout/img/color_picker.png'
-                                allow_stretch: True
-                                color: 0.5,0.5,0.5,0.5
-                    # line separator
-                    FloatLayout:
-                        size_hint: 1, None
-                        height: '2dp'
-                        pos_hint: {'center_x':0.5, 'y':0}
-                        canvas:
-                            Color:
-                                rgba: 0.5,0.5,0.5,0.25
-                            Rectangle:
-                                size: self.size
-                                pos: self.pos
-                # info input
-                FloatLayout:
-                    size_hint: 1,None
-                    height: self.parent.parent.height*0.18
-
-                    # manual input specie (the title)
-                    FloatLayout:
-                        size_hint: None,None
-                        height: scroll_view.height/20
-                        width: self.height*13
-                        pos_hint: {'x':0.1, 'top': 0.95}
-                        MDLabel:
-                            size_hint: 0.9, 1
-                            pos_hint: {'x': 0.1, 'center_y':0.5}
-                            text: 'MANUAL-INPUT SPECIE'
-                            bold: True
-                            font_style: 'Caption'
-                            color: app.primary_background_color
-                            halign: 'left'
-                            valign: 'center'
-                            text_size: self.size
-                            font_size: self.height*0.75
-                        Button:
-                            disabled: True
-                            size_hint: None, 1
-                            width: self.height
-                            pos_hint: {'x': 0, 'center_y': 0.5}
-                            background_color: 0,0,0,0
-                            Image:
-                                size_hint: None,None
-                                width: self.parent.width
-                                height: self.parent.height
-                                center_x: self.parent.center_x
-                                center_y: self.parent.center_y
-                                source: 'layout/img/manual_input.png'
-                                allow_stretch: True
-                                color: app.primary_background_color
-
-                        MDSwitch:
-                            id: toggle_manual
-                            width: self.parent.height*2
-                            pos_hint: {'x':0.75, 'center_y': 0.5}
-                            track_color_active: app.secondary_background_color
-                            thumb_color_active: app.secondary_background_color
-                            thumb_color_inactive: 'lightgrey'
-
-                    MDTextField:
-                        id: manual_input_text
-                        max_text_length: 50
-                        size_hint: 0.8, None
-                        height: self.parent.height/2
-                        mode: 'round'
-                        valign: 'center'
-                        text_color_focus: app.primary_font_color
-                        line_color_focus: app.primary_background_color
-                        text_color_normal: app.primary_font_color
-                        pos_hint: {'center_x':0.5,'y': 0.1}
-                        opacity: 1 if toggle_manual.active else 0.2
-                        disabled: False if toggle_manual.active else True
-                        text_size: self.size
-                        font_size: Window.size[1]*0.03
-                        hint_text: 'name of plant'
-
-                    # line separator
-                    FloatLayout:
-                        size_hint: 1, None
-                        height: '2dp'
-                        pos_hint: {'center_x':0.5, 'y':0}
-                        canvas:
-                            Color:
-                                rgba: 0.5,0.5,0.5,0.25
-                            Rectangle:
-                                size: self.size
-                                pos: self.pos
-
-                # more info input (location, age, extra note)
-                # age (optional)
-                FloatLayout:
-                    size_hint: 1,None
-                    height: self.parent.parent.height*0.18
-                    FloatLayout:
-                        size_hint: None,None
-                        height: scroll_view.height/20
-                        width: self.height*13
-                        pos_hint: {'x':0.1, 'top': 0.95}
-                        MDLabel:
-                            size_hint: 0.9, 1
-                            pos_hint: {'x': 0.1, 'center_y':0.5}
-                            text: 'AGE in YEAR (OPTIONAL)'
-                            bold: True
-                            font_style: 'Caption'
-                            color: app.primary_background_color
-                            halign: 'left'
-                            valign: 'center'
-                            text_size: self.size
-                            font_size: self.height*0.75
-                        Button:
-                            disabled: True
-                            size_hint: None, 1
-                            width: self.height
-                            pos_hint: {'x': 0, 'center_y': 0.5}
-                            background_color: 0,0,0,0
-                            Image:
-                                size_hint: None,None
-                                width: self.parent.width
-                                height: self.parent.height
-                                center_x: self.parent.center_x
-                                center_y: self.parent.center_y
-                                source: 'layout/img/age.png'
-                                allow_stretch: True
-                                color: app.primary_background_color
-
-                    MDTextField:
-                        id: age_text
-                        size_hint: 0.5, None
-                        disabled: True
-                        height: self.parent.height/2
-                        mode: 'round'
-                        halign: 'center'
-                        valign: 'center'
-                        text_color_normal: app.primary_font_color
-                        pos_hint: {'x':0.1,'y': 0.1}
-                        text_size: self.size
-                        font_size: Window.size[1]*0.03
-                    Button:
-                        id: set_age
-                        size_hint: None, None
-                        height: self.parent.height/2
-                        width: self.height
-                        pos_hint: {'x': 0.65, 'y': 0.1}
-                        background_color: 0,0,0,0
-                        on_press:
-                            app.play_sound('search.wav')
-                            root.press_button(self)
-                        on_release:
-                            Factory.PlantYearSelectionPopup().open()
-                            root.release_button(self)
-                        Image:
-                            id: set_age_image
-                            size_hint: None,None
-                            width: self.parent.width
-                            height: self.parent.height
-                            center_x: self.parent.center_x
-                            center_y: self.parent.center_y
-                            source: 'layout/img/arrow_up.png'
-                            allow_stretch: True
-                            color: app.primary_background_color
-
-                    # line separator
-                    FloatLayout:
-                        size_hint: 1, None
-                        height: '2dp'
-                        pos_hint: {'center_x':0.5, 'y':0}
-                        canvas:
-                            Color:
-                                rgba: 0.5,0.5,0.5,0.25
-                            Rectangle:
-                                size: self.size
-                                pos: self.pos
-
-                # location (optional)
-                FloatLayout:
-                    size_hint: 1,None
-                    height: self.parent.parent.height*0.18
-                    FloatLayout:
-                        size_hint: None,None
-                        height: scroll_view.height/20
-                        width: self.height*13
-                        pos_hint: {'x':0.1, 'top': 0.95}
-                        MDLabel:
-                            size_hint: 0.9, 1
-                            pos_hint: {'x': 0.1, 'center_y':0.5}
-                            text: 'LOCATION (OPTIONAL)'
-                            bold: True
-                            font_style: 'Caption'
-                            color: app.primary_background_color
-                            halign: 'left'
-                            valign: 'center'
-                            text_size: self.size
-                            font_size: self.height*0.75
-                        Button:
-                            disabled: True
-                            size_hint: None, 1
-                            width: self.height
-                            pos_hint: {'x': 0, 'center_y': 0.5}
-                            background_color: 0,0,0,0
-                            Image:
-                                size_hint: None,None
-                                width: self.parent.width
-                                height: self.parent.height
-                                center_x: self.parent.center_x
-                                center_y: self.parent.center_y
-                                source: 'layout/img/location.png'
-                                allow_stretch: True
-                                color: app.primary_background_color
-
-                    MDTextField:
-                        id: location_text
-                        max_text_length: 50
-                        size_hint: 0.8, None
-                        height: self.parent.height/2
-                        mode: 'round'
-                        valign: 'center'
-                        text_color_focus: app.primary_font_color
-                        line_color_focus: app.primary_background_color
-                        text_color_normal: app.primary_font_color
-                        pos_hint: {'center_x':0.5,'y': 0.1}
-                        text_size: self.size
-                        font_size: Window.size[1]*0.03
-                        hint_text: 'your country (and city)'
-
-                    # line separator
-                    FloatLayout:
-                        size_hint: 1, None
-                        height: '2dp'
-                        pos_hint: {'center_x':0.5, 'y':0}
-                        canvas:
-                            Color:
-                                rgba: 0.5,0.5,0.5,0.25
-                            Rectangle:
-                                size: self.size
-                                pos: self.pos
-
-                # Extra notes (optional)
-                FloatLayout:
-                    size_hint: 1,None
-                    height: self.parent.parent.height*0.4
-                    FloatLayout:
-                        size_hint: None,None
-                        height: scroll_view.height/20
-                        width: self.height*13
-                        pos_hint: {'x':0.1, 'top': 0.95}
-                        MDLabel:
-                            size_hint: 0.9, 1
-                            pos_hint: {'x': 0.1, 'center_y':0.5}
-                            text: 'EXTRA NOTES (OPTIONAL)'
-                            bold: True
-                            font_style: 'Caption'
-                            color: app.primary_background_color
-                            halign: 'left'
-                            valign: 'center'
-                            text_size: self.size
-                            font_size: self.height*0.75
-                        Button:
-                            disabled: True
-                            size_hint: None, 1
-                            width: self.height
-                            pos_hint: {'x': 0, 'center_y': 0.5}
-                            background_color: 0,0,0,0
-                            Image:
-                                size_hint: None,None
-                                width: self.parent.width
-                                height: self.parent.height
-                                center_x: self.parent.center_x
-                                center_y: self.parent.center_y
-                                source: 'layout/img/age.png'
-                                allow_stretch: True
-                                color: app.primary_background_color
-
-                    ScrollView:
-                        size_hint: 1, None
-                        height: self.parent.height*0.65
-                        pos_hint: {'center_x':0.5,'y': 0.1}
-                        BoxLayout:
-                            size_hint: 1, None
-                            height: self.minimum_height
-                            pos_hint: {'center_x':0.5}
-                            padding: self.width*0.1
-                            MDTextField:
-                                id: extra_notes_text
-                                max_text_length: 200
+                                halign: 'center'
+                                valign: 'center'
+                                text_size: self.size
+                                font_size: self.height*0.6
+                                bold: True
+                            Label:
+                                size_hint: 1,0.35
+                                pos_hint: {'center_x': 0.5, 'y':0.05}
+                                text: 'Let\'s add a new plant to your garden!'
+                                color: app.secondary_font_color
+                                halign: 'center'
+                                valign: 'center'
+                                text_size: self.size
+                                font_size: self.height*0.6
+                            FloatLayout:
                                 size_hint: 1, None
-                                pos_hint: {'center_x':0.5}
-                                mode: 'fill'
+                                height: '2dp'
+                                pos_hint: {'center_x':0.5, 'y':0}
+                                canvas:
+                                    Color:
+                                        rgba: 0.5,0.5,0.5,0.25
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                        # Color wheel and avatar
+                        FloatLayout:
+                            size_hint: 1,None
+                            height: self.parent.parent.height*0.6
+                            # auto detect specie (the title)
+                            FloatLayout:
+                                size_hint: None,None
+                                height: scroll_view.height/20
+                                width: self.height*13
+                                pos_hint: {'x':0.1, 'top': 0.95}
+                                MDLabel:
+                                    size_hint: 0.9, 1
+                                    pos_hint: {'x': 0.1, 'center_y':0.5}
+                                    text: 'AVATAR / DETECT SPECIE'
+                                    bold: True
+                                    font_style: 'Caption'
+                                    color: app.primary_background_color
+                                    halign: 'left'
+                                    valign: 'center'
+                                    text_size: self.size
+                                    font_size: self.height*0.75
+                                Button:
+                                    disabled: True
+                                    size_hint: None, 1
+                                    width: self.height
+                                    pos_hint: {'x': 0, 'center_y': 0.5}
+                                    background_color: 0,0,0,0
+                                    Image:
+                                        size_hint: None,None
+                                        width: self.parent.width
+                                        height: self.parent.height
+                                        center_x: self.parent.center_x
+                                        center_y: self.parent.center_y
+                                        source: 'layout/img/camera.png'
+                                        allow_stretch: True
+                                        color: app.primary_background_color
+                            FloatLayout:
+                                size_hint: None, 1
+                                width: self.height*1.5
+                                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                                # color wheel
+                                Image:
+                                    id: color_wheel
+                                    size_hint: None, 0.7
+                                    width: self.height
+                                    pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+                                    source: 'layout/img/color_wheel.png'
+                                    allow_stretch: True
+                                    color: root.represent_color
+                                FitImage:
+                                    id: color_wheel
+                                    size_hint: None, 0.6
+                                    width: self.height
+                                    pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+                                    source: 'layout/img/default_plant_avatar.png'
+                                    allow_stretch: True
+                                    radius: self.height/2, self.height/2, self.height/2, self.height/2
+                                Button:
+                                    id: plant_avatar_picker
+                                    name: 'plant_avatar_picker'
+                                    size_hint: None, 0.15
+                                    width: self.height
+                                    pos_hint: {'center_x': 0.5, 'center_y': 0.45}
+                                    background_color: 0,0,0,0
+                                    on_press:
+                                        app.play_sound('search.wav')
+                                        root.press_button(self)
+                                    on_release:
+                                        root.release_button(self)
+                                    Image:
+                                        id: plant_avatar_picker_image
+                                        size_hint: None,None
+                                        width: self.parent.width
+                                        height: self.parent.height
+                                        center_x: self.parent.center_x
+                                        center_y: self.parent.center_y
+                                        source: 'layout/img/camera.png'
+                                        allow_stretch: True
+                                        color: app.primary_font_color
+                                # color picker
+                                Image:
+                                    id: plant_represent_color
+                                    size_hint: 0.03,0.6
+                                    pos_hint: {'center_x': 0.8,'center_y': 0.5}
+                                    source: ''
+                                    allow_stretch: True
+                                    color: root.represent_color
+                                Button:
+                                    id: color_picker
+                                    name: 'color_picker'
+                                    size_hint: None, 0.075
+                                    width: self.height
+                                    pos_hint: {'center_x': 0.8, 'y': 0.1}
+                                    background_color: 0,0,0,0
+                                    on_press:
+                                        app.play_sound('search.wav')
+                                        root.press_button(self)
+                                    on_release:
+                                        Factory.PlantColorPickerPopUp().open()
+                                        root.release_button(self)
+                                    Image:
+                                        id: plant_color_picker_image
+                                        size_hint: None,None
+                                        width: self.parent.width
+                                        height: self.parent.height
+                                        center_x: self.parent.center_x
+                                        center_y: self.parent.center_y
+                                        source: 'layout/img/color_picker.png'
+                                        allow_stretch: True
+                                        color: 0.5,0.5,0.5,0.5
+                            # line separator
+                            FloatLayout:
+                                size_hint: 1, None
+                                height: '2dp'
+                                pos_hint: {'center_x':0.5, 'y':0}
+                                canvas:
+                                    Color:
+                                        rgba: 0.5,0.5,0.5,0.25
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+                        # info input
+                        FloatLayout:
+                            size_hint: 1,None
+                            height: self.parent.parent.height*0.18
+
+                            # manual input specie (the title)
+                            FloatLayout:
+                                size_hint: None,None
+                                height: scroll_view.height/20
+                                width: self.height*13
+                                pos_hint: {'x':0.1, 'top': 0.95}
+                                MDLabel:
+                                    size_hint: 0.9, 1
+                                    pos_hint: {'x': 0.1, 'center_y':0.5}
+                                    text: 'MANUAL-INPUT SPECIE'
+                                    bold: True
+                                    font_style: 'Caption'
+                                    color: app.primary_background_color
+                                    halign: 'left'
+                                    valign: 'center'
+                                    text_size: self.size
+                                    font_size: self.height*0.75
+                                Button:
+                                    disabled: True
+                                    size_hint: None, 1
+                                    width: self.height
+                                    pos_hint: {'x': 0, 'center_y': 0.5}
+                                    background_color: 0,0,0,0
+                                    Image:
+                                        size_hint: None,None
+                                        width: self.parent.width
+                                        height: self.parent.height
+                                        center_x: self.parent.center_x
+                                        center_y: self.parent.center_y
+                                        source: 'layout/img/manual_input.png'
+                                        allow_stretch: True
+                                        color: app.primary_background_color
+
+                                MDSwitch:
+                                    id: toggle_manual
+                                    width: self.parent.height*2
+                                    pos_hint: {'x':0.75, 'center_y': 0.5}
+                                    track_color_active: app.secondary_background_color
+                                    thumb_color_active: app.secondary_background_color
+                                    thumb_color_inactive: 'lightgrey'
+
+                            MDTextField:
+                                id: manual_input_text
+                                max_text_length: 50
+                                size_hint: 0.8, None
+                                height: self.parent.height/2
+                                mode: 'round'
+                                valign: 'center'
                                 text_color_focus: app.primary_font_color
                                 line_color_focus: app.primary_background_color
                                 text_color_normal: app.primary_font_color
-                                multiline: True
+                                pos_hint: {'center_x':0.5,'y': 0.1}
+                                opacity: 1 if toggle_manual.active else 0.2
+                                disabled: False if toggle_manual.active else True
                                 text_size: self.size
                                 font_size: Window.size[1]*0.03
-                                hint_text: 'e.g: how busy you are\nthis will help personalize schedules'
-                                hint_text_color_focus: 1,1,1,0
-                    # line separator
-                    FloatLayout:
-                        size_hint: 1, None
-                        height: '2dp'
-                        pos_hint: {'center_x':0.5, 'y':0}
-                        canvas:
-                            Color:
-                                rgba: 0.5,0.5,0.5,0.25
-                            Rectangle:
-                                size: self.size
-                                pos: self.pos
+                                hint_text: 'name of plant'
+
+                            # line separator
+                            FloatLayout:
+                                size_hint: 1, None
+                                height: '2dp'
+                                pos_hint: {'center_x':0.5, 'y':0}
+                                canvas:
+                                    Color:
+                                        rgba: 0.5,0.5,0.5,0.25
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                        # more info input (location, age, extra note)
+                        # age (optional)
+                        FloatLayout:
+                            size_hint: 1,None
+                            height: self.parent.parent.height*0.18
+                            FloatLayout:
+                                size_hint: None,None
+                                height: scroll_view.height/20
+                                width: self.height*13
+                                pos_hint: {'x':0.1, 'top': 0.95}
+                                MDLabel:
+                                    size_hint: 0.9, 1
+                                    pos_hint: {'x': 0.1, 'center_y':0.5}
+                                    text: 'AGE IN YEAR (OPTIONAL)'
+                                    bold: True
+                                    font_style: 'Caption'
+                                    color: app.primary_background_color
+                                    halign: 'left'
+                                    valign: 'center'
+                                    text_size: self.size
+                                    font_size: self.height*0.75
+                                Button:
+                                    disabled: True
+                                    size_hint: None, 1
+                                    width: self.height
+                                    pos_hint: {'x': 0, 'center_y': 0.5}
+                                    background_color: 0,0,0,0
+                                    Image:
+                                        size_hint: None,None
+                                        width: self.parent.width
+                                        height: self.parent.height
+                                        center_x: self.parent.center_x
+                                        center_y: self.parent.center_y
+                                        source: 'layout/img/age.png'
+                                        allow_stretch: True
+                                        color: app.primary_background_color
+
+                            MDTextField:
+                                id: age_text
+                                size_hint: 0.5, None
+                                disabled: True
+                                height: self.parent.height/2
+                                mode: 'round'
+                                halign: 'center'
+                                valign: 'center'
+                                text_color_normal: app.primary_font_color
+                                pos_hint: {'x':0.1,'y': 0.1}
+                                text_size: self.size
+                                font_size: Window.size[1]*0.03
+                            Button:
+                                id: set_age
+                                name: 'set_age'
+                                size_hint: None, None
+                                height: self.parent.height/2
+                                width: self.height
+                                pos_hint: {'x': 0.65, 'y': 0.1}
+                                background_color: 0,0,0,0
+                                on_press:
+                                    app.play_sound('search.wav')
+                                    root.press_button(self)
+                                on_release:
+                                    Factory.PlantYearSelectionPopup().open()
+                                    root.release_button(self)
+                                Image:
+                                    id: set_age_image
+                                    size_hint: None,None
+                                    width: self.parent.width
+                                    height: self.parent.height
+                                    center_x: self.parent.center_x
+                                    center_y: self.parent.center_y
+                                    source: 'layout/img/arrow_up.png'
+                                    allow_stretch: True
+                                    color: app.primary_background_color
+
+                            # line separator
+                            FloatLayout:
+                                size_hint: 1, None
+                                height: '2dp'
+                                pos_hint: {'center_x':0.5, 'y':0}
+                                canvas:
+                                    Color:
+                                        rgba: 0.5,0.5,0.5,0.25
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                        # location (optional)
+                        FloatLayout:
+                            size_hint: 1,None
+                            height: self.parent.parent.height*0.18
+                            FloatLayout:
+                                size_hint: None,None
+                                height: scroll_view.height/20
+                                width: self.height*13
+                                pos_hint: {'x':0.1, 'top': 0.95}
+                                MDLabel:
+                                    size_hint: 0.9, 1
+                                    pos_hint: {'x': 0.1, 'center_y':0.5}
+                                    text: 'LOCATION (OPTIONAL)'
+                                    bold: True
+                                    font_style: 'Caption'
+                                    color: app.primary_background_color
+                                    halign: 'left'
+                                    valign: 'center'
+                                    text_size: self.size
+                                    font_size: self.height*0.75
+                                Button:
+                                    disabled: True
+                                    size_hint: None, 1
+                                    width: self.height
+                                    pos_hint: {'x': 0, 'center_y': 0.5}
+                                    background_color: 0,0,0,0
+                                    Image:
+                                        size_hint: None,None
+                                        width: self.parent.width
+                                        height: self.parent.height
+                                        center_x: self.parent.center_x
+                                        center_y: self.parent.center_y
+                                        source: 'layout/img/location.png'
+                                        allow_stretch: True
+                                        color: app.primary_background_color
+
+                            MDTextField:
+                                id: location_text
+                                max_text_length: 50
+                                size_hint: 0.8, None
+                                height: self.parent.height/2
+                                mode: 'round'
+                                valign: 'center'
+                                text_color_focus: app.primary_font_color
+                                line_color_focus: app.primary_background_color
+                                text_color_normal: app.primary_font_color
+                                pos_hint: {'center_x':0.5,'y': 0.1}
+                                text_size: self.size
+                                font_size: Window.size[1]*0.03
+                                hint_text: 'your country (and city)'
+
+                            # line separator
+                            FloatLayout:
+                                size_hint: 1, None
+                                height: '2dp'
+                                pos_hint: {'center_x':0.5, 'y':0}
+                                canvas:
+                                    Color:
+                                        rgba: 0.5,0.5,0.5,0.25
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                        # Extra notes (optional)
+                        FloatLayout:
+                            size_hint: 1,None
+                            height: self.parent.parent.height*0.4
+                            FloatLayout:
+                                size_hint: None,None
+                                height: scroll_view.height/20
+                                width: self.height*13
+                                pos_hint: {'x':0.1, 'top': 0.95}
+                                MDLabel:
+                                    size_hint: 0.9, 1
+                                    pos_hint: {'x': 0.1, 'center_y':0.5}
+                                    text: 'EXTRA NOTES (OPTIONAL)'
+                                    bold: True
+                                    font_style: 'Caption'
+                                    color: app.primary_background_color
+                                    halign: 'left'
+                                    valign: 'center'
+                                    text_size: self.size
+                                    font_size: self.height*0.75
+                                Button:
+                                    disabled: True
+                                    size_hint: None, 1
+                                    width: self.height
+                                    pos_hint: {'x': 0, 'center_y': 0.5}
+                                    background_color: 0,0,0,0
+                                    Image:
+                                        size_hint: None,None
+                                        width: self.parent.width
+                                        height: self.parent.height
+                                        center_x: self.parent.center_x
+                                        center_y: self.parent.center_y
+                                        source: 'layout/img/age.png'
+                                        allow_stretch: True
+                                        color: app.primary_background_color
+
+                            ScrollView:
+                                id: scroll_view_extra
+                                size_hint: 1, None
+                                height: self.parent.height*0.65
+                                pos_hint: {'center_x':0.5,'y': 0.1}
+                                BoxLayout:
+                                    size_hint: 1, None
+                                    height: self.minimum_height
+                                    pos_hint: {'center_x':0.5}
+                                    padding: self.width*0.1
+                                    MDTextField:
+                                        id: extra_notes_text
+                                        max_text_length: 200
+                                        size_hint: 1, None
+                                        pos_hint: {'center_x':0.5}
+                                        mode: 'fill'
+                                        text_color_focus: app.primary_font_color
+                                        line_color_focus: app.primary_background_color
+                                        text_color_normal: app.primary_font_color
+                                        multiline: True
+                                        text_size: self.size
+                                        font_size: Window.size[1]*0.03
+                                        hint_text: 'e.g: what time you are available\nthis helps personalize schedules'
+                                        hint_text_color_focus: 1,1,1,0
+                            # line separator
+                            FloatLayout:
+                                size_hint: 1, None
+                                height: '2dp'
+                                pos_hint: {'center_x':0.5, 'y':0}
+                                canvas:
+                                    Color:
+                                        rgba: 0.5,0.5,0.5,0.25
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+                        # create profile
+                        FloatLayout:
+                            size_hint: 1,None
+                            height: self.parent.parent.height*0.2
+                            ShadowButton:
+                                id: confirm_new_plant
+                                name: 'confirm_new_plant'
+                                size_hint: 0.8, 0.8
+                                pos_hint: {'center_x':0.5, 'center_y':0.5}
+                                background_down: ''
+                                background_normal: ''
+                                background_color: app.secondary_background_color
+                                disabled: False if root.specie_detection != '' or (toggle_manual.active and manual_input_text.text != '') else True
+                                elevation: 2 if not self.disabled else 0
+                                shadow_offset: 0, 2
+                                opacity: 1 if not self.disabled else 0.5
+                                text: 'Create profile'
+                                color: app.primary_background_color
+                                text_size: self.size
+                                font_size: self.height/3
+                                bold: True
+                                valign: 'center'
+                                halign: 'center'
+                                on_press:
+                                    app.play_sound('next.wav')
+                                    root.press_button(self)
+                                on_release:
+                                    Factory.ConfirmNextStepPopup().open()
+                                    root.release_button(self)
+                            # line separator
+                            FloatLayout:
+                                size_hint: 1, None
+                                height: '2dp'
+                                pos_hint: {'center_x':0.5, 'y':0}
+                                canvas:
+                                    Color:
+                                        rgba: 0.5,0.5,0.5,0.25
+                                    Rectangle:
+                                        size: self.size
+                                        pos: self.pos
+
+
+
+
 
 
 <PlantProfilePage>:
