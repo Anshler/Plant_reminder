@@ -1,14 +1,75 @@
-plant0:
-  name: 'example'
-  represent_color: [1,0,0,1]
-  avatar: 'layout/img/background2.png'
-  age: ''
-  location: ''
-  extra: ''
-plant1:
-  name: 'example2'
-  represent_color: [0,0,1,1]
-  avatar: 'layout/img/background3.png'
-  age: ''
-  location: ''
-  extra: ''
+user0:
+  plant0:
+    age: '2012'
+    avatar: layout/img/background2.png
+    date_added: 2010/05/06
+    extra_notes: ''
+    location: ''
+    name: example
+    represent_color:
+    - 1
+    - 0
+    - 0
+    - 1
+  plant1:
+    age: ''
+    avatar: layout/img/background3.png
+    date_added: 2012/01/30
+    extra_notes: ''
+    location: ''
+    name: example2
+    represent_color:
+    - 0
+    - 0
+    - 1
+    - 1
+  plant2:
+    age: '2023'
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/05
+    extra_notes: ''
+    location: vietnam
+    name: cactus
+    represent_color:
+    - 0.4909619597624033
+    - 0.9610238598938982
+    - 0.030817385914126305
+    - 1
+  plant3:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/05
+    extra_notes: ''
+    location: South africa
+    name: Fiddle-leaf fig
+    represent_color:
+    - 0.19577177279433744
+    - 0.894537118815598
+    - 0.12969890667802553
+    - 1
+user1:
+  plant0:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/05
+    extra_notes: ''
+    location: vietnam
+    name: rose
+    represent_color:
+    - 0.9762991702411894
+    - 0.36367816575531986
+    - 0.7435471923993191
+    - 1
+user2:
+  plant0:
+    age: '2021'
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/05
+    extra_notes: ''
+    location: ''
+    name: tallnut
+    represent_color:
+    - 0.8356615742503182
+    - 0.9562348675852507
+    - 0.49733360464276444
+    - 1

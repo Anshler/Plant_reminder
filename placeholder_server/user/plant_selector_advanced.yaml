@@ -1,0 +1,113 @@
+user0:
+  plant0:
+    Humidity: ''
+    Light: ''
+    Others: ''
+    PH Level: ''
+    Suggested Placement Area: ''
+    Temperature: ''
+    Water: ''
+  plant1:
+    Humidity: ''
+    Light: ''
+    Others: ''
+    PH Level: ''
+    Suggested Placement Area: ''
+    Temperature: ''
+    Water: ''
+  plant2:
+    Humidity: "Cacti are tolerant of low humidity and can easily cope with the average\
+      \ humidity of Vietnam. You don\u2019t need to worry about humidity levels as\
+      \ cactus is desert plants and naturally adapted to dry air."
+    Light: "Cacti thrive in bright, direct sunlight, which is abundant in the tropics.\
+      \ Place the cactus near to a window that gets plenty of sunshine or under grow\
+      \ lights if it doesn\u2019t receive enough sunlight."
+    Others: Be cautious when handling cactus, as they are covered with sharp spines
+      that can cause injury. You may want to use a thick glove when handling them.
+      Fertilize the cactus once in a month during its active growth phase, which is
+      usually from spring to fall.
+    PH Level: Cactus prefers slightly acidic to slightly alkaline soil with a pH range
+      between 5.5-7.5. You can use cactus soil from a nursery, or mix sand and peat
+      moss from your garden to get the right pH.
+    Suggested Placement Area: "Place the cactus in a location with good air circulation\
+      \ and keep it away from drafts. Avoid placing it in areas where the temperature\
+      \ can drop below 10\xB0C."
+    Temperature: "Cactus typically prefers warm and hot temperatures, ranging from\
+      \ 20-30\xB0C. These are common temperature ranges in Vietnam, so your cactus\
+      \ should grow well in its natural environment."
+    Water: Cactus should be watered once in every 2-3 weeks. Water the cactus slowly
+      and deeply ensuring the soil is evenly moistened. Do not water when the soil
+      is wet or partially wet and avoid waterlogging as it can lead to root rot.
+  plant3:
+    Humidity: 'Fiddle leaf figs are native to tropical rainforests, which means they
+      like high humidity. For Southern Africa''s relatively dry climate, spraying
+      the leaves with a spray bottle as well as placing a bowl of water next to the
+      plant can help create a more humid environment around the plant. '
+    Light: Fiddle leaf figs need bright, filtered light. They like bright but indirect
+      sunlight and are happiest near a north-facing window. In South Africa, it is
+      highly recommended to place the plant in an area that gets strong morning light
+      but avoids afternoon sun. Too much direct sunlight can scorch their leaves.
+    Others: Fiddle-leaf figs can be a bit sensitive to changes in their environment,
+      so try not to move them around too much once you find their happy place. Check
+      the plant regularly for signs of pest infestation or other issues such as brown
+      spots on leaves or yellow leaves. If any issues are detected, take corrective
+      action such as treating the pests or adjusting watering or light levels.
+    PH Level: "Fiddle-leaf fig plants prefer slightly acidic soil with a pH between\
+      \ 6.0 and 7.0. The plant appreciates a balanced liquid fertilizer once every\
+      \ month. It\u2019s important to understand that any sudden drop or increase\
+      \ in pH, resulting from poor soil quality or over-fertilization, can negatively\
+      \ affect the health of the plant."
+    Suggested Placement Area: 'As mentioned before, the ideal location for a fiddle-leaf
+      fig is a well-lit place with bright, indirect sunlight, so it is recommended
+      to place it near a north-facing window away from drafts. They do well in larger
+      rooms since they can grow up to 6 feet tall indoors. Direct contact with concrete,
+      cold floors, or window panes can lead to root rot. '
+    Temperature: "Fiddle leaf figs grow best in temperatures between 60 and 75 degrees\
+      \ Fahrenheit (15 \u2013 24\xB0C). Keep the plant away from drafts from windows,\
+      \ doors, or air conditioning units which might make the temperature too extreme\
+      \ for it to thrive. In South Africa the temperature averages between 10\xB0\
+      C and 30 \xB0C so it should do well indoors."
+    Water: Water your Fiddle-leaf fig deeply, when the top 1-2 inches of soil become
+      dry. This generally takes around 7 - 10 days depending on the temperature and
+      humidity of the room. Make sure the pot has plenty of drainage holes, and make
+      sure it's not sitting in standing water. Like most indoor plants, they don't
+      like to sit in water for too long. For the location in South Africa, adjust
+      watering frequency based on temperature and humidity.
+user1:
+  plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+user2:
+  plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.

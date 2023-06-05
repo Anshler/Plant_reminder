@@ -12,10 +12,11 @@ theme_list = yaml.safe_load(open(resources.path('app_config','theme.yaml'),encod
 theme = meta_config['theme']
 language = meta_config['language']
 volume = meta_config['volume']
+current_user = meta_config['id']
 
 # list of plant
 plant_list = yaml.safe_load(open(resources.path('placeholder_server.user','plant_selector.yaml'),encoding='utf-8'))
-
+advanced_plant_list = yaml.safe_load(open(resources.path('placeholder_server.user','plant_selector_advanced.yaml'),encoding='utf-8'))
 def save_new_config(theme,language,volume):
     meta_config['theme'] = theme
     meta_config['language'] = language

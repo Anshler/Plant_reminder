@@ -6,30 +6,29 @@ WindowManager:
         id: start_up
         name: 'start_up'
     LoginScreen:
-        #id: login_screen
-        #name: 'login_screen'
+        id: login_screen
+        name: 'login_screen'
     # Forget password
-    #ForgetPasswordEmailScreen:
-        #id: forget_password_email_screen
-        #name: 'forget_password_email_screen'
-    #ForgetPasswordOTPScreen:
-        #id: forget_password_otp_screen
-        #name: 'forget_password_otp_screen'
-    #ForgetPasswordNewPassScreen:
-        #id: forget_password_new_pass_screen
-        #name: 'forget_password_new_pass_screen'
+    ForgetPasswordEmailScreen:
+        id: forget_password_email_screen
+        name: 'forget_password_email_screen'
+    ForgetPasswordOTPScreen:
+        id: forget_password_otp_screen
+        name: 'forget_password_otp_screen'
+    ForgetPasswordNewPassScreen:
+        id: forget_password_new_pass_screen
+        name: 'forget_password_new_pass_screen'
     # Sign up
-    #SignUpScreen:
-        #id: sign_up_screen
-        #name: 'sign_up_screen'
-    #SignUpOTPScreen:
-        #id: sign_up_otp_screen
-        #name: 'sign_up_otp_screen'
+    SignUpScreen:
+        id: sign_up_screen
+        name: 'sign_up_screen'
+    SignUpOTPScreen:
+        id: sign_up_otp_screen
+        name: 'sign_up_otp_screen'
     # Main screen
     MasterScreen:
         id: master_screen
         name: 'master_screen'
-    #SettingScreen:
 
 <StartUp>:
     canvas:
@@ -1181,29 +1180,37 @@ WindowManager:
             allow_stretch: True
 
 <MasterScreen>:
-    FloatLayout:
-        canvas:
-            Rectangle:
-                pos: self.pos
-                size: self.size
-                source: 'layout/img/background.png'
-        #VideoPlayer:
-            #id: background_video
-            #source: 'layout/img/plant.mp4'
-            #state: 'play'
-            #options: {'eos': 'loop'}
-            #allow_stretch: True
-            #allow_fullscreen: False
-    Button:
-        id: swipe
-        background_color: 0,0,0,0
-        on_press: root.swipe_home_buttons(self)
-    MainPagesManager:
-        id: main_pages
-        name: 'main_pages'
-    UtilityBars:
-        id:utility_bars
-        name: 'utility_bars'
+    ScreenManager:
+        Screen:
+            name: 'normal_master_screen'
+            previous_home_buttons: 0
+            current_filter_screen: ''
+            FloatLayout:
+                canvas:
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                        source: 'layout/img/background.png'
+                #VideoPlayer:
+                    #id: background_video
+                    #source: 'layout/img/plant.mp4'
+                    #state: 'play'
+                    #options: {'eos': 'loop'}
+                    #allow_stretch: True
+                    #allow_fullscreen: False
+            Button:
+                id: swipe
+                background_color: 0,0,0,0
+                on_press: root.swipe_home_buttons(self)
+            MainPagesManager:
+                id: main_pages
+                name: 'main_pages'
+            UtilityBars:
+                id: utility_bars
+                name: 'utility_bars'
+        #SettingScreen:
+            #id: setting_screen
+            #name: 'setting_screen'
 
 <MainPagesManager>:
     HomePage:
@@ -1261,15 +1268,6 @@ WindowManager:
         #on_release: root.test(self)
         #collide_children: False
 
-<Test>:
-    canvas:
-        Color:
-            rgba: 1,1,0,1
-        Rectangle:
-            size: self.size
-            pos: self.pos
-
-
 <PlantSelector>:
     callable_id: ''
     name: ''
@@ -1278,6 +1276,7 @@ WindowManager:
     age: ''
     location: ''
     extra: ''
+    date_added: ''
     size_hint: 1,None
 
     Button:
@@ -1291,6 +1290,7 @@ WindowManager:
             root.press_button(self)
         on_release:
             root.release_button(self)
+            root.open_item(self)
 
     FloatLayout:
         size_hint: 1,1
@@ -1310,6 +1310,25 @@ WindowManager:
         width: self.height
         pos_hint: {'center_x':0.15, 'center_y':0.5}
         radius: self.height/2, self.height/2, self.height/2, self.height/2
+
+    Label:
+        size_hint: 0.6, 0.3
+        pos_hint: {'x': 0.3,'center_y': 0.7}
+        text: root.name if len(root.name)<=13 else str(root.name[:10]+'...')
+        text_size: self.size
+        color: app.primary_font_color
+        valign: 'center'
+        font_size: self.height*0.9
+        bold: True
+
+    Label:
+        size_hint: 0.6, 0.3
+        pos_hint: {'x': 0.3,'center_y': 0.3}
+        text: 'Added: ' + root.date_added
+        text_size: self.size
+        color: app.secondary_font_color
+        valign: 'center'
+        font_size: self.height*0.5
 
     FloatLayout:
         canvas:
@@ -1383,13 +1402,25 @@ WindowManager:
                 root.release_button(self)
                 root.quit_create(self)
 
+<FailConfirmPopup>:
+    auto_dismiss: True
+    size_hint: 0.8,0.2
+    pos_hint: {'center_x': 0.5, 'y': 0.5}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: 'Unable to confirm the specie of your plant, please try again'
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/7
+    separator_color: 0.5,0.5,0.5,0.25
+
 <ConfirmNextStepPopup>:
     auto_dismiss: False
     size_hint: 0.8,0.2
     pos_hint: {'center_x': 0.5, 'y': 0.5}
     background: 'layout/img/white_blank.png'
     background_color: app.background_color
-    title: 'Are you sure all info are correct?'
+    title: 'Are you sure all of the information is correct?'
     title_align: 'center'
     title_color: app.primary_font_color
     title_size: self.height/7
@@ -1443,7 +1474,66 @@ WindowManager:
             on_release:
                 root.release_button(self)
                 root.confirm(self)
+<ConfirmFinalStepPopup>:
+    auto_dismiss: False
+    size_hint: 0.9,0.5
+    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: 'Do you want to automatically create a schedule for your plant? (based on the information you provided)'
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/16
+    separator_color: 0.5,0.5,0.5,0.25
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
 
+        # line decorator
+        FloatLayout:
+            size_hint: None, 1
+            width: '2dp'
+            pos_hint: {'center_x':0.5, 'y':0}
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.25
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'right':0.5, 'y':0}
+            text: 'no, I do it myself'
+            color: app.primary_font_color
+            bold: True
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/10
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.confirm_manual(self)
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'x':0.5, 'y':0}
+            text: 'yes, please'
+            bold: True
+            color: app.wrong_pass_warn
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/10
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.confirm_auto(self)
 <PlantColorPickerPopUp>:
     auto_dismiss: False
     size_hint: 1,0.8
@@ -1558,6 +1648,7 @@ WindowManager:
                 rgba: 0,0,0,1
             Rectangle:
                 size: self.size
+                size: self.size
                 pos: self.pos
         ScrollView:
             id: scroll_view
@@ -1568,6 +1659,443 @@ WindowManager:
                 size_hint: 1,None
                 height: self.minimum_height
                 orientation: 'vertical'
+
+<LineSeparator>:
+    size_hint: 1, None
+    height: '2dp'
+    pos_hint: {'center_x':0.5, 'y':0}
+    canvas:
+        Color:
+            rgba: 0.5,0.5,0.5,0.25
+        Rectangle:
+            size: self.size
+            pos: self.pos
+<NewPlantInfoScreen>:
+    plant_name: ''
+    age: ''
+    location: ''
+    extra_notes: ''
+
+    FloatLayout:
+        pos_hint: {'top':0.95}
+        canvas:
+            Color:
+                rgba: app.background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    ScrollView:
+        id: scroll_view
+        size_hint: 1, float(0.95-0.15-1.15/12)
+        pos_hint: {'center_x':0.5,'top':0.95}
+        bar_color: 0,0,0,0
+        bar_inactive_color: 0,0,0,0
+        BoxLayout:
+            size_hint: 1,None
+            height: self.minimum_height
+            pos_hint: {'top': 1}
+            orientation: 'vertical'
+
+            # water-----------------------------------------------------------------
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.075
+                FloatLayout:
+                    size_hint: None,None
+                    height: scroll_view.height/20
+                    width: self.height*13
+                    pos_hint: {'x':0.1, 'center_y': 0.5}
+                    MDLabel:
+                        size_hint: 0.9, 1
+                        pos_hint: {'x': 0.1, 'center_y':0.5}
+                        text: 'WATER'
+                        bold: True
+                        font_style: 'Caption'
+                        color: app.primary_background_color
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.75
+                    Button:
+                        disabled: True
+                        size_hint: None, 1
+                        width: self.height
+                        pos_hint: {'x': 0, 'center_y': 0.5}
+                        background_color: 0,0,0,0
+                        Image:
+                            size_hint: None,None
+                            width: self.parent.width
+                            height: self.parent.height
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                            source: 'layout/img/water.png'
+                            allow_stretch: True
+                            color: app.primary_background_color
+            MDLabel:
+                id: water_tip
+                size_hint: 1,None
+                pos_hint: {'center_x':0.5}
+                height: self.texture_size[1]
+                text: ''
+                valign: 'center'
+                color: app.primary_font_color
+                text_size: (self.width*0.8,None)
+                font_size: self.parent.parent.height/25
+                font_style: 'Body2'
+
+            # line separator
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.05
+            LineSeparator:
+
+            # light-----------------------------------------------------------------
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.075
+                FloatLayout:
+                    size_hint: None,None
+                    height: scroll_view.height/20
+                    width: self.height*13
+                    pos_hint: {'x':0.1, 'center_y': 0.5}
+                    MDLabel:
+                        size_hint: 0.9, 1
+                        pos_hint: {'x': 0.1, 'center_y':0.5}
+                        text: 'LIGHT'
+                        bold: True
+                        font_style: 'Caption'
+                        color: app.primary_background_color
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.75
+                    Button:
+                        disabled: True
+                        size_hint: None, 1
+                        width: self.height
+                        pos_hint: {'x': 0, 'center_y': 0.5}
+                        background_color: 0,0,0,0
+                        Image:
+                            size_hint: None,None
+                            width: self.parent.width
+                            height: self.parent.height
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                            source: 'layout/img/light.png'
+                            allow_stretch: True
+                            color: app.primary_background_color
+            MDLabel:
+                id: light_tip
+                size_hint: 1,None
+                pos_hint: {'center_x':0.5}
+                height: self.texture_size[1]
+                text: ''
+                valign: 'center'
+                color: app.primary_font_color
+                text_size: (self.width*0.8,None)
+                font_size: self.parent.parent.height/25
+                font_style: 'Body2'
+
+            # line separator
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.05
+            LineSeparator:
+
+            # humidity-----------------------------------------------------------------
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.075
+                FloatLayout:
+                    size_hint: None,None
+                    height: scroll_view.height/20
+                    width: self.height*13
+                    pos_hint: {'x':0.1, 'center_y': 0.5}
+                    MDLabel:
+                        size_hint: 0.9, 1
+                        pos_hint: {'x': 0.1, 'center_y':0.5}
+                        text: 'HUMIDITY'
+                        bold: True
+                        font_style: 'Caption'
+                        color: app.primary_background_color
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.75
+                    Button:
+                        disabled: True
+                        size_hint: None, 1
+                        width: self.height
+                        pos_hint: {'x': 0, 'center_y': 0.5}
+                        background_color: 0,0,0,0
+                        Image:
+                            size_hint: None,None
+                            width: self.parent.width
+                            height: self.parent.height
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                            source: 'layout/img/humidity.png'
+                            allow_stretch: True
+                            color: app.primary_background_color
+            MDLabel:
+                id: humidity_tip
+                size_hint: 1,None
+                pos_hint: {'center_x':0.5}
+                height: self.texture_size[1]
+                text: ''
+                valign: 'center'
+                color: app.primary_font_color
+                text_size: (self.width*0.8,None)
+                font_size: self.parent.parent.height/25
+                font_style: 'Body2'
+
+            # line separator
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.05
+            LineSeparator:
+
+            # temperature-----------------------------------------------------------------
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.075
+                FloatLayout:
+                    size_hint: None,None
+                    height: scroll_view.height/20
+                    width: self.height*13
+                    pos_hint: {'x':0.1, 'center_y': 0.5}
+                    MDLabel:
+                        size_hint: 0.9, 1
+                        pos_hint: {'x': 0.1, 'center_y':0.5}
+                        text: 'TEMPERATURE'
+                        bold: True
+                        font_style: 'Caption'
+                        color: app.primary_background_color
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.75
+                    Button:
+                        disabled: True
+                        size_hint: None, 1
+                        width: self.height
+                        pos_hint: {'x': 0, 'center_y': 0.5}
+                        background_color: 0,0,0,0
+                        Image:
+                            size_hint: None,None
+                            width: self.parent.width
+                            height: self.parent.height
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                            source: 'layout/img/temperature.png'
+                            allow_stretch: True
+                            color: app.primary_background_color
+            MDLabel:
+                id: temperature_tip
+                size_hint: 1,None
+                pos_hint: {'center_x':0.5}
+                height: self.texture_size[1]
+                text: ''
+                valign: 'center'
+                color: app.primary_font_color
+                text_size: (self.width*0.8,None)
+                font_size: self.parent.parent.height/25
+                font_style: 'Body2'
+
+            # line separator
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.05
+            LineSeparator:
+
+            # ph level-----------------------------------------------------------------
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.075
+                FloatLayout:
+                    size_hint: None,None
+                    height: scroll_view.height/20
+                    width: self.height*13
+                    pos_hint: {'x':0.1, 'center_y': 0.5}
+                    MDLabel:
+                        size_hint: 0.9, 1
+                        pos_hint: {'x': 0.1, 'center_y':0.5}
+                        text: 'PH LEVEL'
+                        bold: True
+                        font_style: 'Caption'
+                        color: app.primary_background_color
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.75
+                    Button:
+                        disabled: True
+                        size_hint: None, 1
+                        width: self.height
+                        pos_hint: {'x': 0, 'center_y': 0.5}
+                        background_color: 0,0,0,0
+                        Image:
+                            size_hint: None,None
+                            width: self.parent.width
+                            height: self.parent.height
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                            source: 'layout/img/ph_level.png'
+                            allow_stretch: True
+                            color: app.primary_background_color
+            MDLabel:
+                id: ph_level_tip
+                size_hint: 1,None
+                pos_hint: {'center_x':0.5}
+                height: self.texture_size[1]
+                text: ''
+                valign: 'center'
+                color: app.primary_font_color
+                text_size: (self.width*0.8,None)
+                font_size: self.parent.parent.height/25
+                font_style: 'Body2'
+
+            # line separator
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.05
+            LineSeparator:
+
+            # suggested placement area-----------------------------------------------------------------
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.075
+                FloatLayout:
+                    size_hint: None,None
+                    height: scroll_view.height/20
+                    width: self.height*13
+                    pos_hint: {'x':0.1, 'center_y': 0.5}
+                    MDLabel:
+                        size_hint: 0.9, 1
+                        pos_hint: {'x': 0.1, 'center_y':0.5}
+                        text: 'SUGGESTED PLACEMENT AREA'
+                        bold: True
+                        font_style: 'Caption'
+                        color: app.primary_background_color
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.75
+                    Button:
+                        disabled: True
+                        size_hint: None, 1
+                        width: self.height
+                        pos_hint: {'x': 0, 'center_y': 0.5}
+                        background_color: 0,0,0,0
+                        Image:
+                            size_hint: None,None
+                            width: self.parent.width
+                            height: self.parent.height
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                            source: 'layout/img/placement.png'
+                            allow_stretch: True
+                            color: app.primary_background_color
+            MDLabel:
+                id: suggested_placement_area_tip
+                size_hint: 1,None
+                pos_hint: {'center_x':0.5}
+                height: self.texture_size[1]
+                text: ''
+                valign: 'center'
+                color: app.primary_font_color
+                text_size: (self.width*0.8,None)
+                font_size: self.parent.parent.height/25
+                font_style: 'Body2'
+
+            # line separator
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.05
+            LineSeparator:
+
+            # others-----------------------------------------------------------------
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.075
+                FloatLayout:
+                    size_hint: None,None
+                    height: scroll_view.height/20
+                    width: self.height*13
+                    pos_hint: {'x':0.1, 'center_y': 0.5}
+                    MDLabel:
+                        size_hint: 0.9, 1
+                        pos_hint: {'x': 0.1, 'center_y':0.5}
+                        text: 'OTHERS'
+                        bold: True
+                        font_style: 'Caption'
+                        color: app.primary_background_color
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.75
+                    Button:
+                        disabled: True
+                        size_hint: None, 1
+                        width: self.height
+                        pos_hint: {'x': 0, 'center_y': 0.5}
+                        background_color: 0,0,0,0
+                        Image:
+                            size_hint: None,None
+                            width: self.parent.width
+                            height: self.parent.height
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                            source: 'layout/img/others.png'
+                            allow_stretch: True
+                            color: app.primary_background_color
+            MDLabel:
+                id: others_tip
+                size_hint: 1,None
+                pos_hint: {'center_x':0.5}
+                height: self.texture_size[1]
+                text: ''
+                valign: 'center'
+                color: app.primary_font_color
+                text_size: (self.width*0.8,None)
+                font_size: self.parent.parent.height/25
+                font_style: 'Body2'
+
+            # line separator
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.05
+            LineSeparator:
+
+            # confirm create profile
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.2
+                ShadowButton:
+                    id: confirm_new_plant
+                    name: 'confirm_new_plant'
+                    size_hint: 0.8, 0.8
+                    pos_hint: {'center_x':0.5, 'center_y':0.5}
+                    background_down: ''
+                    background_normal: ''
+                    background_color: app.secondary_background_color
+                    elevation: 2
+                    shadow_offset: 0, 2
+                    text: 'Confirm creation'
+                    color: app.primary_background_color
+                    text_size: self.size
+                    font_size: self.height/3
+                    bold: True
+                    valign: 'center'
+                    halign: 'center'
+                    on_press:
+                        app.play_sound('next.wav')
+                        root.press_button(self)
+                    on_release:
+                        Factory.ConfirmFinalStepPopup().open()
+                        root.release_button(self)
+                # line separator
+                LineSeparator:
 
 <NewPlantScreen>:
     specie_detection: ''
@@ -1606,6 +2134,7 @@ WindowManager:
                 root.release_cancel_button(self)
 
         ScreenManager:
+            id: new_plant_step_manager
             size_hint: 1,1
             pos_hint: {'center_y': 0.5,'center_x':0.5}
             Screen:
@@ -1645,16 +2174,7 @@ WindowManager:
                                 valign: 'center'
                                 text_size: self.size
                                 font_size: self.height*0.6
-                            FloatLayout:
-                                size_hint: 1, None
-                                height: '2dp'
-                                pos_hint: {'center_x':0.5, 'y':0}
-                                canvas:
-                                    Color:
-                                        rgba: 0.5,0.5,0.5,0.25
-                                    Rectangle:
-                                        size: self.size
-                                        pos: self.pos
+                            LineSeparator:
 
                         # Color wheel and avatar
                         FloatLayout:
@@ -1706,7 +2226,7 @@ WindowManager:
                                     allow_stretch: True
                                     color: root.represent_color
                                 FitImage:
-                                    id: color_wheel
+                                    id: plant_avatar
                                     size_hint: None, 0.6
                                     width: self.height
                                     pos_hint: {'center_x': 0.5, 'center_y': 0.45}
@@ -1744,8 +2264,8 @@ WindowManager:
                                     allow_stretch: True
                                     color: root.represent_color
                                 Button:
-                                    id: color_picker
-                                    name: 'color_picker'
+                                    id: plant_color_picker
+                                    name: 'plant_color_picker'
                                     size_hint: None, 0.075
                                     width: self.height
                                     pos_hint: {'center_x': 0.8, 'y': 0.1}
@@ -1767,16 +2287,8 @@ WindowManager:
                                         allow_stretch: True
                                         color: 0.5,0.5,0.5,0.5
                             # line separator
-                            FloatLayout:
-                                size_hint: 1, None
-                                height: '2dp'
-                                pos_hint: {'center_x':0.5, 'y':0}
-                                canvas:
-                                    Color:
-                                        rgba: 0.5,0.5,0.5,0.25
-                                    Rectangle:
-                                        size: self.size
-                                        pos: self.pos
+                            LineSeparator
+
                         # info input
                         FloatLayout:
                             size_hint: 1,None
@@ -1841,16 +2353,7 @@ WindowManager:
                                 hint_text: 'name of plant'
 
                             # line separator
-                            FloatLayout:
-                                size_hint: 1, None
-                                height: '2dp'
-                                pos_hint: {'center_x':0.5, 'y':0}
-                                canvas:
-                                    Color:
-                                        rgba: 0.5,0.5,0.5,0.25
-                                    Rectangle:
-                                        size: self.size
-                                        pos: self.pos
+                            LineSeparator
 
                         # more info input (location, age, extra note)
                         # age (optional)
@@ -1927,16 +2430,7 @@ WindowManager:
                                     color: app.primary_background_color
 
                             # line separator
-                            FloatLayout:
-                                size_hint: 1, None
-                                height: '2dp'
-                                pos_hint: {'center_x':0.5, 'y':0}
-                                canvas:
-                                    Color:
-                                        rgba: 0.5,0.5,0.5,0.25
-                                    Rectangle:
-                                        size: self.size
-                                        pos: self.pos
+                            LineSeparator
 
                         # location (optional)
                         FloatLayout:
@@ -1990,16 +2484,7 @@ WindowManager:
                                 hint_text: 'your country (and city)'
 
                             # line separator
-                            FloatLayout:
-                                size_hint: 1, None
-                                height: '2dp'
-                                pos_hint: {'center_x':0.5, 'y':0}
-                                canvas:
-                                    Color:
-                                        rgba: 0.5,0.5,0.5,0.25
-                                    Rectangle:
-                                        size: self.size
-                                        pos: self.pos
+                            LineSeparator
 
                         # Extra notes (optional)
                         FloatLayout:
@@ -2033,7 +2518,7 @@ WindowManager:
                                         height: self.parent.height
                                         center_x: self.parent.center_x
                                         center_y: self.parent.center_y
-                                        source: 'layout/img/age.png'
+                                        source: 'layout/img/extra_note.png'
                                         allow_stretch: True
                                         color: app.primary_background_color
 
@@ -2062,34 +2547,25 @@ WindowManager:
                                         hint_text: 'e.g: what time you are available\nthis helps personalize schedules'
                                         hint_text_color_focus: 1,1,1,0
                             # line separator
-                            FloatLayout:
-                                size_hint: 1, None
-                                height: '2dp'
-                                pos_hint: {'center_x':0.5, 'y':0}
-                                canvas:
-                                    Color:
-                                        rgba: 0.5,0.5,0.5,0.25
-                                    Rectangle:
-                                        size: self.size
-                                        pos: self.pos
+                            LineSeparator
 
                         # create profile
                         FloatLayout:
                             size_hint: 1,None
                             height: self.parent.parent.height*0.2
                             ShadowButton:
-                                id: confirm_new_plant
-                                name: 'confirm_new_plant'
+                                id: generate_new_plant
+                                name: 'generate_new_plant'
                                 size_hint: 0.8, 0.8
                                 pos_hint: {'center_x':0.5, 'center_y':0.5}
                                 background_down: ''
                                 background_normal: ''
                                 background_color: app.secondary_background_color
-                                disabled: False if root.specie_detection != '' or (toggle_manual.active and manual_input_text.text != '') else True
+                                disabled: False if (root.specie_detection != '' or (toggle_manual.active and manual_input_text.text != '')) else True
                                 elevation: 2 if not self.disabled else 0
                                 shadow_offset: 0, 2
                                 opacity: 1 if not self.disabled else 0.5
-                                text: 'Create profile'
+                                text: 'Generate profile'
                                 color: app.primary_background_color
                                 text_size: self.size
                                 font_size: self.height/3
@@ -2103,20 +2579,460 @@ WindowManager:
                                     Factory.ConfirmNextStepPopup().open()
                                     root.release_button(self)
                             # line separator
-                            FloatLayout:
-                                size_hint: 1, None
-                                height: '2dp'
-                                pos_hint: {'center_x':0.5, 'y':0}
-                                canvas:
-                                    Color:
-                                        rgba: 0.5,0.5,0.5,0.25
-                                    Rectangle:
-                                        size: self.size
-                                        pos: self.pos
+                            LineSeparator
+            NewPlantInfoScreen:
+                id: new_plant_step2
+                name: 'new_plant_step2'
+                plant_name: root.specie_detection if not toggle_manual.active else manual_input_text.text
+                age: age_text.text
+                location: location_text.text
+                extra_notes: extra_notes_text.text
+<PlantScreen>:
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: app.secondary_background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size_hint: 1,0.75
+        pos_hint: {'center_x':0.5, 'y':1.15/12}
+        ScrollView:
+            id: scroll_view
+            size_hint: 0.9,1
+            pos_hint:{'center_x':0.5, 'y':0}
+            bar_color: 0,0,0,0
+            bar_inactive_color: 0,0,0,0
+            BoxLayout:
+                canvas:
+                    Color:
+                        rgba: 1,1,1,0.2
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                orientation: 'vertical'
+                size_hint: 1, None
+                spacing: 10
+                height: self.minimum_height
+
+                # Basic info
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.146
+                    Label:
+                        size_hint: 1,1
+                        pos_hint: {'center_x': 0.5, 'center_y':0.5}
+                        text: 'Basic Information'
+                        color: app.primary_background_color
+                        halign: 'center'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.4
+                        bold: True
+                LineSeparator:
+                MDLabel:
+                    id: basic_info
+                    size_hint: 1,None
+                    pos_hint: {'center_x':0.5}
+                    height: self.texture_size[1]
+                    text: ''
+                    valign: 'center'
+                    color: app.primary_font_color
+                    text_size: (self.width*0.8,None)
+                    font_size: self.parent.parent.height/30
+                    font_style: 'Body2'
+                # Line separator
+                LineSeparator:
+
+                # Care tips
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.146
+                    Label:
+                        size_hint: 1,1
+                        pos_hint: {'center_x': 0.5, 'center_y':0.5}
+                        text: 'Care Advice'
+                        color: app.primary_background_color
+                        halign: 'center'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.4
+                        bold: True
+                LineSeparator:
+
+                # water-----------------------------------------------------------------
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.075
+                    FloatLayout:
+                        size_hint: None,None
+                        height: scroll_view.height/20
+                        width: self.height*13
+                        pos_hint: {'x':0.1, 'center_y': 0.5}
+                        MDLabel:
+                            size_hint: 0.9, 1
+                            pos_hint: {'x': 0.1, 'center_y':0.5}
+                            text: 'WATER'
+                            bold: True
+                            font_style: 'Caption'
+                            color: app.primary_background_color
+                            halign: 'left'
+                            valign: 'center'
+                            text_size: self.size
+                            font_size: self.height*0.75
+                        Button:
+                            disabled: True
+                            size_hint: None, 1
+                            width: self.height
+                            pos_hint: {'x': 0, 'center_y': 0.5}
+                            background_color: 0,0,0,0
+                            Image:
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/water.png'
+                                allow_stretch: True
+                                color: app.primary_background_color
+                MDLabel:
+                    id: water_tip
+                    size_hint: 1,None
+                    pos_hint: {'center_x':0.5}
+                    height: self.texture_size[1]
+                    text: ''
+                    valign: 'center'
+                    color: app.primary_font_color
+                    text_size: (self.width*0.8,None)
+                    font_size: self.parent.parent.height/30
+                    font_style: 'Body2'
+
+                # line separator
+                LineSeparator:
+
+                # light-----------------------------------------------------------------
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.075
+                    FloatLayout:
+                        size_hint: None,None
+                        height: scroll_view.height/20
+                        width: self.height*13
+                        pos_hint: {'x':0.1, 'center_y': 0.5}
+                        MDLabel:
+                            size_hint: 0.9, 1
+                            pos_hint: {'x': 0.1, 'center_y':0.5}
+                            text: 'LIGHT'
+                            bold: True
+                            font_style: 'Caption'
+                            color: app.primary_background_color
+                            halign: 'left'
+                            valign: 'center'
+                            text_size: self.size
+                            font_size: self.height*0.75
+                        Button:
+                            disabled: True
+                            size_hint: None, 1
+                            width: self.height
+                            pos_hint: {'x': 0, 'center_y': 0.5}
+                            background_color: 0,0,0,0
+                            Image:
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/light.png'
+                                allow_stretch: True
+                                color: app.primary_background_color
+                MDLabel:
+                    id: light_tip
+                    size_hint: 1,None
+                    pos_hint: {'center_x':0.5}
+                    height: self.texture_size[1]
+                    text: ''
+                    valign: 'center'
+                    color: app.primary_font_color
+                    text_size: (self.width*0.8,None)
+                    font_size: self.parent.parent.height/30
+                    font_style: 'Body2'
+
+                # line separator
+                LineSeparator:
+
+                # humidity-----------------------------------------------------------------
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.075
+                    FloatLayout:
+                        size_hint: None,None
+                        height: scroll_view.height/20
+                        width: self.height*13
+                        pos_hint: {'x':0.1, 'center_y': 0.5}
+                        MDLabel:
+                            size_hint: 0.9, 1
+                            pos_hint: {'x': 0.1, 'center_y':0.5}
+                            text: 'HUMIDITY'
+                            bold: True
+                            font_style: 'Caption'
+                            color: app.primary_background_color
+                            halign: 'left'
+                            valign: 'center'
+                            text_size: self.size
+                            font_size: self.height*0.75
+                        Button:
+                            disabled: True
+                            size_hint: None, 1
+                            width: self.height
+                            pos_hint: {'x': 0, 'center_y': 0.5}
+                            background_color: 0,0,0,0
+                            Image:
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/humidity.png'
+                                allow_stretch: True
+                                color: app.primary_background_color
+                MDLabel:
+                    id: humidity_tip
+                    size_hint: 1,None
+                    pos_hint: {'center_x':0.5}
+                    height: self.texture_size[1]
+                    text: ''
+                    valign: 'center'
+                    color: app.primary_font_color
+                    text_size: (self.width*0.8,None)
+                    font_size: self.parent.parent.height/30
+                    font_style: 'Body2'
+
+                # line separator
+                LineSeparator:
+
+                # temperature-----------------------------------------------------------------
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.075
+                    FloatLayout:
+                        size_hint: None,None
+                        height: scroll_view.height/20
+                        width: self.height*13
+                        pos_hint: {'x':0.1, 'center_y': 0.5}
+                        MDLabel:
+                            size_hint: 0.9, 1
+                            pos_hint: {'x': 0.1, 'center_y':0.5}
+                            text: 'TEMPERATURE'
+                            bold: True
+                            font_style: 'Caption'
+                            color: app.primary_background_color
+                            halign: 'left'
+                            valign: 'center'
+                            text_size: self.size
+                            font_size: self.height*0.75
+                        Button:
+                            disabled: True
+                            size_hint: None, 1
+                            width: self.height
+                            pos_hint: {'x': 0, 'center_y': 0.5}
+                            background_color: 0,0,0,0
+                            Image:
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/temperature.png'
+                                allow_stretch: True
+                                color: app.primary_background_color
+                MDLabel:
+                    id: temperature_tip
+                    size_hint: 1,None
+                    pos_hint: {'center_x':0.5}
+                    height: self.texture_size[1]
+                    text: ''
+                    valign: 'center'
+                    color: app.primary_font_color
+                    text_size: (self.width*0.8,None)
+                    font_size: self.parent.parent.height/30
+                    font_style: 'Body2'
+
+                # line separator
+                LineSeparator:
+
+                # ph level-----------------------------------------------------------------
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.075
+                    FloatLayout:
+                        size_hint: None,None
+                        height: scroll_view.height/20
+                        width: self.height*13
+                        pos_hint: {'x':0.1, 'center_y': 0.5}
+                        MDLabel:
+                            size_hint: 0.9, 1
+                            pos_hint: {'x': 0.1, 'center_y':0.5}
+                            text: 'PH LEVEL'
+                            bold: True
+                            font_style: 'Caption'
+                            color: app.primary_background_color
+                            halign: 'left'
+                            valign: 'center'
+                            text_size: self.size
+                            font_size: self.height*0.75
+                        Button:
+                            disabled: True
+                            size_hint: None, 1
+                            width: self.height
+                            pos_hint: {'x': 0, 'center_y': 0.5}
+                            background_color: 0,0,0,0
+                            Image:
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/ph_level.png'
+                                allow_stretch: True
+                                color: app.primary_background_color
+                MDLabel:
+                    id: ph_level_tip
+                    size_hint: 1,None
+                    pos_hint: {'center_x':0.5}
+                    height: self.texture_size[1]
+                    text: ''
+                    valign: 'center'
+                    color: app.primary_font_color
+                    text_size: (self.width*0.8,None)
+                    font_size: self.parent.parent.height/30
+                    font_style: 'Body2'
+
+                # line separator
+                LineSeparator:
+
+                # suggested placement area-----------------------------------------------------------------
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.075
+                    FloatLayout:
+                        size_hint: None,None
+                        height: scroll_view.height/20
+                        width: self.height*13
+                        pos_hint: {'x':0.1, 'center_y': 0.5}
+                        MDLabel:
+                            size_hint: 0.9, 1
+                            pos_hint: {'x': 0.1, 'center_y':0.5}
+                            text: 'SUGGESTED PLACEMENT AREA'
+                            bold: True
+                            font_style: 'Caption'
+                            color: app.primary_background_color
+                            halign: 'left'
+                            valign: 'center'
+                            text_size: self.size
+                            font_size: self.height*0.75
+                        Button:
+                            disabled: True
+                            size_hint: None, 1
+                            width: self.height
+                            pos_hint: {'x': 0, 'center_y': 0.5}
+                            background_color: 0,0,0,0
+                            Image:
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/placement.png'
+                                allow_stretch: True
+                                color: app.primary_background_color
+                MDLabel:
+                    id: suggested_placement_area_tip
+                    size_hint: 1,None
+                    pos_hint: {'center_x':0.5}
+                    height: self.texture_size[1]
+                    text: ''
+                    valign: 'center'
+                    color: app.primary_font_color
+                    text_size: (self.width*0.8,None)
+                    font_size: self.parent.parent.height/30
+                    font_style: 'Body2'
+
+                # line separator
+                LineSeparator:
+
+                # others-----------------------------------------------------------------
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.075
+                    FloatLayout:
+                        size_hint: None,None
+                        height: scroll_view.height/20
+                        width: self.height*13
+                        pos_hint: {'x':0.1, 'center_y': 0.5}
+                        MDLabel:
+                            size_hint: 0.9, 1
+                            pos_hint: {'x': 0.1, 'center_y':0.5}
+                            text: 'OTHERS'
+                            bold: True
+                            font_style: 'Caption'
+                            color: app.primary_background_color
+                            halign: 'left'
+                            valign: 'center'
+                            text_size: self.size
+                            font_size: self.height*0.75
+                        Button:
+                            disabled: True
+                            size_hint: None, 1
+                            width: self.height
+                            pos_hint: {'x': 0, 'center_y': 0.5}
+                            background_color: 0,0,0,0
+                            Image:
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/others.png'
+                                allow_stretch: True
+                                color: app.primary_background_color
+                MDLabel:
+                    id: others_tip
+                    size_hint: 1,None
+                    pos_hint: {'center_x':0.5}
+                    height: self.texture_size[1]
+                    text: ''
+                    valign: 'center'
+                    color: app.primary_font_color
+                    text_size: (self.width*0.8,None)
+                    font_size: self.parent.parent.height/30
+                    font_style: 'Body2'
+
+                # line separator
+                LineSeparator:
 
 
-
-
+    FloatLayout: # Back_button_region
+        size_hint: 1, 1.15/12
+        pos_hint: {'center_x': 0.5, 'top': 1}
+        Button:
+            id: back_button
+            size_hint: None, 0.9/1.25
+            width: self.height
+            pos_hint: {'center_x': 1.00001/12, 'center_y': 0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_back(self)
+            on_release:
+                root.release_back(self)
+            Image:
+                id: back_button_image
+                source: 'layout/img/backbutton.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                width: self.parent.width
+                height: self.parent.height
+                allow_stretch: True
 
 
 <PlantProfilePage>:
@@ -2163,7 +3079,7 @@ WindowManager:
         Button: # filter button
             id: filter_button
             name:'filter_button'
-            content: ''
+            content: 'none_filter'
             size_hint: (None,0.75)
             width: self.height
             pos_hint: {'x':0,'center_y':0.5}
@@ -2215,7 +3131,7 @@ WindowManager:
                 app.play_sound('search.wav')
             on_release:
                 root.release_button(self)
-                root.start_crawling(self)
+                root.start_filtering(self)
             Image:
                 id: search_button_image
                 source: 'layout/img/search.png'
@@ -2272,6 +3188,16 @@ WindowManager:
                     id: chat_profile
                     name: 'chat_profile'
 
+            ScreenManager: # filter selector
+                id: filter_selector_manager
+                size_hint: 0.5,0.3
+                pos_hint: {'x':0.025,'top':float(10/12-0.07)}
+                background_color: 0,0,1,1
+                Screen:
+                    name: 'filter_null'
+                FilterScreenProfile:
+                    name: 'filter_select'
+
             MDIconButton: # add new plant button
                 size_hint: None,0.1
                 width: self.height
@@ -2290,6 +3216,9 @@ WindowManager:
                     Rectangle:
                         pos: self.pos
                         size: self.size
+        PlantScreen:
+            id: plant_screen
+            name: 'plant_screen'
         NewPlantScreen:
             id: new_plant_screen
             name: 'new_plant_screen'
@@ -2407,7 +3336,7 @@ WindowManager:
                 pos: self.pos
                 size: self.size
         orientation: 'vertical'
-
+        LineSeparator:
         Button:
             id: comname_filter
             content: 'comname'
@@ -2423,6 +3352,7 @@ WindowManager:
                 app.play_sound('next2.wav')
                 root.change_filter(self)
             on_release: root.shut_selector(self)
+        LineSeparator:
         Button:
             id: sciname_filter
             content: 'sciname'
@@ -2438,6 +3368,7 @@ WindowManager:
                 app.play_sound('next2.wav')
                 root.change_filter(self)
             on_release: root.shut_selector(self)
+        LineSeparator:
         Button:
             id: none_filter
             content: ''
@@ -2453,7 +3384,82 @@ WindowManager:
                 app.play_sound('next2.wav')
                 root.change_filter(self)
             on_release: root.shut_selector(self)
+        LineSeparator:
 
+<FilterScreenProfile>:
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: app.highlight_button
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: 'vertical'
+        LineSeparator:
+        Button:
+            id: none_filter
+            content: 'none_filter'
+            text: '  Recently added'
+            text_size: self.size
+            color: app.primary_font_color
+            background_down: 'layout/img/white_blank.png'
+            background_normal: 'layout/img/white_blank.png'
+            background_color: app.background_color
+            valign: 'center'
+            font_size: self.height*0.4
+            on_press:
+                app.play_sound('next2.wav')
+                root.change_filter(self)
+            on_release: root.shut_selector(self)
+        LineSeparator:
+        Button:
+            id: A_Z_filter
+            content: 'A_Z_filter'
+            text: '  A to Z'
+            text_size: self.size
+            color: app.primary_font_color
+            background_down: 'layout/img/white_blank.png'
+            background_normal: 'layout/img/white_blank.png'
+            background_color: 0,0,0,0
+            valign: 'center'
+            font_size: self.height*0.4
+            on_press:
+                app.play_sound('next2.wav')
+                root.change_filter(self)
+            on_release: root.shut_selector(self)
+        LineSeparator:
+        Button:
+            id: Z_A_filter
+            content: 'Z_A_filter'
+            text: '  Z to A'
+            text_size: self.size
+            color: app.primary_font_color
+            background_down: 'layout/img/white_blank.png'
+            background_normal: 'layout/img/white_blank.png'
+            background_color: 0,0,0,0
+            valign: 'center'
+            font_size: self.height*0.4
+            on_press:
+                app.play_sound('next2.wav')
+                root.change_filter(self)
+            on_release: root.shut_selector(self)
+        LineSeparator:
+        Button:
+            id: oldest
+            content: 'oldest'
+            text: '  Oldest'
+            text_size: self.size
+            color: app.primary_font_color
+            background_down: 'layout/img/white_blank.png'
+            background_normal: 'layout/img/white_blank.png'
+            background_color: 0,0,0,0
+            valign: 'center'
+            font_size: self.height*0.4
+            on_press:
+                app.play_sound('next2.wav')
+                root.change_filter(self)
+            on_release: root.shut_selector(self)
+        LineSeparator:
 
 <WikiPage>:
     # background
