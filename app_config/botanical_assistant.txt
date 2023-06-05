@@ -4,4 +4,4 @@ The information surrounding the plant is:
 
 [PROMPT]
 
-Respond in json format, containing seven keys: "Water" (amount of water and how often), "Light", "Humidity", "Temperature", "PH Level", "Suggested Placement Area", "Others"
+Respond in json format, containing eight keys: "Overview" (brief descryption of the plant),"Water" (amount of water and how often), "Light", "Humidity", "Temperature", "PH Level", "Suggested Placement Area", "Others"

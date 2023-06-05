@@ -1,4 +1,5 @@
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivy.config import Config
 from kivy.animation import Animation
@@ -23,7 +24,7 @@ from utils.format_check import isPasswordFormat,isUsernameFormat
 from utils.validation import *
 from utils.had_startup import ReadHadStartup,WriteHadStartUp
 from utils.EncyclopediaCrawler import *
-from gpt3 import get_chatgpt_assistant,get_chatgpt_classifier
+from gpt3 import get_chatgpt_assistant,get_chatgpt_classifier, get_chatgpt_calendar
 
 Config.set('graphics', 'resizable', '1')
 Config.set('graphics', 'width', '350')
@@ -63,6 +64,7 @@ class PlantSelector(FloatLayout):
         self.parent.parent.parent.parent.parent.parent.parent.plant_name = self.name
         self.parent.parent.parent.parent.parent.parent.parent.location = self.location
         self.parent.parent.parent.parent.parent.parent.parent.date_added = self.date_added
+        self.parent.parent.parent.parent.parent.parent.parent.represent_color = self.represent_color
         # change screen
         self.parent.parent.parent.parent.parent.parent.transition = CardTransition()
         self.parent.parent.parent.parent.parent.parent.transition.mode = 'push'
@@ -80,7 +82,9 @@ class PlantScreen(Screen):
         else:
             basic_info += self.parent.parent.location
 
-        self.ids.basic_info.text =  basic_info
+        self.ids.basic_info.text = basic_info
+        self.ids.represent_color_image.color = self.parent.parent.represent_color
+        self.ids.overview.text = '• ' + result['Overview'].replace('. ', '\n• ')
         self.ids.water_tip.text = '• '+result['Water'].replace('. ', '\n• ')
         self.ids.light_tip.text = '• '+result['Light'].replace('. ', '\n• ')
         self.ids.humidity_tip.text = '• '+result['Humidity'].replace('. ', '\n• ')
@@ -108,6 +112,33 @@ class PlantScreen(Screen):
         self.parent.transition.duration = 0.5
         self.parent.transition.direction = 'right'
         self.parent.current = 'profile_display'
+    def press_button(self,instance):
+        change_size = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
+                                center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'view_calendar_button':
+            change_size.start(self.ids.view_calendar_button)
+        else:
+            change_size.start(self.ids.delete_plant)
+    def release_button(self,instance):
+        change_size = Animation(size_hint=(0.8, 0.4), disabled=False,
+                                center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'view_calendar_button':
+            change_size.start(self.ids.view_calendar_button)
+        else:
+            change_size.start(self.ids.delete_plant)
+    def to_calendar(self,instance):
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
+    def quit_screen(self):
+        # re-enable the button
+        self.parent.parent.ids.filter_button.disabled = False
+        self.parent.parent.ids.search_bar.disabled = False
+        self.parent.parent.ids.search_button.disabled = False
+
+        # change screen
+        self.parent.transition.mode = 'pop'
+        self.parent.transition.duration = 0.5
+        self.parent.transition.direction = 'right'
+        self.parent.current = 'profile_display'
 class LineSeparator(FloatLayout):
     pass
 class CancelNewPlantPopup(Popup):
@@ -120,7 +151,7 @@ class CancelNewPlantPopup(Popup):
             instance.color = MDApp.get_running_app().wrong_pass_warn
         else:
             instance.color = MDApp.get_running_app().primary_font_color
-    def quit_create(self,inctance):
+    def quit_create(self,instance):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
         self.dismiss()
 class FailConfirmPopup(Popup):
@@ -135,7 +166,7 @@ class ConfirmNextStepPopup(Popup):
             instance.color = MDApp.get_running_app().wrong_pass_warn
         else:
             instance.color = MDApp.get_running_app().primary_font_color
-    def confirm(self,inctance):
+    def confirm(self,instance):
         name_manual = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.manual_input_text.text.strip()
         toggle = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.toggle_manual.active
         valid = True
@@ -153,6 +184,7 @@ class ConfirmNextStepPopup(Popup):
             self.dismiss()
             Factory.FailConfirmPopup().open()
 class ConfirmFinalStepPopup(Popup):
+    auto_calendar_prompt = ''
     def press_button(self, instance):
         instance.disabled = True
         instance.color = MDApp.get_running_app().press_word_button
@@ -179,8 +211,15 @@ class ConfirmFinalStepPopup(Popup):
         else:
             name = name_auto
 
+
         # advanced info
         result = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.new_plant_step2.result
+        self.auto_calendar_prompt = 'Plan\'s name: '+name
+        if location.strip() != '':
+            self.auto_calendar_prompt += '\nOwner\'s location: '+location
+        if extra_notes.strip() != '':
+            self.auto_calendar_prompt += '\nExtra note: '+extra_notes
+        self.auto_calendar_prompt += '\nJobs to perform:\n' + result['Water'] +'\n' + result['Humidity'] + '\n' + result['Others']
 
         # add new plant to plant list
         simple_add_new_plant(MDApp.get_running_app().current_user,name,represent_color,avatar,age,date_added,location,extra_notes, result)
@@ -194,14 +233,36 @@ class ConfirmFinalStepPopup(Popup):
         self.confirm()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
         self.dismiss()
-
     def confirm_auto(self, instance):
         self.confirm()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
-
         # add calendar
+        result = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.new_plant_step2.result
+        #schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
 
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calender()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
+        self.dismiss()
+
+class DeletePlantPopup(Popup):
+    def press_button(self, instance):
+        instance.disabled = True
+        instance.color = MDApp.get_running_app().press_word_button
+    def release_button(self, instance):
+        instance.disabled = False
+        if instance.text == 'delete':
+            instance.color = MDApp.get_running_app().wrong_pass_warn
+        else:
+            instance.color = MDApp.get_running_app().primary_font_color
+    def quit_create(self, instance):
+        current_plant = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.current_plant
+        current_user = MDApp.get_running_app().current_user
+        simple_remove_key__plant_list(current_user, current_plant)
+
+        MDApp.get_running_app().plant_list = get_plant_list()[current_user]
+        MDApp.get_running_app().advanced_plant_list = get_advanced_plant_list()[current_user]
+        MDApp.get_running_app().root.ids.start_up.update_plant_list()
+
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.plant_screen.quit_screen()
         self.dismiss()
 class NewPlantInfoScreen(Screen):
     result = {}
@@ -213,8 +274,9 @@ class NewPlantInfoScreen(Screen):
             prompt += '\nowner\'s location: ' + self.location
 
         #self.result = get_chatgpt_assistant(prompt, 'paid')
-        self.result = {'Water': 'Water the red rose every 3-4 days, make sure the soil is evenly moist but not waterlogged.', 'Light': 'Red roses prefer full sunlight for at least 6 hours a day. Place the plant near a south or west-facing window.', 'Humidity': 'Red roses prefer a moderate to high humidity level. Mist the leaves regularly, especially during dry seasons.', 'Temperature': 'Red roses prefer temperatures between 18°C to 24°C. Avoid exposing the plant to temperatures below 4°C or above 35°C.', 'PH Level': 'Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.', 'Suggested Placement Area': 'Place the red rose in a spot with good air circulation and away from drafts. If kept outside, ensure it is not in direct sunlight all day. ', 'Others': 'Prune your rose regularly to remove dead or diseased parts and promote healthy growth. Provide support for the plant as it grows, as the branches can become heavy with flowers. Use a balanced fertilizer every two weeks during the growing season.'}
+        self.result = {'Overview': '','Water': 'Water the red rose every 3-4 days, make sure the soil is evenly moist but not waterlogged.', 'Light': 'Red roses prefer full sunlight for at least 6 hours a day. Place the plant near a south or west-facing window.', 'Humidity': 'Red roses prefer a moderate to high humidity level. Mist the leaves regularly, especially during dry seasons.', 'Temperature': 'Red roses prefer temperatures between 18°C to 24°C. Avoid exposing the plant to temperatures below 4°C or above 35°C.', 'PH Level': 'Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.', 'Suggested Placement Area': 'Place the red rose in a spot with good air circulation and away from drafts. If kept outside, ensure it is not in direct sunlight all day. ', 'Others': 'Prune your rose regularly to remove dead or diseased parts and promote healthy growth. Provide support for the plant as it grows, as the branches can become heavy with flowers. Use a balanced fertilizer every two weeks during the growing season.'}
 
+        self.ids.overview.text = '• ' + self.result['Overview'].replace('. ', '\n• ')
         self.ids.water_tip.text = '• '+self.result['Water'].replace('. ', '\n• ')
         self.ids.light_tip.text = '• '+self.result['Light'].replace('. ', '\n• ')
         self.ids.humidity_tip.text = '• '+self.result['Humidity'].replace('. ', '\n• ')
@@ -349,6 +411,7 @@ class PlantProfilePage(Screen):
     plant_name = ''
     location = ''
     date_added = ''
+    represent_color = [0,0,0,0]
 
     def add_new_plant(self,instance):
         self.ids.overlay.canvas.clear()
@@ -409,7 +472,7 @@ class PlantProfilePage(Screen):
             else:
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list, 'date_added',reverse=True)
         MDApp.get_running_app().root.ids.start_up.update_plant_list(filtered_plant_list)
-    def to_calender(self):
+    def to_calendar(self):
         animate = Animation(
             pos_hint=MDApp.get_running_app().root.ids.master_screen.ids.utility_bars.ids.calendar.pos_hint,
             duration=0.1)
@@ -418,7 +481,12 @@ class PlantProfilePage(Screen):
         self.parent.transition.duration = 0.25
         self.parent.transition.direction = 'left'
         self.parent.current = 'calendar_page'
-
+class HourLayout(FloatLayout):
+    pass
+class DayLayout(BoxLayout):
+    pass
+class WeekLayout(BoxLayout):
+    pass
 class CalendarPage(Screen):
     pass
 class CommunityPage(Screen):

@@ -12,18 +12,6 @@ user0:
     - 0
     - 1
   plant1:
-    age: ''
-    avatar: layout/img/background3.png
-    date_added: 2012/01/30
-    extra_notes: ''
-    location: ''
-    name: example2
-    represent_color:
-    - 0
-    - 0
-    - 1
-    - 1
-  plant2:
     age: '2023'
     avatar: layout/img/default_plant_avatar.png
     date_added: 2023/06/05
@@ -35,7 +23,7 @@ user0:
     - 0.9610238598938982
     - 0.030817385914126305
     - 1
-  plant3:
+  plant2:
     age: ''
     avatar: layout/img/default_plant_avatar.png
     date_added: 2023/06/05
@@ -46,6 +34,30 @@ user0:
     - 0.19577177279433744
     - 0.894537118815598
     - 0.12969890667802553
+    - 1
+  plant3:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/05
+    extra_notes: ''
+    location: ''
+    name: fsg xfgwssdfsrggrerfwfverfvws
+    represent_color:
+    - 0.8501098488877291
+    - 0.7499852959760349
+    - 0.8458656310834599
+    - 1
+  plant4:
+    age: '2016'
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/05
+    extra_notes: ''
+    location: Sweden
+    name: peace lilies
+    represent_color:
+    - 0.4388432641846296
+    - 0.7168910792845277
+    - 0.9095587467072923
     - 1
 user1:
   plant0:

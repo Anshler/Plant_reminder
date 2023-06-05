@@ -109,6 +109,31 @@ def simple_signup_vadilation(username, email, password):
         yaml.safe_dump(auth, f)
     return new_user
 
+def simple_remove_key__plant_list(id, plant):
+    plant_list = get_plant_list()
+    advanced_plant_list = get_advanced_plant_list()
+
+    plant_list[id].pop(plant)
+    advanced_plant_list[id].pop(plant)
+
+    new_plant_list = continuous_numbering(plant_list[id])
+    new_advanced_plant_list = continuous_numbering(advanced_plant_list[id])
+
+    plant_list[id]=new_plant_list
+    advanced_plant_list[id]=new_advanced_plant_list
+
+    with open('placeholder_server/user/plant_selector.yaml', 'w', encoding='utf-8') as f:
+        yaml.safe_dump(plant_list, f)
+    with open('placeholder_server/user/plant_selector_advanced.yaml', 'w', encoding='utf-8') as f:
+        yaml.safe_dump(advanced_plant_list, f)
+
+def continuous_numbering(data):
+    # Update key names to maintain continuous numbering
+    updated_data = {}
+    for i, (key, value) in enumerate(data.items()):
+        new_key = f"plant{i}"
+        updated_data[new_key] = value
+    return updated_data
 def simple_add_new_plant(id,name,represent_color,avatar,age,date_added,location,extra_notes, result):
     # This would be an api call
     basic = yaml.safe_load(open('placeholder_server/user/plant_selector.yaml', encoding='utf-8'))

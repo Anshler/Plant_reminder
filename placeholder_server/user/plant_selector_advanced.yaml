@@ -3,19 +3,12 @@ user0:
     Humidity: ''
     Light: ''
     Others: ''
+    Overview: ''
     PH Level: ''
     Suggested Placement Area: ''
     Temperature: ''
     Water: ''
   plant1:
-    Humidity: ''
-    Light: ''
-    Others: ''
-    PH Level: ''
-    Suggested Placement Area: ''
-    Temperature: ''
-    Water: ''
-  plant2:
     Humidity: "Cacti are tolerant of low humidity and can easily cope with the average\
       \ humidity of Vietnam. You don\u2019t need to worry about humidity levels as\
       \ cactus is desert plants and naturally adapted to dry air."
@@ -26,6 +19,7 @@ user0:
       that can cause injury. You may want to use a thick glove when handling them.
       Fertilize the cactus once in a month during its active growth phase, which is
       usually from spring to fall.
+    Overview: ''
     PH Level: Cactus prefers slightly acidic to slightly alkaline soil with a pH range
       between 5.5-7.5. You can use cactus soil from a nursery, or mix sand and peat
       moss from your garden to get the right pH.
@@ -38,7 +32,7 @@ user0:
     Water: Cactus should be watered once in every 2-3 weeks. Water the cactus slowly
       and deeply ensuring the soil is evenly moistened. Do not water when the soil
       is wet or partially wet and avoid waterlogging as it can lead to root rot.
-  plant3:
+  plant2:
     Humidity: 'Fiddle leaf figs are native to tropical rainforests, which means they
       like high humidity. For Southern Africa''s relatively dry climate, spraying
       the leaves with a spray bottle as well as placing a bowl of water next to the
@@ -52,6 +46,7 @@ user0:
       the plant regularly for signs of pest infestation or other issues such as brown
       spots on leaves or yellow leaves. If any issues are detected, take corrective
       action such as treating the pests or adjusting watering or light levels.
+    Overview: ''
     PH Level: "Fiddle-leaf fig plants prefer slightly acidic soil with a pH between\
       \ 6.0 and 7.0. The plant appreciates a balanced liquid fertilizer once every\
       \ month. It\u2019s important to understand that any sudden drop or increase\
@@ -73,6 +68,50 @@ user0:
       sure it's not sitting in standing water. Like most indoor plants, they don't
       like to sit in water for too long. For the location in South Africa, adjust
       watering frequency based on temperature and humidity.
+  plant3:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+  plant4:
+    Humidity: Peace lilies prefer a humid environment. Misting the leaves can help
+      increase humidity, or placing a tray of water near the plant can also create
+      a humid environment.
+    Light: Peace lilies prefer bright, indirect light, but can tolerate medium or
+      low light conditions. Avoid direct sunlight as it can damage the leaves.
+    Others: '- Make sure to remove any dead or yellow leaves to help your peace lily
+      thrive.
+
+      - Peace lilies are sensitive to chemicals, so avoid using fertilizers or pesticides
+      unless necessary.
+
+      - Prune the plant after it has finished blooming, removing dead or damaged leaves
+      and flowers.'
+    Overview: Peace lilies are popular house plants known for their elegant dark green
+      leaves and striking white flowers, which bloom throughout the year.
+    PH Level: Peace lilies prefer a slightly acidic soil pH of around 6.5.
+    Suggested Placement Area: Peace lilies are versatile and can be used to decorate
+      any room of a house, but should be kept out of reach of pets and children due
+      to their toxic nature when ingested.
+    Temperature: "Peace lilies prefer warm temperatures between 18-27\xB0C (65-80\xB0\
+      F). Keep them away from drafts or sudden temperature changes."
+    Water: 'Water your peace lily once a week, or when the top inch of soil is dry
+      to the touch. Avoid overwatering and make sure the soil has good drainage. Reduce
+      watering during winter. '
 user1:
   plant0:
     Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
@@ -83,6 +122,7 @@ user1:
       healthy growth. Provide support for the plant as it grows, as the branches can
       become heavy with flowers. Use a balanced fertilizer every two weeks during
       the growing season.
+    Overview: ''
     PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
       6.5.
     Suggested Placement Area: 'Place the red rose in a spot with good air circulation
@@ -102,6 +142,7 @@ user2:
       healthy growth. Provide support for the plant as it grows, as the branches can
       become heavy with flowers. Use a balanced fertilizer every two weeks during
       the growing season.
+    Overview: ''
     PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
       6.5.
     Suggested Placement Area: 'Place the red rose in a spot with good air circulation

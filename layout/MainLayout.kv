@@ -1474,6 +1474,7 @@ WindowManager:
             on_release:
                 root.release_button(self)
                 root.confirm(self)
+
 <ConfirmFinalStepPopup>:
     auto_dismiss: False
     size_hint: 0.9,0.5
@@ -1534,6 +1535,7 @@ WindowManager:
             on_release:
                 root.release_button(self)
                 root.confirm_auto(self)
+
 <PlantColorPickerPopUp>:
     auto_dismiss: False
     size_hint: 1,0.8
@@ -1610,6 +1612,66 @@ WindowManager:
                 on_release:
                     root.release_button(self)
                     root.apply_color(self)
+<DeletePlantPopup>:
+    auto_dismiss: False
+    size_hint: 0.8,0.2
+    pos_hint: {'center_x': 0.5, 'y': 0.5}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: 'Are you sure you want to delete this profile?'
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/7
+    separator_color: 0.5,0.5,0.5,0.25
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+        # line decorator
+        FloatLayout:
+            size_hint: None, 1
+            width: '2dp'
+            pos_hint: {'center_x':0.5, 'y':0}
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.25
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'right':0.5, 'y':0}
+            text: 'cancel'
+            color: app.primary_font_color
+            bold: True
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/2
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.dismiss()
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'x':0.5, 'y':0}
+            text: 'delete'
+            bold: True
+            color: app.wrong_pass_warn
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/2
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.quit_create(self)
 
 <YearButton>:
     size_hint: 1,None
@@ -1695,6 +1757,59 @@ WindowManager:
             height: self.minimum_height
             pos_hint: {'top': 1}
             orientation: 'vertical'
+
+            # overview-----------------------------------------------------------------
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.075
+                FloatLayout:
+                    size_hint: None,None
+                    height: scroll_view.height/20
+                    width: self.height*13
+                    pos_hint: {'x':0.1, 'center_y': 0.5}
+                    MDLabel:
+                        size_hint: 0.9, 1
+                        pos_hint: {'x': 0.1, 'center_y':0.5}
+                        text: 'OVERVIEW'
+                        bold: True
+                        font_style: 'Caption'
+                        color: app.primary_background_color
+                        halign: 'left'
+                        valign: 'center'
+                        text_size: self.size
+                        font_size: self.height*0.75
+                    Button:
+                        disabled: True
+                        size_hint: None, 1
+                        width: self.height
+                        pos_hint: {'x': 0, 'center_y': 0.5}
+                        background_color: 0,0,0,0
+                        Image:
+                            size_hint: None,None
+                            width: self.parent.width
+                            height: self.parent.height
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                            source: 'layout/img/overview.png'
+                            allow_stretch: True
+                            color: app.primary_background_color
+            MDLabel:
+                id: overview
+                size_hint: 1,None
+                pos_hint: {'center_x':0.5}
+                height: self.texture_size[1]
+                text: ''
+                valign: 'center'
+                color: app.primary_font_color
+                text_size: (self.width*0.8,None)
+                font_size: self.parent.parent.height/25
+                font_style: 'Body2'
+
+            # line separator
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.05
+            LineSeparator:
 
             # water-----------------------------------------------------------------
             FloatLayout:
@@ -1973,7 +2088,7 @@ WindowManager:
                     MDLabel:
                         size_hint: 0.9, 1
                         pos_hint: {'x': 0.1, 'center_y':0.5}
-                        text: 'SUGGESTED PLACEMENT AREA'
+                        text: 'SUGGESTED PLACEMENT'
                         bold: True
                         font_style: 'Caption'
                         color: app.primary_background_color
@@ -2606,7 +2721,7 @@ WindowManager:
             BoxLayout:
                 canvas:
                     Color:
-                        rgba: 1,1,1,0.2
+                        rgba: 1,1,1,1
                     RoundedRectangle:
                         pos: self.pos
                         size: self.size
@@ -2641,6 +2756,49 @@ WindowManager:
                     text_size: (self.width*0.8,None)
                     font_size: self.parent.parent.height/30
                     font_style: 'Body2'
+                # color -------------------------------------------------------------------
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.075
+                    FloatLayout:
+                        size_hint: None,None
+                        height: scroll_view.height/20
+                        width: self.height*13
+                        pos_hint: {'x':0.1, 'center_y': 0.5}
+                        MDLabel:
+                            size_hint: 0.9, 1
+                            pos_hint: {'x': 0.1, 'center_y':0.5}
+                            text: 'HIGHLIGHT COLOR'
+                            bold: True
+                            font_style: 'Caption'
+                            color: app.primary_background_color
+                            halign: 'left'
+                            valign: 'center'
+                            text_size: self.size
+                            font_size: self.height*0.75
+                        Button:
+                            disabled: True
+                            size_hint: None, 1
+                            width: self.height
+                            pos_hint: {'x': 0, 'center_y': 0.5}
+                            background_color: 0,0,0,0
+                            Image:
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/color.png'
+                                allow_stretch: True
+                                color: app.primary_background_color
+                        Image:
+                            id: represent_color_image
+                            size_hint: None, 1
+                            width: self.height
+                            pos_hint: {'x': 0.6, 'center_y':0.5}
+                            allow_stretch: True
+                            source: 'layout/img/otp_input.png'
+                            color: 0,0,0,0
                 # Line separator
                 LineSeparator:
 
@@ -2658,6 +2816,55 @@ WindowManager:
                         text_size: self.size
                         font_size: self.height*0.4
                         bold: True
+                LineSeparator:
+                # overview-----------------------------------------------------------------
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.075
+                    FloatLayout:
+                        size_hint: None,None
+                        height: scroll_view.height/20
+                        width: self.height*13
+                        pos_hint: {'x':0.1, 'center_y': 0.5}
+                        MDLabel:
+                            size_hint: 0.9, 1
+                            pos_hint: {'x': 0.1, 'center_y':0.5}
+                            text: 'OVERVIEW'
+                            bold: True
+                            font_style: 'Caption'
+                            color: app.primary_background_color
+                            halign: 'left'
+                            valign: 'center'
+                            text_size: self.size
+                            font_size: self.height*0.75
+                        Button:
+                            disabled: True
+                            size_hint: None, 1
+                            width: self.height
+                            pos_hint: {'x': 0, 'center_y': 0.5}
+                            background_color: 0,0,0,0
+                            Image:
+                                size_hint: None,None
+                                width: self.parent.width
+                                height: self.parent.height
+                                center_x: self.parent.center_x
+                                center_y: self.parent.center_y
+                                source: 'layout/img/overview.png'
+                                allow_stretch: True
+                                color: app.primary_background_color
+                MDLabel:
+                    id: overview
+                    size_hint: 1,None
+                    pos_hint: {'center_x':0.5}
+                    height: self.texture_size[1]
+                    text: ''
+                    valign: 'center'
+                    color: app.primary_font_color
+                    text_size: (self.width*0.8,None)
+                    font_size: self.parent.parent.height/30
+                    font_style: 'Body2'
+
+                # line separator
                 LineSeparator:
 
                 # water-----------------------------------------------------------------
@@ -2922,7 +3129,7 @@ WindowManager:
                         MDLabel:
                             size_hint: 0.9, 1
                             pos_hint: {'x': 0.1, 'center_y':0.5}
-                            text: 'SUGGESTED PLACEMENT AREA'
+                            text: 'SUGGESTED PLACEMENT'
                             bold: True
                             font_style: 'Caption'
                             color: app.primary_background_color
@@ -3010,6 +3217,58 @@ WindowManager:
                 # line separator
                 LineSeparator:
 
+                # Buttons
+                FloatLayout:
+                    size_hint: 1,None
+                    height: self.parent.parent.height*0.4
+                    ShadowButton:
+                        id: view_calendar_button
+                        name: 'view_calendar_button'
+                        size_hint: 0.8, 0.4
+                        pos_hint: {'center_x':0.5, 'center_y':0.5*3/2}
+                        background_down: ''
+                        background_normal: ''
+                        background_color: app.secondary_background_color
+                        elevation: 2
+                        shadow_offset: 0, 2
+                        text: 'View calendar'
+                        color: app.primary_background_color
+                        text_size: self.size
+                        font_size: self.height/4
+                        bold: True
+                        valign: 'center'
+                        halign: 'center'
+                        on_press:
+                            app.play_sound('next.wav')
+                            root.press_button(self)
+                        on_release:
+                            root.release_button(self)
+                            root.to_calendar(self)
+                    ShadowButton:
+                        id: delete_plant
+                        name: 'delete_plant'
+                        size_hint: 0.8, 0.4
+                        pos_hint: {'center_x':0.5, 'center_y':0.5/2}
+                        background_down: ''
+                        background_normal: ''
+                        background_color: app.background_color
+                        elevation: 2
+                        shadow_offset: 0, 2
+                        text: 'Delete'
+                        color: app.wrong_pass_warn
+                        text_size: self.size
+                        font_size: self.height/4
+                        bold: True
+                        valign: 'center'
+                        halign: 'center'
+                        on_press:
+                            app.play_sound('next.wav')
+                            root.press_button(self)
+                        on_release:
+                            Factory.DeletePlantPopup().open()
+                            root.release_button(self)
+                # line separator
+                LineSeparator:
 
     FloatLayout: # Back_button_region
         size_hint: 1, 1.15/12
@@ -3223,11 +3482,79 @@ WindowManager:
             id: new_plant_screen
             name: 'new_plant_screen'
 
+<HourLayout>:
+    canvas:
+        Color:
+            rgba: 0.5,0.5,0.5,0.5
+        Line:
+            width: 1
+            rectangle: (self.x, self.y, self.width, self.height)
+<DayLayout>:
+    orientation: 'vertical'
+    spacing: 2
+
+    HourLayout:
+        id: 0_4
+    HourLayout:
+        id: 4_8
+    HourLayout:
+        id: 8_12
+    HourLayout:
+        id: 12_16
+    HourLayout:
+        id: 16_20
+    HourLayout:
+        id: 20_0
+
+<WeekLayout>:
+    orientation: 'horizontal'
+    spacing: 2
+    padding: self.width*0.025
+
+    DayLayout:
+        id: monday
+    DayLayout:
+        id: tuesday
+    DayLayout:
+        id: wednesday
+    DayLayout:
+        id: thursday
+    DayLayout:
+        id: friday
+    DayLayout:
+        id: saturday
+    DayLayout:
+        id: sunday
+
 <CalendarPage>:
-    Image:
-        source: 'layout/img/calendar.png'
-        keep_ratio: True
-        color: 1, 1, 1, 1  # Set image color to full opacity
+    canvas:
+        Color:
+            rgba: app.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    ScrollView:
+        id: scroll_view
+        size_hint: 1,1-1.15/12
+        pos_hint: {'center_x':0.5, 'top': 1}
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1,None
+            height: self.minimum_height
+            FloatLayout:
+                canvas:
+                    Color:
+                        rgba: app.secondary_background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                size_hint: 1, None
+                height: root.height/6
+            WeekLayout:
+                id: week
+                name: 'week'
+                size_hint: 1, None
+                height: root.height*0.6
 
 <CommunityPage>:
     Image:
