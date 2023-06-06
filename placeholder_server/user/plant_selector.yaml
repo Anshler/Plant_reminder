@@ -12,42 +12,6 @@ user0:
     - 0
     - 1
   plant1:
-    age: '2023'
-    avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/05
-    extra_notes: ''
-    location: vietnam
-    name: cactus
-    represent_color:
-    - 0.4909619597624033
-    - 0.9610238598938982
-    - 0.030817385914126305
-    - 1
-  plant2:
-    age: ''
-    avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/05
-    extra_notes: ''
-    location: South africa
-    name: Fiddle-leaf fig
-    represent_color:
-    - 0.19577177279433744
-    - 0.894537118815598
-    - 0.12969890667802553
-    - 1
-  plant3:
-    age: ''
-    avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/05
-    extra_notes: ''
-    location: ''
-    name: fsg xfgwssdfsrggrerfwfverfvws
-    represent_color:
-    - 0.8501098488877291
-    - 0.7499852959760349
-    - 0.8458656310834599
-    - 1
-  plant4:
     age: '2016'
     avatar: layout/img/default_plant_avatar.png
     date_added: 2023/06/05
@@ -59,18 +23,54 @@ user0:
     - 0.7168910792845277
     - 0.9095587467072923
     - 1
-user1:
-  plant0:
+  plant2:
+    age: '2022'
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/06
+    extra_notes: ''
+    location: Australia
+    name: fiddle-leaf fig
+    represent_color:
+    - 0.42859688828928844
+    - 0.9028437682899915
+    - 0.7646276444062454
+    - 1
+  plant3:
     age: ''
     avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/05
+    date_added: 2023/06/06
+    extra_notes: I'm very busy on monday
+    location: Vietnam
+    name: Swiss Cheese Plant
+    represent_color:
+    - 0.26143210609910505
+    - 0.2472758309843036
+    - 0.5826043914287504
+    - 1
+user1:
+  plant0:
+    age: '2023'
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/06
     extra_notes: ''
     location: vietnam
-    name: rose
+    name: Chinese Money Plant
     represent_color:
-    - 0.9762991702411894
-    - 0.36367816575531986
-    - 0.7435471923993191
+    - 0.2925659049078746
+    - 0.37019392424348885
+    - 0.1958036826803795
+    - 1
+  plant1:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/07
+    extra_notes: ''
+    location: ''
+    name: sa sevsa
+    represent_color:
+    - 0.1244694080436044
+    - 0.8313541529235802
+    - 0.9112544741466981
     - 1
 user2:
   plant0:
@@ -84,4 +84,29 @@ user2:
     - 0.8356615742503182
     - 0.9562348675852507
     - 0.49733360464276444
+    - 1
+user3:
+  plant0:
+    age: '2022'
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/07
+    extra_notes: ''
+    location: ''
+    name: rose
+    represent_color:
+    - 0.5443992312993529
+    - 0.5256205387440277
+    - 0.5980598103765327
+    - 1
+  plant1:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/07
+    extra_notes: ''
+    location: ''
+    name: fern
+    represent_color:
+    - 0.5747402534302368
+    - 0.5272894437472357
+    - 0.070745550758051
     - 1

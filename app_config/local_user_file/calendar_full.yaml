@@ -1,0 +1,388 @@
+06/05_06/11:
+  friday: []
+  monday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: &id001
+    - 0.5443992312993529
+    - 0.5256205387440277
+    - 0.5980598103765327
+    - 1
+    task: water
+  - callable_id: plant0
+    hour: '16:00'
+    represent_color: *id001
+    task: mist
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: &id002
+    - 0.5747402534302368
+    - 0.5272894437472357
+    - 0.070745550758051
+    - 1
+    task: water
+  - callable_id: plant1
+    hour: '14:00'
+    represent_color: *id002
+    task: mist
+  saturday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: water
+  sunday:
+  - callable_id: plant1
+    hour: '14:00'
+    represent_color: *id002
+    task: prune
+  thursday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant0
+    hour: '16:00'
+    represent_color: *id001
+    task: mist
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: mist
+  tuesday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: 09:00
+    represent_color: *id002
+    task: prune
+  - callable_id: plant1
+    hour: '13:00'
+    represent_color: *id002
+    task: fertilize
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: mist
+  wednesday:
+  - callable_id: plant0
+    hour: '11:00'
+    represent_color: *id001
+    task: fertilize
+  - callable_id: plant1
+    hour: '11:00'
+    represent_color: *id002
+    task: water
+  - callable_id: plant1
+    hour: '15:00'
+    represent_color: *id002
+    task: prune
+06/12_06/18:
+  friday: []
+  monday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: water
+  - callable_id: plant1
+    hour: '14:00'
+    represent_color: *id002
+    task: mist
+  saturday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: water
+  sunday: []
+  thursday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: mist
+  tuesday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: '13:00'
+    represent_color: *id002
+    task: fertilize
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: mist
+  wednesday:
+  - callable_id: plant1
+    hour: '11:00'
+    represent_color: *id002
+    task: water
+06/19_06/25:
+  friday: []
+  monday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant0
+    hour: '16:00'
+    represent_color: *id001
+    task: mist
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: water
+  - callable_id: plant1
+    hour: '14:00'
+    represent_color: *id002
+    task: mist
+  saturday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: water
+  sunday:
+  - callable_id: plant1
+    hour: '14:00'
+    represent_color: *id002
+    task: prune
+  thursday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant0
+    hour: '16:00'
+    represent_color: *id001
+    task: mist
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: mist
+  tuesday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: 09:00
+    represent_color: *id002
+    task: prune
+  - callable_id: plant1
+    hour: '13:00'
+    represent_color: *id002
+    task: fertilize
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: mist
+  wednesday:
+  - callable_id: plant1
+    hour: '11:00'
+    represent_color: *id002
+    task: water
+  - callable_id: plant1
+    hour: '15:00'
+    represent_color: *id002
+    task: prune
+06/26_07/02:
+  friday: []
+  monday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: water
+  - callable_id: plant1
+    hour: '14:00'
+    represent_color: *id002
+    task: mist
+  saturday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: water
+  sunday: []
+  thursday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: mist
+  tuesday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: '13:00'
+    represent_color: *id002
+    task: fertilize
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: mist
+  wednesday:
+  - callable_id: plant0
+    hour: '11:00'
+    represent_color: *id001
+    task: fertilize
+  - callable_id: plant1
+    hour: '11:00'
+    represent_color: *id002
+    task: water
+07/03_07/09:
+  friday: []
+  monday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant0
+    hour: '16:00'
+    represent_color: *id001
+    task: mist
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: water
+  - callable_id: plant1
+    hour: '14:00'
+    represent_color: *id002
+    task: mist
+  saturday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: water
+  sunday:
+  - callable_id: plant1
+    hour: '14:00'
+    represent_color: *id002
+    task: prune
+  thursday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant0
+    hour: '16:00'
+    represent_color: *id001
+    task: mist
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: mist
+  tuesday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: 09:00
+    represent_color: *id002
+    task: prune
+  - callable_id: plant1
+    hour: '13:00'
+    represent_color: *id002
+    task: fertilize
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: mist
+  wednesday:
+  - callable_id: plant1
+    hour: '11:00'
+    represent_color: *id002
+    task: water
+  - callable_id: plant1
+    hour: '15:00'
+    represent_color: *id002
+    task: prune
+07/10_07/16:
+  friday: []
+  monday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: water
+  - callable_id: plant1
+    hour: '14:00'
+    represent_color: *id002
+    task: mist
+  saturday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: water
+  sunday: []
+  thursday:
+  - callable_id: plant0
+    hour: '10:00'
+    represent_color: *id001
+    task: water
+  - callable_id: plant1
+    hour: '10:00'
+    represent_color: *id002
+    task: mist
+  tuesday:
+  - callable_id: plant0
+    hour: '15:00'
+    represent_color: *id001
+    task: prune
+  - callable_id: plant1
+    hour: '13:00'
+    represent_color: *id002
+    task: fertilize
+  - callable_id: plant1
+    hour: '16:00'
+    represent_color: *id002
+    task: mist
+  wednesday:
+  - callable_id: plant1
+    hour: '11:00'
+    represent_color: *id002
+    task: water

@@ -1,15 +1,14 @@
 # validation for signup, signin, ...
 # this would all be replaced with api call
-
 try:
     from importlib import resources
 except ImportError:
     import importlib_resources as resources
 import yaml
 import subprocess
-
+from utils.plant_profile_management import *
 # Verify if username and password match/exist
-def simple_login_validation(username, password) -> bool:
+def simple_login_validation(username, password):
     if username == '' or password == '':
         print('can\'t login')
         return False, None
@@ -46,7 +45,7 @@ def simple_email_validation(email) -> bool:
     return False
 
 # Verify if new password is different from old
-def simple_password_validation(email,password) -> bool:
+def simple_password_validation(email,password):
     with open('placeholder_server/user/user.yaml', 'r', encoding='utf-8') as f:
         auth = yaml.safe_load(f)
     for user in auth:
@@ -94,8 +93,19 @@ def simple_new_email_validation(email) -> bool:
 def simple_signup_vadilation(username, email, password):
     # This would be an api call
     auth = yaml.safe_load(open('placeholder_server/user/user.yaml', encoding='utf-8'))
+    plant_list = retrieve_plant_list()
+    plant_list_advanced = retrieve_plant_list_advanced()
+    plant_calendar = retrieve_plant_calendar()
+    cycle = retrieve_cycle()
+    calendar_full = retrieve_calendar_full()
     if auth is None:
         auth = dict()
+        plant_list = dict()
+        plant_list_advanced = dict()
+        plant_calendar = dict()
+        cycle = dict()
+        plant_calendar = dict()
+
         new_user = 'user0'
     else:
         new_user = 'user'+str(len(auth))
@@ -104,97 +114,24 @@ def simple_signup_vadilation(username, email, password):
     info['username'] = username.lower()
     info['email'] = email.lower()
     info['password'] = password
+
     auth[new_user]=info
-    with open('placeholder_server/user/user.yaml', 'w', encoding='utf-8') as f:
+    plant_list[new_user] = dict()
+    plant_list_advanced[new_user] = dict()
+    plant_calendar[new_user] = dict()
+    cycle[new_user] = dict()
+    calendar_full[new_user] = dict()
+
+    with open(resources.path('placeholder_server.user', 'user.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(auth, f)
-    return new_user
-
-def simple_remove_key__plant_list(id, plant):
-    plant_list = get_plant_list()
-    advanced_plant_list = get_advanced_plant_list()
-
-    plant_list[id].pop(plant)
-    advanced_plant_list[id].pop(plant)
-
-    new_plant_list = continuous_numbering(plant_list[id])
-    new_advanced_plant_list = continuous_numbering(advanced_plant_list[id])
-
-    plant_list[id]=new_plant_list
-    advanced_plant_list[id]=new_advanced_plant_list
-
-    with open('placeholder_server/user/plant_selector.yaml', 'w', encoding='utf-8') as f:
+    with open(resources.path('placeholder_server.user', 'plant_selector.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(plant_list, f)
-    with open('placeholder_server/user/plant_selector_advanced.yaml', 'w', encoding='utf-8') as f:
-        yaml.safe_dump(advanced_plant_list, f)
-
-def continuous_numbering(data):
-    # Update key names to maintain continuous numbering
-    updated_data = {}
-    for i, (key, value) in enumerate(data.items()):
-        new_key = f"plant{i}"
-        updated_data[new_key] = value
-    return updated_data
-def simple_add_new_plant(id,name,represent_color,avatar,age,date_added,location,extra_notes, result):
-    # This would be an api call
-    basic = yaml.safe_load(open('placeholder_server/user/plant_selector.yaml', encoding='utf-8'))
-    advanced = yaml.safe_load(open('placeholder_server/user/plant_selector_advanced.yaml', encoding='utf-8'))
-
-    if basic is None:
-        basic = dict()
-        basic[id] = dict()
-        advanced = dict()
-        advanced[id] = dict()
-
-        new_plant = 'plant0'
-
-    elif id not in basic or basic[id] is None:
-        basic[id] = dict()
-        advanced[id] = dict()
-
-        new_plant = 'plant0'
-    else:
-        new_plant = 'plant' + str(len(basic[id]))
-
-    info = dict()
-    info['name'] = name
-    info['represent_color'] = list(represent_color)
-    info['avatar'] = avatar
-    info['age'] = age
-    info['date_added'] = date_added
-    info['location'] = location
-    info['extra_notes'] = extra_notes
-
-    basic[id][new_plant] = info
-    advanced[id][new_plant] = result
-
-    with open('placeholder_server/user/plant_selector.yaml', 'w', encoding='utf-8') as f:
-        yaml.safe_dump(basic, f)
-    with open('placeholder_server/user/plant_selector_advanced.yaml', 'w', encoding='utf-8') as f:
-        yaml.safe_dump(advanced, f)
-def update_plant_after_signup(id):
-    # after sign up, the new user id is created, which is not yet in plant_selection list
-    # so we create a relation by adding that new id
-    basic = yaml.safe_load(open('placeholder_server/user/plant_selector.yaml', encoding='utf-8'))
-    advanced = yaml.safe_load(open('placeholder_server/user/plant_selector_advanced.yaml', encoding='utf-8'))
-
-    if basic is None:
-        basic = dict()
-        advanced = dict()
-    basic[id] = dict()
-    advanced[id] = dict()
-    with open('placeholder_server/user/plant_selector.yaml', 'w', encoding='utf-8') as f:
-        yaml.safe_dump(basic, f)
-    with open('placeholder_server/user/plant_selector_advanced.yaml', 'w', encoding='utf-8') as f:
-        yaml.safe_dump(advanced, f)
-def get_plant_list():
-    plant_list = yaml.safe_load(open(resources.path('placeholder_server.user', 'plant_selector.yaml'), encoding='utf-8'))
-    return plant_list
-def get_advanced_plant_list():
-    advanced_plant_list = yaml.safe_load(open(resources.path('placeholder_server.user', 'plant_selector_advanced.yaml'), encoding='utf-8'))
-    return advanced_plant_list
-
-def update_current_user(id):
-    meta_config = yaml.safe_load(open(resources.path('app_config', 'meta_config.yaml'), encoding='utf-8'))
-    meta_config['id'] = id
-    with open(resources.path('app_config', 'meta_config.yaml'), 'w' ,encoding='utf-8') as f:
-        yaml.safe_dump(meta_config, f)
+    with open(resources.path('placeholder_server.user', 'plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
+        yaml.safe_dump(plant_list_advanced, f)
+    with open(resources.path('placeholder_server.user', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
+        yaml.safe_dump(plant_calendar, f)
+    with open(resources.path('placeholder_server.user', 'cycle.yaml'), 'w', encoding='utf-8') as f:
+        yaml.safe_dump(cycle,f)
+    with open(resources.path('placeholder_server.user', 'calendar_full.yaml'), 'w', encoding='utf-8') as f:
+        yaml.safe_dump(calendar_full,f)
+    return new_user

@@ -1,7 +1,4 @@
-a = {'a': {
-    'b': {
-        'c': 1,
-        'd': 2
-    }
-}}
-print(len(a['b']))
+import datetime
+
+now = datetime.datetime.now().date()
+print(now)

@@ -13,8 +13,7 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.colorpicker import ColorPicker
 from kivy.uix.videoplayer import VideoPlayer
 from kivy.factory import Factory
-from datetime import datetime
-from datetime import timedelta
+import datetime
 import operator
 from utils.dict_encoding import HomeButtons2Num
 from utils.random_color import *
@@ -22,7 +21,8 @@ from utils.config import *
 from utils.dict_filter import *
 from utils.format_check import isPasswordFormat,isUsernameFormat
 from utils.validation import *
-from utils.had_startup import ReadHadStartup,WriteHadStartUp
+from utils.plant_profile_management import *
+from utils.had_startup import *
 from utils.EncyclopediaCrawler import *
 from gpt3 import get_chatgpt_assistant,get_chatgpt_classifier, get_chatgpt_calendar
 
@@ -38,9 +38,9 @@ from kivymd.uix.behaviors import CommonElevationBehavior
 # Declare Main pages ----------------------------------------
 class HomePage(Screen):
     def update_time(self,*args):
-        MDApp.get_running_app().now = datetime.now().strftime('%H:%M')
+        MDApp.get_running_app().now = datetime.datetime.now().strftime('%H:%M')
         self.ids.current_time.text = MDApp.get_running_app().now
-        MDApp.get_running_app().today = datetime.today().strftime('%A, %d %B')
+        MDApp.get_running_app().today = datetime.datetime.today().strftime('%A, %d %B')
         self.ids.current_date.text = MDApp.get_running_app().today
     def test(self,instance):
         print('home page')
@@ -74,9 +74,9 @@ class PlantSelector(FloatLayout):
 class PlantScreen(Screen):
     def on_pre_enter(self, *args):
         self.ids.scroll_view.scroll_y = 1
-        result = MDApp.get_running_app().advanced_plant_list[self.parent.parent.current_plant]
+        result = MDApp.get_running_app().plant_list_advanced[self.parent.parent.current_plant]
         basic_info = ''
-        basic_info+= '• Plant\'s name: '+self.parent.parent.plant_name+'\n• Date added: '+self.parent.parent.date_added+'\n• Location: '
+        basic_info+= '• Plant\'s name: '+self.parent.parent.plant_name+'\n• Date added: '+self.parent.parent.date_added+'\n• Owner\'s location: '
         if self.parent.parent.location == '':
             basic_info += 'Not given'
         else:
@@ -195,7 +195,7 @@ class ConfirmFinalStepPopup(Popup):
             instance.color = MDApp.get_running_app().wrong_pass_warn
         else:
             instance.color = MDApp.get_running_app().primary_font_color
-    def confirm(self,*args):
+    def confirm(self,schedule = dict()):
         name_auto = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.specie_detection.strip()
         name_manual = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.manual_input_text.text.strip()
         toggle = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.toggle_manual.active
@@ -204,13 +204,12 @@ class ConfirmFinalStepPopup(Popup):
         age = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.age_text.text.strip()
         location = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.location_text.text.strip()
         extra_notes = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.extra_notes_text.text.strip()
-        date_added = datetime.now().strftime("%Y/%m/%d")
+        date_added = datetime.datetime.now().strftime("%Y/%m/%d")
 
         if toggle:
             name = name_manual
         else:
             name = name_auto
-
 
         # advanced info
         result = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.new_plant_step2.result
@@ -220,11 +219,14 @@ class ConfirmFinalStepPopup(Popup):
         if extra_notes.strip() != '':
             self.auto_calendar_prompt += '\nExtra note: '+extra_notes
         self.auto_calendar_prompt += '\nJobs to perform:\n' + result['Water'] +'\n' + result['Humidity'] + '\n' + result['Others']
-
+        print(self.auto_calendar_prompt)
         # add new plant to plant list
-        simple_add_new_plant(MDApp.get_running_app().current_user,name,represent_color,avatar,age,date_added,location,extra_notes, result)
-        MDApp.get_running_app().plant_list = get_plant_list()[MDApp.get_running_app().current_user]
-        MDApp.get_running_app().advanced_plant_list = get_advanced_plant_list()[MDApp.get_running_app().current_user]
+        current_user = MDApp.get_running_app().current_user
+        simple_add_new_plant(current_user,name,represent_color,avatar,age,date_added,location,extra_notes, result, schedule)
+
+        MDApp.get_running_app().plant_list = get_plant_list()
+        MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
+        MDApp.get_running_app().plant_calendar = get_plant_calendar()
         # reset plant filter
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.last_search = ['','none_filter']
         # update screen
@@ -234,13 +236,15 @@ class ConfirmFinalStepPopup(Popup):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
         self.dismiss()
     def confirm_auto(self, instance):
-        self.confirm()
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
-        # add calendar
-        result = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.new_plant_step2.result
+        schedule = {"monday": [],"tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],"thursday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],"saturday": [{"task": "water", "hour": "08:00", "frequency": 1}],"sunday": []}
         #schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
-
+        self.confirm(schedule=schedule)
+        update_calendar(MDApp.get_running_app().current_user)
+        MDApp.get_running_app().cycle = get_cycle()
+        MDApp.get_running_app().calendar_full = get_calendar_full()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
+
         self.dismiss()
 
 class DeletePlantPopup(Popup):
@@ -256,11 +260,19 @@ class DeletePlantPopup(Popup):
     def quit_create(self, instance):
         current_plant = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.current_plant
         current_user = MDApp.get_running_app().current_user
-        simple_remove_key__plant_list(current_user, current_plant)
 
-        MDApp.get_running_app().plant_list = get_plant_list()[current_user]
-        MDApp.get_running_app().advanced_plant_list = get_advanced_plant_list()[current_user]
+        simple_remove_key_plant_list(current_user, current_plant)
+        MDApp.get_running_app().plant_list = get_plant_list()
+        MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
+        MDApp.get_running_app().plant_calendar = get_plant_calendar()
+
+        update_calendar(current_user)
+        MDApp.get_running_app().cycle = get_cycle()
+        MDApp.get_running_app().calendar_full = get_calendar_full()
+
         MDApp.get_running_app().root.ids.start_up.update_plant_list()
+
+
 
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.plant_screen.quit_screen()
         self.dismiss()
@@ -327,7 +339,7 @@ class PlantYearSelectionPopup(Popup):
     def on_pre_open(self, *args):
         self.ids.scroll_view.scroll_y = 1
         self.ids.year_display.clear_widgets()
-        year = datetime.now().year
+        year = datetime.datetime.now().year
         year_box = YearButton(text='None', height=Window.size[1] / 15)
         self.ids.year_display.add_widget(year_box)
         for a in reversed(range(year-100,year+1)):
@@ -477,7 +489,7 @@ class PlantProfilePage(Screen):
             pos_hint=MDApp.get_running_app().root.ids.master_screen.ids.utility_bars.ids.calendar.pos_hint,
             duration=0.1)
         animate.start(MDApp.get_running_app().root.ids.master_screen.ids.utility_bars.ids.home_highlight)
-        MDApp.get_running_app().root.ids.master_screen.Previous_home_buttons = 3
+        MDApp.get_running_app().root.ids.master_screen.Previous_home_buttons = 2
         self.parent.transition.duration = 0.25
         self.parent.transition.direction = 'left'
         self.parent.current = 'calendar_page'
@@ -488,7 +500,13 @@ class DayLayout(BoxLayout):
 class WeekLayout(BoxLayout):
     pass
 class CalendarPage(Screen):
-    pass
+    def update_cycle(self,*args):
+        if MDApp.get_running_app().cycle is not None and MDApp.get_running_app().cycle != {}:
+            now = datetime.datetime.now().date()
+            if now > MDApp.get_running_app().cycle['end_cycle']:
+                update_calendar(MDApp.get_running_app().current_user)
+                MDApp.get_running_app().cycle = get_cycle()
+                MDApp.get_running_app().calendar_full = get_calendar_full()
 class CommunityPage(Screen):
     pass
 class SearchResult(ThreeLineIconListItem):
@@ -675,8 +693,6 @@ class ShoppingPage(Screen):
 class MainPagesManager(ScreenManager):
     pass
 class UtilityBars(FloatLayout):
-    def open_setting(self, instance):
-        print('setting')
     def home_buttons_animation(self, instance): # animation for home buttons
         if HomeButtons2Num[instance.name] != self.parent.parent.parent.Previous_home_buttons:
             animate = Animation(pos_hint=instance.pos_hint, duration=0.1)
@@ -690,20 +706,74 @@ class UtilityBars(FloatLayout):
             # Change screen when press those buttons
             self.parent.parent.parent.ids.main_pages.current = instance.name+'_page'
             self.parent.parent.parent.Previous_home_buttons = HomeButtons2Num[instance.name]
+class LogoutPopup(Popup):
+    def press_button(self, instance):
+        instance.disabled = True
+        instance.color = MDApp.get_running_app().press_word_button
+    def release_button(self, instance):
+        instance.disabled = False
+        if instance.text == 'logout':
+            instance.color = MDApp.get_running_app().wrong_pass_warn
+        else:
+            instance.color = MDApp.get_running_app().primary_font_color
+    def logout(self, instance):
+        MDApp.get_running_app().root.ids.master_screen.logout()
+        self.dismiss()
+class SettingScreen(Screen):
+    def press_button(self, instance):
+        change_size = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
+                                center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'logout_button':
+            change_size.start(self.ids.logout_button)
 
+    def release_button(self, instance):
+        if instance.name == 'logout_button':
+            change_size = Animation(size_hint=(0.8, 0.5), disabled=False,
+                                    center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+            change_size.start(self.ids.logout_button)
 class MasterScreen(Screen):
     Previous_home_buttons = 0
     current_filter_screen = ''
     def on_pre_enter(self, *args):
+        # update login status
+        WriteHadLogin()
         # update user id meta-config
         update_current_user(MDApp.get_running_app().current_user)
         # update current plant list
-        MDApp.get_running_app().plant_list = get_plant_list()[MDApp.get_running_app().current_user]
-        MDApp.get_running_app().advanced_plant_list = get_advanced_plant_list()[MDApp.get_running_app().current_user]
+        current_user = MDApp.get_running_app().current_user
+        MDApp.get_running_app().plant_list = get_plant_list()
+        MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
+        MDApp.get_running_app().plant_calendar = get_plant_calendar()
+        MDApp.get_running_app().cycle = get_cycle()
+        MDApp.get_running_app().calendar_full = get_calendar_full()
         # update screen that contain the list
         MDApp.get_running_app().root.ids.start_up.update_plant_list()
+
+        #update current screen
+        self.ids.utility_bars.ids.home_highlight.pos_hint = self.ids.utility_bars.ids.home.pos_hint
+        self.Previous_home_buttons = 0
+        self.ids.main_and_setting.current = 'normal_master_screen'
+        self.ids.main_pages.current = 'home_page'
+    def open_setting(self, instance):
+        if self.ids.main_and_setting.current == 'normal_master_screen':
+            self.ids.main_and_setting.transition = CardTransition()
+            self.ids.main_and_setting.transition.mode = 'push'
+            self.ids.main_and_setting.transition.duration = 0.25
+            self.ids.main_and_setting.transition.direction = 'down'
+            self.ids.main_and_setting.current = 'setting_screen'
+        else:
+            self.ids.main_and_setting.transition = CardTransition()
+            self.ids.main_and_setting.transition.mode = 'pop'
+            self.ids.main_and_setting.transition.duration = 0.25
+            self.ids.main_and_setting.transition.direction = 'up'
+            self.ids.main_and_setting.current = 'normal_master_screen'
     def swipe_home_buttons(self, instance):
         print('swipe')
+    def logout(self):
+        WriteHadLogin(False)
+        self.parent.transition = FadeTransition()
+        self.parent.current = 'login_screen'
+
 
 
 class StartUp(Screen):
@@ -714,6 +784,7 @@ class StartUp(Screen):
 
         # update time at load
         Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.home_page.update_time, 1)
+        Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.calendar_page.update_cycle, 1)
 
     def update_plant_list(self, plant_list = None):
         if plant_list is None:
@@ -735,7 +806,9 @@ class StartUp(Screen):
                     default_plant)
     def to_next(self, *args):
         self.parent.transition = FadeTransition()
-        if ReadHadStartup():
+        if ReadHadLogin():
+            self.parent.current = 'master_screen'
+        elif ReadHadStartup():
             self.parent.current = 'login_screen'
         else:
             self.parent.current = 'sign_up_screen'
@@ -1126,8 +1199,13 @@ class PlantApp(MDApp):
     volume = volume
     theme_list = theme_list
     current_user = current_user
-    plant_list = plant_list[current_user]
-    advanced_plant_list = advanced_plant_list[current_user]
+
+    plant_list = None
+    plant_list_advanced = None
+    plant_calendar = None
+
+    cycle = None
+    calendar_full = None
 
     @property
     def primary_font_color(self):
@@ -1165,8 +1243,8 @@ class PlantApp(MDApp):
             sound.play()
 
     def build(self):
-        self.now = datetime.now().strftime('%H:%M')
-        self.today = datetime.today().strftime('%A, %d %B')
+        self.now = datetime.datetime.now().strftime('%H:%M')
+        self.today = datetime.datetime.today().strftime('%A, %d %B')
         kv = Builder.load_file('layout/MainLayout.kv')
         return kv
 

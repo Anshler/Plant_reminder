@@ -10,3 +10,7 @@ user2:
   email: awesome@gmail.com
   password: Awesome123
   username: awesome
+user3:
+  email: aloha@gmail.com
+  password: Aloha123
+  username: aloha

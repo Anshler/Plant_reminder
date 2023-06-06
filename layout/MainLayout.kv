@@ -1179,8 +1179,137 @@ WindowManager:
             center_y: self.parent.center_y
             allow_stretch: True
 
+<LogoutPopup>:
+    auto_dismiss: False
+    size_hint: 0.8,0.2
+    pos_hint: {'center_x': 0.5, 'y': 0.5}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: 'Are you sure you want to logout?'
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/7
+    separator_color: 0.5,0.5,0.5,0.25
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+        # line decorator
+        FloatLayout:
+            size_hint: None, 1
+            width: '2dp'
+            pos_hint: {'center_x':0.5, 'y':0}
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.25
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'right':0.5, 'y':0}
+            text: 'cancel'
+            color: app.primary_font_color
+            bold: True
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/2
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.dismiss()
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'x':0.5, 'y':0}
+            text: 'logout'
+            bold: True
+            color: app.wrong_pass_warn
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/2
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('next.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.logout(self)
+
+<SettingScreen>:
+    canvas:
+        Color:
+            rgba: app.secondary_background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    ScrollView:
+        id: scroll_view
+        size_hint: 1,1-1.15/12
+        pos_hint: {'y':0}
+        BoxLayout:
+            size_hint: 1,None
+            height: self.minimum_height
+            orientation: 'vertical'
+            # Logo
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.6
+                pos_hint: {'center_x': 0.5}
+                Image:
+                    id: logo
+                    size_hint: None, 0.5
+                    width: self.height
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    source: 'layout/img/logo.png'
+                    allow_stretch: True
+            LineSeparator:
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.2
+                ShadowButton:
+                    id: logout_button
+                    name: 'logout_button'
+                    size_hint: 0.8, 0.5
+                    pos_hint: {'center_x':0.5, 'center_y':0.5}
+                    background_down: ''
+                    background_normal: ''
+                    background_color: app.background_color
+                    elevation: 2
+                    shadow_offset: 0, 2
+                    text: 'Logout'
+                    color: app.wrong_pass_warn
+                    text_size: self.size
+                    font_size: self.height/3
+                    bold: True
+                    valign: 'center'
+                    halign: 'center'
+                    on_press:
+                        app.play_sound('next.wav')
+                        root.press_button(self)
+                    on_release:
+                        Factory.LogoutPopup().open()
+                        root.release_button(self)
+            LineSeparator:
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 1,1,1,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                texture: Gradient.vertical((0,0,0,0), (0,0,0,0.1))
+        size_hint: 1, 0.1/12
+        pos_hint: {'top':1-1.15/12}
+
 <MasterScreen>:
     ScreenManager:
+        id: main_and_setting
         Screen:
             name: 'normal_master_screen'
             previous_home_buttons: 0
@@ -1208,9 +1337,49 @@ WindowManager:
             UtilityBars:
                 id: utility_bars
                 name: 'utility_bars'
-        #SettingScreen:
-            #id: setting_screen
-            #name: 'setting_screen'
+        SettingScreen:
+            id: setting_screen
+            name: 'setting_screen'
+
+    FloatLayout: # upper bar, mainly for setting
+        size_hint: 1, 1.15/12
+        pos_hint: {'center_x': 0.5, 'top': 1}
+        canvas:
+            Color:
+                rgba: 0,0,0,0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Button: # setting button
+            id: setting_button
+            size_hint: None,1/1.15
+            width: self.height
+            pos_hint: {'center_x': 11/12, 'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press: app.play_sound('sliding.wav')
+            on_release:
+                root.open_setting(self)
+
+            FloatLayout:
+                height: self.parent.height*0.75
+                width: self.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                canvas:
+                    Color:
+                        rgba: 176/255, 211/255, 141/255, 1
+                    Ellipse:
+                        pos: self.pos
+                        size: self.size
+            Image:
+                source: 'layout/img/setting_icon.png'
+                height: self.parent.height*0.8
+                width: self.height
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                allow_stretch: True
+                color: 1, 1, 1, 1  # Set image color to full opacity
 
 <MainPagesManager>:
     HomePage:
@@ -1314,7 +1483,9 @@ WindowManager:
     Label:
         size_hint: 0.6, 0.3
         pos_hint: {'x': 0.3,'center_y': 0.7}
-        text: root.name if len(root.name)<=13 else str(root.name[:10]+'...')
+        text: root.name
+        shorten: True
+        shorten_from: 'right'
         text_size: self.size
         color: app.primary_font_color
         valign: 'center'
@@ -1530,7 +1701,7 @@ WindowManager:
             font_size: self.height/10
             background_color: 0,0,0,0
             on_press:
-                app.play_sound('sliding.wav')
+                app.play_sound('next.wav')
                 root.press_button(self)
             on_release:
                 root.release_button(self)
@@ -2738,6 +2909,8 @@ WindowManager:
                         size_hint: 1,1
                         pos_hint: {'center_x': 0.5, 'center_y':0.5}
                         text: 'Basic Information'
+                        shorten: True
+                        shorten_from: 'right'
                         color: app.primary_background_color
                         halign: 'center'
                         valign: 'center'
@@ -2810,6 +2983,8 @@ WindowManager:
                         size_hint: 1,1
                         pos_hint: {'center_x': 0.5, 'center_y':0.5}
                         text: 'Care Advice'
+                        shorten: True
+                        shorten_from: 'right'
                         color: app.primary_background_color
                         halign: 'center'
                         valign: 'center'
@@ -3993,45 +4168,6 @@ WindowManager:
         color: 1, 1, 1, 1  # Set image color to full opacity
 
 <UtilityBars>:
-    FloatLayout: # upper bar, mainly for setting
-        size_hint: 1, 1.15/12
-        pos_hint: {'center_x': 0.5, 'top': 1}
-        canvas:
-            Color:
-                rgba: 0,0,0,0
-            Rectangle:
-                pos: self.pos
-                size: self.size
-
-        Button: # setting button
-            size_hint: None,1/1.15
-            width: self.height
-            pos_hint: {'center_x': 11/12, 'center_y':0.5}
-            background_color: 0,0,0,0
-            on_press: app.play_sound('sliding.wav')
-            on_release:
-                root.open_setting(self)
-
-            FloatLayout:
-                height: self.parent.height*0.75
-                width: self.height
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-                canvas:
-                    Color:
-                        rgba: 176/255, 211/255, 141/255, 1
-                    Ellipse:
-                        pos: self.pos
-                        size: self.size
-            Image:
-                source: 'layout/img/setting_icon.png'
-                height: self.parent.height*0.8
-                width: self.height
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-                allow_stretch: True
-                color: 1, 1, 1, 1  # Set image color to full opacity
-
     FloatLayout:
         canvas:
             Rectangle:
