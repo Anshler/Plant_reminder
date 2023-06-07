@@ -51,13 +51,13 @@ def update_calendar(id):
     for i in range(weeks):
         week_start = last_monday + datetime.timedelta(weeks=i)
         week_end = week_start + datetime.timedelta(days=6)
-        week_key = f"{week_start.strftime('%m/%d')}_{week_end.strftime('%m/%d')}"
+        week_key = f"{week_start.strftime('%Y-%m-%d')}_{week_end.strftime('%Y-%m-%d')}"
 
         week_data = {}
         for j in range(7):
             day = week_start + datetime.timedelta(days=j)
             day_key = day.strftime('%A').lower()
-            week_data[day_key] = []
+            week_data[day_key] = dict()
 
         data[week_key] = week_data
 
@@ -98,7 +98,9 @@ def add_task_to_calendar(calendar, task_list, plant_list):
 
                 # Skip the desired number of keys using islice
                 for i in range(0,len(keys),frequency):
-                    calendar[keys[i]][day].append({'callable_id': plant,'represent_color': represent_color,'task': task_name,'hour': hour})
+                    if hour not in calendar[keys[i]][day]:
+                        calendar[keys[i]][day][hour] = []
+                    calendar[keys[i]][day][hour].append({'callable_id': plant,'represent_color': represent_color,'task': task_name})
     return calendar
 
 def get_cycle():
@@ -114,20 +116,3 @@ def retrieve_cycle():
 def retrieve_calendar_full():
     calendar_full = yaml.safe_load(open(resources.path('placeholder_server.user', 'calendar_full.yaml'), encoding='utf-8'))
     return calendar_full
-
-def check_alarm(calendar):
-    # Get the current date
-    now = datetime.datetime.now()
-    current_date = now.strftime('%m/%d')
-
-    # Check if the current date is within the range of any week_range
-    for week_range, schedule in calendar.items():
-        start_date, end_date = week_range.split('_')
-        if start_date <= current_date <= end_date:
-            # Get the current weekday and time in the format used in the JSON calendar
-            current_weekday = now.strftime('%A').lower()
-            current_time = now.strftime('%H:%M')
-
-            for hour in schedule[current_weekday]:
-                if hour['hour'] == current_time:
-                    print('Alarm!')

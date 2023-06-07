@@ -507,6 +507,19 @@ class CalendarPage(Screen):
                 update_calendar(MDApp.get_running_app().current_user)
                 MDApp.get_running_app().cycle = get_cycle()
                 MDApp.get_running_app().calendar_full = get_calendar_full()
+    def update_alarm(self,*args):
+        if MDApp.get_running_app().calendar_full is not None and MDApp.get_running_app().calendar_full != {}:
+            calendar_full = MDApp.get_running_app().calendar_full
+            date_now = datetime.datetime.now().strftime('%Y-%m-%d')
+            day_now = datetime.datetime.now().strftime('%A').lower()
+
+            for week_range in calendar_full:
+                week_start, week_end = week_range.split('_')[:2]
+                if week_start <= date_now <= week_end:
+                    if MDApp.get_running_app().now in calendar_full[week_range][day_now]:
+                        print('alarm!')
+                    break
+
 class CommunityPage(Screen):
     pass
 class SearchResult(ThreeLineIconListItem):
@@ -785,6 +798,7 @@ class StartUp(Screen):
         # update time at load
         Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.home_page.update_time, 1)
         Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.calendar_page.update_cycle, 1)
+        Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.calendar_page.update_alarm, 1)
 
     def update_plant_list(self, plant_list = None):
         if plant_list is None:

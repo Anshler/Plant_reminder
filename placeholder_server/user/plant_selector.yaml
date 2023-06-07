@@ -87,18 +87,6 @@ user2:
     - 1
 user3:
   plant0:
-    age: '2022'
-    avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/07
-    extra_notes: ''
-    location: ''
-    name: rose
-    represent_color:
-    - 0.5443992312993529
-    - 0.5256205387440277
-    - 0.5980598103765327
-    - 1
-  plant1:
     age: ''
     avatar: layout/img/default_plant_avatar.png
     date_added: 2023/06/07
@@ -109,4 +97,16 @@ user3:
     - 0.5747402534302368
     - 0.5272894437472357
     - 0.070745550758051
+    - 1
+  plant1:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/07
+    extra_notes: ''
+    location: ''
+    name: cat
+    represent_color:
+    - 0.8943281201040428
+    - 0.8996917178344064
+    - 0.6287954035302643
     - 1

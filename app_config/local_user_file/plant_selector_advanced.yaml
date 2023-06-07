@@ -1,29 +1,4 @@
 plant0:
-  Humidity: Roses prefer moderate humidity levels but can tolerate dry air. Using
-    a humidifier or placing a tray of water near the plant can help increase humidity
-    levels in dry indoor environments.
-  Light: Roses require full sun to thrive, meaning at least 6 hours of direct sunlight
-    each day. In hotter climates, it may be necessary to provide partial shade during
-    the hottest part of the day to prevent the plants from overheating.
-  Others: Prune roses regularly to promote healthy growth and increase blooming. Fertilize
-    with a slow-release fertilizer in the spring and again in mid-summer. Watch out
-    for common pests such as aphids and spider mites, and treat with insecticidal
-    soap if necessary.
-  Overview: Roses are popular ornamental plants, typically grown for their beautiful
-    flowers. They come in many different colors and varieties, from miniature plants
-    that stay under 2 feet tall to climbing roses that can reach up to 20 feet.
-  PH Level: Roses grow best in slightly acidic soil with a pH between 6.0-6.5. It's
-    a good idea to test the pH levels of the soil occasionally and adjust if needed.
-  Suggested Placement Area: Roses are commonly grown in outdoor gardens, but they
-    can also be grown indoors if given proper care and attention. When growing indoors,
-    choose a bright, sunny window or use artificial grow lights.
-  Temperature: "Roses prefer moderate temperatures, ideally between 60-75\xB0F (15-23\xB0\
-    C). Avoid exposing them to extreme heat or cold."
-  Water: Water roses deeply once a week, providing enough water to soak the roots
-    and penetrate the soil. Avoid frequent shallow watering, which can lead to weak
-    and shallow roots. The amount of water required may vary depending on the climate
-    and time of year.
-plant1:
   Humidity: Ferns require relatively high humidity levels, ideally between 40-60%.
     If the air in your home is particularly dry, consider using a humidifier or placing
     a tray of water near your plant to increase moisture levels. Misting your fern
@@ -48,3 +23,21 @@ plant1:
     Be careful not to overwater, as this can lead to root rot. In general, watering
     once a week should be sufficient, but depending on the humidity level in your
     home and the size of your plant, you may need to water more or less often.
+plant1:
+  Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves regularly,
+    especially during dry seasons.
+  Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+    near a south or west-facing window.
+  Others: Prune your rose regularly to remove dead or diseased parts and promote healthy
+    growth. Provide support for the plant as it grows, as the branches can become
+    heavy with flowers. Use a balanced fertilizer every two weeks during the growing
+    season.
+  Overview: ''
+  PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.
+  Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+    and away from drafts. If kept outside, ensure it is not in direct sunlight all
+    day. '
+  Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid exposing\
+    \ the plant to temperatures below 4\xB0C or above 35\xB0C."
+  Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+    not waterlogged.
