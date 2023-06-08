@@ -6,6 +6,26 @@ user1:
   email: anshler12345@gmail.com
   password: 111111aA
   username: boboiboiz2
+user10:
+  email: aloha8@gmail.com
+  password: Aloha123
+  username: aloha8
+user11:
+  email: aloha9@gmail.com
+  password: Aloha123
+  username: aloha9
+user12:
+  email: aloha10@gmail.com
+  password: Aloha123
+  username: aloha10
+user13:
+  email: aloha11@gmail.com
+  password: Aloha123
+  username: aloha11
+user14:
+  email: aloha12@gmail.com
+  password: Aloha123
+  username: aloha12
 user2:
   email: awesome@gmail.com
   password: Awesome123
@@ -14,3 +34,27 @@ user3:
   email: aloha@gmail.com
   password: Aloha123
   username: aloha
+user4:
+  email: aloha2@gmail.com
+  password: Aloha123
+  username: aloha2
+user5:
+  email: aloha3@gmail.com
+  password: Aloha123
+  username: aloha3
+user6:
+  email: aloha4@gmail.com
+  password: Aloha123
+  username: aloha4
+user7:
+  email: aloha5@gmail.com
+  password: Aloha123
+  username: aloha5
+user8:
+  email: aloha6@gmail.com
+  password: Aloha123
+  username: aloha6
+user9:
+  email: aloha7@gmail.com
+  password: Aloha123
+  username: aloha7

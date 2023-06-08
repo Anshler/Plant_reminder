@@ -283,6 +283,7 @@ class ConfirmFinalStepPopup(Popup):
         #schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
         self.confirm(schedule=schedule)
         update_calendar(MDApp.get_running_app().current_user)
+
         MDApp.get_running_app().calendar_full = get_calendar_full()
         MDApp.get_running_app().cycle = get_cycle()
         MDApp.get_running_app().root.ids.start_up.update_calendar_list()
@@ -314,6 +315,9 @@ class DeletePlantPopup(Popup):
         MDApp.get_running_app().calendar_full = get_calendar_full()
 
         MDApp.get_running_app().root.ids.start_up.update_plant_list()
+        # reset if new calendar is empty
+        if MDApp.get_running_app().calendar_full == {}:
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
         MDApp.get_running_app().root.ids.start_up.update_calendar_list()
 
 
@@ -544,6 +548,15 @@ class DayLayout(BoxLayout):
 class WeekLayout(BoxLayout):
     pass
 class CalendarPage(Screen):
+    def on_pre_enter(self, *args):
+        self.ids.scroll_view.scroll_y = 1
+    def reset_calendar(self,*args):
+        day_list = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        hour_list = ['0', '4', '8', '12', '16', '20']
+        for day in day_list:
+            for hour in hour_list:
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
+                    hour].ids.hour_box.clear_widgets()
     def update_cycle(self,*args):
         if MDApp.get_running_app().cycle is not None and MDApp.get_running_app().cycle != {}:
             now = datetime.datetime.now().date()
@@ -553,6 +566,12 @@ class CalendarPage(Screen):
                 MDApp.get_running_app().calendar_full = get_calendar_full()
     def update_current_week(self, *args):
         calendar_full = MDApp.get_running_app().calendar_full
+
+        # update current day
+        MDApp.get_running_app().current_day = datetime.datetime.now().strftime('%a')
+        if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day != MDApp.get_running_app().current_day:
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day = MDApp.get_running_app().current_day
+
         if calendar_full is not None and calendar_full != {}:
             # update calendar display in calendar page
             date_now = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -575,6 +594,11 @@ class CalendarPage(Screen):
                     if MDApp.get_running_app().now in calendar_full[week_range][day_now]:
                         print('alarm!')
                     break
+    def change_day(self,instance):
+        day_list = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+        for day in day_list:
+            self.ids[day].background_color = (0,0,0,0)
+        instance.background_color = (1,1,1,0.5)
 
 
 class CommunityPage(Screen):
@@ -807,18 +831,26 @@ class MasterScreen(Screen):
     def on_pre_enter(self, *args):
         # update login status
         WriteHadLogin()
+        # reset_calendar
+
         # update user id meta-config
         update_current_user(MDApp.get_running_app().current_user)
         MDApp.get_running_app().cycle = get_cycle()
         MDApp.get_running_app().calendar_full = get_calendar_full()
+
         # update current plant list
         current_user = MDApp.get_running_app().current_user
         MDApp.get_running_app().plant_list = get_plant_list()
         MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
 
+        # reset calendar display
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
         # update screen that contain the list
         MDApp.get_running_app().root.ids.start_up.update_plant_list()
+        MDApp.get_running_app().root.ids.start_up.update_calendar_list()
+
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day = ''
 
         #update current screen
         self.ids.utility_bars.ids.home_highlight.pos_hint = self.ids.utility_bars.ids.home.pos_hint
@@ -860,6 +892,7 @@ class StartUp(Screen):
         Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.calendar_page.update_alarm, 1)
         Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.calendar_page.update_current_week, 1)
 
+
     def update_plant_list(self, plant_list = None):
         if plant_list is None:
             plant_list = MDApp.get_running_app().plant_list
@@ -882,8 +915,11 @@ class StartUp(Screen):
         if calendar_full is None:
             calendar_full = MDApp.get_running_app().calendar_full
         # update calendar display in calendar page
+        if calendar_full == {}:
+            return
+        MDApp.get_running_app().current_week_range = get_current_week_range()
         current_calendar_full = calendar_full[MDApp.get_running_app().current_week_range]
-        #print(current_calendar_full)
+
         for day, hours in current_calendar_full.items():
             previous_closest = -1
             for hour, task_list in hours.items():
@@ -1311,6 +1347,7 @@ class PlantApp(MDApp):
     calendar_full = None
 
     current_week_range = None
+    current_day = None
 
     @property
     def primary_font_color(self):

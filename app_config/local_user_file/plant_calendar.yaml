@@ -1,125 +1,98 @@
-plant0:
+plant0: null
+plant1:
   friday: []
   monday:
   - frequency: 1
     hour: '10:00'
     task: water
+  - frequency: 2
+    hour: '12:00'
+    task: fertilize
   - frequency: 1
     hour: '14:00'
     task: mist
   saturday:
   - frequency: 1
-    hour: '16:00'
-    task: water
-  sunday:
-  - frequency: 2
-    hour: '14:00'
-    task: prune
-  thursday:
-  - frequency: 1
     hour: '10:00'
-    task: mist
-  tuesday:
-  - frequency: 2
-    hour: 09:00
-    task: prune
+    task: water
   - frequency: 1
-    hour: '13:00'
-    task: fertilize
-  - frequency: 1
-    hour: '16:00'
+    hour: '14:00'
     task: mist
-  wednesday:
+  sunday:
   - frequency: 1
     hour: '11:00'
     task: water
   - frequency: 2
+    hour: '12:00'
+    task: fertilize
+  thursday:
+  - frequency: 1
+    hour: '11:00'
+    task: water
+  - frequency: 2
+    hour: '13:00'
+    task: fertilize
+  - frequency: 4
     hour: '15:00'
     task: prune
-plant1:
-  friday:
-  - frequency: 2
-    hour: '12:00'
-    task: fertilize
-  monday: []
-  saturday:
-  - frequency: 1
-    hour: 08:00
-    task: water
-  sunday: []
-  thursday:
-  - frequency: 1
-    hour: 08:00
-    task: water
-  - frequency: 1
-    hour: 08:00
-    task: mist
   tuesday:
   - frequency: 1
-    hour: 08:00
+    hour: '11:00'
     task: water
-  - frequency: 1
-    hour: 08:00
-    task: mist
+  - frequency: 4
+    hour: '14:00'
+    task: prune
   wednesday:
   - frequency: 1
     hour: '10:00'
-    task: prune
+    task: water
+  - frequency: 1
+    hour: '14:00'
+    task: mist
 plant2:
   friday:
-  - frequency: 2
-    hour: '12:00'
-    task: fertilize
-  monday: []
-  saturday:
   - frequency: 1
-    hour: 08:00
+    hour: 07:00
     task: water
+  - frequency: 2
+    hour: 08:00
+    task: mist
+  monday:
+  - frequency: 1
+    hour: 07:00
+    task: water
+  - frequency: 2
+    hour: 08:00
+    task: mist
+  - frequency: 4
+    hour: '10:00'
+    task: prune
+  - frequency: 4
+    hour: '13:00'
+    task: fertilize
+  saturday:
+  - frequency: 4
+    hour: '10:00'
+    task: prune
   sunday: []
   thursday:
   - frequency: 1
-    hour: 08:00
+    hour: 07:00
     task: water
-  - frequency: 1
+  - frequency: 2
     hour: 08:00
     task: mist
+  - frequency: 4
+    hour: '10:00'
+    task: prune
   tuesday:
   - frequency: 1
-    hour: 08:00
+    hour: 07:00
     task: water
-  - frequency: 1
+  - frequency: 2
     hour: 08:00
     task: mist
   wednesday:
-  - frequency: 1
-    hour: '10:00'
-    task: prune
-plant3:
-  friday:
-  - frequency: 2
+  - frequency: 4
     hour: '12:00'
     task: fertilize
-  monday: []
-  saturday:
-  - frequency: 1
-    hour: 08:00
-    task: water
-  sunday: []
-  thursday:
-  - frequency: 1
-    hour: 08:00
-    task: water
-  - frequency: 1
-    hour: 08:00
-    task: mist
-  tuesday:
-  - frequency: 1
-    hour: 08:00
-    task: water
-  - frequency: 1
-    hour: 08:00
-    task: mist
-  wednesday:
-  - frequency: 1
-    hour: '10:00'
-    task: prune

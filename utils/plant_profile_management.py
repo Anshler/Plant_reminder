@@ -164,7 +164,7 @@ def update_plant_after_signup(id):
     advanced = dict()
     calendar = dict()
     cycle = dict()
-    calendar = dict()
+    calendar_full = dict()
 
     with open(resources.path('app_config.local_user_file', 'plant_selector.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(basic, f)
@@ -173,9 +173,9 @@ def update_plant_after_signup(id):
     with open(resources.path('app_config.local_user_file', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(calendar, f)
     with open(resources.path('app_config.local_user_file', 'cycle.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar, f)
+        yaml.safe_dump(cycle, f)
     with open(resources.path('app_config.local_user_file', 'calendar_full.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar, f)
+        yaml.safe_dump(calendar_full, f)
 
     # make api call
     my_thread = threading.Thread(target=update_plant_after_signup_, args=(id,))

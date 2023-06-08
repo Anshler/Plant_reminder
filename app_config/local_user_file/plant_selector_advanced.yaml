@@ -1,79 +1,76 @@
 plant0:
-  Humidity: Ferns require relatively high humidity levels, ideally between 40-60%.
-    If the air in your home is particularly dry, consider using a humidifier or placing
-    a tray of water near your plant to increase moisture levels. Misting your fern
-    regularly can also help to boost humidity levels.
-  Light: Ferns prefer bright, indirect light. Direct sunlight can scorch their delicate
-    leaves, so be sure to place your fern in a location that receives plenty of filtered
-    light throughout the day.
-  Others: Fertilize your fern once a month during the growing season (spring and summer)
-    with a balanced houseplant fertilizer. Trim off any dead or damaged fronds as
-    needed to promote new growth and maintain the plant's appearance.
-  Overview: Ferns are leafy, green plants with delicate, frilly fronds. They require
-    relatively high humidity levels and moderate temperatures to thrive.
-  PH Level: Ferns prefer slightly acidic soil with a pH between 5.5 to 7.0.
-  Suggested Placement Area: Ferns are versatile and can thrive in a variety of locations,
-    including bathrooms, bedrooms or living rooms. Consider placing them near a window
-    with filtered light and ensuring their surrounding environment has enough moisture
-    and humidity.
-  Temperature: "Ferns prefer moderate temperatures between 60-75\xB0F (15-24\xB0C).\
-    \ Avoid exposing your fern to sudden temperature changes, such as drafts or air\
-    \ conditioning."
-  Water: Water your fern regularly, ensuring that the soil never dries out completely.
-    Be careful not to overwater, as this can lead to root rot. In general, watering
-    once a week should be sufficient, but depending on the humidity level in your
-    home and the size of your plant, you may need to water more or less often.
+  Humidity: Peace lilies prefer a humid environment. Misting the leaves can help increase
+    humidity, or placing a tray of water near the plant can also create a humid environment.
+  Light: Peace lilies prefer bright, indirect light, but can tolerate medium or low
+    light conditions. Avoid direct sunlight as it can damage the leaves.
+  Others: '- Make sure to remove any dead or yellow leaves to help your peace lily
+    thrive.
+
+    - Peace lilies are sensitive to chemicals, so avoid using fertilizers or pesticides
+    unless necessary.
+
+    - Prune the plant after it has finished blooming, removing dead or damaged leaves
+    and flowers.'
+  Overview: Peace lilies are popular house plants known for their elegant dark green
+    leaves and striking white flowers, which bloom throughout the year.
+  PH Level: Peace lilies prefer a slightly acidic soil pH of around 6.5.
+  Suggested Placement Area: Peace lilies are versatile and can be used to decorate
+    any room of a house, but should be kept out of reach of pets and children due
+    to their toxic nature when ingested.
+  Temperature: "Peace lilies prefer warm temperatures between 18-27\xB0C (65-80\xB0\
+    F). Keep them away from drafts or sudden temperature changes."
+  Water: 'Water your peace lily once a week, or when the top inch of soil is dry to
+    the touch. Avoid overwatering and make sure the soil has good drainage. Reduce
+    watering during winter. '
 plant1:
-  Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves regularly,
-    especially during dry seasons.
-  Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
-    near a south or west-facing window.
-  Others: Prune your rose regularly to remove dead or diseased parts and promote healthy
-    growth. Provide support for the plant as it grows, as the branches can become
-    heavy with flowers. Use a balanced fertilizer every two weeks during the growing
-    season.
-  Overview: ''
-  PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.
-  Suggested Placement Area: 'Place the red rose in a spot with good air circulation
-    and away from drafts. If kept outside, ensure it is not in direct sunlight all
-    day. '
-  Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid exposing\
-    \ the plant to temperatures below 4\xB0C or above 35\xB0C."
-  Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
-    not waterlogged.
+  Humidity: This plant enjoys moderate to high humidity levels. You can increase humidity
+    by placing a tray of water near the plant or using a humidifier if you live in
+    a dry area.
+  Light: The fiddle-leaf fig thrives in bright, filtered light. Place it near a window
+    that receives morning or afternoon sunlight but avoid direct sunlight, which can
+    scorch its leaves.
+  Others: Fertilize your fiddle-leaf fig every 4-6 weeks during the growing season
+    (spring and summer) with a balanced fertilizer. Prune the plant to maintain its
+    shape and remove any dead or yellowing leaves. If you notice pest or disease issues,
+    treat them promptly with an organic or chemical solution.
+  Overview: The fiddle-leaf fig (Ficus lyrata) is a popular indoor tree that adds
+    a sculptural design element to any room. It has large, violin-shaped leaves that
+    create a tropical vibe wherever it's placed.
+  PH Level: The fiddle-leaf fig prefers slightly acidic to neutral soil with a pH
+    range of 6.0-7.0. You can check the soil pH with a testing kit from your local
+    garden center.
+  Suggested Placement Area: This plant looks great in a spacious, well-lit living
+    room, bedroom, or home office. Try to avoid placing it in small, cramped spaces,
+    as it needs room to grow.
+  Temperature: "The fiddle-leaf fig prefers temperatures between 60-75\xB0F (16-24\xB0\
+    C). Avoid placing it near drafts or in areas with fluctuating temperature, such\
+    \ as near heating or cooling vents."
+  Water: Water your fiddle-leaf fig once a week or when the top inch of soil feels
+    dry to the touch. Be sure to use room-temperature water and avoid overwatering,
+    as this can lead to root rot.
 plant2:
-  Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves regularly,
-    especially during dry seasons.
-  Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
-    near a south or west-facing window.
-  Others: Prune your rose regularly to remove dead or diseased parts and promote healthy
-    growth. Provide support for the plant as it grows, as the branches can become
-    heavy with flowers. Use a balanced fertilizer every two weeks during the growing
-    season.
-  Overview: ''
-  PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.
-  Suggested Placement Area: 'Place the red rose in a spot with good air circulation
-    and away from drafts. If kept outside, ensure it is not in direct sunlight all
-    day. '
-  Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid exposing\
-    \ the plant to temperatures below 4\xB0C or above 35\xB0C."
-  Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
-    not waterlogged.
-plant3:
-  Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves regularly,
-    especially during dry seasons.
-  Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
-    near a south or west-facing window.
-  Others: Prune your rose regularly to remove dead or diseased parts and promote healthy
-    growth. Provide support for the plant as it grows, as the branches can become
-    heavy with flowers. Use a balanced fertilizer every two weeks during the growing
-    season.
-  Overview: ''
-  PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.
-  Suggested Placement Area: 'Place the red rose in a spot with good air circulation
-    and away from drafts. If kept outside, ensure it is not in direct sunlight all
-    day. '
-  Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid exposing\
-    \ the plant to temperatures below 4\xB0C or above 35\xB0C."
-  Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
-    not waterlogged.
+  Humidity: The Swiss Cheese Plant thrives in high humidity. You can increase humidity
+    around the plant by using a humidifier, placing a water tray near the plant, or
+    by misting the leaves with water. In Vietnam's climate, you may not need to use
+    extra methods of humidification as it is already fairly humid.
+  Light: The Swiss cheese plant prefers bright, indirect sunlight, but can tolerate
+    some shade. Avoid direct sunlight as it can burn the leaves.
+  Others: It's important to periodically clean the leaves with a damp cloth to remove
+    any accumulated dust. Fertilize the plant about once per month during the growing
+    season with a balanced fertilizer to encourage healthy growth.
+  Overview: The Swiss Cheese Plant, also known as Monstera Deliciosa, is a popular
+    indoor plant that can grow up to 10 feet tall. It has large, glossy, heart-shaped
+    leaves that develop splits and holes as they mature.
+  PH Level: The ideal PH for the Swiss cheese plant is within the range of 6.0-7.5
+  Suggested Placement Area: The Swiss Cheese Plant can be placed in many areas of
+    the home, but it requires sufficient space due to its size. Place it in a bright
+    corner away from direct sunlight and away from cold drafts or air conditioning
+    units.
+  Temperature: "The ideal temperature range for the Swiss Cheese Plant is between\
+    \ 65-85\xB0F (18-29\xB0C). Avoid placing the plant in areas with cold drafts or\
+    \ near air conditioning units that may cause temperature fluctuations."
+  Water: Water the Swiss Cheese Plant regularly, but allow the soil to dry out slightly
+    between waterings to avoid overwatering. In Vietnam's climate, you may need to
+    water it more frequently due to the humidity. Aim to keep the soil consistently
+    moist during the growing season (spring-summer) and reduce watering during the
+    dormant season (fall-winter).

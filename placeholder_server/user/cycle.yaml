@@ -1,6 +1,41 @@
-user0: {}
+user0:
+  end_cycle: 2023-07-02
+  start_cycle: 2023-06-05
 user1: {}
+user10:
+  end_cycle: 2023-06-18
+  start_cycle: 2023-06-05
+user11:
+  end_cycle: 2023-06-18
+  start_cycle: 2023-06-05
+user12:
+  end_cycle: 2023-06-18
+  start_cycle: 2023-06-05
+user13:
+  end_cycle: 2023-06-18
+  start_cycle: 2023-06-05
+user14:
+  end_cycle: 2023-06-18
+  start_cycle: 2023-06-05
 user2: {}
 user3:
   end_cycle: 2023-06-18
+  start_cycle: 2023-06-05
+user4:
+  end_cycle: 2023-06-04
+  start_cycle: 2023-06-05
+user5:
+  end_cycle: 2023-06-04
+  start_cycle: 2023-06-05
+user6:
+  end_cycle: 2023-06-04
+  start_cycle: 2023-06-05
+user7:
+  end_cycle: 2023-06-18
+  start_cycle: 2023-06-05
+user8:
+  end_cycle: 2023-06-04
+  start_cycle: 2023-06-05
+user9:
+  end_cycle: 2023-06-04
   start_cycle: 2023-06-05

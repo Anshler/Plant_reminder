@@ -1,14 +1,5 @@
 user0:
   plant0:
-    Humidity: ''
-    Light: ''
-    Others: ''
-    Overview: ''
-    PH Level: ''
-    Suggested Placement Area: ''
-    Temperature: ''
-    Water: ''
-  plant1:
     Humidity: Peace lilies prefer a humid environment. Misting the leaves can help
       increase humidity, or placing a tray of water near the plant can also create
       a humid environment.
@@ -33,7 +24,7 @@ user0:
     Water: 'Water your peace lily once a week, or when the top inch of soil is dry
       to the touch. Avoid overwatering and make sure the soil has good drainage. Reduce
       watering during winter. '
-  plant2:
+  plant1:
     Humidity: This plant enjoys moderate to high humidity levels. You can increase
       humidity by placing a tray of water near the plant or using a humidifier if
       you live in a dry area.
@@ -59,7 +50,7 @@ user0:
     Water: Water your fiddle-leaf fig once a week or when the top inch of soil feels
       dry to the touch. Be sure to use room-temperature water and avoid overwatering,
       as this can lead to root rot.
-  plant3:
+  plant2:
     Humidity: The Swiss Cheese Plant thrives in high humidity. You can increase humidity
       around the plant by using a humidifier, placing a water tray near the plant,
       or by misting the leaves with water. In Vietnam's climate, you may not need
@@ -106,6 +97,144 @@ user1:
       Avoid placing the plant near cold drafts or heat sources like radiators.
     Water: The plant likes moist soil but not wet soil. Water it about once a week
       and ensure that the soil is well-draining.
+  plant1:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+user10:
+  plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+user11:
+  plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+  plant1:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+user12:
+  plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+user13:
+  plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+user14:
+  plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
   plant1:
     Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
       regularly, especially during dry seasons.
@@ -228,3 +357,28 @@ user3:
       \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
     Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
       not waterlogged.
+user4: {}
+user5: {}
+user6: {}
+user7:
+  plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+user8: {}
+user9: {}

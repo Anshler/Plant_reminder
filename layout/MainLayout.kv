@@ -3716,6 +3716,7 @@ WindowManager:
         Rectangle:
             size: self.size
             pos: self.pos
+    current_day: ''
     ScrollView:
         id: scroll_view
         size_hint: 1,1-1.15/12
@@ -3733,11 +3734,233 @@ WindowManager:
                         pos: self.pos
                 size_hint: 1, None
                 height: root.height/6
+                FloatLayout:
+                    size_hint: None,1
+                    width: self.height
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    Label:
+                        id: start_current_day
+                        size_hint: None,0.4
+                        width: self.height
+                        pos_hint: {'center_x': 0.2, 'top': 0.9}
+                        text: '25'
+                        color: app.primary_font_color
+                        text_size: self.size
+                        font_size: self.height*0.8
+                        valign: 'center'
+                        halign: 'center'
+                    Label:
+                        id: end_current_day
+                        size_hint: None,0.4
+                        width: self.height
+                        pos_hint: {'center_x': 0.8, 'top': 0.9}
+                        text: '05'
+                        color: app.primary_font_color
+                        text_size: self.size
+                        font_size: self.height*0.8
+                        valign: 'center'
+                        halign: 'center'
+                    Label:
+                        size_hint: None,0.4
+                        width: self.height
+                        pos_hint: {'center_x': 0.5, 'top': 0.9}
+                        text: '-'
+                        color: app.primary_font_color
+                        text_size: self.size
+                        font_size: self.height*0.8
+                        valign: 'center'
+                        halign: 'center'
+                        bold: True
+                    Label:
+                        id: start_current_month
+                        size_hint: None,0.4
+                        width: self.height
+                        pos_hint: {'center_x': 0.2, 'top': 0.7}
+                        text: 'May'
+                        color: app.primary_font_color
+                        text_size: self.size
+                        font_size: self.height*0.4
+                        valign: 'center'
+                        halign: 'center'
+                        bold: True
+                    Label:
+                        id: end_current_month
+                        size_hint: None,0.4
+                        width: self.height
+                        pos_hint: {'center_x': 0.8, 'top': 0.7}
+                        text: 'Jun'
+                        color: app.primary_font_color
+                        text_size: self.size
+                        font_size: self.height*0.4
+                        valign: 'center'
+                        halign: 'center'
+                        bold: True
+
+                BoxLayout:
+                    size_hint: 1,0.3
+                    pos_hint: {'center_x': 0.5, 'y':0}
+                    spacing: 2
+                    padding: self.width*0.025
+                    orientation: 'horizontal'
+
+                    Button:
+                        id: Mon
+                        size_hint: 1,None
+                        height: self.parent.height
+                        pos_hint: {'center_y': 0.5}
+                        text: 'Mon'
+                        bold: True if self.text == root.current_day else False
+                        font_size: self.parent.height*0.5
+                        valign: 'center'
+                        halign: 'center'
+                        color: app.primary_background_color
+                        background_normal: ''
+                        background_down: ''
+                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        on_press:
+                            app.play_sound('next2.wav')
+                        on_release:
+                            root.change_day(self)
+                    Button:
+                        id: Tue
+                        size_hint: 1,None
+                        height: self.parent.height
+                        pos_hint: {'center_y': 0.5}
+                        text: 'Tue'
+                        bold: True if self.text == root.current_day else False
+                        font_size: self.parent.height*0.5
+                        valign: 'center'
+                        halign: 'center'
+                        color: app.primary_background_color
+                        background_normal: ''
+                        background_down: ''
+                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        on_press:
+                            app.play_sound('next2.wav')
+                        on_release:
+                            root.change_day(self)
+                    Button:
+                        id: Wed
+                        size_hint: 1,None
+                        height: self.parent.height
+                        pos_hint: {'center_y': 0.5}
+                        text: 'Wed'
+                        bold: True if self.text == root.current_day else False
+                        font_size: self.parent.height*0.5
+                        valign: 'center'
+                        halign: 'center'
+                        color: app.primary_background_color
+                        background_normal: ''
+                        background_down: ''
+                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        on_press:
+                            app.play_sound('next2.wav')
+                        on_release:
+                            root.change_day(self)
+                    Button:
+                        id: Thu
+                        size_hint: 1,None
+                        height: self.parent.height
+                        pos_hint: {'center_y': 0.5}
+                        text: 'Thu'
+                        bold: True if self.text == root.current_day else False
+                        font_size: self.parent.height*0.5
+                        valign: 'center'
+                        halign: 'center'
+                        color: app.primary_background_color
+                        background_normal: ''
+                        background_down: ''
+                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        on_press:
+                            app.play_sound('next2.wav')
+                        on_release:
+                            root.change_day(self)
+                    Button:
+                        id: Fri
+                        size_hint: 1,None
+                        height: self.parent.height
+                        pos_hint: {'center_y': 0.5}
+                        text: 'Fri'
+                        bold: True if self.text == root.current_day else False
+                        font_size: self.parent.height*0.5
+                        valign: 'center'
+                        halign: 'center'
+                        color: app.primary_background_color
+                        background_normal: ''
+                        background_down: ''
+                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        on_press:
+                            app.play_sound('next2.wav')
+                        on_release:
+                            root.change_day(self)
+                    Button:
+                        id: Sat
+                        size_hint: 1,None
+                        height: self.parent.height
+                        pos_hint: {'center_y': 0.5}
+                        text: 'Sat'
+                        bold: True if self.text == root.current_day else False
+                        font_size: self.parent.height*0.5
+                        valign: 'center'
+                        halign: 'center'
+                        color: app.primary_background_color
+                        background_normal: ''
+                        background_down: ''
+                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        on_press:
+                            app.play_sound('next2.wav')
+                        on_release:
+                            root.change_day(self)
+                    Button:
+                        id: Sun
+                        size_hint: 1,None
+                        height: self.parent.height
+                        pos_hint: {'center_y': 0.5}
+                        text: 'Sun'
+                        bold: True if self.text == root.current_day else False
+                        font_size: self.parent.height*0.5
+                        valign: 'center'
+                        halign: 'center'
+                        color: app.primary_background_color
+                        background_normal: ''
+                        background_down: ''
+                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        on_press:
+                            app.play_sound('next2.wav')
+                        on_release:
+                            root.change_day(self)
+
             WeekLayout:
                 id: week
                 name: 'week'
                 size_hint: 1, None
                 height: root.height*0.5
+            # Titles
+            LineSeparator:
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.1
+                Label:
+                    size_hint: 0.5,0.75
+                    pos_hint: {'center_x': 0.5, 'top':1}
+                    text: 'Schedule'
+                    color: app.primary_font_color
+                    halign: 'center'
+                    valign: 'center'
+                    text_size: self.size
+                    font_size: self.height*0.6
+                    bold: True
+                Label:
+                    size_hint: 1,0.35
+                    pos_hint: {'center_x': 0.5, 'y':0.05}
+                    text: 'Time to relax with your love'
+                    color: app.secondary_font_color
+                    halign: 'center'
+                    valign: 'center'
+                    text_size: self.size
+                    font_size: self.height*0.6
+            LineSeparator:
+
 
 <CommunityPage>:
     Image:

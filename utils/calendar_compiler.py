@@ -117,3 +117,9 @@ def retrieve_cycle():
 def retrieve_calendar_full():
     calendar_full = yaml.safe_load(open(resources.path('placeholder_server.user', 'calendar_full.yaml'), encoding='utf-8'))
     return calendar_full
+
+def get_current_week_range():
+    today = datetime.date.today()
+    last_monday = today - datetime.timedelta(days=today.weekday())
+    current_week_range = str(last_monday) + '_' + str(last_monday + datetime.timedelta(days=6))
+    return current_week_range

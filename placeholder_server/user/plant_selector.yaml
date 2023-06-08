@@ -1,17 +1,5 @@
 user0:
   plant0:
-    age: '2012'
-    avatar: layout/img/background2.png
-    date_added: 2010/05/06
-    extra_notes: ''
-    location: ''
-    name: example
-    represent_color:
-    - 1
-    - 0
-    - 0
-    - 1
-  plant1:
     age: '2016'
     avatar: layout/img/default_plant_avatar.png
     date_added: 2023/06/05
@@ -23,7 +11,7 @@ user0:
     - 0.7168910792845277
     - 0.9095587467072923
     - 1
-  plant2:
+  plant1:
     age: '2022'
     avatar: layout/img/default_plant_avatar.png
     date_added: 2023/06/06
@@ -35,7 +23,7 @@ user0:
     - 0.9028437682899915
     - 0.7646276444062454
     - 1
-  plant3:
+  plant2:
     age: ''
     avatar: layout/img/default_plant_avatar.png
     date_added: 2023/06/06
@@ -71,6 +59,95 @@ user1:
     - 0.1244694080436044
     - 0.8313541529235802
     - 0.9112544741466981
+    - 1
+user10:
+  plant0:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/08
+    extra_notes: ''
+    location: ''
+    name: uyd
+    represent_color:
+    - 0.9535538692714247
+    - 0.1530581817525194
+    - 0.19628402398861045
+    - 1
+user11:
+  plant0:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/08
+    extra_notes: ''
+    location: ''
+    name: fsger
+    represent_color:
+    - 0.3117416218566823
+    - 0.8292783352498554
+    - 0.8608299545616143
+    - 1
+  plant1:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/08
+    extra_notes: ''
+    location: ''
+    name: sgd
+    represent_color:
+    - 0.8486836455250253
+    - 0.4773547109357388
+    - 0.25313900745045315
+    - 1
+user12:
+  plant0:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/08
+    extra_notes: ''
+    location: ''
+    name: afe
+    represent_color:
+    - 0.3723928951130956
+    - 0.7062406087536627
+    - 0.2557794931505618
+    - 1
+user13:
+  plant0:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/08
+    extra_notes: ''
+    location: ''
+    name: asddg
+    represent_color:
+    - 0.03132584609651923
+    - 0.7715391902373329
+    - 0.1791453940432186
+    - 1
+user14:
+  plant0:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/08
+    extra_notes: ''
+    location: ''
+    name: asdeg
+    represent_color:
+    - 0.648269423095884
+    - 0.8016731782549276
+    - 0.9482511498601054
+    - 1
+  plant1:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/08
+    extra_notes: ''
+    location: ''
+    name: ewqf3
+    represent_color:
+    - 0.2749542992471927
+    - 0.8460537940851087
+    - 0.8005054401412918
     - 1
 user2:
   plant0:
@@ -134,3 +211,21 @@ user3:
     - 0.9428944200151591
     - 0.8945088012973189
     - 1
+user4: {}
+user5: {}
+user6: {}
+user7:
+  plant0:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/08
+    extra_notes: ''
+    location: ''
+    name: awdwf
+    represent_color:
+    - 0.6198112991656985
+    - 0.3183338678973716
+    - 0.3453700829516875
+    - 1
+user8: {}
+user9: {}
