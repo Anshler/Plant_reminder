@@ -669,9 +669,6 @@ class CalendarPage(Screen):
                 task_widget = GridLayout(cols=len(task_list), pos_hint = {'center_x':0.5}, spacing = '1dp')
                 for task in task_list:
                     a = Image(pos_hint={'center_y': 0.5}, source='', color=task['represent_color'])
-                    setattr(a,'callable_id',task['callable_id'])
-                    setattr(a, 'name', task['name'])
-                    setattr(a, 'task', task['task'])
                     task_widget.add_widget(a)
 
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
