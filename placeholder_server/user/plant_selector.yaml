@@ -94,19 +94,43 @@ user3:
     location: ''
     name: fern
     represent_color:
-    - 0.5747402534302368
-    - 0.5272894437472357
+    - 1
+    - 1
     - 0.070745550758051
     - 1
   plant1:
     age: ''
     avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/07
+    date_added: 2023/06/08
     extra_notes: ''
     location: ''
-    name: cat
+    name: qfaef
     represent_color:
-    - 0.8943281201040428
-    - 0.8996917178344064
-    - 0.6287954035302643
+    - 0.9508023917511459
+    - 0.13047738360905448
+    - 0.9247062077727404
+    - 1
+  plant2:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/08
+    extra_notes: ''
+    location: ''
+    name: sgv drgvwefe
+    represent_color:
+    - 0.803921568627451
+    - 0.25225821915266666
+    - 0.25225821915266666
+    - 1
+  plant3:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/08
+    extra_notes: ''
+    location: ''
+    name: asf
+    represent_color:
+    - 0.14720410817250174
+    - 0.9428944200151591
+    - 0.8945088012973189
     - 1

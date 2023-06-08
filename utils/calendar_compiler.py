@@ -90,6 +90,7 @@ def add_task_to_calendar(calendar, task_list, plant_list):
         if task_list[plant] is None:
             continue
         represent_color = plant_list[plant]['represent_color']
+        name = plant_list[plant]['name']
         for day, tasks in task_list[plant].items():
             for task in tasks:
                 frequency = task['frequency']
@@ -100,7 +101,7 @@ def add_task_to_calendar(calendar, task_list, plant_list):
                 for i in range(0,len(keys),frequency):
                     if hour not in calendar[keys[i]][day]:
                         calendar[keys[i]][day][hour] = []
-                    calendar[keys[i]][day][hour].append({'callable_id': plant,'represent_color': represent_color,'task': task_name})
+                    calendar[keys[i]][day][hour].append({'callable_id': plant, 'name': name,'represent_color': represent_color,'task': task_name})
     return calendar
 
 def get_cycle():

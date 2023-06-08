@@ -3664,22 +3664,30 @@ WindowManager:
         Line:
             width: 1
             rectangle: (self.x, self.y, self.width, self.height)
+    BoxLayout:
+        id: hour_box
+        size_hint: 1,1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        spacing: 2
+        orientation: 'vertical'
+        padding: 2
+
 <DayLayout>:
     orientation: 'vertical'
-    spacing: 2
+    spacing: '1dp'
 
     HourLayout:
-        id: 0_4
+        id: 4
     HourLayout:
-        id: 4_8
+        id: 8
     HourLayout:
-        id: 8_12
+        id: 12
     HourLayout:
-        id: 12_16
+        id: 16
     HourLayout:
-        id: 16_20
+        id: 20
     HourLayout:
-        id: 20_0
+        id: 0
 
 <WeekLayout>:
     orientation: 'horizontal'
@@ -3729,7 +3737,7 @@ WindowManager:
                 id: week
                 name: 'week'
                 size_hint: 1, None
-                height: root.height*0.6
+                height: root.height*0.5
 
 <CommunityPage>:
     Image:
