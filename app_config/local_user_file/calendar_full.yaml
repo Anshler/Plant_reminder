@@ -1,403 +1,137 @@
 2023-06-05_2023-06-11:
   friday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
+    '12:00':
+    - callable_id: plant0
+      name: adfeeh
       represent_color: &id001
-      - 0.26143210609910505
-      - 0.2472758309843036
-      - 0.5826043914287504
+      - 0.2267804683553607
+      - 0.6143691980441498
+      - 0.6573924687507722
       - 1
-      task: water
-    08:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: mist
-  monday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-    08:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: mist
-    '10:00':
+      task: fertilize
     - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
       represent_color: &id002
-      - 0.42859688828928844
-      - 0.9028437682899915
-      - 0.7646276444062454
+      - 0.7760672039479233
+      - 0.25164593058350015
+      - 0.759260877211629
       - 1
-      task: water
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: prune
-    '12:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
       task: fertilize
-    '13:00':
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: fertilize
-    '14:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: mist
+  monday: {}
   saturday:
-    '10:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    - callable_id: plant2
-      name: Swiss Cheese Plant
+    08:00:
+    - callable_id: plant0
+      name: adfeeh
       represent_color: *id001
-      task: prune
-    '14:00':
+      task: water
     - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: mist
-  sunday:
-    '11:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
       represent_color: *id002
       task: water
-    '12:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: fertilize
+  sunday: {}
   thursday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
+    08:00:
+    - callable_id: plant0
+      name: adfeeh
       represent_color: *id001
       task: water
-    08:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
+    - callable_id: plant0
+      name: adfeeh
       represent_color: *id001
       task: mist
-    '10:00':
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: prune
-    '11:00':
     - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
       represent_color: *id002
       task: water
-    '13:00':
     - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
       represent_color: *id002
-      task: fertilize
-    '15:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: prune
+      task: mist
   tuesday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
+    08:00:
+    - callable_id: plant0
+      name: adfeeh
       represent_color: *id001
       task: water
-    08:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
+    - callable_id: plant0
+      name: adfeeh
       represent_color: *id001
       task: mist
-    '11:00':
     - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
       represent_color: *id002
       task: water
-    '14:00':
     - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
       represent_color: *id002
-      task: prune
+      task: mist
   wednesday:
     '10:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    '12:00':
-    - callable_id: plant2
-      name: Swiss Cheese Plant
+    - callable_id: plant0
+      name: adfeeh
       represent_color: *id001
-      task: fertilize
-    '14:00':
+      task: prune
     - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
       represent_color: *id002
-      task: mist
+      task: prune
 2023-06-12_2023-06-18:
-  friday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-  monday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-    '10:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    '14:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: mist
+  friday: {}
+  monday: {}
   saturday:
-    '10:00':
+    08:00:
+    - callable_id: plant0
+      name: adfeeh
+      represent_color: *id001
+      task: water
     - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
       represent_color: *id002
       task: water
-    '14:00':
+  sunday: {}
+  thursday:
+    08:00:
+    - callable_id: plant0
+      name: adfeeh
+      represent_color: *id001
+      task: water
+    - callable_id: plant0
+      name: adfeeh
+      represent_color: *id001
+      task: mist
     - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
+      represent_color: *id002
+      task: water
+    - callable_id: plant1
+      name: adsaf
       represent_color: *id002
       task: mist
-  sunday:
-    '11:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-  thursday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-    '11:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
   tuesday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
+    08:00:
+    - callable_id: plant0
+      name: adfeeh
       represent_color: *id001
       task: water
-    '11:00':
+    - callable_id: plant0
+      name: adfeeh
+      represent_color: *id001
+      task: mist
     - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
       represent_color: *id002
       task: water
+    - callable_id: plant1
+      name: adsaf
+      represent_color: *id002
+      task: mist
   wednesday:
     '10:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    '14:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: mist
-2023-06-19_2023-06-25:
-  friday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
+    - callable_id: plant0
+      name: adfeeh
       represent_color: *id001
-      task: water
-    08:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: mist
-  monday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-    08:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: mist
-    '10:00':
+      task: prune
     - callable_id: plant1
-      name: fiddle-leaf fig
+      name: adsaf
       represent_color: *id002
-      task: water
-    '12:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: fertilize
-    '14:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: mist
-  saturday:
-    '10:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    '14:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: mist
-  sunday:
-    '11:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    '12:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: fertilize
-  thursday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-    08:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: mist
-    '11:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    '13:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: fertilize
-  tuesday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-    08:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: mist
-    '11:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-  wednesday:
-    '10:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    '14:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: mist
-2023-06-26_2023-07-02:
-  friday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-  monday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-    '10:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    '14:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: mist
-  saturday:
-    '10:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    '14:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: mist
-  sunday:
-    '11:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-  thursday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-    '11:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-  tuesday:
-    07:00:
-    - callable_id: plant2
-      name: Swiss Cheese Plant
-      represent_color: *id001
-      task: water
-    '11:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-  wednesday:
-    '10:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: water
-    '14:00':
-    - callable_id: plant1
-      name: fiddle-leaf fig
-      represent_color: *id002
-      task: mist
+      task: prune

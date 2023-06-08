@@ -12,14 +12,8 @@
       <change beforePath="$PROJECT_DIR$/app_layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_layout.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/layout/MainLayout.kv" beforeDir="false" afterPath="$PROJECT_DIR$/layout/MainLayout.kv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/cycle.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/cycle.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/user.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testt.py" beforeDir="false" afterPath="$PROJECT_DIR$/testt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/calendar_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/calendar_compiler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/plant_profile_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/plant_profile_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/dict_encoding.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dict_encoding.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -282,7 +276,7 @@
       <workItem from="1685960917125" duration="16026000" />
       <workItem from="1686045366606" duration="47333000" />
       <workItem from="1686137745503" duration="23401000" />
-      <workItem from="1686215939206" duration="20860000" />
+      <workItem from="1686215939206" duration="27673000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1683895109776</created>
@@ -592,7 +586,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686219878593</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="update">
+      <created>1686241536801</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1686241536801</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -628,10 +629,10 @@
     <SUITE FILE_PATH="coverage/virtual_chatbot$testt.coverage" NAME="testt Coverage Results" MODIFIED="1676882858987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$otp.coverage" NAME="otp Coverage Results" MODIFIED="1684239521871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$app_layout__1_.coverage" NAME="app_layout (1) Coverage Results" MODIFIED="1677167815548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1686241244302" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1686248276993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$validation.coverage" NAME="validation Coverage Results" MODIFIED="1686065418241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$plant_profile_management.coverage" NAME="plant_profile_management Coverage Results" MODIFIED="1686235821868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/Plant_reminder$calendar_compiler.coverage" NAME="calendar_compiler Coverage Results" MODIFIED="1686239617508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$calendar_compiler.coverage" NAME="calendar_compiler Coverage Results" MODIFIED="1686244444135" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$BotanySpider.coverage" NAME="BotanySpider Coverage Results" MODIFIED="1684941219746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$New_scraper.coverage" NAME="New_scraper Coverage Results" MODIFIED="1684944642790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$testt.coverage" NAME="testt Coverage Results" MODIFIED="1686226559963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

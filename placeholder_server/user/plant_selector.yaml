@@ -64,14 +64,26 @@ user10:
   plant0:
     age: ''
     avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/08
+    date_added: 2023/06/09
     extra_notes: ''
     location: ''
-    name: uyd
+    name: adfeeh
     represent_color:
-    - 0.9535538692714247
-    - 0.1530581817525194
-    - 0.19628402398861045
+    - 0.2267804683553607
+    - 0.6143691980441498
+    - 0.6573924687507722
+    - 1
+  plant1:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/09
+    extra_notes: ''
+    location: ''
+    name: adsaf
+    represent_color:
+    - 0.7760672039479233
+    - 0.25164593058350015
+    - 0.759260877211629
     - 1
 user11:
   plant0:

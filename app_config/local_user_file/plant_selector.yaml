@@ -1,36 +1,24 @@
 plant0:
-  age: '2016'
-  avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/05
-  extra_notes: ''
-  location: Sweden
-  name: peace lilies
-  represent_color:
-  - 0.4388432641846296
-  - 0.7168910792845277
-  - 0.9095587467072923
-  - 1
-plant1:
-  age: '2022'
-  avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/06
-  extra_notes: ''
-  location: Australia
-  name: fiddle-leaf fig
-  represent_color:
-  - 0.42859688828928844
-  - 0.9028437682899915
-  - 0.7646276444062454
-  - 1
-plant2:
   age: ''
   avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/06
-  extra_notes: I'm very busy on monday
-  location: Vietnam
-  name: Swiss Cheese Plant
+  date_added: 2023/06/09
+  extra_notes: ''
+  location: ''
+  name: adfeeh
   represent_color:
-  - 0.26143210609910505
-  - 0.2472758309843036
-  - 0.5826043914287504
+  - 0.2267804683553607
+  - 0.6143691980441498
+  - 0.6573924687507722
+  - 1
+plant1:
+  age: ''
+  avatar: layout/img/default_plant_avatar.png
+  date_added: 2023/06/09
+  extra_notes: ''
+  location: ''
+  name: adsaf
+  represent_color:
+  - 0.7760672039479233
+  - 0.25164593058350015
+  - 0.759260877211629
   - 1

@@ -17,7 +17,7 @@ from kivy.uix.videoplayer import VideoPlayer
 from kivy.factory import Factory
 import datetime
 import operator
-from utils.dict_encoding import HomeButtons2Num,Days2Num,find_closest_number
+from utils.dict_encoding import *
 from utils.random_color import *
 from utils.config import *
 from utils.dict_filter import *
@@ -171,6 +171,11 @@ class PlantScreen(Screen):
         else:
             change_size.start(self.ids.delete_plant)
     def to_calendar(self,instance):
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day(
+            instance=MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[
+                MDApp.get_running_app().current_day]
+        )
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
     def quit_screen(self):
         # re-enable the button
@@ -273,7 +278,7 @@ class ConfirmFinalStepPopup(Popup):
         # reset plant filter
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.last_search = ['','none_filter']
         # update screen
-        MDApp.get_running_app().root.ids.start_up.update_plant_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
     def confirm_manual(self, instance):
         self.confirm()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
@@ -286,7 +291,11 @@ class ConfirmFinalStepPopup(Popup):
 
         MDApp.get_running_app().calendar_full = get_calendar_full()
         MDApp.get_running_app().cycle = get_cycle()
-        MDApp.get_running_app().root.ids.start_up.update_calendar_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day(
+            instance=MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[
+                MDApp.get_running_app().current_day]
+        )
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
         self.dismiss()
@@ -314,11 +323,11 @@ class DeletePlantPopup(Popup):
         MDApp.get_running_app().cycle = get_cycle()
         MDApp.get_running_app().calendar_full = get_calendar_full()
 
-        MDApp.get_running_app().root.ids.start_up.update_plant_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
         # reset if new calendar is empty
         if MDApp.get_running_app().calendar_full == {}:
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
-        MDApp.get_running_app().root.ids.start_up.update_calendar_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
 
 
 
@@ -531,7 +540,7 @@ class PlantProfilePage(Screen):
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list, 'date_added')
             else:
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list, 'date_added',reverse=True)
-        MDApp.get_running_app().root.ids.start_up.update_plant_list(filtered_plant_list)
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list(filtered_plant_list)
     def to_calendar(self):
         animate = Animation(
             pos_hint=MDApp.get_running_app().root.ids.master_screen.ids.utility_bars.ids.calendar.pos_hint,
@@ -541,6 +550,25 @@ class PlantProfilePage(Screen):
         self.parent.transition.duration = 0.25
         self.parent.transition.direction = 'left'
         self.parent.current = 'calendar_page'
+
+    def update_plant_list(self, plant_list = None):
+        if plant_list is None:
+            plant_list = MDApp.get_running_app().plant_list
+        # update plant profile from anywhere
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.clear_widgets()
+        if plant_list is not None and plant_list != {}:
+            for callable_id in reversed(plant_list):
+                default_plant = PlantSelector(height=Window.size[1] * 0.15)
+                setattr(default_plant, 'callable_id', callable_id)
+                setattr(default_plant, 'name', plant_list[callable_id]['name'])
+                setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
+                setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
+                setattr(default_plant, 'age', plant_list[callable_id]['age'])
+                setattr(default_plant, 'location', plant_list[callable_id]['location'])
+                setattr(default_plant, 'extra_notes', plant_list[callable_id]['extra_notes'])
+                setattr(default_plant, 'date_added', MDApp.get_running_app().plant_list[callable_id]['date_added'])
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
+                    default_plant)
 class HourLayout(FloatLayout):
     pass
 class DayLayout(BoxLayout):
@@ -558,19 +586,42 @@ class CalendarPage(Screen):
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
                     hour].ids.hour_box.clear_widgets()
     def update_cycle(self,*args):
-        if MDApp.get_running_app().cycle is not None and MDApp.get_running_app().cycle != {}:
+        cycle = MDApp.get_running_app().cycle
+        current_week_range = MDApp.get_running_app().current_week_range
+        calendar_week_range = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_week
+        if cycle is not None and cycle != {} and cycle['start_cycle'] < cycle['end_cycle']:
             now = datetime.datetime.now().date()
             if now > MDApp.get_running_app().cycle['end_cycle']:
                 update_calendar(MDApp.get_running_app().current_user)
                 MDApp.get_running_app().cycle = get_cycle()
                 MDApp.get_running_app().calendar_full = get_calendar_full()
+            if current_week_range is not None and calendar_week_range != current_week_range:
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_week = current_week_range
+                current_week_range = current_week_range.split('_')
+                start_month, start_day = current_week_range[0].split('-')[1:]
+                end_month, end_day = current_week_range[1].split('-')[1:]
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.start_current_day.text = start_day
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.end_current_day.text = end_day
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.start_current_month.text = NumStr2Month[start_month]
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.end_current_month.text = NumStr2Month[end_month]
+        else:
+            if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.start_current_day.text != '':
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.start_current_day.text = ''
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.end_current_day.text = ''
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.start_current_month.text = ''
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.end_current_month.text = ''
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_week = ''
+
     def update_current_week(self, *args):
         calendar_full = MDApp.get_running_app().calendar_full
-
+        cycle = MDApp.get_running_app().cycle
         # update current day
         MDApp.get_running_app().current_day = datetime.datetime.now().strftime('%a')
-        if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day != MDApp.get_running_app().current_day:
+        if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day != MDApp.get_running_app().current_day and calendar_full is not None and MDApp.get_running_app().current_week_range is not None:
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day = MDApp.get_running_app().current_day
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day(
+                instance=MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[MDApp.get_running_app().current_day]
+            )
 
         if calendar_full is not None and calendar_full != {}:
             # update calendar display in calendar page
@@ -580,7 +631,7 @@ class CalendarPage(Screen):
                 if week_start <= date_now <= week_end:
                     if week_range != MDApp.get_running_app().current_week_range:
                         MDApp.get_running_app().current_week_range = week_range
-                        MDApp.get_running_app().root.ids.start_up.update_calendar_list()
+                        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
                     break
     def update_alarm(self,*args):
         if MDApp.get_running_app().calendar_full is not None and MDApp.get_running_app().calendar_full != {}:
@@ -594,11 +645,50 @@ class CalendarPage(Screen):
                     if MDApp.get_running_app().now in calendar_full[week_range][day_now]:
                         print('alarm!')
                     break
-    def change_day(self,instance):
+    def update_calendar_list(self, calendar_full = None):
+        if calendar_full is None:
+            calendar_full = MDApp.get_running_app().calendar_full
+        # update calendar display in calendar page
+        if calendar_full == {}:
+            return
+        MDApp.get_running_app().current_week_range = get_current_week_range()
+        current_calendar_full = calendar_full[MDApp.get_running_app().current_week_range]
+
+        for day, hours in current_calendar_full.items():
+            previous_closest = -1
+            for hour, task_list in hours.items():
+                if len(task_list) == 0:
+                    continue
+                # clear widget before update
+                current_closest = find_closest_number(hour)
+                if current_closest != previous_closest:
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
+                        current_closest].ids.hour_box.clear_widgets()
+                    previous_closest = current_closest
+
+                task_widget = GridLayout(cols=len(task_list), pos_hint = {'center_x':0.5}, spacing = '1dp')
+                for task in task_list:
+                    a = Image(pos_hint={'center_y': 0.5}, source='', color=task['represent_color'])
+                    setattr(a,'callable_id',task['callable_id'])
+                    setattr(a, 'name', task['name'])
+                    setattr(a, 'task', task['task'])
+                    task_widget.add_widget(a)
+
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
+                    current_closest].ids.hour_box.add_widget(task_widget)
+    def change_day(self,instance, display = None):
+        if display == None:
+            display = MDApp.get_running_app().calendar_full
         day_list = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
         for day in day_list:
             self.ids[day].background_color = (0,0,0,0)
         instance.background_color = (1,1,1,0.5)
+
+        if display == {}:
+            return
+        # filter the selected day column of calendar
+        display = display[MDApp.get_running_app().current_week_range][Day2Day[instance.name]]
+        print(display)
 
 
 class CommunityPage(Screen):
@@ -829,6 +919,13 @@ class MasterScreen(Screen):
     Previous_home_buttons = 0
     current_filter_screen = ''
     def on_pre_enter(self, *args):
+        # update time at load
+        Clock.schedule_interval(self.ids.main_pages.ids.home_page.update_time, 1)
+        Clock.schedule_interval(self.ids.main_pages.ids.home_page.get_next_event, 1)
+        Clock.schedule_interval(self.ids.main_pages.ids.calendar_page.update_cycle, 1)
+        Clock.schedule_interval(self.ids.main_pages.ids.calendar_page.update_alarm, 1)
+        Clock.schedule_interval(self.ids.main_pages.ids.calendar_page.update_current_week, 1)
+
         # update login status
         WriteHadLogin()
         # reset_calendar
@@ -847,8 +944,8 @@ class MasterScreen(Screen):
         # reset calendar display
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
         # update screen that contain the list
-        MDApp.get_running_app().root.ids.start_up.update_plant_list()
-        MDApp.get_running_app().root.ids.start_up.update_calendar_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
 
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day = ''
 
@@ -884,64 +981,6 @@ class StartUp(Screen):
         animate = Animation(duration=1)+Animation(color = (1,1,1,1),duration=2)+Animation(duration=2)
         animate.start(self.ids.logo)
         animate.bind(on_complete = self.to_next)
-
-        # update time at load
-        Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.home_page.update_time, 1)
-        Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.home_page.get_next_event, 1)
-        Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.calendar_page.update_cycle, 1)
-        Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.calendar_page.update_alarm, 1)
-        Clock.schedule_interval(self.parent.ids.master_screen.ids.main_pages.ids.calendar_page.update_current_week, 1)
-
-
-    def update_plant_list(self, plant_list = None):
-        if plant_list is None:
-            plant_list = MDApp.get_running_app().plant_list
-        # update plant profile from anywhere
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.clear_widgets()
-        if plant_list is not None and plant_list != {}:
-            for callable_id in reversed(plant_list):
-                default_plant = PlantSelector(height=Window.size[1] * 0.15)
-                setattr(default_plant, 'callable_id', callable_id)
-                setattr(default_plant, 'name', plant_list[callable_id]['name'])
-                setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
-                setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
-                setattr(default_plant, 'age', plant_list[callable_id]['age'])
-                setattr(default_plant, 'location', plant_list[callable_id]['location'])
-                setattr(default_plant, 'extra_notes', plant_list[callable_id]['extra_notes'])
-                setattr(default_plant, 'date_added', MDApp.get_running_app().plant_list[callable_id]['date_added'])
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
-                    default_plant)
-    def update_calendar_list(self, calendar_full = None):
-        if calendar_full is None:
-            calendar_full = MDApp.get_running_app().calendar_full
-        # update calendar display in calendar page
-        if calendar_full == {}:
-            return
-        MDApp.get_running_app().current_week_range = get_current_week_range()
-        current_calendar_full = calendar_full[MDApp.get_running_app().current_week_range]
-
-        for day, hours in current_calendar_full.items():
-            previous_closest = -1
-            for hour, task_list in hours.items():
-                if len(task_list) == 0:
-                    continue
-                # clear widget before update
-                current_closest = find_closest_number(hour)
-                if current_closest != previous_closest:
-                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
-                        current_closest].ids.hour_box.clear_widgets()
-                    previous_closest = current_closest
-
-                task_widget = GridLayout(cols=len(task_list), pos_hint = {'center_x':0.5}, spacing = '1dp')
-                for task in task_list:
-                    a = Image(pos_hint={'center_y': 0.5}, source='', color=task['represent_color'])
-                    setattr(a,'callable_id',task['callable_id'])
-                    setattr(a, 'name', task['name'])
-                    setattr(a, 'task', task['task'])
-                    task_widget.add_widget(a)
-
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
-                    current_closest].ids.hour_box.add_widget(task_widget)
 
     def to_next(self, *args):
         self.parent.transition = FadeTransition()

@@ -3717,6 +3717,7 @@ WindowManager:
             size: self.size
             pos: self.pos
     current_day: ''
+    current_week: ''
     ScrollView:
         id: scroll_view
         size_hint: 1,1-1.15/12
@@ -3743,7 +3744,7 @@ WindowManager:
                         size_hint: None,0.4
                         width: self.height
                         pos_hint: {'center_x': 0.2, 'top': 0.9}
-                        text: '25'
+                        text: ''
                         color: app.primary_font_color
                         text_size: self.size
                         font_size: self.height*0.8
@@ -3754,7 +3755,7 @@ WindowManager:
                         size_hint: None,0.4
                         width: self.height
                         pos_hint: {'center_x': 0.8, 'top': 0.9}
-                        text: '05'
+                        text: ''
                         color: app.primary_font_color
                         text_size: self.size
                         font_size: self.height*0.8
@@ -3776,7 +3777,7 @@ WindowManager:
                         size_hint: None,0.4
                         width: self.height
                         pos_hint: {'center_x': 0.2, 'top': 0.7}
-                        text: 'May'
+                        text: ''
                         color: app.primary_font_color
                         text_size: self.size
                         font_size: self.height*0.4
@@ -3788,7 +3789,7 @@ WindowManager:
                         size_hint: None,0.4
                         width: self.height
                         pos_hint: {'center_x': 0.8, 'top': 0.7}
-                        text: 'Jun'
+                        text: ''
                         color: app.primary_font_color
                         text_size: self.size
                         font_size: self.height*0.4
@@ -3805,6 +3806,7 @@ WindowManager:
 
                     Button:
                         id: Mon
+                        name: 'Mon'
                         size_hint: 1,None
                         height: self.parent.height
                         pos_hint: {'center_y': 0.5}
@@ -3823,6 +3825,7 @@ WindowManager:
                             root.change_day(self)
                     Button:
                         id: Tue
+                        name: 'Tue'
                         size_hint: 1,None
                         height: self.parent.height
                         pos_hint: {'center_y': 0.5}
@@ -3841,6 +3844,7 @@ WindowManager:
                             root.change_day(self)
                     Button:
                         id: Wed
+                        name: 'Wed'
                         size_hint: 1,None
                         height: self.parent.height
                         pos_hint: {'center_y': 0.5}
@@ -3859,6 +3863,7 @@ WindowManager:
                             root.change_day(self)
                     Button:
                         id: Thu
+                        name: 'Thu'
                         size_hint: 1,None
                         height: self.parent.height
                         pos_hint: {'center_y': 0.5}
@@ -3877,6 +3882,7 @@ WindowManager:
                             root.change_day(self)
                     Button:
                         id: Fri
+                        name: 'Fri'
                         size_hint: 1,None
                         height: self.parent.height
                         pos_hint: {'center_y': 0.5}
@@ -3895,6 +3901,7 @@ WindowManager:
                             root.change_day(self)
                     Button:
                         id: Sat
+                        name: 'Sat'
                         size_hint: 1,None
                         height: self.parent.height
                         pos_hint: {'center_y': 0.5}
@@ -3913,6 +3920,7 @@ WindowManager:
                             root.change_day(self)
                     Button:
                         id: Sun
+                        name: 'Sun'
                         size_hint: 1,None
                         height: self.parent.height
                         pos_hint: {'center_y': 0.5}
