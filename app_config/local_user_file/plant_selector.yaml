@@ -1,48 +1,48 @@
 plant0:
-  age: ''
+  age: '2023'
   avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/09
-  extra_notes: ''
-  location: ''
-  name: adwfr
+  date_added: 2023/06/10
+  extra_notes: don't give me task on sunday for i'm busy
+  location: sweden
+  name: sunflower
   represent_color:
-  - 0.973480433566303
-  - 0.5324979651753559
-  - 0.8086522813843569
+  - 0.9773066771157528
+  - 0.561207579373601
+  - 0.18607275641640653
   - 1
 plant1:
   age: ''
   avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/09
-  extra_notes: ''
-  location: ''
-  name: ferns
+  date_added: 2023/06/10
+  extra_notes: don't give me any task on sunday and saturday
+  location: subsahara africa
+  name: Fiddle Leaf Fig
   represent_color:
-  - 0.4348178253686018
-  - 0.25206107507282915
-  - 0.952264104796654
+  - 0.5698241540426784
+  - 0.6625670877027177
+  - 0.32906858798971295
   - 1
 plant2:
   age: ''
   avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/09
+  date_added: 2023/06/10
   extra_notes: ''
   location: ''
-  name: sunflower
-  represent_color:
-  - 0.8735157068923765
-  - 0.49337393328856327
-  - 0.9514431993787208
-  - 1
-plant3:
-  age: '2021'
-  avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/09
-  extra_notes: i'm busy on monday so don't give me any task on that day
-  location: subsahara africa
   name: rose
   represent_color:
-  - 1.0
-  - 0.0
-  - 0.0392156862745098
+  - 0.28008264105772784
+  - 0.10330178508859023
+  - 0.6452057164391195
+  - 1
+plant3:
+  age: ''
+  avatar: layout/img/default_plant_avatar.png
+  date_added: 2023/06/10
+  extra_notes: ''
+  location: vietnam
+  name: winter ferns
+  represent_color:
+  - 0.8531573293618315
+  - 0.24505192213499416
+  - 0.038167355960741944
   - 1

@@ -655,6 +655,7 @@ class PlantButton(ButtonBehavior, FloatLayout):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = self.callable_id
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
+
         self.parent.parent.parent.parent.parent.parent.dismiss()
         if self.callable_id != 'none_filter' and isinstance(self.parent.parent.parent.parent.parent.parent,PickCalendarFilterForEditPopup):
             Factory.ConfirmEditCalendarPopup().open()
@@ -758,21 +759,19 @@ class CalendarPage(Screen):
             calendar_full = filter_calendar_full_by_plantid(MDApp.get_running_app().calendar_full, filter)
         else:
             calendar_full = MDApp.get_running_app().calendar_full
+
         # update calendar display in calendar page
         if calendar_full == {}:
             return
         MDApp.get_running_app().current_week_range = get_current_week_range()
         current_calendar_full = calendar_full[MDApp.get_running_app().current_week_range]
 
+        # clear widget
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
+        # put calendar in to display
         for day, hours in current_calendar_full.items():
-            previous_closest = -1
             for hour, task_list in hours.items():
-                # clear widget before update
                 current_closest = find_closest_number(hour)
-                if current_closest != previous_closest:
-                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
-                        current_closest].ids.hour_box.clear_widgets()
-                    previous_closest = current_closest
                 if len(task_list) == 0:
                     continue
                 task_widget = GridLayout(cols=len(task_list), pos_hint = {'center_x':0.5}, spacing = '1dp')
