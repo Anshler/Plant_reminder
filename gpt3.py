@@ -89,4 +89,4 @@ Water the red rose every 3-4 days, make sure the soil is evenly moist but not wa
 Red roses prefer a moderate to high humidity level. Mist the leaves regularly, especially during dry seasons.
 Prune your rose regularly to remove dead or diseased parts and promote healthy growth. Provide support for the plant as it grows, as the branches can become heavy with flowers. '''
 
-print(get_chatgpt_assistant(prompt,'paid'))
+#print(get_chatgpt_assistant(prompt,'paid'))
