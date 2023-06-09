@@ -5,6 +5,7 @@ from kivy.config import Config
 from kivy.animation import Animation
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
+from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.graphics import Color, Rectangle
 from kivy.core.audio import SoundLoader
@@ -171,11 +172,9 @@ class PlantScreen(Screen):
         else:
             change_size.start(self.ids.delete_plant)
     def to_calendar(self,instance):
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = self.parent.parent.current_plant
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day(
-            instance=MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[
-                MDApp.get_running_app().current_day]
-        )
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
     def quit_screen(self):
         # re-enable the button
@@ -219,8 +218,8 @@ class ConfirmNextStepPopup(Popup):
         name_manual = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.manual_input_text.text.strip()
         toggle = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.toggle_manual.active
         valid = True
-        #if toggle:
-            #valid = get_chatgpt_classifier('plant\'s name: ' + name_manual, 'paid')
+        if toggle:
+            valid = get_chatgpt_classifier('plant\'s name: ' + name_manual, 'paid')
 
         if valid:
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.new_plant_step_manager.transition = CardTransition()
@@ -264,9 +263,9 @@ class ConfirmFinalStepPopup(Popup):
         result = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.new_plant_step2.result
         self.auto_calendar_prompt = 'Plan\'s name: '+name
         if location.strip() != '':
-            self.auto_calendar_prompt += '\nOwner\'s location: '+location
+            self.auto_calendar_prompt += '\nOwner\'s location: '+location.strip()
         if extra_notes.strip() != '':
-            self.auto_calendar_prompt += '\nExtra note: '+extra_notes
+            self.auto_calendar_prompt += '\nExtra note: '+extra_notes.strip()
         self.auto_calendar_prompt += '\nJobs to perform:\n' + result['Water'] +'\n' + result['Humidity'] + '\n' + result['Others']
         # add new plant to plant list
         current_user = MDApp.get_running_app().current_user
@@ -285,17 +284,18 @@ class ConfirmFinalStepPopup(Popup):
         self.dismiss()
     def confirm_auto(self, instance):
         schedule = {"monday": [],"tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],"thursday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],"saturday": [{"task": "water", "hour": "08:00", "frequency": 1}],"sunday": []}
-        #schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
+        schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
         self.confirm(schedule=schedule)
         update_calendar(MDApp.get_running_app().current_user)
-
         MDApp.get_running_app().calendar_full = get_calendar_full()
         MDApp.get_running_app().cycle = get_cycle()
+
+        # filter by id of new plant
+        new_plant_id = list(MDApp.get_running_app().plant_list.keys())[-1]
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = new_plant_id
+
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day(
-            instance=MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[
-                MDApp.get_running_app().current_day]
-        )
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
         self.dismiss()
@@ -327,7 +327,9 @@ class DeletePlantPopup(Popup):
         # reset if new calendar is empty
         if MDApp.get_running_app().calendar_full == {}:
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = 'none_filter'
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
 
 
 
@@ -342,8 +344,8 @@ class NewPlantInfoScreen(Screen):
         if self.location != '':
             prompt += '\nowner\'s location: ' + self.location
 
-        #self.result = get_chatgpt_assistant(prompt, 'paid')
         self.result = {'Overview': '','Water': 'Water the red rose every 3-4 days, make sure the soil is evenly moist but not waterlogged.', 'Light': 'Red roses prefer full sunlight for at least 6 hours a day. Place the plant near a south or west-facing window.', 'Humidity': 'Red roses prefer a moderate to high humidity level. Mist the leaves regularly, especially during dry seasons.', 'Temperature': 'Red roses prefer temperatures between 18°C to 24°C. Avoid exposing the plant to temperatures below 4°C or above 35°C.', 'PH Level': 'Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.', 'Suggested Placement Area': 'Place the red rose in a spot with good air circulation and away from drafts. If kept outside, ensure it is not in direct sunlight all day. ', 'Others': 'Prune your rose regularly to remove dead or diseased parts and promote healthy growth. Provide support for the plant as it grows, as the branches can become heavy with flowers. Use a balanced fertilizer every two weeks during the growing season.'}
+        self.result = get_chatgpt_assistant(prompt, 'paid')
 
         self.ids.overview.text = '• ' + self.result['Overview'].replace('. ', '\n• ')
         self.ids.water_tip.text = '• '+self.result['Water'].replace('. ', '\n• ')
@@ -556,24 +558,125 @@ class PlantProfilePage(Screen):
             plant_list = MDApp.get_running_app().plant_list
         # update plant profile from anywhere
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.clear_widgets()
-        if plant_list is not None and plant_list != {}:
-            for callable_id in reversed(plant_list):
+        if plant_list is not None:
+            if plant_list == {}:
                 default_plant = PlantSelector(height=Window.size[1] * 0.15)
-                setattr(default_plant, 'callable_id', callable_id)
-                setattr(default_plant, 'name', plant_list[callable_id]['name'])
-                setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
-                setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
-                setattr(default_plant, 'age', plant_list[callable_id]['age'])
-                setattr(default_plant, 'location', plant_list[callable_id]['location'])
-                setattr(default_plant, 'extra_notes', plant_list[callable_id]['extra_notes'])
-                setattr(default_plant, 'date_added', MDApp.get_running_app().plant_list[callable_id]['date_added'])
+                default_plant.ids.default_text.color = (0.5,0.5,0.5,0.5)
+                default_plant.ids.default_text.pos_hint = {'center_x': 0.5,'center_y': 0.7}
+                default_plant.ids.default_text.size_hint_x = 1
+                default_plant.ids.default_text.halign = 'center'
+                default_plant.ids.default_text.shorten = False
+                default_plant.ids.date_added.text = ''
+                setattr(default_plant, 'name', 'You have no plant')
+                setattr(default_plant, 'avatar', '')
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
                     default_plant)
+            else:
+                for callable_id in reversed(plant_list):
+                    default_plant = PlantSelector(height=Window.size[1] * 0.15)
+                    setattr(default_plant, 'callable_id', callable_id)
+                    setattr(default_plant, 'name', plant_list[callable_id]['name'])
+                    setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
+                    setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
+                    setattr(default_plant, 'age', plant_list[callable_id]['age'])
+                    setattr(default_plant, 'location', plant_list[callable_id]['location'])
+                    setattr(default_plant, 'extra_notes', plant_list[callable_id]['extra_notes'])
+                    setattr(default_plant, 'date_added', MDApp.get_running_app().plant_list[callable_id]['date_added'])
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
+                        default_plant)
 class HourLayout(FloatLayout):
     pass
 class DayLayout(BoxLayout):
     pass
 class WeekLayout(BoxLayout):
+    pass
+class TaskWidget(FloatLayout):
+    pass
+class EmptyTaskWidget(FloatLayout):
+    pass
+class HourBoxWidget(FloatLayout):
+    pass
+class ConfirmEditCalendarPopup(Popup):
+    auto_calendar_prompt = ''
+
+    def press_button(self, instance):
+        instance.disabled = True
+        instance.color = MDApp.get_running_app().press_word_button
+
+    def release_button(self, instance):
+        instance.disabled = False
+        if instance.text == 'yes, please':
+            instance.color = MDApp.get_running_app().wrong_pass_warn
+        else:
+            instance.color = MDApp.get_running_app().primary_font_color
+
+    def confirm_auto(self):
+        # advanced info
+        current_user = MDApp.get_running_app().current_user
+        plant_id = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content
+        plant_info = MDApp.get_running_app().plant_list[plant_id]
+        plant_info_advanced = MDApp.get_running_app().plant_list_advanced[plant_id]
+        self.auto_calendar_prompt = 'Plan\'s name: ' + plant_info['name']
+        if plant_info['location'].strip() != '':
+            self.auto_calendar_prompt += '\nOwner\'s location: ' + plant_info['location'].strip()
+        if plant_info['extra_notes'].strip() != '':
+            self.auto_calendar_prompt += '\nExtra note: ' + plant_info['extra_notes'].strip()
+        self.auto_calendar_prompt += '\nJobs to perform:\n' + plant_info_advanced['Water'] + '\n' + \
+                                     plant_info_advanced['Humidity'] + '\n' + plant_info_advanced['Others']
+        # get schedule
+        schedule = {"monday": [], "tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},
+                                              {"task": "mist", "hour": "08:00", "frequency": 1}],
+                    "wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],
+                    "thursday": [{"task": "water", "hour": "08:00", "frequency": 1},
+                                 {"task": "mist", "hour": "08:00", "frequency": 1}],
+                    "friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],
+                    "saturday": [{"task": "water", "hour": "08:00", "frequency": 1}], "sunday": []}
+        schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
+
+        simple_edit_plant_schedule(current_user, plant_id, schedule)
+        MDApp.get_running_app().plant_calendar = get_plant_calendar()
+        # update calendar full
+        update_calendar(MDApp.get_running_app().current_user)
+        MDApp.get_running_app().calendar_full = get_calendar_full()
+        MDApp.get_running_app().cycle = get_cycle()
+
+        # update calendar display in calendar page
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
+        self.dismiss()
+class PlantButton(ButtonBehavior, FloatLayout):
+    def press_button(self,instance):
+        for a in range (len(self.parent.children)):
+            self.parent.children[a].background_color = MDApp.get_running_app().background_color
+        self.background_color = MDApp.get_running_app().secondary_background_color
+    def release_button(self,instance):
+        # set_filter
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = self.callable_id
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
+        self.parent.parent.parent.parent.parent.parent.dismiss()
+        if self.callable_id != 'none_filter' and isinstance(self.parent.parent.parent.parent.parent.parent,PickCalendarFilterForEditPopup):
+            Factory.ConfirmEditCalendarPopup().open()
+
+class PickCalendarFilterPopup(Popup):
+    def on_pre_open(self, *args):
+        self.ids.scroll_view.scroll_y = 1
+        self.ids.year_display.clear_widgets()
+        year = datetime.datetime.now().year
+        year_box = PlantButton(height=Window.size[1] / 15)
+        if year_box.callable_id == MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content:
+            setattr(year_box, 'background_color', MDApp.get_running_app().secondary_background_color)
+        self.ids.year_display.add_widget(year_box)
+        plant_list = MDApp.get_running_app().plant_list
+        for a in reversed(plant_list):
+            year_box = PlantButton(height=Window.size[1] / 15)
+            setattr(year_box,'name',plant_list[a]['name'])
+            setattr(year_box, 'represent_color', plant_list[a]['represent_color'])
+            setattr(year_box, 'callable_id', a)
+            if year_box.callable_id == MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content:
+                setattr(year_box, 'background_color', MDApp.get_running_app().secondary_background_color)
+            self.ids.year_display.add_widget(year_box)
+class PickCalendarFilterForEditPopup(PickCalendarFilterPopup):
     pass
 class CalendarPage(Screen):
     def on_pre_enter(self, *args):
@@ -618,10 +721,9 @@ class CalendarPage(Screen):
         # update current day
         MDApp.get_running_app().current_day = datetime.datetime.now().strftime('%a')
         if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day != MDApp.get_running_app().current_day and calendar_full is not None and MDApp.get_running_app().current_week_range is not None:
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = 'none_filter'
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day = MDApp.get_running_app().current_day
-            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day(
-                instance=MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[MDApp.get_running_app().current_day]
-            )
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
 
         if calendar_full is not None and calendar_full != {}:
             # update calendar display in calendar page
@@ -645,8 +747,11 @@ class CalendarPage(Screen):
                     if MDApp.get_running_app().now in calendar_full[week_range][day_now]:
                         print('alarm!')
                     break
-    def update_calendar_list(self, calendar_full = None):
-        if calendar_full is None:
+    def update_calendar_list(self):
+        filter = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content
+        if filter != 'none_filter':
+            calendar_full = filter_calendar_full_by_plantid(MDApp.get_running_app().calendar_full, filter)
+        else:
             calendar_full = MDApp.get_running_app().calendar_full
         # update calendar display in calendar page
         if calendar_full == {}:
@@ -657,15 +762,14 @@ class CalendarPage(Screen):
         for day, hours in current_calendar_full.items():
             previous_closest = -1
             for hour, task_list in hours.items():
-                if len(task_list) == 0:
-                    continue
                 # clear widget before update
                 current_closest = find_closest_number(hour)
                 if current_closest != previous_closest:
                     MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
                         current_closest].ids.hour_box.clear_widgets()
                     previous_closest = current_closest
-
+                if len(task_list) == 0:
+                    continue
                 task_widget = GridLayout(cols=len(task_list), pos_hint = {'center_x':0.5}, spacing = '1dp')
                 for task in task_list:
                     a = Image(pos_hint={'center_y': 0.5}, source='', color=task['represent_color'])
@@ -673,19 +777,82 @@ class CalendarPage(Screen):
 
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
                     current_closest].ids.hour_box.add_widget(task_widget)
-    def change_day(self,instance, display = None):
-        if display == None:
-            display = MDApp.get_running_app().calendar_full
+    def change_day(self,instance = None):
+        if instance == None:
+            instance = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[
+                MDApp.get_running_app().current_day]
+
+        # set plant filter
+        filter = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content
+        if filter != 'none_filter':
+            calendar_full = filter_calendar_full_by_plantid(MDApp.get_running_app().calendar_full, filter)
+        else:
+            calendar_full = MDApp.get_running_app().calendar_full
         day_list = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
         for day in day_list:
             self.ids[day].background_color = (0,0,0,0)
         instance.background_color = (1,1,1,0.5)
 
-        if display == {}:
+        self.ids.task_display.clear_widgets()
+
+        if calendar_full == {}:
+            a = EmptyTaskWidget()
+            self.ids.task_display.add_widget(a)
             return
+
         # filter the selected day column of calendar
-        display = display[MDApp.get_running_app().current_week_range][Day2Day[instance.name]]
-        print(display)
+        calendar_full = calendar_full[MDApp.get_running_app().current_week_range][Day2Day[instance.name]]
+        hour_boxs = {'4':[],'8':[],'12':[],'16':[],'20':[],'0':[]}
+        for hour, tasks in calendar_full.items():
+            hour_boxs[find_closest_number(hour)].append({hour:tasks})
+        for hour_box, hours_tasks in hour_boxs.items():
+            if hours_tasks != []:
+                for hour_task in hours_tasks:
+                    if list(hour_task.values())[0] != []:
+                        a = HourBoxWidget()
+                        a.ids.empty_calendar.text = '• ' + HourBox2Text[hour_box]
+                        self.ids.task_display.add_widget(a)
+                        break
+                for hour_task in hours_tasks:
+                    if hours_tasks!= {}:
+                        for hour, tasks in hour_task.items():
+                            for task in tasks:
+                                b = TaskWidget()
+                                setattr(b, 'name', task['name'])
+                                setattr(b,'hour',hour)
+                                setattr(b, 'represent_color', task['represent_color'])
+                                setattr(b, 'task', task['task'])
+                                setattr(b, 'frequency', str(task['frequency']))
+                                self.ids.task_display.add_widget(b)
+
+    def press_button(self,instance):
+        change_size = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
+                                center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'change_calendar':
+            change_size = Animation(height = instance.height*0.95, width = instance.width*0.95, disabled=True,
+                                    center_x=instance.center_x, center_y=instance.center_y, duration=0.01,
+                                    background_color = MDApp.get_running_app().press_word_button)
+            change_size.start(self.ids.change_calendar)
+        else:
+            change_size.start(self.ids.filter_button_image)
+    def release_button(self,instance):
+        change_size = Animation(width=instance.width, height=instance.height, disabled=False,
+                                center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'change_calendar':
+            change_size = Animation(size_hint=(0.5, 0.75), disabled=False,
+                                    center_x=instance.center_x, center_y=instance.center_y, duration=0.01,
+                                    background_color = MDApp.get_running_app().secondary_background_color)
+            change_size.start(self.ids.change_calendar)
+        else:
+            change_size.start(self.ids.filter_button_image)
+
+    def load_filter_selector(self,instance):
+        Factory.PickCalendarFilterPopup().open()
+    def edit_calendar(self):
+        if self.ids.filter_button.content == 'none_filter':
+            Factory.PickCalendarFilterForEditPopup().open()
+        else:
+            Factory.ConfirmEditCalendarPopup().open()
 
 
 class CommunityPage(Screen):
@@ -925,7 +1092,6 @@ class MasterScreen(Screen):
 
         # update login status
         WriteHadLogin()
-        # reset_calendar
 
         # update user id meta-config
         update_current_user(MDApp.get_running_app().current_user)
@@ -939,11 +1105,12 @@ class MasterScreen(Screen):
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
 
         # reset calendar display
+        MDApp.get_running_app().current_week_range = get_current_week_range()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
         # update screen that contain the list
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
-
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = 'none_filter'
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day = ''
 
         #update current screen

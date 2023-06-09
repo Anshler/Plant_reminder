@@ -2,7 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c8d3c64-286f-4f73-a94f-e05dc96f5b77" name="Changes" comment="update">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/calendar_full.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/calendar_full.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/cycle.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/cycle.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_calendar.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_selector.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_selector_advanced.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_config/meta_config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/meta_config.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_layout.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layout/MainLayout.kv" beforeDir="false" afterPath="$PROJECT_DIR$/layout/MainLayout.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/placeholder_server/user/cycle.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/cycle.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/placeholder_server/user/user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/user.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/calendar_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/calendar_compiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/dict_encoding.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dict_encoding.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/dict_filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dict_filter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/plant_profile_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/plant_profile_management.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,7 +283,11 @@
       <workItem from="1685960917125" duration="16026000" />
       <workItem from="1686045366606" duration="47333000" />
       <workItem from="1686137745503" duration="23401000" />
-      <workItem from="1686215939206" duration="28072000" />
+      <workItem from="1686215939206" duration="28193000" />
+      <workItem from="1686251247001" duration="10322000" />
+      <workItem from="1686271152442" duration="668000" />
+      <workItem from="1686272939086" duration="3189000" />
+      <workItem from="1686308590679" duration="17805000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1683895109776</created>
@@ -589,7 +611,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686248397291</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="update">
+      <created>1686248792950</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1686248792950</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -625,7 +654,7 @@
     <SUITE FILE_PATH="coverage/virtual_chatbot$testt.coverage" NAME="testt Coverage Results" MODIFIED="1676882858987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$otp.coverage" NAME="otp Coverage Results" MODIFIED="1684239521871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$app_layout__1_.coverage" NAME="app_layout (1) Coverage Results" MODIFIED="1677167815548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1686248276993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1686326286622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$validation.coverage" NAME="validation Coverage Results" MODIFIED="1686065418241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$plant_profile_management.coverage" NAME="plant_profile_management Coverage Results" MODIFIED="1686235821868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$calendar_compiler.coverage" NAME="calendar_compiler Coverage Results" MODIFIED="1686244444135" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />

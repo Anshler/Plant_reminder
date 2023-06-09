@@ -101,7 +101,7 @@ def add_task_to_calendar(calendar, task_list, plant_list):
                 for i in range(0,len(keys),frequency):
                     if hour not in calendar[keys[i]][day]:
                         calendar[keys[i]][day][hour] = []
-                    calendar[keys[i]][day][hour].append({'callable_id': plant, 'name': name,'represent_color': represent_color,'task': task_name})
+                    calendar[keys[i]][day][hour].append({'callable_id': plant, 'name': name,'represent_color': represent_color,'task': task_name, 'frequency': str(frequency)})
     return calendar
 
 def get_cycle():

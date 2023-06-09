@@ -214,6 +214,25 @@ def update_plant_after_signup_(id):
     with open(resources.path('placeholder_server.user', 'calendar_full.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(calendar_full,f)
 
+# Edit plant's calendar---------------------------------------------------------------------------------------
+def simple_edit_plant_schedule(user_id, plant_id, schedule):
+    calendar = get_plant_calendar()
+    calendar[plant_id] = schedule
+
+    with open(resources.path('app_config.local_user_file', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
+        yaml.safe_dump(calendar, f)
+
+    # make api call
+    my_thread = threading.Thread(target=simple_edit_plant_schedule_, args=(user_id,plant_id,schedule))
+    my_thread.start()
+
+def simple_edit_plant_schedule_(user_id, plant_id, schedule):
+    # api call to update schedule
+    calendar = retrieve_plant_calendar()
+    calendar[user_id][plant_id] = schedule
+
+    with open(resources.path('placeholder_server.user', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
+        yaml.safe_dump(calendar, f)
 
 # api call to retrieve info
 def retrieve_plant_list():

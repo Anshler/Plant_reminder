@@ -116,45 +116,7 @@ user1:
       \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
     Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
       not waterlogged.
-user10:
-  plant0:
-    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
-      regularly, especially during dry seasons.
-    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
-      near a south or west-facing window.
-    Others: Prune your rose regularly to remove dead or diseased parts and promote
-      healthy growth. Provide support for the plant as it grows, as the branches can
-      become heavy with flowers. Use a balanced fertilizer every two weeks during
-      the growing season.
-    Overview: ''
-    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
-      6.5.
-    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
-      and away from drafts. If kept outside, ensure it is not in direct sunlight all
-      day. '
-    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
-      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
-    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
-      not waterlogged.
-  plant1:
-    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
-      regularly, especially during dry seasons.
-    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
-      near a south or west-facing window.
-    Others: Prune your rose regularly to remove dead or diseased parts and promote
-      healthy growth. Provide support for the plant as it grows, as the branches can
-      become heavy with flowers. Use a balanced fertilizer every two weeks during
-      the growing season.
-    Overview: ''
-    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
-      6.5.
-    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
-      and away from drafts. If kept outside, ensure it is not in direct sunlight all
-      day. '
-    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
-      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
-    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
-      not waterlogged.
+user10: {}
 user11:
   plant0:
     Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
@@ -273,6 +235,102 @@ user14:
       \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
     Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
       not waterlogged.
+user15:
+  plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+  plant1:
+    Humidity: Ferns love humidity! They do better in areas where there is a higher
+      humidity level. Place a tray with water next to your fern or use a humifier,
+      helping increase the humidity surrounding your plant.
+    Light: Ferns prefer indirect or filtered light. Too much direct light will scorch
+      the leaves, while too little light will cause the leaves to turn yellow or brown.
+      Place your ferns near north or east-facing windows where they can receive bright
+      but indirect light.
+    Others: Ferns do not require pruning but it is recommended to remove any yellow
+      or dead leaves to help the plant grow and flourish. Fertilize your fern regularly
+      to supplement the nutritional need. Apply 1/4-strength balanced liquid fertilizer
+      every month during spring and summer.
+    Overview: "Ferns are non-flowering plants that date all the way back to the prehistoric\
+      \ era. They\u2019re often grown for their unique and delicate foliage."
+    PH Level: Ferns prefer slightly acidic soil with a pH level between 6 and 7.
+    Suggested Placement Area: Ferns are often kept in bathrooms, kitchens, hallways,
+      and other areas with higher humidity levels.
+    Temperature: "Ferns prefer temperatures between 18-24\xB0C (65-75\xB0F). Keep\
+      \ plants away from heating and cooling vents and windows to avoid rapid temperature\
+      \ changes."
+    Water: Ferns require constantly moist soil but not waterlogged. Water the fern
+      when the top inch of soil feels dry to the touch, usually once every week, or
+      when you notice the leaves starting to droop. During the winter season, you
+      can water less.
+  plant2:
+    Humidity: Sunflowers are not particularly sensitive to humidity, but they do need
+      a moderate amount of moisture in the air to thrive. The ideal humidity level
+      for sunflowers is around 50-60%, but they can tolerate lower levels for short
+      periods.
+    Light: Sunflowers need direct sunlight. They require full sun, which means at
+      least 6 hours of direct sunlight per day. If your sunflowers are grown indoors,
+      place them in a south-facing window or under grow lights to ensure they receive
+      enough light.
+    Others: "To promote bushier growth and more blooms, pinch off the top of the main\
+      \ stem when the plant is about 18 inches (45 cm) tall. This will encourage the\
+      \ plant to produce more lateral branches and result in more flowers. Deadhead\
+      \ regularly \u2013 it will encourage more blooms and also help prevent mold\
+      \ growth on the flowers."
+    Overview: Sunflowers are annual plants that are known for their large, yellow
+      flower heads.
+    PH Level: Sunflowers grow best in slightly acidic to neutral soil with a pH range
+      of 6.0-7.5. If the soil is too acidic, add lime to lower the acidity. If it
+      is too alkaline, add sulfur or peat moss to raise the acidity.
+    Suggested Placement Area: Sunflowers are typically grown outdoors in gardens or
+      fields, but they can also be grown in large pots or containers. As mentioned
+      earlier, sunflowers require full sun, so make sure to choose a location that
+      gets plenty of direct sunlight.
+    Temperature: "Sunflowers prefer warm temperatures between 70-78\xB0F (21-25\xB0\
+      C). They do not tolerate frost or freezing temperatures. If growing sunflowers\
+      \ indoors, ensure that the room they are in is kept at a temperature within\
+      \ this range."
+    Water: "Water the sunflower deeply and regularly. The soil should be consistently\
+      \ moist, but not waterlogged. For sunflowers grown in pots, check the soil moisture\
+      \ daily. If the top inch of soil is dry, it\u2019s time to water. During hot,\
+      \ dry weather, sunflowers may require watering once a day. In cooler weather,\
+      \ watering every 2-3 days may be sufficient."
+  plant3:
+    Humidity: Roses prefer moderate to high humidity, around 50-60%. In dry climates,
+      regular misting or use of a humidifier can help.
+    Light: Roses require at least 6 hours of direct sunlight each day. If they receive
+      less than this, they may not bloom well.
+    Others: Prune away any dead or damaged branches as needed and apply a slow-release
+      fertilizer in spring and mid-summer to encourage healthy growth and blooming.
+    Overview: Roses are perennial plants with beautiful, fragrant flowers. They grow
+      well in most climates, but require special care in hot humid regions like subsahara
+      Africa due to risk of fungal diseases.
+    PH Level: Roses prefer a soil pH between 5.5-7.0. Test the soil regularly and
+      adjust as needed with the addition of lime to raise pH or sulfur to lower pH.
+    Suggested Placement Area: Roses should be planted in a sunny area with well-draining
+      soil. They can be grown in a garden bed or in containers on a patio or balcony.
+    Temperature: "Roses thrive in temperatures between 18-27\xB0C (65-80\xB0F). They\
+      \ can tolerate temperatures as low as 0\xB0C (32\xB0F) and as high as 40\xB0\
+      C (104\xB0F), but extreme temperatures can damage the plant."
+    Water: Water thoroughly and deeply once a week, keeping the soil consistently
+      moist but not waterlogged. Water less frequently in the rainy season or if the
+      soil feels damp.
 user2:
   plant0:
     Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves

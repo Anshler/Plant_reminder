@@ -1481,6 +1481,7 @@ WindowManager:
         radius: self.height/2, self.height/2, self.height/2, self.height/2
 
     Label:
+        id: default_text
         size_hint: 0.6, 0.3
         pos_hint: {'x': 0.3,'center_y': 0.7}
         text: root.name
@@ -1493,6 +1494,7 @@ WindowManager:
         bold: True
 
     Label:
+        id: date_added
         size_hint: 0.6, 0.3
         pos_hint: {'x': 0.3,'center_y': 0.3}
         text: 'Added: ' + root.date_added
@@ -3708,6 +3710,235 @@ WindowManager:
         id: saturday
     DayLayout:
         id: sunday
+<TaskWidget>:
+    name: ''
+    represent_color: (0,0,0,0)
+    task: ''
+    frequency: '1'
+    size_hint: 1,None
+    height: Window.size[1]*0.075
+    hour: ''
+
+    FloatLayout:
+        size_hint: None, 0.3
+        pos_hint: {'x':0.05, 'center_y': 0.7}
+        width: self.height
+        canvas:
+            Color:
+                rgba: root.represent_color
+            Ellipse:
+                pos: self.pos
+                size: self.size
+    Label:
+        size_hint: 0.2,1
+        pos_hint: {'right':0.275,'center_y': 0.7}
+        text: root.hour
+        bold: True
+        text_size: self.size
+        halign: 'right'
+        valign: 'center'
+        font_size: self.height*0.35
+        color: app.primary_font_color
+    Label:
+        size_hint: 0.4,1
+        pos_hint: {'center_x':0.5,'center_y': 0.7}
+        text: root.name
+        text_size: self.size
+        italic: True
+        shorten: True
+        shorten_from: 'right'
+        halign: 'center'
+        valign: 'center'
+        font_size: self.height*0.35
+        color: app.primary_font_color
+    Label:
+        size_hint: 0.3,1
+        pos_hint: {'right':0.95,'center_y': 0.7}
+        text: root.task
+        text_size: self.size
+        halign: 'right'
+        valign: 'center'
+        font_size: self.height*0.35
+        color: app.primary_font_color
+    Label:
+        size_hint: 0.3,1
+        pos_hint: {'right':0.95,'center_y': 0.3}
+        text: 'weekly' if root.frequency == '1' else str('every '+root.frequency+' weeks')
+        text_size: self.size
+        halign: 'right'
+        valign: 'center'
+        italic: True
+        font_size: self.height*0.3
+        color: app.primary_font_color
+
+<EmptyTaskWidget>:
+    size_hint: 1,None
+    height: Window.size[1]*0.1
+    Label:
+        id: empty_calendar
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5,'center_y': 0.5}
+        text: 'Your calendar is empty'
+        bold: True
+        text_size: self.size
+        valign: 'center'
+        halign: 'center'
+        font_size: self.height/3
+        color: 0.5,0.5,0.5,0.5
+<HourBoxWidget>:
+    size_hint: 1,None
+    height: Window.size[1]*0.075
+    Label:
+        id: empty_calendar
+        size_hint: 1,1
+        pos_hint: {'x':0.1,'center_y': 0.5}
+        text: ''
+        italic: True
+        text_size: self.size
+        valign: 'center'
+        font_size: self.height*0.4
+        color: app.primary_font_color
+
+<ConfirmEditCalendarPopup>:
+    auto_dismiss: False
+    size_hint: 0.9,0.5
+    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: 'Do you want to automatically create a new schedule for your plant? (based on the information you provided when creating)'
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/16
+    separator_color: 0.5,0.5,0.5,0.25
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+        # line decorator
+        FloatLayout:
+            size_hint: None, 1
+            width: '2dp'
+            pos_hint: {'center_x':0.5, 'y':0}
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.25
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'right':0.5, 'y':0}
+            text: 'no, I do it myself'
+            color: app.primary_font_color
+            bold: True
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/10
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.dismiss()
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'x':0.5, 'y':0}
+            text: 'yes, please'
+            bold: True
+            color: app.wrong_pass_warn
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/10
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('next.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.confirm_auto()
+
+<PlantButton>:
+    size_hint: 1,None
+    pos_hint: {'center_x':0.5}
+    callable_id: 'none_filter'
+    name: 'None'
+    represent_color: 0,0,0,0
+    background_color: app.background_color
+
+    Button:
+        id: background_color
+        disabled: True
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5, 'center_y': 0.5}
+        background_disabled_normal: 'layout/img/white_blank.png'
+        background_color: root.background_color
+
+    FloatLayout:
+        size_hint: None, 0.3
+        pos_hint: {'center_x':0.1, 'center_y': 0.5}
+        width: self.height
+        canvas:
+            Color:
+                rgba: root.represent_color
+            Ellipse:
+                pos: self.pos
+                size: self.size
+
+    Label:
+        size_hint: 0.8,1
+        pos_hint: {'center_x': 0.5, 'center_y':0.5}
+        valign: 'center'
+        halign: 'center'
+        text: root.name
+        shorten: True
+        shorten_from: 'right'
+        text_size: self.size
+        color: app.primary_font_color
+        font_size: self.height/2
+    Button:
+        size_hint: 1,1
+        pos_hint: {'center_x': 0.5, 'center_y':0.5}
+        background_color: 0,0,0,0
+        on_press:
+            app.play_sound('next2.wav')
+            root.press_button(self)
+        on_release:
+            root.release_button(self)
+
+<PickCalendarFilterPopup>:
+    id: popup
+    auto_dismiss: True
+    size_hint: 0.8, 0.5
+    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: 'Select a plant'
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/20
+    separator_color: 0.5,0.5,0.5,0.25
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        ScrollView:
+            id: scroll_view
+            size_hint: 1,1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            BoxLayout:
+                canvas.before:
+                    Color:
+                        rgba: 0,0,0,1
+                    Rectangle:
+                        size: self.size
+                        size: self.size
+                        pos: self.pos
+                id: year_display
+                size_hint: 1,None
+                height: self.minimum_height
+                orientation: 'vertical'
 
 <CalendarPage>:
     canvas:
@@ -3718,6 +3949,7 @@ WindowManager:
             pos: self.pos
     current_day: ''
     current_week: ''
+
     ScrollView:
         id: scroll_view
         size_hint: 1,1-1.15/12
@@ -3735,6 +3967,34 @@ WindowManager:
                         pos: self.pos
                 size_hint: 1, None
                 height: root.height/6
+
+                FloatLayout: # Search bar
+                    size_hint: 1, 0.36
+                    pos_hint: {'center_x':0.5,'top':10/12}
+
+                    Button: # filter button
+                        id: filter_button
+                        name:'filter_button'
+                        content: 'none_filter'
+                        size_hint: (None,0.75)
+                        width: self.height
+                        pos_hint: {'center_x':1/12,'center_y':0.5}
+                        background_color: 0,0,0,0
+                        on_press:
+                            root.press_button(self)
+                            app.play_sound('search.wav')
+                        on_release:
+                            root.release_button(self)
+                            root.load_filter_selector(self)
+                        Image:
+                            id: filter_button_image
+                            source: 'layout/img/filter.png' if filter_button.content == 'none_filter' else 'layout/img/filter_active.png'
+                            size: self.parent.size
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                            allow_stretch: True
+                            color: 1, 1, 1, 1  # Set image color to full opacity
+
                 FloatLayout:
                     size_hint: None,1
                     width: self.height
@@ -3968,6 +4228,41 @@ WindowManager:
                     text_size: self.size
                     font_size: self.height*0.6
             LineSeparator:
+            BoxLayout:
+                id: task_display
+                size_hint: 1,None
+                height: self.minimum_height
+                pos_hint: {'center_x': 0.5}
+                orientation: 'vertical'
+                spacing: 2
+
+            # edit calendar button
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.15
+                ShadowButton:
+                    id: change_calendar
+                    name: 'change_calendar'
+                    size_hint: 0.5, 0.75
+                    pos_hint: {'center_x':0.5, 'center_y':0.5}
+                    background_down: ''
+                    background_normal: ''
+                    background_color: app.secondary_background_color
+                    elevation: 2
+                    shadow_offset: 0, 2
+                    text: 'Edit'
+                    color: app.primary_background_color
+                    text_size: self.size
+                    font_size: self.height/3
+                    bold: True
+                    valign: 'center'
+                    halign: 'center'
+                    on_press:
+                        app.play_sound('search.wav')
+                        root.press_button(self)
+                    on_release:
+                        root.edit_calendar()
+                        root.release_button(self)
 
 
 <CommunityPage>:

@@ -1,137 +1,666 @@
 2023-06-05_2023-06-11:
   friday:
+    '10:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: &id002
+      - 0.4348178253686018
+      - 0.25206107507282915
+      - 0.952264104796654
+      - 1
+      task: water
+    - callable_id: plant3
+      frequency: '2'
+      name: rose
+      represent_color: &id004
+      - 1.0
+      - 0.0
+      - 0.0392156862745098
+      - 1
+      task: fertilize
+    '11:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: &id001
+      - 0.8735157068923765
+      - 0.49337393328856327
+      - 0.9514431993787208
+      - 1
+      task: mist
     '12:00':
     - callable_id: plant0
-      name: adfeeh
-      represent_color: &id001
-      - 0.2267804683553607
-      - 0.6143691980441498
-      - 0.6573924687507722
+      frequency: '2'
+      name: adwfr
+      represent_color: &id003
+      - 0.973480433566303
+      - 0.5324979651753559
+      - 0.8086522813843569
       - 1
       task: fertilize
+    '22:58':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+  monday:
+    '10:00':
     - callable_id: plant1
-      name: adsaf
-      represent_color: &id002
-      - 0.7760672039479233
-      - 0.25164593058350015
-      - 0.759260877211629
-      - 1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: water
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+    '14:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
+    '16:00':
+    - callable_id: plant2
+      frequency: '4'
+      name: sunflower
+      represent_color: *id001
       task: fertilize
-  monday: {}
   saturday:
     08:00:
     - callable_id: plant0
-      name: adfeeh
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: water
+    09:00:
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: water
+    '10:55':
+    - callable_id: plant2
+      frequency: '2'
+      name: sunflower
       represent_color: *id001
-      task: water
+      task: prune
+  sunday:
+    '12:00':
     - callable_id: plant1
-      name: adsaf
+      frequency: '4'
+      name: ferns
       represent_color: *id002
-      task: water
-  sunday: {}
+      task: prune
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: mist
   thursday:
     08:00:
     - callable_id: plant0
-      name: adfeeh
-      represent_color: *id001
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
       task: water
     - callable_id: plant0
-      name: adfeeh
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: mist
+    '10:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
       represent_color: *id001
-      task: mist
-    - callable_id: plant1
-      name: adsaf
-      represent_color: *id002
       task: water
+    '12:00':
     - callable_id: plant1
-      name: adsaf
+      frequency: '1'
+      name: ferns
       represent_color: *id002
       task: mist
+    '13:00':
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: prune
+    '14:00':
+    - callable_id: plant2
+      frequency: '2'
+      name: sunflower
+      represent_color: *id001
+      task: prune
   tuesday:
     08:00:
     - callable_id: plant0
-      name: adfeeh
-      represent_color: *id001
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
       task: water
     - callable_id: plant0
-      name: adfeeh
-      represent_color: *id001
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
       task: mist
-    - callable_id: plant1
-      name: adsaf
-      represent_color: *id002
+    09:00:
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
       task: water
+    '11:00':
+    - callable_id: plant2
+      frequency: '2'
+      name: sunflower
+      represent_color: *id001
+      task: prune
+    '12:00':
     - callable_id: plant1
-      name: adsaf
+      frequency: '1'
+      name: ferns
       represent_color: *id002
       task: mist
+    '14:00':
+    - callable_id: plant1
+      frequency: '2'
+      name: ferns
+      represent_color: *id002
+      task: fertilize
+    '16:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
   wednesday:
     '10:00':
     - callable_id: plant0
-      name: adfeeh
-      represent_color: *id001
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
       task: prune
     - callable_id: plant1
-      name: adsaf
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: water
+    '12:00':
+    - callable_id: plant1
+      frequency: '4'
+      name: ferns
       represent_color: *id002
       task: prune
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: mist
 2023-06-12_2023-06-18:
-  friday: {}
-  monday: {}
+  friday:
+    '10:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: water
+    '11:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
+    '16:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+  monday:
+    '10:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: water
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+    '14:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
   saturday:
     08:00:
     - callable_id: plant0
-      name: adfeeh
-      represent_color: *id001
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
       task: water
-    - callable_id: plant1
-      name: adsaf
-      represent_color: *id002
+    09:00:
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
       task: water
-  sunday: {}
+  sunday:
+    '12:00':
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: mist
   thursday:
     08:00:
     - callable_id: plant0
-      name: adfeeh
-      represent_color: *id001
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
       task: water
     - callable_id: plant0
-      name: adfeeh
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: mist
+    '10:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
       represent_color: *id001
-      task: mist
-    - callable_id: plant1
-      name: adsaf
-      represent_color: *id002
       task: water
+    '12:00':
     - callable_id: plant1
-      name: adsaf
+      frequency: '1'
+      name: ferns
       represent_color: *id002
       task: mist
+    '13:00':
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: prune
   tuesday:
     08:00:
     - callable_id: plant0
-      name: adfeeh
-      represent_color: *id001
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
       task: water
     - callable_id: plant0
-      name: adfeeh
-      represent_color: *id001
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
       task: mist
-    - callable_id: plant1
-      name: adsaf
-      represent_color: *id002
+    09:00:
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
       task: water
+    '12:00':
     - callable_id: plant1
-      name: adsaf
+      frequency: '1'
+      name: ferns
       represent_color: *id002
       task: mist
+    '16:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
   wednesday:
     '10:00':
     - callable_id: plant0
-      name: adfeeh
-      represent_color: *id001
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
       task: prune
     - callable_id: plant1
-      name: adsaf
+      frequency: '1'
+      name: ferns
       represent_color: *id002
+      task: water
+    '12:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: mist
+2023-06-19_2023-06-25:
+  friday:
+    '10:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: water
+    - callable_id: plant3
+      frequency: '2'
+      name: rose
+      represent_color: *id004
+      task: fertilize
+    '11:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
+    '12:00':
+    - callable_id: plant0
+      frequency: '2'
+      name: adwfr
+      represent_color: *id003
+      task: fertilize
+    '16:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+  monday:
+    '10:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: water
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+    '14:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
+  saturday:
+    08:00:
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: water
+    09:00:
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: water
+    '12:00':
+    - callable_id: plant2
+      frequency: '2'
+      name: sunflower
+      represent_color: *id001
       task: prune
+  sunday:
+    '12:00':
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: mist
+  thursday:
+    08:00:
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: water
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: mist
+    '10:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+    '12:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: mist
+    '13:00':
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: prune
+    '14:00':
+    - callable_id: plant2
+      frequency: '2'
+      name: sunflower
+      represent_color: *id001
+      task: prune
+  tuesday:
+    08:00:
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: water
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: mist
+    09:00:
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: water
+    '11:00':
+    - callable_id: plant2
+      frequency: '2'
+      name: sunflower
+      represent_color: *id001
+      task: prune
+    '12:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: mist
+    '14:00':
+    - callable_id: plant1
+      frequency: '2'
+      name: ferns
+      represent_color: *id002
+      task: fertilize
+    '16:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+  wednesday:
+    '10:00':
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: prune
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: water
+    '12:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: mist
+2023-06-26_2023-07-02:
+  friday:
+    '10:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: water
+    '11:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
+    '16:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+  monday:
+    '10:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: water
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+    '14:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
+  saturday:
+    08:00:
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: water
+    09:00:
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: water
+  sunday:
+    '12:00':
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: mist
+  thursday:
+    08:00:
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: water
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: mist
+    '10:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+    '12:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: mist
+    '13:00':
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: prune
+  tuesday:
+    08:00:
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: water
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: mist
+    09:00:
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: water
+    '12:00':
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: mist
+    '16:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: water
+  wednesday:
+    '10:00':
+    - callable_id: plant0
+      frequency: '1'
+      name: adwfr
+      represent_color: *id003
+      task: prune
+    - callable_id: plant1
+      frequency: '1'
+      name: ferns
+      represent_color: *id002
+      task: water
+    '12:00':
+    - callable_id: plant2
+      frequency: '1'
+      name: sunflower
+      represent_color: *id001
+      task: mist
+    - callable_id: plant3
+      frequency: '1'
+      name: rose
+      represent_color: *id004
+      task: mist

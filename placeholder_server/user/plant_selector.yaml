@@ -60,31 +60,7 @@ user1:
     - 0.8313541529235802
     - 0.9112544741466981
     - 1
-user10:
-  plant0:
-    age: ''
-    avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/09
-    extra_notes: ''
-    location: ''
-    name: adfeeh
-    represent_color:
-    - 0.2267804683553607
-    - 0.6143691980441498
-    - 0.6573924687507722
-    - 1
-  plant1:
-    age: ''
-    avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/09
-    extra_notes: ''
-    location: ''
-    name: adsaf
-    represent_color:
-    - 0.7760672039479233
-    - 0.25164593058350015
-    - 0.759260877211629
-    - 1
+user10: {}
 user11:
   plant0:
     age: ''
@@ -160,6 +136,55 @@ user14:
     - 0.2749542992471927
     - 0.8460537940851087
     - 0.8005054401412918
+    - 1
+user15:
+  plant0:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/09
+    extra_notes: ''
+    location: ''
+    name: adwfr
+    represent_color:
+    - 0.973480433566303
+    - 0.5324979651753559
+    - 0.8086522813843569
+    - 1
+  plant1:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/09
+    extra_notes: ''
+    location: ''
+    name: ferns
+    represent_color:
+    - 0.4348178253686018
+    - 0.25206107507282915
+    - 0.952264104796654
+    - 1
+  plant2:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/09
+    extra_notes: ''
+    location: ''
+    name: sunflower
+    represent_color:
+    - 0.8735157068923765
+    - 0.49337393328856327
+    - 0.9514431993787208
+    - 1
+  plant3:
+    age: '2021'
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/09
+    extra_notes: i'm busy on monday so don't give me any task on that day
+    location: subsahara africa
+    name: rose
+    represent_color:
+    - 1.0
+    - 0.0
+    - 0.0392156862745098
     - 1
 user2:
   plant0:
