@@ -15,6 +15,7 @@ from kivy.clock import Clock
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.colorpicker import ColorPicker
 from kivy.uix.videoplayer import VideoPlayer
+from kivy.core.audio import SoundLoader
 from kivy.factory import Factory
 import datetime
 import operator
@@ -745,7 +746,11 @@ class CalendarPage(Screen):
                 week_start, week_end = week_range.split('_')[:2]
                 if week_start <= date_now <= week_end:
                     if MDApp.get_running_app().now in calendar_full[week_range][day_now]:
-                        print('alarm!')
+                        if MDApp.get_running_app().alarm_ringtone.state != 'play':
+                            MDApp.get_running_app().alarm_ringtone.play()
+                    else:
+                        if MDApp.get_running_app().alarm_ringtone.state == 'play':
+                            MDApp.get_running_app().alarm_ringtone.stop()
                     break
     def update_calendar_list(self):
         filter = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content
@@ -1540,6 +1545,8 @@ class PlantApp(MDApp):
     language = language
     volume = volume
     theme_list = theme_list
+    alarm_ringtone = SoundLoader.load(alarm_ringtone)
+
     current_user = current_user
 
     plant_list = None

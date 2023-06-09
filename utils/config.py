@@ -13,7 +13,7 @@ theme = meta_config['theme']
 language = meta_config['language']
 volume = meta_config['volume']
 current_user = meta_config['id']
-
+alarm_ringtone = meta_config['alarm_ringtone']
 def save_new_config(theme,language,volume):
     meta_config['theme'] = theme
     meta_config['language'] = language
