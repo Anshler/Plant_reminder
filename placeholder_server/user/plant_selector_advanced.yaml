@@ -284,32 +284,6 @@ user15:
       Avoid watering too much or too little. It is best to let the soil dry out slightly
       between watering. Water less in winter months and more in the summer
   plant2:
-    Humidity: Roses don't require high humidity levels to grow well, but adequate
-      humidity helps to keep the foliage healthy and strong. A relative humidity level
-      of 40-60% is ideal.
-    Light: Roses thrive in full sun, at least 6 hours per day, preferably receiving
-      morning sun as it dries off the foliage and flowers, reducing the likelihood
-      of diseases. In hot climates, morning sun and afternoon shade is a good option
-      to prevent the plant from becoming too stressed.
-    Others: Deadheading spent flowers and pruning during the dormant season are also
-      key to maintaining the overall health and vitality of the rose plant.
-    Overview: Roses are flowering perennial plants that require ample care to maintain
-      their health and vigor. Proper watering, soil fertility management, pruning,
-      and pest management practices are key to keeping roses on the up and up.
-    PH Level: The rose plant prefers slightly acidic to neutral soil with a pH range
-      of 6.0-7.0. It is important to keep soil pH in check, as high acidity or alkalinity
-      levels can lead to nutrient deficiencies.
-    Suggested Placement Area: Roses should be planted in an area that receives full
-      sun, with good drainage. They grow best in soil that is fertile, well-drained,
-      and rich in organic matter.
-    Temperature: "Roses prefer a moderate temperature range between 60-75\xB0F (15-24\xB0\
-      C), and can tolerate lower temperatures in the range of 40-50\xB0F (4-10\xB0\
-      C) during the dormant stage."
-    Water: The rose plant prefers moderate watering throughout the growing season,
-      which is about 1 inch of water per week, depending on the soil conditions in
-      your garden. Keep the soil moist but not waterlogged, as roses don't like their
-      roots to stay in standing water.
-  plant3:
     Humidity: Winter ferns thrive in high humidity environments of at least 50%. In
       drier conditions, they may develop brown tips on their fronds. Mist the plant
       frequently or place it in a humid area, such as a bathroom.
@@ -335,6 +309,23 @@ user15:
     Water: Water your winter ferns when the top inch of soil feels dry to the touch.
       Water thoroughly but make sure not to let the soil become soggy. Withhold watering
       during the winter when the plant is dormant.
+  plant3:
+    Humidity: Cactus used to dry environments and hence does not need high humidity.
+    Light: Cactus prefers bright and direct sunlight. At least 6 hours a day.
+    Others: During the summer months, it is advisable to move the cactus outdoors
+      in a sunny location. Cactus is susceptible to root rot and hence it is critical
+      to ensure the pot has adequate drainage holes and soil is well-draining. Avoid
+      over-fertilizing the cactus.
+    Overview: Cactus is a low maintenance plant that can adapt to harsh conditions.
+    PH Level: Cactus prefers slightly acidic soil, with PH levels of 5.5-7.
+    Suggested Placement Area: Ideal placement would be on a windowsill facing the
+      sun. Ensure the windowsill has adequate drainage for excess water and possible
+      condensation.
+    Temperature: Cactus thrives well in average room temperatures, from 20-27 degrees
+      Celsius. During winter, temperatures should not drop below 10 degrees Celsius.
+    Water: Watering once a month is enough. Do not over-water the cactus. Ensure the
+      soil completely dries out before watering. During winter when the cactus is
+      dormant, water even less often, about once every 6 to 8 weeks.
 user2:
   plant0:
     Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves

@@ -167,24 +167,24 @@ user15:
     avatar: layout/img/default_plant_avatar.png
     date_added: 2023/06/10
     extra_notes: ''
-    location: ''
-    name: rose
-    represent_color:
-    - 0.28008264105772784
-    - 0.10330178508859023
-    - 0.6452057164391195
-    - 1
-  plant3:
-    age: ''
-    avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/10
-    extra_notes: ''
     location: vietnam
     name: winter ferns
     represent_color:
     - 0.8531573293618315
     - 0.24505192213499416
     - 0.038167355960741944
+    - 1
+  plant3:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/10
+    extra_notes: ''
+    location: sweden
+    name: cactus
+    represent_color:
+    - 0.06214295948583737
+    - 0.3318171123428697
+    - 0.15081404850874602
     - 1
 user2:
   plant0:

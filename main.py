@@ -326,8 +326,6 @@ class DeletePlantPopup(Popup):
 
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
         # reset if new calendar is empty
-        if MDApp.get_running_app().calendar_full == {}:
-            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = 'none_filter'
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
@@ -761,13 +759,13 @@ class CalendarPage(Screen):
             calendar_full = MDApp.get_running_app().calendar_full
 
         # update calendar display in calendar page
+        # clear widget
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
         if calendar_full == {}:
             return
         MDApp.get_running_app().current_week_range = get_current_week_range()
         current_calendar_full = calendar_full[MDApp.get_running_app().current_week_range]
 
-        # clear widget
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
         # put calendar in to display
         for day, hours in current_calendar_full.items():
             for hour, task_list in hours.items():
@@ -1107,10 +1105,7 @@ class MasterScreen(Screen):
         MDApp.get_running_app().plant_list = get_plant_list()
         MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
-
-        # reset calendar display
         MDApp.get_running_app().current_week_range = get_current_week_range()
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.reset_calendar()
         # update screen that contain the list
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
