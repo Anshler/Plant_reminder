@@ -28,6 +28,7 @@ from utils.validation import *
 from utils.plant_profile_management import *
 from utils.had_startup import *
 from utils.EncyclopediaCrawler import *
+from utils.transaction import *
 from gpt3 import get_chatgpt_assistant,get_chatgpt_classifier, get_chatgpt_calendar
 
 Config.set('graphics', 'resizable', '1')
@@ -266,7 +267,7 @@ class ConfirmFinalStepPopup(Popup):
         if location.strip() != '':
             self.auto_calendar_prompt += '\nOwner\'s location: '+location.strip()
         if extra_notes.strip() != '':
-            self.auto_calendar_prompt += '\nExtra note: '+extra_notes.strip()
+            self.auto_calendar_prompt += '\nOwner\'s request: '+extra_notes.strip()
         self.auto_calendar_prompt += '\nJobs to perform:\n' + result['Water'] +'\n' + result['Humidity'] + '\n' + result['Others']
         # add new plant to plant list
         current_user = MDApp.get_running_app().current_user
@@ -619,7 +620,7 @@ class ConfirmEditCalendarPopup(Popup):
         if plant_info['location'].strip() != '':
             self.auto_calendar_prompt += '\nOwner\'s location: ' + plant_info['location'].strip()
         if plant_info['extra_notes'].strip() != '':
-            self.auto_calendar_prompt += '\nExtra note: ' + plant_info['extra_notes'].strip()
+            self.auto_calendar_prompt += '\nOwner\'s request: ' + plant_info['extra_notes'].strip()
         self.auto_calendar_prompt += '\nJobs to perform:\n' + plant_info_advanced['Water'] + '\n' + \
                                      plant_info_advanced['Humidity'] + '\n' + plant_info_advanced['Others']
         # get schedule
@@ -1081,6 +1082,8 @@ class SettingScreen(Screen):
             change_size = Animation(size_hint=(0.8, 0.5), disabled=False,
                                     center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
             change_size.start(self.ids.logout_button)
+    def transaction(self,source = 'momo'):
+        deposit_money(source = source)
 class MasterScreen(Screen):
     Previous_home_buttons = 0
     current_filter_screen = ''

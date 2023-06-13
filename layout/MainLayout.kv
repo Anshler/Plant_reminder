@@ -1186,7 +1186,7 @@ WindowManager:
     background: 'layout/img/white_blank.png'
     background_color: app.background_color
     title: 'Are you sure you want to logout?'
-    title_align: 'center'
+    title_align: 'left'
     title_color: app.primary_font_color
     title_size: self.height/7
     separator_color: 0.5,0.5,0.5,0.25
@@ -1268,6 +1268,78 @@ WindowManager:
                     source: 'layout/img/logo.png'
                     allow_stretch: True
             LineSeparator:
+            # transaction
+            # momo
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.1
+                Button:
+                    size_hint: None, 0.8
+                    width: self.height*4
+                    pos_hint: {'center_x':0.5, 'center_y': 0.5}
+                    text: 'Donate us'
+                    disabled: True
+                    text_size: self.size
+                    font_size: self.height*0.5
+                    valign: 'center'
+                    halign: 'center'
+                    color: app.primary_font_color
+                    background_color: 0,0,0,0
+
+            # momo
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.1
+                Button:
+                    size_hint: None, 0.8
+                    width: self.height*4
+                    pos_hint: {'center_x':0.5, 'center_y': 0.5}
+                    text: 'MoMo'
+                    text_size: self.size
+                    font_size: self.height*0.5
+                    valign: 'center'
+                    halign: 'center'
+                    color: 245/255, 40/255, 145/255, 1
+                    background_normal: ''
+                    background_down: ''
+                    background_color: app.background_color
+                    on_press:
+                        app.play_sound('search.wav')
+                        root.transaction()
+                    Image:
+                        height: self.parent.height*0.8
+                        width: self.height
+                        x: self.parent.x
+                        center_y: self.parent.center_y
+                        source: 'layout/img/MoMo_logo.png'
+            # paypal
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height*0.1
+                Button:
+                    size_hint: None, 0.8
+                    width: self.height*4
+                    pos_hint: {'center_x':0.5, 'center_y': 0.5}
+                    text: 'Paypal'
+                    text_size: self.size
+                    font_size: self.height*0.5
+                    valign: 'center'
+                    halign: 'center'
+                    color: 13/255, 0/255, 204/255, 1
+                    background_normal: ''
+                    background_down: ''
+                    background_color: app.background_color
+                    on_press:
+                        app.play_sound('search.wav')
+                        root.transaction('paypal')
+                    Image:
+                        height: self.parent.height*0.8
+                        width: self.height
+                        x: self.parent.x
+                        center_y: self.parent.center_y
+                        source: 'layout/img/Paypal_logo.png'
+            LineSeparator:
+            # logout
             FloatLayout:
                 size_hint: 1,None
                 height: self.parent.parent.height*0.2
@@ -1521,7 +1593,7 @@ WindowManager:
     background: 'layout/img/white_blank.png'
     background_color: app.background_color
     title: 'Are you sure you want to quit creation?'
-    title_align: 'center'
+    title_align: 'left'
     title_color: app.primary_font_color
     title_size: self.height/7
     separator_color: 0.5,0.5,0.5,0.25
@@ -1582,7 +1654,7 @@ WindowManager:
     background: 'layout/img/white_blank.png'
     background_color: app.background_color
     title: 'Unable to confirm the specie of your plant, please try again'
-    title_align: 'center'
+    title_align: 'left'
     title_color: app.primary_font_color
     title_size: self.height/7
     separator_color: 0.5,0.5,0.5,0.25
@@ -1594,7 +1666,7 @@ WindowManager:
     background: 'layout/img/white_blank.png'
     background_color: app.background_color
     title: 'Are you sure all of the information is correct?'
-    title_align: 'center'
+    title_align: 'left'
     title_color: app.primary_font_color
     title_size: self.height/7
     separator_color: 0.5,0.5,0.5,0.25
@@ -1655,7 +1727,7 @@ WindowManager:
     background: 'layout/img/white_blank.png'
     background_color: app.background_color
     title: 'Do you want to automatically create a schedule for your plant? (based on the information you provided)'
-    title_align: 'center'
+    title_align: 'left'
     title_color: app.primary_font_color
     title_size: self.height/16
     separator_color: 0.5,0.5,0.5,0.25
@@ -1716,7 +1788,7 @@ WindowManager:
     background: 'layout/img/white_blank.png'
     background_color: app.background_color
     title: 'Pick a color to represent your plant'
-    title_align: 'center'
+    title_align: 'left'
     title_color: app.primary_font_color
     title_size: self.height/30
     separator_color: 0.5,0.5,0.5,0.25
@@ -1792,7 +1864,7 @@ WindowManager:
     background: 'layout/img/white_blank.png'
     background_color: app.background_color
     title: 'Are you sure you want to delete this profile?'
-    title_align: 'center'
+    title_align: 'left'
     title_color: app.primary_font_color
     title_size: self.height/7
     separator_color: 0.5,0.5,0.5,0.25
@@ -3788,6 +3860,12 @@ WindowManager:
 <HourBoxWidget>:
     size_hint: 1,None
     height: Window.size[1]*0.075
+    canvas.before:
+        Color:
+            rgba: app.secondary_background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
     Label:
         id: empty_calendar
         size_hint: 1,1
@@ -3806,7 +3884,7 @@ WindowManager:
     background: 'layout/img/white_blank.png'
     background_color: app.background_color
     title: 'Do you want to automatically create a new schedule for your plant? (based on the information you provided when creating)'
-    title_align: 'center'
+    title_align: 'left'
     title_color: app.primary_font_color
     title_size: self.height/16
     separator_color: 0.5,0.5,0.5,0.25
@@ -4704,6 +4782,8 @@ WindowManager:
 <UtilityBars>:
     FloatLayout:
         canvas:
+            Color:
+                rgba: 0,0,0,1
             Rectangle:
                 pos: self.pos
                 size: self.size

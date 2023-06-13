@@ -217,7 +217,7 @@ def update_plant_after_signup_(id):
 # Edit plant's calendar---------------------------------------------------------------------------------------
 def simple_edit_plant_schedule(user_id, plant_id, schedule):
     calendar = get_plant_calendar()
-    calendar[plant_id] = schedule
+    calendar[plant_id] = clean_calendar(schedule)
 
     with open(resources.path('app_config.local_user_file', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(calendar, f)

@@ -46,3 +46,27 @@ plant3:
   - 0.3318171123428697
   - 0.15081404850874602
   - 1
+plant4:
+  age: '2022'
+  avatar: layout/img/default_plant_avatar.png
+  date_added: 2023/06/10
+  extra_notes: don't give me task on monday
+  location: vietnam
+  name: tulip
+  represent_color:
+  - 0.18705035971223022
+  - 0.762589928057554
+  - 0.5882352941176471
+  - 1
+plant5:
+  age: ''
+  avatar: layout/img/default_plant_avatar.png
+  date_added: 2023/06/11
+  extra_notes: ''
+  location: ''
+  name: rose
+  represent_color:
+  - 0.5133613687777461
+  - 0.018374298734489036
+  - 0.09581642919181987
+  - 1
