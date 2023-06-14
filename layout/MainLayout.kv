@@ -1454,6 +1454,9 @@ WindowManager:
                 color: 1, 1, 1, 1  # Set image color to full opacity
 
 <MainPagesManager>:
+    TestPage:
+        id: test_page
+        name: 'test_page'
     HomePage:
         id: home_page
         name: 'home_page'
@@ -1474,40 +1477,125 @@ WindowManager:
         name: 'shopping_page'
 
 <HomePage>:
-    Label:
-        id:current_time
-        size_hint: None,0.1
-        width: self.height*4
-        pos_hint: {'center_x': 0.5, 'center_y': 0.83}
-        text: app.now
-        color: app.primary_font_color
-        valign: 'center'
-        halign: 'center'
-        text_size: self.size
-        font_size: self.height
-    Label:
-        id:current_date
-        size_hint: None,0.1
-        width: self.height*4
-        pos_hint: {'center_x': 0.5, 'center_y': 0.77}
-        text: app.today
-        color: app.primary_font_color
-        valign: 'center'
-        halign: 'center'
-        text_size: self.size
-        font_size: self.height*0.3
-        bold: True
+    ScrollView:
+        id: scroll_view
+        size_hint: 1,1
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        BoxLayout:
+            id: notification_box
+            size_hint: 1,None
+            height: self.minimum_height
+            orientation: 'vertical'
+            pos_hint: {'center_x': 0.5}
+
+            FloatLayout:
+                size_hint: 1, None
+                height: self.parent.parent.height/3
+                pos_hint: {'center_x':0.5}
+
+                Label:
+                    id:current_time
+                    size_hint: None,0.3
+                    width: self.height*4
+                    pos_hint: {'center_x': 0.5, 'center_y': (0.83-2/3)*3}
+                    text: app.now
+                    color: app.primary_font_color
+                    valign: 'center'
+                    halign: 'center'
+                    text_size: self.size
+                    font_size: self.height
+                Label:
+                    id:current_date
+                    size_hint: None,0.3
+                    width: self.height*4
+                    pos_hint: {'center_x': 0.5, 'center_y': (0.77-2/3)*3}
+                    text: app.today
+                    color: app.primary_font_color
+                    valign: 'center'
+                    halign: 'center'
+                    text_size: self.size
+                    font_size: self.height*0.3
+                    bold: True
+                MDLabel:
+                    size_hint: 1,0.3
+                    pos_hint: {'x': 0.1, 'center_y':(0.7-2/3)*3}
+                    text: 'Upcoming mission'
+                    valign: 'center'
+                    text_size: self.size
+                    font_size: self.height*0.33
+                    color: app.primary_font_color
+                    bold: True
+                    font_style: 'H3'
+            FloatLayout:
+                size_hint: 1,None
+                height: self.parent.parent.height/12
+                pos_hint: {'center_x':0.5}
+                FloatLayout:
+                    id: next_event
+                    avatar: 'layout/img/default_plant_avatar.png'
+                    time_remain: '1h 25m 32s'
+                    task: ''
+                    represent_color: 0,0,0,1
+                    name: ''
+                    task_avatar: ''
+
+                    size_hint: 0.8,1
+                    pos_hint: {'center_x':0.5}
+                    canvas:
+                        Color:
+                            rgba: app.secondary_background_color
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: self.height/4,self.height/4,self.height/4,self.height/4
+                    FitImage:
+                        source: next_event.avatar
+                        mipmap: True
+                        size_hint: None,1
+                        width: self.height
+                        pos_hint: {'right':1,'center_y':0.5}
+                        allow_stretch: True
+                        radius: 0,self.height/4,self.height/4,0
+                    FloatLayout:
+                        size_hint: None,1
+                        width: self.height
+                        pos_hint: {'x':0,'center_y':0.5}
+                        Image:
+                            source: next_event.task_avatar
+                            size_hint: 0.5,0.5
+                            pos_hint: {'center_x':0.5,'center_y':0.5}
+                            allow_stretch: True
+                            color: app.primary_background_color
+                    Label:
+                        size_hint: 0.5,1/3
+                        pos_hint: {'center_y':0.3}
+                        x: self.parent.x + self.parent.height
+                        text: next_event.time_remain
+                        text_size: self.size
+                        font_size: self.height*0.8
+                        italic: True
+                        valign: 'center'
+                        color: app.primary_font_color
+                    Label:
+                        size_hint: 0.5,0.4
+                        pos_hint: {'center_y':0.7}
+                        x: self.parent.x + self.parent.height + self.parent.height*0.3
+                        text: next_event.task
+                        text_size: self.size
+                        font_size: self.height*0.9
+                        bold: True
+                        valign: 'center'
+                        color: app.primary_font_color
+                    Image:
+                        size_hint: None, 0.2
+                        pos_hint: {'center_y':0.7}
+                        x: self.parent.x + self.parent.height
+                        width: self.height
+                        source: ''
+                        color: next_event.represent_color
 
 
 
-
-    #Button:
-        #text: 'home page'
-        #size_hint: 0.8,0.25
-        #pos_hint: {'center_x': 0.5, 'center_y':0.5}
-        #background_color: 0,0,0,0.5
-        #on_release: root.test(self)
-        #collide_children: False
 
 <PlantSelector>:
     callable_id: ''
@@ -3695,6 +3783,37 @@ WindowManager:
                 Screen
                     id: chat_profile
                     name: 'chat_profile'
+
+                    # scroll view------------------------------------------------
+                    FloatLayout: # scrollview background
+                        canvas:
+                            Color:
+                                rgba: app.background_color
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        size_hint: 1, 1
+                        pos_hint: {'center_x':0.5,'top':0.75}
+                    FloatLayout:
+                        canvas:
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                                texture: Gradient.vertical((0,0,0,0), (0,0,0,0.1))
+                        size_hint: 1, 0.1/12
+                        pos_hint: {'top':0.75}
+                    ScrollView:
+                        id: profile_display_chatbox_scrollview
+                        size_hint: 1, float(0.75-1.15/12)
+                        pos_hint: {'center_x':0.5,'top':0.75}
+                        bar_color: 0,0,0,0
+                        bar_inactive_color: 0,0,0,0
+                        BoxLayout:
+                            id: profile_display_chatbox
+                            size_hint: 1,None
+                            height: self.minimum_height
+                            pos_hint: {'top': 1}
+                            orientation: 'vertical'
 
             ScreenManager: # filter selector
                 id: filter_selector_manager

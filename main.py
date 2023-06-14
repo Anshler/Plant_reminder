@@ -41,7 +41,11 @@ from kivymd.uix.list import ThreeLineIconListItem
 from kivymd.uix.behaviors import CommonElevationBehavior
 
 # Declare Main pages ----------------------------------------
+class TestPage(Screen):
+    pass
 class HomePage(Screen):
+    def on_pre_enter(self, *args):
+        self.ids.scroll_view.scroll_y = 1
     def update_time(self,*args):
         MDApp.get_running_app().now = datetime.datetime.now().strftime('%H:%M')
         self.ids.current_time.text = MDApp.get_running_app().now
@@ -60,15 +64,22 @@ class HomePage(Screen):
             closest_time = None
             closest_time_distance = None
 
+            found = False
             # Iterate over each date range in the calendar
             for date_range in calendar:
+                if found:
+                    break
                 # Parse the start and end dates from the date range
                 start_date, end_date = map(datetime.datetime.fromisoformat, date_range.split('_'))
 
                 # Check if the current datetime.datetime is within the date range
                 if start_date <= now <= end_date:
                     # Iterate over the events in the current date range
-                    for day, events in calendar[date_range].items():
+                    day_list = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+                    for day in day_list:
+                        if found:
+                            break
+                        events = calendar[date_range][day]
                         day_date = start_date + datetime.timedelta(days=Days2Num[day])
                         # Iterate over the events in each day
                         for time, event in events.items():
@@ -76,19 +87,37 @@ class HomePage(Screen):
                             event_time = datetime.datetime.combine(day_date,
                                                                    datetime.datetime.strptime(time, '%H:%M').time())
                             if event_time >= now:
-                                # Calculate the time difference between the current event and the current time
+                                # Calculate the time difference between the next event and the current time
                                 time_difference = event_time - now
 
                                 # Check if the current event is the closest event so far
-                                if closest_event is None or time_difference < closest_time_distance:
-                                    closest_event = event
-                                    closest_date_range = date_range
-                                    closest_day = day
-                                    closest_time = time
-                                    closest_time_distance = time_difference
+                                closest_event = event
+                                closest_date_range = date_range
+                                closest_day = day
+                                closest_time = time
+                                closest_time_distance = time_difference
+
+                                found = True
+                                break
 
             # assign the closest values
-            # put your code here
+            if closest_time_distance.days > 0:
+                # If there are days present, format the timedelta as X day HH:MM:SS
+                closest_time_distance = f"{closest_time_distance.days} day"
+            else:
+                # If there are no days, format the timedelta as HH:MM:SS
+                closest_time_distance = f"{closest_time_distance.seconds // 3600:02d}h {(closest_time_distance.seconds // 60) % 60:02d}m {closest_time_distance.seconds % 60:02d}s"
+
+            if closest_event is not None:
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.time_remain = str(closest_time_distance).split(',')[0]
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task = closest_event[0]['task']
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.represent_color = closest_event[0]['represent_color']
+                if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar != MDApp.get_running_app().plant_list[closest_event[0]['callable_id']]['avatar']:
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar = \
+                    MDApp.get_running_app().plant_list[closest_event[0]['callable_id']]['avatar']
+                task_avatar = 'layout/img/'+ closest_event[0]['task']+'.png'
+                if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar != task_avatar:
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar = task_avatar
     def test(self,instance):
         print('home page')
     pass
