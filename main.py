@@ -47,12 +47,14 @@ class TestPage(Screen):
 
 class NotificationButton(TouchRippleButtonBehavior,FloatLayout):
     def to_calendar(self,instance):
-        if self.task != 'No task available':
+        if self.task != 'No task':
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = self.callable_id
+            day = Day2DayRev[self.day]
         else:
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = 'none_filter'
+            day = None
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day(instance=Day2DayRev[self.day])
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day(day=day)
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.to_calendar()
 class HomePage(Screen):
     def on_pre_enter(self, *args):
@@ -65,17 +67,18 @@ class HomePage(Screen):
 
     def get_next_event(self, *args):
         calendar = MDApp.get_running_app().calendar_full
+        # Initialize variables to store the closest event and its time distance
+        closest_event = None
+        closest_date_range = None
+        closest_day = None
+        closest_time = None
+        closest_time_distance = None
+
+        found = False
+
         if calendar is not None and calendar != {}:
             # Get the current datetime.datetime
             now = datetime.datetime.now()
-            # Initialize variables to store the closest event and its time distance
-            closest_event = None
-            closest_date_range = None
-            closest_day = None
-            closest_time = None
-            closest_time_distance = None
-
-            found = False
             # Iterate over each date range in the calendar
             for date_range in calendar:
                 if found:
@@ -112,38 +115,38 @@ class HomePage(Screen):
                                 break
 
 
-            if closest_event is not None:
-                # assign the closest values
-                if closest_time_distance.days > 0:
-                    # If there are days present, format the timedelta as X day HH:MM:SS
-                    closest_time_distance = f"{closest_time_distance.days} day"
-                else:
-                    # If there are no days, format the timedelta as HH:MM:SS
-                    closest_time_distance = f"{closest_time_distance.seconds // 3600:02d}h {(closest_time_distance.seconds // 60) % 60:02d}m {closest_time_distance.seconds % 60:02d}s"
-
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.time_remain = str(closest_time_distance).split(',')[0]
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task = closest_event[0]['task']
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.callable_id = closest_event[0]['callable_id']
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.name = closest_event[0]['name']
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.day = closest_day
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.represent_color = closest_event[0]['represent_color']
-                if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar != MDApp.get_running_app().plant_list[closest_event[0]['callable_id']]['avatar']:
-                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar = \
-                    MDApp.get_running_app().plant_list[closest_event[0]['callable_id']]['avatar']
-                task_avatar = 'layout/img/'+ closest_event[0]['task']+'.png'
-                if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar != task_avatar:
-                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar = task_avatar
+        if closest_event is not None:
+            # assign the closest values
+            if closest_time_distance.days > 0:
+                # If there are days present, format the timedelta as X day HH:MM:SS
+                closest_time_distance = f"{closest_time_distance.days} day"
             else:
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.time_remain = 'You\'re free this week!'
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task = 'No task available'
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.callable_id = ''
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.name = ''
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.day = ''
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.represent_color = MDApp.get_running_app().primary_font_color
-                if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar != 'layout/img/default_plant_avatar.png':
-                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar = 'layout/img/default_plant_avatar.png'
-                if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar != '':
-                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar = ''
+                # If there are no days, format the timedelta as HH:MM:SS
+                closest_time_distance = f"{closest_time_distance.seconds // 3600:02d}h {(closest_time_distance.seconds // 60) % 60:02d}m {closest_time_distance.seconds % 60:02d}s"
+
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.time_remain = str(closest_time_distance).split(',')[0]
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task = closest_event[0]['task']
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.callable_id = closest_event[0]['callable_id']
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.name = closest_event[0]['name']
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.day = closest_day
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.represent_color = closest_event[0]['represent_color']
+            if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar != MDApp.get_running_app().plant_list[closest_event[0]['callable_id']]['avatar']:
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar = \
+                MDApp.get_running_app().plant_list[closest_event[0]['callable_id']]['avatar']
+            task_avatar = 'layout/img/'+ closest_event[0]['task']+'.png'
+            if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar != task_avatar:
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar = task_avatar
+        else:
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.time_remain = 'You\'re free this week!'
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task = 'No task'
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.callable_id = ''
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.name = ''
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.day = ''
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.represent_color = MDApp.get_running_app().primary_font_color
+            if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar != 'layout/img/default_plant_avatar.png':
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar = 'layout/img/default_plant_avatar.png'
+            if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar != '':
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar = ''
 
     def to_calendar(self):
         animate = Animation(
@@ -635,7 +638,7 @@ class PlantProfilePage(Screen):
                     default_plant)
             else:
                 for callable_id in reversed(plant_list):
-                    default_plant = PlantSelector(height=Window.size[1] * 0.15)
+                    default_plant = PlantSelector(height=Window.size[1] * 0.1)
                     setattr(default_plant, 'callable_id', callable_id)
                     setattr(default_plant, 'name', plant_list[callable_id]['name'])
                     setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
@@ -842,13 +845,12 @@ class CalendarPage(Screen):
 
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.week.ids[day].ids[
                     current_closest].ids.hour_box.add_widget(task_widget)
-    def change_day(self,instance = None):
-        if instance == None:
-            instance = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[
-                MDApp.get_running_app().current_day]
-        else:
-            instance = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[
-                instance]
+    def change_day(self,instance = None, day = None):
+        if instance is None:
+            if day is None:
+                instance = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[MDApp.get_running_app().current_day]
+            else:
+                instance = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids[day]
 
         # set plant filter
         filter = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content

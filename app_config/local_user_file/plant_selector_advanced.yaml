@@ -1,23 +1,4 @@
 plant0:
-  Humidity: Sunflowers can tolerate a wide range of humidity levels, but they prefer
-    lower humidity.
-  Light: Sunflowers require full sun, meaning at least six hours of direct sunlight
-    per day.
-  Others: Sunflowers are heavy feeders and benefit from regular fertilization throughout
-    the growing season. They are also prone to insect pests such as aphids, so it's
-    important to monitor them regularly and treat as needed.
-  Overview: Sunflowers (Helianthus annuus) are annual plants native to North America.
-    They are known for their large, bright yellow flowers that follow the movement
-    of the sun throughout the day.
-  PH Level: Sunflowers prefer a slightly acidic to neutral soil pH between 6.0-7.5.
-  Suggested Placement Area: Sunflowers are best suited for outdoor planting in garden
-    beds or large containers. They can also be grown indoors in pots, but may require
-    additional artificial light to supplement natural daylight.
-  Temperature: "Sunflowers prefer warm temperatures between 70-80\xB0F (21-27\xB0\
-    C). They can tolerate cooler temperatures, but frost can damage them."
-  Water: Sunflowers should be watered deeply once a week. The soil should be moist
-    but not waterlogged. Sunflowers can tolerate periods of drought.
-plant1:
   Humidity: Fiddle leaf figs are tolerant of lower humidity levels than some other
     tropical plants, but they still prefer a moderately humid environment. It is recommended
     to place a humidifier nearby, especially during the dry season.
@@ -45,33 +26,7 @@ plant1:
   Water: Water the Fiddle Leaf Fig thoroughly when the top inch of soil is dry. Avoid
     watering too much or too little. It is best to let the soil dry out slightly between
     watering. Water less in winter months and more in the summer
-plant2:
-  Humidity: Winter ferns thrive in high humidity environments of at least 50%. In
-    drier conditions, they may develop brown tips on their fronds. Mist the plant
-    frequently or place it in a humid area, such as a bathroom.
-  Light: Winter ferns prefer bright, indirect light. They can tolerate some direct
-    sunlight, but too much can scorch their delicate fronds. In low light conditions,
-    their fronds may become less colorful.
-  Others: '- Fertilize your winter ferns every 2-4 weeks during the growing season
-    with a general-purpose houseplant fertilizer.
-
-    - Trim off any dead or yellowing fronds to encourage new growth.
-
-    - Check your winter ferns regularly for pests such as spider mites and mealybugs.'
-  Overview: "Winter ferns, also known as \u201CDryopteris erythrosora,\u201D are a\
-    \ beautiful type of fern that originated in Asia. They are characterized by their\
-    \ copper-colored fronds that turn green as they mature. They are hardy plants\
-    \ that are easy to care for."
-  PH Level: Winter ferns prefer slightly acidic soil with a pH of 5.5-6.5.
-  Suggested Placement Area: Winter ferns are ideal for indoor spaces such as living
-    rooms, bedrooms, or offices. They can also be placed outdoors in shady areas.
-  Temperature: Winter ferns prefer temperatures between 60-75 degrees Fahrenheit (15-24
-    degrees Celsius). They can tolerate slightly cooler temperatures, but avoid placing
-    them near drafts or vents.
-  Water: Water your winter ferns when the top inch of soil feels dry to the touch.
-    Water thoroughly but make sure not to let the soil become soggy. Withhold watering
-    during the winter when the plant is dormant.
-plant3:
+plant1:
   Humidity: Cactus used to dry environments and hence does not need high humidity.
   Light: Cactus prefers bright and direct sunlight. At least 6 hours a day.
   Others: During the summer months, it is advisable to move the cactus outdoors in
@@ -87,27 +42,7 @@ plant3:
   Water: Watering once a month is enough. Do not over-water the cactus. Ensure the
     soil completely dries out before watering. During winter when the cactus is dormant,
     water even less often, about once every 6 to 8 weeks.
-plant4:
-  Humidity: Humidity is not a major concern for tulips. They can tolerate a range
-    of humidity levels.
-  Light: Tulips prefer bright, indirect light. Keep them near a window that receives
-    morning sunlight, but avoid direct afternoon sunlight as it can be too strong.
-  Others: Tulips can be prone to pest infestations, such as aphids or spider mites.
-    Keep an eye out for any signs of infestation and treat promptly if necessary.
-    In Vietnam, it is important to keep the tulip moist without overwatering, as long
-    dry spells and high temperatures can stress the plant.
-  Overview: Tulip is a bulbous perennial with showy flowers. It blooms in spring and
-    can be grown indoors or outdoors.
-  PH Level: Tulips grow best in slightly acidic to neutral soil with a pH between
-    6.0-7.0.
-  Suggested Placement Area: Place the tulip in a well-draining potting mix in a container
-    with drainage holes. Keep the plant indoors near a bright window or outdoors in
-    a cool, shaded area.
-  Temperature: "Tulips prefer cooler temperatures around 60-65\xB0F (15-18\xB0C).\
-    \ Avoid exposing them to temperatures above 70\xB0F (21\xB0C)."
-  Water: Water the tulip once per week, or when the soil has dried out. Do not overwater
-    as this can cause the bulb to rot.
-plant5:
+plant2:
   Humidity: Roses prefer moderate to high humidity levels.
   Light: Roses require full sun exposure to bloom properly, at least 6 hours of direct
     sunlight daily.

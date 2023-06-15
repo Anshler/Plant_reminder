@@ -1479,7 +1479,7 @@ WindowManager:
 <NotificationButton>:
     avatar: 'layout/img/default_plant_avatar.png'
     time_remain: 'You\'re free this week!'
-    task: 'No task available'
+    task: 'No task'
     represent_color: app.primary_font_color
     name: ''
     task_avatar: ''
@@ -1520,7 +1520,7 @@ WindowManager:
             color: app.primary_background_color
     # time remain
     Label:
-        size_hint: 0.5,1/3
+        size_hint: 0.6,1/3
         pos_hint: {'center_y':0.3}
         x: self.parent.x + self.parent.height
         text: root.time_remain
@@ -1531,7 +1531,7 @@ WindowManager:
         color: app.primary_font_color
     # task
     Label:
-        size_hint: 0.5,0.4
+        size_hint: 0.6,0.4
         pos_hint: {'center_y':0.7}
         x: self.parent.x + self.parent.height + self.parent.height*0.3
         text: root.task
@@ -1657,7 +1657,7 @@ WindowManager:
 
     Label:
         id: default_text
-        size_hint: 0.6, 0.3
+        size_hint: 0.6, 0.4
         pos_hint: {'x': 0.3,'center_y': 0.7}
         text: root.name
         shorten: True
@@ -1670,7 +1670,7 @@ WindowManager:
 
     Label:
         id: date_added
-        size_hint: 0.6, 0.3
+        size_hint: 0.6, 0.4
         pos_hint: {'x': 0.3,'center_y': 0.3}
         text: 'Added: ' + root.date_added
         text_size: self.size

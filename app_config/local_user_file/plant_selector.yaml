@@ -1,16 +1,4 @@
 plant0:
-  age: '2023'
-  avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/10
-  extra_notes: don't give me task on sunday for i'm busy
-  location: sweden
-  name: sunflower
-  represent_color:
-  - 0.9773066771157528
-  - 0.561207579373601
-  - 0.18607275641640653
-  - 1
-plant1:
   age: ''
   avatar: layout/img/default_plant_avatar.png
   date_added: 2023/06/10
@@ -22,19 +10,7 @@ plant1:
   - 0.6625670877027177
   - 0.32906858798971295
   - 1
-plant2:
-  age: ''
-  avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/10
-  extra_notes: ''
-  location: vietnam
-  name: winter ferns
-  represent_color:
-  - 0.8531573293618315
-  - 0.24505192213499416
-  - 0.038167355960741944
-  - 1
-plant3:
+plant1:
   age: ''
   avatar: layout/img/default_plant_avatar.png
   date_added: 2023/06/10
@@ -46,19 +22,7 @@ plant3:
   - 0.3318171123428697
   - 0.15081404850874602
   - 1
-plant4:
-  age: '2022'
-  avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/10
-  extra_notes: don't give me task on monday
-  location: vietnam
-  name: tulip
-  represent_color:
-  - 0.18705035971223022
-  - 0.762589928057554
-  - 0.5882352941176471
-  - 1
-plant5:
+plant2:
   age: ''
   avatar: layout/img/default_plant_avatar.png
   date_added: 2023/06/11
