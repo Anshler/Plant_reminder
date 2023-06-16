@@ -151,6 +151,8 @@ def clean_calendar(calendar):
                         count += 1
                         if count > 1:
                             items.remove(item)
+                    if item['task'] not in ['water','prune','mist','fertilize']:
+                        items.remove(item)
                     else:
                         continue
     return calendar

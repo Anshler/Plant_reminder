@@ -1392,7 +1392,7 @@ WindowManager:
 
                 VideoPlayer:
                     id: background_image
-                    source: 'layout/img/plant.mp4'
+                    source: app.background_image
                     state: 'play'
                     options: {'eos': 'loop', 'fit_mode':'cover'}
 
@@ -1448,7 +1448,7 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 allow_stretch: True
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color
 
 <MainPagesManager>:
     TestPage:
@@ -1501,14 +1501,14 @@ WindowManager:
         mipmap: True
         size_hint: None,1
         width: self.height
-        pos_hint: {'right':1,'center_y':0.5}
+        pos_hint: {'x':0,'center_y':0.5}
         allow_stretch: True
-        radius: 0,self.height/4,self.height/4,0
+        radius: self.height/4,0,0,self.height/4
     # task avatar
     FloatLayout:
         size_hint: None,1
         width: self.height
-        pos_hint: {'x':0,'center_y':0.5}
+        pos_hint: {'right':1,'center_y':0.5}
         Image:
             source: root.task_avatar
             size_hint: 0.4,0.4
@@ -1519,7 +1519,7 @@ WindowManager:
     Label:
         size_hint: 0.6,1/3
         pos_hint: {'center_y':0.3}
-        x: self.parent.x + self.parent.height
+        x: self.parent.x + self.parent.height*1.1
         text: root.time_remain
         text_size: self.size
         font_size: self.height*0.8
@@ -1530,7 +1530,7 @@ WindowManager:
     Label:
         size_hint: 0.6,0.4
         pos_hint: {'center_y':0.7}
-        x: self.parent.x + self.parent.height + self.parent.height*0.3
+        x: self.parent.x + self.parent.height*1.1 + self.parent.height*0.3
         text: root.task
         text_size: self.size
         font_size: self.height*0.9
@@ -1540,7 +1540,7 @@ WindowManager:
     Image:
         size_hint: None, 0.2
         pos_hint: {'center_y':0.7}
-        x: self.parent.x + self.parent.height
+        x: self.parent.x + self.parent.height*1.1
         width: self.height
         source: ''
         color: root.represent_color
@@ -1670,6 +1670,83 @@ WindowManager:
         size_hint: 0.6, 0.4
         pos_hint: {'x': 0.3,'center_y': 0.3}
         text: 'Added: ' + root.date_added
+        text_size: self.size
+        color: app.secondary_font_color
+        valign: 'center'
+        font_size: self.height*0.5
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 0.5,0.5,0.5,0.5
+            Rectangle:
+                size:self.size
+                pos: self.pos
+        size_hint: 1,None
+        height: self.parent.height/100
+        pos_hint: {'y':0}
+
+<PlantChatSelector>:
+    callable_id: ''
+    name: ''
+    represent_color: 0,0,0,0
+    avatar: ''
+    age: ''
+    location: ''
+    extra: ''
+    date_added: ''
+    size_hint: 1,None
+
+    Button:
+        size_hint: 1,1
+        pos_hint: {'center_x': 0.5, 'center_y':0.5}
+        background_down: 'layout/img/white_blank.png'
+        background_normal: 'layout/img/white_blank.png'
+        background_color: 0,0,0,0
+        on_press:
+            app.play_sound('next.wav')
+            root.press_button(self)
+        on_release:
+            root.release_button(self)
+            root.open_item(self)
+
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+        canvas:
+            Color:
+                rgba: root.represent_color
+            Line:
+                width: self.height/50
+                circle:(self.center_x*0.3, self.center_y, self.height*0.7/2)
+
+    FitImage:
+        source: root.avatar
+        size_hint: None,None
+        mipmap:True
+        height: self.parent.height*0.6
+        width: self.height
+        pos_hint: {'center_x':0.15, 'center_y':0.5}
+        radius: self.height/2, self.height/2, self.height/2, self.height/2
+
+    Label:
+        id: default_text
+        size_hint: 0.6, 0.4
+        pos_hint: {'x': 0.3,'center_y': 0.7}
+        text: root.name
+        shorten: True
+        shorten_from: 'right'
+        text_size: self.size
+        color: app.primary_font_color
+        valign: 'center'
+        font_size: self.height*0.9
+        bold: True
+
+    Label:
+        id: date_added
+        size_hint: 0.6, 0.4
+        pos_hint: {'x': 0.3,'center_y': 0.3}
+        text: 'Last convo: ' + root.date_added
         text_size: self.size
         color: app.secondary_font_color
         valign: 'center'
@@ -3051,7 +3128,7 @@ WindowManager:
     FloatLayout:
         canvas:
             Color:
-                rgba: app.secondary_background_color
+                rgba: app.background_color
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -3064,12 +3141,7 @@ WindowManager:
             bar_color: 0,0,0,0
             bar_inactive_color: 0,0,0,0
             BoxLayout:
-                canvas:
-                    Color:
-                        rgba: 1,1,1,1
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
+
                 orientation: 'vertical'
                 size_hint: 1, None
                 spacing: 10
@@ -3642,22 +3714,127 @@ WindowManager:
                 height: self.parent.height
                 allow_stretch: True
 
+<PlantChatScreen>:
+    canvas:
+        Color:
+            rgba: app.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    plant_name: 'plant'
+    avatar: 'layout/img/default_plant_avatar.png'
+    represent_color: 0,0,0,1
+
+    FloatLayout: # Back_button_region
+        size_hint: 1, 1.15/12
+        pos_hint: {'center_x': 0.5, 'top': 1}
+        canvas:
+            Color:
+                rgba: app.secondary_background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Button:
+            id: back_button
+            size_hint: None, 0.5/1.25
+            width: self.height
+            pos_hint: {'center_x': 1.00001/12, 'center_y': 0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_back(self)
+            on_release:
+                root.release_back(self)
+            Image:
+                id: back_button_image
+                source: 'layout/img/arrow-left.png'
+                color: app.primary_background_color
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                width: self.parent.width
+                height: self.parent.height
+                allow_stretch: True
+        FloatLayout:
+            id: outline
+            size_hint: None,None
+            height: self.parent.height*1/1.15
+            width: self.height
+            pos_hint: {'center_y':0.5}
+            x: back_button.right*1.1
+            canvas:
+                Color:
+                    rgba: root.represent_color
+                Line:
+                    width: self.height/40
+                    circle:(self.center_x, self.center_y, self.height*0.75/2)
+        FitImage:
+            id: avatar_image
+            size_hint: None,None
+            source: root.avatar
+            height: self.parent.height*0.575
+            width: self.height
+            center_y: self.parent.center_y
+            center_x: outline.center_x
+            radius: self.height/2,self.height/2,self.height/2,self.height/2
+        Label:
+            size_hint: 0.5,1
+            pos_hint: {'center_y':0.5}
+            x: avatar_image.right*1.1
+            text: root.plant_name
+            bold: True
+            shorten: True
+            shorten_from: 'right'
+            text_size: self.size
+            font_size: self.height/3
+            valign: 'center'
+            color: app.primary_font_color
+
+    BoxLayout: # input region
+        size_hint: 1, None
+        height: self.minimum_height
+        pos_hint: {'center_x': 0.5, 'y': 1.15/12}
+        orientation: 'vertical'
+        padding: self.parent.height/30
+        canvas.before:
+            Color:
+                rgba: app.secondary_background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        MDTextField:
+            id: chat_input
+            size_hint: 0.8, None
+            height: self.parent.parent.height*0.5/12
+            icon_right: "language-python"
+            icon_color: app.primary_background_color
+            pos_hint: {'center_x':0.5}
+            mode: 'fill'
+            multiline: True
+            font_size: self.parent.parent.height*0.3/12
+            fill_color_normal: app.dark_grey
+            fill_color_focus: app.dark_grey
+            active_line: False
+            max_text_length: 500
+
 
 <PlantProfilePage>:
     id: plant_profile_page
+    mode: 'normal'
+    size_hint: 1,1
+    pos_hint: {'center_x':0.5, 'center_y':0.5}
     # background
     FloatLayout:
         canvas:
             Rectangle:
                 pos: self.pos
                 size: self.size
-                texture: Gradient.vertical(app.secondary_background_color, app.secondary_background_color_fade)
+                texture: Gradient.vertical(app.background_color, app.background_color_fade)
         size_hint: 1, 0.2
         pos_hint: {'y':0.8}
     FloatLayout:
         canvas:
             Color:
-                rgba: app.secondary_background_color
+                rgba: app.background_color
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -3680,8 +3857,9 @@ WindowManager:
             halign: 'center'
             font_size: self.parent.height/2
             bold: True
+
     FloatLayout: # Search bar
-        size_hint: 0.9, 0.06
+        size_hint: 0.9, 0.05
         pos_hint: {'center_x':0.5,'top':10/12}
 
         Button: # filter button
@@ -3705,7 +3883,7 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 allow_stretch: True
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color
 
         FloatLayout:
             canvas:
@@ -3747,7 +3925,47 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 allow_stretch: True
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color
+
+    FloatLayout:
+        size_hint: 1,1/12
+        pos_hint: {'center_x':0.5,'center_y':8.9/12}
+
+        Button:
+            id: normal_button
+            name: 'normal_button'
+            size_hint:  None, 0.6
+            width: self.height*2.5
+            pos_hint: {'x':0.05, 'center_y':0.5}
+            text: 'normal'
+            font_size: self.parent.height/4
+            color: app.background_color if root.mode == 'normal' else app.secondary_font_color
+            background_normal: 'layout/img/otp_input.png'
+            background_down: 'layout/img/otp_input.png'
+            background_disabled_down: 'layout/img/otp_input.png'
+            background_color: app.secondary_background_color if root.mode == 'normal' else app.dark_grey
+            on_press:
+                app.play_sound('next2.wav')
+            on_release:
+                root.change_mode(self)
+        Button:
+            id: chat_button
+            name: 'chat_button'
+            size_hint:  None, 0.6
+            width: self.height*2.5
+            x: normal_button.right * 1.1
+            pos_hint: {'center_y':0.5}
+            text: 'chat'
+            font_size: self.parent.height/4
+            color: app.background_color if root.mode != 'normal' else app.secondary_font_color
+            background_normal: 'layout/img/otp_input.png'
+            background_down: 'layout/img/otp_input.png'
+            background_disabled_down: 'layout/img/otp_input.png'
+            background_color: app.secondary_background_color if root.mode != 'normal' else app.dark_grey
+            on_press:
+                app.play_sound('next2.wav')
+            on_release:
+                root.change_mode(self)
 
     ScreenManager: # contain profile page and page for new plant item
         id: profile_and_add
@@ -3770,7 +3988,7 @@ WindowManager:
                                 pos: self.pos
                                 size: self.size
                         size_hint: 1, 1
-                        pos_hint: {'center_x':0.5,'top':0.75}
+                        pos_hint: {'center_x':0.5,'top':0.7}
                     FloatLayout:
                         canvas:
                             Rectangle:
@@ -3778,11 +3996,14 @@ WindowManager:
                                 size: self.size
                                 texture: Gradient.vertical((0,0,0,0), (0,0,0,0.1))
                         size_hint: 1, 0.1/12
-                        pos_hint: {'top':0.75}
+                        pos_hint: {'top':0.7}
+
+                    Button:
+                        size_hint: None,0.05
                     ScrollView:
                         id: profile_display_box_scrollview
-                        size_hint: 1, float(0.75-1.15/12)
-                        pos_hint: {'center_x':0.5,'top':0.75}
+                        size_hint: 1, float(0.7-1.15/12)
+                        pos_hint: {'center_x':0.5,'top':0.7}
                         bar_color: 0,0,0,0
                         bar_inactive_color: 0,0,0,0
                         BoxLayout:
@@ -3805,7 +4026,7 @@ WindowManager:
                                 pos: self.pos
                                 size: self.size
                         size_hint: 1, 1
-                        pos_hint: {'center_x':0.5,'top':0.75}
+                        pos_hint: {'center_x':0.5,'top':0.7}
                     FloatLayout:
                         canvas:
                             Rectangle:
@@ -3813,11 +4034,11 @@ WindowManager:
                                 size: self.size
                                 texture: Gradient.vertical((0,0,0,0), (0,0,0,0.1))
                         size_hint: 1, 0.1/12
-                        pos_hint: {'top':0.75}
+                        pos_hint: {'top':0.7}
                     ScrollView:
                         id: profile_display_chatbox_scrollview
-                        size_hint: 1, float(0.75-1.15/12)
-                        pos_hint: {'center_x':0.5,'top':0.75}
+                        size_hint: 1, float(0.7-1.15/12)
+                        pos_hint: {'center_x':0.5,'top':0.7}
                         bar_color: 0,0,0,0
                         bar_inactive_color: 0,0,0,0
                         BoxLayout:
@@ -3829,8 +4050,8 @@ WindowManager:
 
             ScreenManager: # filter selector
                 id: filter_selector_manager
-                size_hint: 0.5,0.3
-                pos_hint: {'x':0.025,'top':float(10/12-0.07)}
+                size_hint: 0.5,0.25
+                pos_hint: {'x':0.025,'top':float(10/12-0.05)}
                 background_color: 0,0,1,1
                 Screen:
                     name: 'filter_null'
@@ -3858,6 +4079,9 @@ WindowManager:
         PlantScreen:
             id: plant_screen
             name: 'plant_screen'
+        PlantChatScreen:
+            id: plant_chat_screen
+            name: 'plant_chat_screen'
         NewPlantScreen:
             id: new_plant_screen
             name: 'new_plant_screen'
@@ -4203,7 +4427,7 @@ WindowManager:
                             center_x: self.parent.center_x
                             center_y: self.parent.center_y
                             allow_stretch: True
-                            color: 1, 1, 1, 1  # Set image color to full opacity
+                            color: app.primary_background_color
 
                 FloatLayout:
                     size_hint: None,1
@@ -4739,7 +4963,7 @@ WindowManager:
             font_size: self.parent.height/2
             bold: True
     FloatLayout: # Search bar
-        size_hint: 0.9, 0.06
+        size_hint: 0.9, 0.05
         pos_hint: {'center_x':0.5,'top':10/12}
 
         Button: # filter button
@@ -4763,7 +4987,7 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 allow_stretch: True
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color
         FloatLayout:
             canvas:
                 Color:
@@ -4804,7 +5028,7 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 allow_stretch: True
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color
     ScreenManager:
         Screen:
             id: encyclopedia_search_screen
@@ -4901,10 +5125,6 @@ WindowManager:
             id: encyclopedia_search_item
             name: 'encyclopedia_search_item'
 
-
-
-
-
 <ShoppingPage>:
     Image:
         source: 'layout/img/shopping.png'
@@ -4964,7 +5184,7 @@ WindowManager:
                 center_y: self.parent.center_y
                 allow_stretch: False
                 keep_ratio: False
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color
         Button:
             id: plant_profile
             name: 'plant_profile'
@@ -4981,7 +5201,7 @@ WindowManager:
                 width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color
         Button:
             id: calendar
             name: 'calendar'
@@ -4998,7 +5218,7 @@ WindowManager:
                 width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color
         Button:
             id: community
             name: 'community'
@@ -5015,7 +5235,7 @@ WindowManager:
                 width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color
         Button:
             id: wiki
             name: 'wiki'
@@ -5032,7 +5252,7 @@ WindowManager:
                 width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color
         Button:
             id: shopping
             name: 'shopping'
@@ -5049,4 +5269,4 @@ WindowManager:
                 width: self.height
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                color: 1, 1, 1, 1  # Set image color to full opacity
+                color: app.primary_background_color

@@ -10,7 +10,7 @@ from kivy.uix.popup import Popup
 from kivy.graphics import Color, Rectangle
 from kivy.core.audio import SoundLoader
 from kivy.uix.button import Button
-from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition,FallOutTransition, CardTransition, WipeTransition
+from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition,FallOutTransition, CardTransition, WipeTransition, RiseInTransition, SwapTransition, NoTransition
 from kivy.clock import Clock
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.behaviors.touchripple import TouchRippleButtonBehavior
@@ -170,6 +170,8 @@ class PlantSelector(FloatLayout):
         self.parent.parent.parent.parent.parent.parent.parent.ids.filter_button.disabled = True
         self.parent.parent.parent.parent.parent.parent.parent.ids.search_bar.disabled = True
         self.parent.parent.parent.parent.parent.parent.parent.ids.search_button.disabled = True
+        self.parent.parent.parent.parent.parent.parent.parent.ids.normal_button.disabled = True
+        self.parent.parent.parent.parent.parent.parent.parent.ids.chat_button.disabled = True
 
         #update
         self.parent.parent.parent.parent.parent.parent.parent.current_plant = self.callable_id
@@ -183,6 +185,34 @@ class PlantSelector(FloatLayout):
         self.parent.parent.parent.parent.parent.parent.transition.duration = 0.5
         self.parent.parent.parent.parent.parent.parent.transition.direction = 'left'
         self.parent.parent.parent.parent.parent.parent.current = 'plant_screen'
+class PlantChatSelector(FloatLayout):
+    def press_button(self,instance):
+        instance.disabled = True
+        instance.background_color = (0.5,0.5,0.5,0.25)
+    def release_button(self,instance):
+        instance.disabled = False
+        animate = Animation(duration = 0.1)+Animation(duration=0.1, background_color=(0,0,0,0))
+        animate.start(instance)
+    def open_item(self,instance):
+        # disable the buttons
+        self.parent.parent.parent.parent.parent.parent.parent.ids.filter_button.disabled = True
+        self.parent.parent.parent.parent.parent.parent.parent.ids.search_bar.disabled = True
+        self.parent.parent.parent.parent.parent.parent.parent.ids.search_button.disabled = True
+        self.parent.parent.parent.parent.parent.parent.parent.ids.normal_button.disabled = True
+        self.parent.parent.parent.parent.parent.parent.parent.ids.chat_button.disabled = True
+
+        #update
+        self.parent.parent.parent.parent.parent.parent.parent.current_plant = self.callable_id
+        self.parent.parent.parent.parent.parent.parent.parent.plant_name = self.name
+        self.parent.parent.parent.parent.parent.parent.parent.location = self.location
+        self.parent.parent.parent.parent.parent.parent.parent.date_added = self.date_added
+        self.parent.parent.parent.parent.parent.parent.parent.represent_color = self.represent_color
+        # change screen
+        self.parent.parent.parent.parent.parent.parent.transition = CardTransition()
+        self.parent.parent.parent.parent.parent.parent.transition.mode = 'push'
+        self.parent.parent.parent.parent.parent.parent.transition.duration = 0.5
+        self.parent.parent.parent.parent.parent.parent.transition.direction = 'left'
+        self.parent.parent.parent.parent.parent.parent.current = 'plant_chat_screen'
 class PlantScreen(Screen):
     def on_pre_enter(self, *args):
         self.ids.scroll_view.scroll_y = 1
@@ -218,6 +248,8 @@ class PlantScreen(Screen):
         self.parent.parent.ids.filter_button.disabled = False
         self.parent.parent.ids.search_bar.disabled = False
         self.parent.parent.ids.search_button.disabled = False
+        self.parent.parent.ids.normal_button.disabled = False
+        self.parent.parent.ids.chat_button.disabled = False
 
         # change screen
         self.parent.transition.mode = 'pop'
@@ -248,6 +280,32 @@ class PlantScreen(Screen):
         self.parent.parent.ids.filter_button.disabled = False
         self.parent.parent.ids.search_bar.disabled = False
         self.parent.parent.ids.search_button.disabled = False
+        self.parent.parent.ids.normal_button.disabled = False
+        self.parent.parent.ids.chat_button.disabled = False
+
+        # change screen
+        self.parent.transition.mode = 'pop'
+        self.parent.transition.duration = 0.5
+        self.parent.transition.direction = 'right'
+        self.parent.current = 'profile_display'
+class PlantChatScreen(Screen):
+    def on_pre_enter(self, *args):
+        pass
+    def press_back(self, instance):  # Back button
+        animate = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
+                            center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        animate.start(self.ids.back_button_image)
+
+    def release_back(self, instance):
+        animate = Animation(width=instance.width, height=instance.height, disabled=False,
+                            center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        animate.start(self.ids.back_button_image)
+        # re-enable the button
+        self.parent.parent.ids.filter_button.disabled = False
+        self.parent.parent.ids.search_bar.disabled = False
+        self.parent.parent.ids.search_button.disabled = False
+        self.parent.parent.ids.normal_button.disabled = False
+        self.parent.parent.ids.chat_button.disabled = False
 
         # change screen
         self.parent.transition.mode = 'pop'
@@ -285,8 +343,8 @@ class ConfirmNextStepPopup(Popup):
         name_manual = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.manual_input_text.text.strip()
         toggle = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.toggle_manual.active
         valid = True
-        if toggle:
-            valid = get_chatgpt_classifier('plant\'s name: ' + name_manual, 'paid')
+        #if toggle:
+            #valid = get_chatgpt_classifier('plant\'s name: ' + name_manual, 'paid')
 
         if valid:
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.new_plant_step_manager.transition = CardTransition()
@@ -351,7 +409,7 @@ class ConfirmFinalStepPopup(Popup):
         self.dismiss()
     def confirm_auto(self, instance):
         schedule = {"monday": [],"tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],"thursday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],"saturday": [{"task": "water", "hour": "08:00", "frequency": 1}],"sunday": []}
-        schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
+        #schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
         self.confirm(schedule=schedule)
         update_calendar(MDApp.get_running_app().current_user)
         MDApp.get_running_app().calendar_full = get_calendar_full()
@@ -410,7 +468,7 @@ class NewPlantInfoScreen(Screen):
             prompt += '\nowner\'s location: ' + self.location
 
         self.result = {'Overview': '','Water': 'Water the red rose every 3-4 days, make sure the soil is evenly moist but not waterlogged.', 'Light': 'Red roses prefer full sunlight for at least 6 hours a day. Place the plant near a south or west-facing window.', 'Humidity': 'Red roses prefer a moderate to high humidity level. Mist the leaves regularly, especially during dry seasons.', 'Temperature': 'Red roses prefer temperatures between 18°C to 24°C. Avoid exposing the plant to temperatures below 4°C or above 35°C.', 'PH Level': 'Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.', 'Suggested Placement Area': 'Place the red rose in a spot with good air circulation and away from drafts. If kept outside, ensure it is not in direct sunlight all day. ', 'Others': 'Prune your rose regularly to remove dead or diseased parts and promote healthy growth. Provide support for the plant as it grows, as the branches can become heavy with flowers. Use a balanced fertilizer every two weeks during the growing season.'}
-        self.result = get_chatgpt_assistant(prompt, 'paid')
+        #self.result = get_chatgpt_assistant(prompt, 'paid')
 
         self.ids.overview.text = '• ' + self.result['Overview'].replace('. ', '\n• ')
         self.ids.water_tip.text = '• '+self.result['Water'].replace('. ', '\n• ')
@@ -622,7 +680,11 @@ class PlantProfilePage(Screen):
         if plant_list is None:
             plant_list = MDApp.get_running_app().plant_list
         # update plant profile from anywhere
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box_scrollview.scroll_y = 1
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox_scrollview.scroll_y = 1
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.clear_widgets()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox.clear_widgets()
+
         if plant_list is not None:
             if plant_list == {}:
                 default_plant = PlantSelector(height=Window.size[1] * 0.15)
@@ -635,6 +697,8 @@ class PlantProfilePage(Screen):
                 setattr(default_plant, 'name', 'You have no plant')
                 setattr(default_plant, 'avatar', '')
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
+                    default_plant)
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox.add_widget(
                     default_plant)
             else:
                 for callable_id in reversed(plant_list):
@@ -649,6 +713,26 @@ class PlantProfilePage(Screen):
                     setattr(default_plant, 'date_added', MDApp.get_running_app().plant_list[callable_id]['date_added'])
                     MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
                         default_plant)
+
+                    default_plant = PlantChatSelector(height=Window.size[1] * 0.1)
+                    setattr(default_plant, 'callable_id', callable_id)
+                    setattr(default_plant, 'name', plant_list[callable_id]['name'])
+                    setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
+                    setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
+                    setattr(default_plant, 'age', plant_list[callable_id]['age'])
+                    setattr(default_plant, 'location', plant_list[callable_id]['location'])
+                    setattr(default_plant, 'extra_notes', plant_list[callable_id]['extra_notes'])
+                    setattr(default_plant, 'date_added', MDApp.get_running_app().plant_list[callable_id]['date_added'])
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox.add_widget(
+                        default_plant)
+    def change_mode(self,instance):
+        mode = instance.name.split('_')[0]
+        if self.mode != mode:
+            self.mode = mode
+            self.ids.normal_and_chat.transition = NoTransition()
+            self.ids.normal_and_chat.current = mode+'_profile'
+
+
 class HourLayout(FloatLayout):
     pass
 class DayLayout(BoxLayout):
@@ -696,7 +780,7 @@ class ConfirmEditCalendarPopup(Popup):
                                  {"task": "mist", "hour": "08:00", "frequency": 1}],
                     "friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],
                     "saturday": [{"task": "water", "hour": "08:00", "frequency": 1}], "sunday": []}
-        schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
+        #schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
 
         simple_edit_plant_schedule(current_user, plant_id, schedule)
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
@@ -889,7 +973,7 @@ class CalendarPage(Screen):
                         self.ids.task_display.add_widget(a)
                         break
                 for hour_task in hours_tasks:
-                    if hours_tasks!= {}:
+                    if hour_task != {}:
                         for hour, tasks in hour_task.items():
                             for task in tasks:
                                 b = TaskWidget()
@@ -1194,6 +1278,9 @@ class MasterScreen(Screen):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = 'none_filter'
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day = ''
 
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.mode = 'normal'
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box_scrollview.scroll_y = 1
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox_scrollview.scroll_y = 1
         #update current screen
         self.ids.utility_bars.ids.home_highlight.pos_hint = self.ids.utility_bars.ids.home.pos_hint
         self.Previous_home_buttons = 0
@@ -1622,6 +1709,7 @@ class PlantApp(MDApp):
     volume = volume
     theme_list = theme_list
     alarm_ringtone = SoundLoader.load(alarm_ringtone)
+    background_image = background_image
 
     current_user = current_user
 
@@ -1656,6 +1744,11 @@ class PlantApp(MDApp):
         color[3] = 0
         return tuple(color)
     @property
+    def background_color_fade(self):
+        color = list(self.background_color)
+        color[3] = 0
+        return tuple(color)
+    @property
     def wrong_pass_warn(self):
         return self.theme_list[self.theme]['wrong_pass_warn']
     @property
@@ -1664,6 +1757,9 @@ class PlantApp(MDApp):
     @property
     def highlight_button(self):
         return self.theme_list[self.theme]['highlight_button']
+    @property
+    def dark_grey(self):
+        return self.theme_list[self.theme]['dark_grey']
     def play_sound(self, filename):
         sound = SoundLoader.load('soundfx/'+filename)
         if sound:

@@ -1,4 +1,5 @@
 alarm_ringtone: soundfx/alarm_ringtone.wav
+background_image: layout/img/plant.mp4
 id: user15
 language: default
 theme: default
