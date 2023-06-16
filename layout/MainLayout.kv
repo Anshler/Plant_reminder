@@ -1387,18 +1387,15 @@ WindowManager:
             previous_home_buttons: 0
             current_filter_screen: ''
             FloatLayout:
-                canvas:
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
-                        source: 'layout/img/background.png'
-                #VideoPlayer:
-                    #id: background_video
-                    #source: 'layout/img/plant.mp4'
-                    #state: 'play'
-                    #options: {'eos': 'loop'}
-                    #allow_stretch: True
-                    #allow_fullscreen: False
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+                VideoPlayer:
+                    id: background_image
+                    source: 'layout/img/plant.mp4'
+                    state: 'play'
+                    options: {'eos': 'loop', 'fit_mode':'cover'}
+
             Button:
                 id: swipe
                 background_color: 0,0,0,0
