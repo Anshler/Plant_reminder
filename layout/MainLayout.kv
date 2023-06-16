@@ -3920,10 +3920,11 @@ WindowManager:
     name: ''
     represent_color: (0,0,0,0)
     task: ''
-    frequency: '1'
+    status: ''
     size_hint: 1,None
     height: Window.size[1]*0.075
     hour: ''
+    text_color: app.primary_font_color
 
     FloatLayout:
         size_hint: None, 0.3
@@ -3944,7 +3945,7 @@ WindowManager:
         halign: 'right'
         valign: 'center'
         font_size: self.height*0.35
-        color: app.primary_font_color
+        color: root.text_color
     Label:
         size_hint: 0.4,1
         pos_hint: {'center_x':0.5,'center_y': 0.7}
@@ -3956,7 +3957,7 @@ WindowManager:
         halign: 'center'
         valign: 'center'
         font_size: self.height*0.35
-        color: app.primary_font_color
+        color: root.text_color
     Label:
         size_hint: 0.3,1
         pos_hint: {'right':0.95,'center_y': 0.7}
@@ -3965,17 +3966,17 @@ WindowManager:
         halign: 'right'
         valign: 'center'
         font_size: self.height*0.35
-        color: app.primary_font_color
+        color: root.text_color
     Label:
-        size_hint: 0.3,1
+        size_hint: 1,1
         pos_hint: {'right':0.95,'center_y': 0.3}
-        text: 'weekly' if root.frequency == '1' else str('every '+root.frequency+' weeks')
+        text: root.status
         text_size: self.size
         halign: 'right'
         valign: 'center'
         italic: True
         font_size: self.height*0.3
-        color: app.primary_font_color
+        color: root.text_color
 
 <EmptyTaskWidget>:
     size_hint: 1,None

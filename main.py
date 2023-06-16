@@ -871,9 +871,14 @@ class CalendarPage(Screen):
             return
 
         # filter the selected day column of calendar
+        # this calendar have every task from week 1, which can be unavailable in current week
+        first_week_range = next(iter(calendar_full))
+        primal_calendar_full = calendar_full[first_week_range][Day2Day[instance.name]]
+        # this calendar is from current week
+        current_week_index = list(calendar_full.keys()).index(MDApp.get_running_app().current_week_range)
         calendar_full = calendar_full[MDApp.get_running_app().current_week_range][Day2Day[instance.name]]
         hour_boxs = {'4':[],'8':[],'12':[],'16':[],'20':[],'0':[]}
-        for hour, tasks in calendar_full.items():
+        for hour, tasks in primal_calendar_full.items():
             hour_boxs[find_closest_number(hour)].append({hour:tasks})
         for hour_box, hours_tasks in hour_boxs.items():
             if hours_tasks != []:
@@ -892,7 +897,14 @@ class CalendarPage(Screen):
                                 setattr(b,'hour',hour)
                                 setattr(b, 'represent_color', task['represent_color'])
                                 setattr(b, 'task', task['task'])
-                                setattr(b, 'frequency', str(task['frequency']))
+                                if hour not in calendar_full or task not in calendar_full[hour]:
+                                    setattr(b, 'text_color', (0.5,0.5,0.5,0.5))
+                                    try:
+                                        remaining_week = str(int(task['frequency'])-(current_week_index % int(task['frequency'])))
+                                        remaining_week = 'available in '+remaining_week+' week'+('s' if remaining_week != '1' else '')
+                                        setattr(b, 'status', remaining_week)
+                                    except:
+                                        setattr(b, 'status', 'unavailable this week')
                                 self.ids.task_display.add_widget(b)
 
     def press_button(self,instance):
