@@ -187,6 +187,9 @@ user15:
     - 0.5592945484578199
     - 1
 user16: {}
+user17: {}
+user18: {}
+user19: {}
 user2:
   plant0:
     age: '2021'
@@ -199,6 +202,31 @@ user2:
     - 0.8356615742503182
     - 0.9562348675852507
     - 0.49733360464276444
+    - 1
+user20:
+  plant0:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/18
+    extra_notes: ''
+    location: ''
+    name: rose
+    represent_color:
+    - 0.07531846933943176
+    - 0.22248082160530847
+    - 0.993797716562305
+    - 1
+  plant1:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/18
+    extra_notes: ''
+    location: ''
+    name: rose
+    represent_color:
+    - 0.7853486329511697
+    - 0.3823047018969782
+    - 0.5412544857735265
     - 1
 user3:
   plant0:

@@ -5,21 +5,15 @@ from kivy.config import Config
 from kivy.animation import Animation
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
-from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.graphics import Color, Rectangle
-from kivy.core.audio import SoundLoader
 from kivy.uix.button import Button
-from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition,FallOutTransition, CardTransition, WipeTransition, RiseInTransition, SwapTransition, NoTransition
+from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition, CardTransition, NoTransition
 from kivy.clock import Clock
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.behaviors.touchripple import TouchRippleButtonBehavior
-from kivy.uix.colorpicker import ColorPicker
-from kivy.uix.videoplayer import VideoPlayer
 from kivy.core.audio import SoundLoader
 from kivy.factory import Factory
-import datetime
-import operator
 from utils.dict_encoding import *
 from utils.random_color import *
 from utils.config import *
@@ -30,7 +24,6 @@ from utils.plant_profile_management import *
 from utils.had_startup import *
 from utils.EncyclopediaCrawler import *
 from utils.transaction import *
-from gpt3 import get_chatgpt_assistant,get_chatgpt_classifier, get_chatgpt_calendar
 
 Config.set('graphics', 'resizable', '1')
 Config.set('graphics', 'width', '350')
@@ -154,6 +147,7 @@ class HomePage(Screen):
             duration=0.1)
         animate.start(MDApp.get_running_app().root.ids.master_screen.ids.utility_bars.ids.home_highlight)
         MDApp.get_running_app().root.ids.master_screen.Previous_home_buttons = 2
+        self.parent.transition = SlideTransition()
         self.parent.transition.duration = 0.25
         self.parent.transition.direction = 'left'
         self.parent.current = 'calendar_page'
@@ -204,7 +198,6 @@ class PlantChatSelector(FloatLayout):
         #update
         self.parent.parent.parent.parent.parent.parent.parent.current_plant = self.callable_id
         self.parent.parent.parent.parent.parent.parent.parent.plant_name = self.name
-        self.parent.parent.parent.parent.parent.parent.parent.location = self.location
         self.parent.parent.parent.parent.parent.parent.parent.date_added = self.date_added
         self.parent.parent.parent.parent.parent.parent.parent.represent_color = self.represent_color
         # change screen
@@ -399,6 +392,7 @@ class ConfirmFinalStepPopup(Popup):
         MDApp.get_running_app().plant_list = get_plant_list()
         MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
+        MDApp.get_running_app().plant_conversation = get_plant_conversation()
         # reset plant filter
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.last_search = ['','none_filter']
         # update screen
@@ -443,6 +437,7 @@ class DeletePlantPopup(Popup):
         MDApp.get_running_app().plant_list = get_plant_list()
         MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
+        MDApp.get_running_app().plant_conversation = get_plant_conversation()
 
         update_calendar(current_user)
         MDApp.get_running_app().cycle = get_cycle()
@@ -599,6 +594,7 @@ class FilterScreenProfile(Screen):
         self.parent.transition.direction = 'up'
         self.parent.transition.duration = 0.2
         self.parent.current = 'filter_null'
+
 class PlantProfilePage(Screen):
     last_search = ['','none_filter']
     current_plant = ''
@@ -651,34 +647,42 @@ class PlantProfilePage(Screen):
         else: self.last_search = [name_filter,sort_filter]
 
         filtered_plant_list = MDApp.get_running_app().plant_list
+        filtered_plant_conversation = MDApp.get_running_app().plant_conversation
         if filtered_plant_list == {} or filtered_plant_list is None:
             return
 
         if name_filter != '':
             filtered_plant_list = filter_dict_by_column(filtered_plant_list,'name',name_filter)
+            filtered_plant_conversation = filter_dict_by_column(filtered_plant_conversation,'name',name_filter)
         if sort_filter != 'none_filter':
             if sort_filter == 'A_Z_filter':
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list,'name', reverse=True)
+                filtered_plant_conversation = sort_dict_by_column(filtered_plant_conversation, 'name', reverse=True)
             elif sort_filter == 'Z_A_filter':
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list, 'name')
+                filtered_plant_conversation = sort_dict_by_column(filtered_plant_conversation, 'name')
             elif sort_filter == 'recently_added':
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list, 'date_added')
+                filtered_plant_conversation = sort_dict_by_column(filtered_plant_conversation, 'date_added')
             else:
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list, 'date_added',reverse=True)
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list(filtered_plant_list)
+                filtered_plant_conversation = sort_dict_by_column(filtered_plant_conversation, 'date_added', reverse=True)
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list(filtered_plant_list, filtered_plant_conversation)
     def to_calendar(self):
         animate = Animation(
             pos_hint=MDApp.get_running_app().root.ids.master_screen.ids.utility_bars.ids.calendar.pos_hint,
             duration=0.1)
         animate.start(MDApp.get_running_app().root.ids.master_screen.ids.utility_bars.ids.home_highlight)
         MDApp.get_running_app().root.ids.master_screen.Previous_home_buttons = 2
+        self.parent.transition = SlideTransition()
         self.parent.transition.duration = 0.25
         self.parent.transition.direction = 'left'
         self.parent.current = 'calendar_page'
 
-    def update_plant_list(self, plant_list = None):
+    def update_plant_list(self, plant_list = None, plant_conversation = None):
         if plant_list is None:
             plant_list = MDApp.get_running_app().plant_list
+            plant_conversation = MDApp.get_running_app().plant_conversation
         # update plant profile from anywhere
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box_scrollview.scroll_y = 1
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox_scrollview.scroll_y = 1
@@ -687,9 +691,9 @@ class PlantProfilePage(Screen):
 
         if plant_list is not None:
             if plant_list == {}:
-                default_plant = PlantSelector(height=Window.size[1] * 0.15)
+                default_plant = PlantSelector(height=Window.size[1] * 0.1)
                 default_plant.ids.default_text.color = (0.5,0.5,0.5,0.5)
-                default_plant.ids.default_text.pos_hint = {'center_x': 0.5,'center_y': 0.7}
+                default_plant.ids.default_text.pos_hint = {'center_x': 0.5,'center_y': 0.5}
                 default_plant.ids.default_text.size_hint_x = 1
                 default_plant.ids.default_text.halign = 'center'
                 default_plant.ids.default_text.shorten = False
@@ -698,6 +702,16 @@ class PlantProfilePage(Screen):
                 setattr(default_plant, 'avatar', '')
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
                     default_plant)
+
+                default_plant = PlantSelector(height=Window.size[1] * 0.1)
+                default_plant.ids.default_text.color = (0.5, 0.5, 0.5, 0.5)
+                default_plant.ids.default_text.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
+                default_plant.ids.default_text.size_hint_x = 1
+                default_plant.ids.default_text.halign = 'center'
+                default_plant.ids.default_text.shorten = False
+                default_plant.ids.date_added.text = ''
+                setattr(default_plant, 'name', 'You have no plant')
+                setattr(default_plant, 'avatar', '')
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox.add_widget(
                     default_plant)
             else:
@@ -719,10 +733,12 @@ class PlantProfilePage(Screen):
                     setattr(default_plant, 'name', plant_list[callable_id]['name'])
                     setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
                     setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
-                    setattr(default_plant, 'age', plant_list[callable_id]['age'])
-                    setattr(default_plant, 'location', plant_list[callable_id]['location'])
-                    setattr(default_plant, 'extra_notes', plant_list[callable_id]['extra_notes'])
-                    setattr(default_plant, 'date_added', MDApp.get_running_app().plant_list[callable_id]['date_added'])
+                    if plant_conversation[callable_id]['recent'] != []:
+                        recent = plant_conversation[callable_id]['recent'][-1]
+                    else:
+                        recent = 'Type something to start a conversation'
+                    setattr(default_plant, 'recent', recent)
+
                     MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox.add_widget(
                         default_plant)
     def change_mode(self,instance):
@@ -1211,6 +1227,7 @@ class UtilityBars(FloatLayout):
         if HomeButtons2Num[instance.name] != self.parent.parent.parent.Previous_home_buttons:
             animate = Animation(pos_hint=instance.pos_hint, duration=0.1)
             animate.start(self.ids.home_highlight)
+            self.parent.parent.parent.ids.main_pages.transition = SlideTransition()
             self.parent.parent.parent.ids.main_pages.transition.duration = 0.2
             # move left/right depend on previous button position
             if HomeButtons2Num[instance.name] > self.parent.parent.parent.Previous_home_buttons:
@@ -1271,6 +1288,7 @@ class MasterScreen(Screen):
         MDApp.get_running_app().plant_list = get_plant_list()
         MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
+        MDApp.get_running_app().plant_conversation = get_plant_conversation()
         MDApp.get_running_app().current_week_range = get_current_week_range()
         # update screen that contain the list
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
@@ -1716,6 +1734,7 @@ class PlantApp(MDApp):
     plant_list = None
     plant_list_advanced = None
     plant_calendar = None
+    plant_conversation = None
 
     cycle = None
     calendar_full = None

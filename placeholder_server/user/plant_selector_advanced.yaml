@@ -317,8 +317,50 @@ user15:
     Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
       not waterlogged.
 user16: {}
+user17: {}
+user18: {}
+user19: {}
 user2:
   plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+user20:
+  plant0:
+    Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
+      regularly, especially during dry seasons.
+    Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant
+      near a south or west-facing window.
+    Others: Prune your rose regularly to remove dead or diseased parts and promote
+      healthy growth. Provide support for the plant as it grows, as the branches can
+      become heavy with flowers. Use a balanced fertilizer every two weeks during
+      the growing season.
+    Overview: ''
+    PH Level: Red roses prefer slightly acidic soil with a pH level between 6.0 to
+      6.5.
+    Suggested Placement Area: 'Place the red rose in a spot with good air circulation
+      and away from drafts. If kept outside, ensure it is not in direct sunlight all
+      day. '
+    Temperature: "Red roses prefer temperatures between 18\xB0C to 24\xB0C. Avoid\
+      \ exposing the plant to temperatures below 4\xB0C or above 35\xB0C."
+    Water: Water the red rose every 3-4 days, make sure the soil is evenly moist but
+      not waterlogged.
+  plant1:
     Humidity: Red roses prefer a moderate to high humidity level. Mist the leaves
       regularly, especially during dry seasons.
     Light: Red roses prefer full sunlight for at least 6 hours a day. Place the plant

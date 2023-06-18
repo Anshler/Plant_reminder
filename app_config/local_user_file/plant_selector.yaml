@@ -1,48 +1,24 @@
 plant0:
   age: ''
   avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/10
-  extra_notes: don't give me any task on sunday and saturday
-  location: subsahara africa
-  name: Fiddle Leaf Fig
+  date_added: 2023/06/18
+  extra_notes: ''
+  location: ''
+  name: rose
   represent_color:
-  - 0.5698241540426784
-  - 0.6625670877027177
-  - 0.32906858798971295
+  - 0.07531846933943176
+  - 0.22248082160530847
+  - 0.993797716562305
   - 1
 plant1:
   age: ''
   avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/10
-  extra_notes: ''
-  location: sweden
-  name: cactus
-  represent_color:
-  - 0.06214295948583737
-  - 0.3318171123428697
-  - 0.15081404850874602
-  - 1
-plant2:
-  age: ''
-  avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/11
+  date_added: 2023/06/18
   extra_notes: ''
   location: ''
   name: rose
   represent_color:
-  - 0.5133613687777461
-  - 0.018374298734489036
-  - 0.09581642919181987
-  - 1
-plant3:
-  age: ''
-  avatar: layout/img/default_plant_avatar.png
-  date_added: 2023/06/16
-  extra_notes: ''
-  location: ''
-  name: rose
-  represent_color:
-  - 0.8012460979323799
-  - 0.3091891281323723
-  - 0.5592945484578199
+  - 0.7853486329511697
+  - 0.3823047018969782
+  - 0.5412544857735265
   - 1

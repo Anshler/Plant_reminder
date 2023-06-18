@@ -1691,10 +1691,8 @@ WindowManager:
     name: ''
     represent_color: 0,0,0,0
     avatar: ''
-    age: ''
-    location: ''
-    extra: ''
     date_added: ''
+    recent: ''
     size_hint: 1,None
 
     Button:
@@ -1746,8 +1744,10 @@ WindowManager:
         id: date_added
         size_hint: 0.6, 0.4
         pos_hint: {'x': 0.3,'center_y': 0.3}
-        text: 'Last convo: ' + root.date_added
+        text: root.recent
         text_size: self.size
+        shorten: True
+        shorten_from: 'right'
         color: app.secondary_font_color
         valign: 'center'
         font_size: self.height*0.5
@@ -3816,12 +3816,11 @@ WindowManager:
             active_line: False
             max_text_length: 500
 
-
 <PlantProfilePage>:
     id: plant_profile_page
-    mode: 'normal'
     size_hint: 1,1
     pos_hint: {'center_x':0.5, 'center_y':0.5}
+    mode: 'normal'
     # background
     FloatLayout:
         canvas:
@@ -3942,7 +3941,7 @@ WindowManager:
             color: app.background_color if root.mode == 'normal' else app.secondary_font_color
             background_normal: 'layout/img/otp_input.png'
             background_down: 'layout/img/otp_input.png'
-            background_disabled_down: 'layout/img/otp_input.png'
+            background_disabled_normal: 'layout/img/otp_input.png'
             background_color: app.secondary_background_color if root.mode == 'normal' else app.dark_grey
             on_press:
                 app.play_sound('next2.wav')
@@ -3960,7 +3959,7 @@ WindowManager:
             color: app.background_color if root.mode != 'normal' else app.secondary_font_color
             background_normal: 'layout/img/otp_input.png'
             background_down: 'layout/img/otp_input.png'
-            background_disabled_down: 'layout/img/otp_input.png'
+            background_disabled_normal: 'layout/img/otp_input.png'
             background_color: app.secondary_background_color if root.mode != 'normal' else app.dark_grey
             on_press:
                 app.play_sound('next2.wav')
