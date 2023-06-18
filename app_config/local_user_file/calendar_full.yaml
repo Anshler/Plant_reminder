@@ -1,22 +1,13 @@
-2023-06-12_2023-06-18:
+2023-06-19_2023-06-25:
   friday:
     '12:00':
     - callable_id: plant0
       frequency: '2'
       name: rose
       represent_color: &id001
-      - 0.07531846933943176
-      - 0.22248082160530847
-      - 0.993797716562305
-      - 1
-      task: fertilize
-    - callable_id: plant1
-      frequency: '2'
-      name: rose
-      represent_color: &id002
-      - 0.7853486329511697
-      - 0.3823047018969782
-      - 0.5412544857735265
+      - 0.5390589932353911
+      - 0.7523000364267407
+      - 0.6078282058907568
       - 1
       task: fertilize
   monday: {}
@@ -26,11 +17,6 @@
       frequency: '1'
       name: rose
       represent_color: *id001
-      task: water
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
       task: water
   sunday: {}
   thursday:
@@ -45,16 +31,6 @@
       name: rose
       represent_color: *id001
       task: mist
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
-      task: water
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
-      task: mist
   tuesday:
     08:00:
     - callable_id: plant0
@@ -67,16 +43,6 @@
       name: rose
       represent_color: *id001
       task: mist
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
-      task: water
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
-      task: mist
   wednesday:
     '10:00':
     - callable_id: plant0
@@ -84,12 +50,7 @@
       name: rose
       represent_color: *id001
       task: prune
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
-      task: prune
-2023-06-19_2023-06-25:
+2023-06-26_2023-07-02:
   friday: {}
   monday: {}
   saturday:
@@ -99,11 +60,6 @@
       name: rose
       represent_color: *id001
       task: water
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
-      task: water
   sunday: {}
   thursday:
     08:00:
@@ -117,16 +73,6 @@
       name: rose
       represent_color: *id001
       task: mist
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
-      task: water
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
-      task: mist
   tuesday:
     08:00:
     - callable_id: plant0
@@ -139,25 +85,10 @@
       name: rose
       represent_color: *id001
       task: mist
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
-      task: water
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
-      task: mist
   wednesday:
     '10:00':
     - callable_id: plant0
       frequency: '1'
       name: rose
       represent_color: *id001
-      task: prune
-    - callable_id: plant1
-      frequency: '1'
-      name: rose
-      represent_color: *id002
       task: prune

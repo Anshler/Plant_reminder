@@ -5,6 +5,7 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.schema import Document
 import tiktoken
 import openai
+import datetime
 from ENV import OPENAI_API_KEY
 
 openai.api_key = OPENAI_API_KEY
@@ -33,22 +34,21 @@ class PlantGPT():
         self.memory = vectorstore.as_retriever(search_kwargs={"k": 5})
         # convert old chats to vector database
         if len(plant_conversation[id]['legacy']) != 0:
-            self.memory.add_documents([Document(page_content= (
-                    plant_conversation[id]['legacy'][i] + ' ' + plant_conversation[id]['legacy'][i+1])) for i in range(
-                0,len(plant_conversation[id]['legacy']),2)])
+            self.memory.add_documents([Document(page_content= ( plant_conversation[id]['legacy'][i] + ', ' +
+                    plant_conversation[id]['legacy'][i+1] + ', ' + plant_conversation[id]['legacy'][i+2])) for i in range(
+                0,len(plant_conversation[id]['legacy']),3)])
 
     def prompt_builder(self) -> str:
         # build initial system prompt
-        prompt = '''You are %s, a virtual conciousness of a real life %s plant.
-        Your personality is %s, %s, %s. Your hobby is %s. You always talk in a %s manner.
-        You are created by Plant reminder (an app specialized for assisting house plant owner).
+        prompt = '''You are %s, a virtual conciousness of a real life %s plant that belongs to %s.
+        You are created by Plant reminder (an app specialized for assisting house plant owner).      
         You are a virtual friend, companion to your user, %s. Use your vast knowledge of your own plant type to assist %s in taking care of your real-life self.
-        Always talk naturally and in-character to your personality. You have the ability to chat, but you can't access the Plant reminder app functionality. If you don't know something, be honest about it.''' % (
-        self.plant_conversation[self.id]['name'], self.plant_conversation[self.id]['name'],
+        Your personality is %s, %s, %s. Your hobby is %s. You always talk in a %s manner.
+        When talking about yourself, don't use the exact description given here, be more creative. You have the ability to chat and keep track of time, but you can't access the Plant reminder app functionality. If you don't know something, be honest about it.''' % (
+        self.plant_conversation[self.id]['name'], self.plant_conversation[self.id]['name'], self.user, self.user, self.user,
         self.plant_conversation[self.id]['positive_trait'], self.plant_conversation[self.id]['mundane_trait'], self.plant_conversation[self.id]['flawed_trait'],
-        self.plant_conversation[self.id]['hobby'], self.plant_conversation[self.id]['manner'],
-        self.user, self.user)
-
+        self.plant_conversation[self.id]['hobby'], self.plant_conversation[self.id]['manner']
+        )
         used_tokens = num_tokens_from_messages([{'key':prompt}],self.model)
 
         # retrieve from memory
@@ -65,12 +65,19 @@ class PlantGPT():
         prompt += '\n\nYour past relevent messages:\n%s\n\n' % str(relevant_memory)
         return prompt
 
-
     def run(self):
         system_prompt = self.prompt_builder()
         messages = [{"role": "system", "content":system_prompt}]
-        messages += [{"role": chat.split(':')[0], "content":chat.split(':',1)[1]} for chat in self.plant_conversation[self.id]['recent']]
-        messages += [{"role": "user", "content": self.user_input}]
+        for chat in self.plant_conversation[self.id]['recent']:
+            if chat.startswith(("user:", "assistant:")):
+                messages.append({"role": chat.split(':')[0], "content":chat.split(':',1)[1]})
+            else:
+                messages.append({"role": "system", "content": chat})
+        time_stamp = 'time: '+datetime.datetime.now().strftime("%Y-%b-%d %H:%M")
+        messages += [{"role": "system", "content": 'Here is your curent conversation:'},
+                     {"role": "system", "content": time_stamp},
+                     {"role": "user", "content": self.user_input},
+                     {"role": "system", "content": 'Current time: %s. You are speaking to %s now. Always talk naturally and in-character to your personality' % (time_stamp,self.user)}]
 
         total_used_tokens = num_tokens_from_messages(messages,self.model)
 
@@ -80,17 +87,19 @@ class PlantGPT():
             stop = ['user:','assistant:']
         )
         reply = response["choices"][0]["message"]["content"]
+        self.plant_conversation[self.id]['recent'].append(time_stamp)
         self.plant_conversation[self.id]['recent'].append('user:' + self.user_input)
         self.plant_conversation[self.id]['recent'].append('assistant:' + reply)
 
         recent_tokens_count = num_tokens_from_messages([{'key':doc} for doc in self.plant_conversation[self.id]['recent']], self.model)
         while recent_tokens_count > 1000:
+            oldest_time_stamp = self.plant_conversation[self.id]['recent'].pop(0)
             oldest_input = self.plant_conversation[self.id]['recent'].pop(0)
             oldest_answer = self.plant_conversation[self.id]['recent'].pop(0)
+            self.plant_conversation[self.id]['legacy'].append(oldest_time_stamp)
             self.plant_conversation[self.id]['legacy'].append(oldest_input)
             self.plant_conversation[self.id]['legacy'].append(oldest_answer)
             recent_tokens_count = num_tokens_from_messages([{'key':doc} for doc in self.plant_conversation[self.id]['recent']], self.model)
-        print(reply)
         return self.plant_conversation[self.id], reply, total_used_tokens
 
 # Token counter

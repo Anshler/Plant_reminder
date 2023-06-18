@@ -1479,7 +1479,7 @@ WindowManager:
     task: 'No task'
     represent_color: app.primary_font_color
     name: ''
-    task_avatar: ''
+    task_avatar: 'layout/img/emoticon-outline.png'
     callable_id: ''
     day: ''
 
@@ -3778,7 +3778,7 @@ WindowManager:
             radius: self.height/2,self.height/2,self.height/2,self.height/2
         Label:
             size_hint: 0.5,1
-            pos_hint: {'center_y':0.5}
+            pos_hint: {'center_y':0.65}
             x: avatar_image.right*1.1
             text: root.plant_name
             bold: True
@@ -3788,38 +3788,128 @@ WindowManager:
             font_size: self.height/3
             valign: 'center'
             color: app.primary_font_color
+        # online status
+        Label:
+            size_hint: 0.5,1
+            pos_hint: {'center_y':0.3}
+            x: avatar_image.right*1.1
+            text: 'online'
+            shorten: True
+            shorten_from: 'right'
+            text_size: self.size
+            font_size: self.height/4
+            valign: 'center'
+            color: app.primary_font_color
+
+    ScrollView:
+        id: scroll_view
+        scroll_y: 0
+        size_hint: 1, None
+        height: root.height*(1-1.15/12*3.5)
+        pos_hint: {'center_x':0.5, 'top':1-1.15/12}
+        BoxLayout:
+            size_hint: 1,None
+            height: self.minimum_height
+            pos_hint: {'center_x':0.5, 'y':0}
+            orientation: 'vertical'
+            padding: 10
+            spacing: 10
+            canvas:
+                Color:
+                    rgba: 1,0,0,1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            FloatLayout:
+                size_hint: 1,None
+                height: 20
 
     BoxLayout: # input region
         size_hint: 1, None
         height: self.minimum_height
         pos_hint: {'center_x': 0.5, 'y': 1.15/12}
         orientation: 'vertical'
-        padding: self.parent.height/30
+        padding: self.parent.height/40
         canvas.before:
             Color:
                 rgba: app.secondary_background_color
             Rectangle:
                 pos: self.pos
                 size: self.size
-        MDTextField:
-            id: chat_input
-            size_hint: 0.8, None
-            height: self.parent.parent.height*0.5/12
-            icon_right: "language-python"
-            icon_color: app.primary_background_color
+
+        MDRelativeLayout:
+            size_hint: 0.95,None
+            height: chat_input.height
             pos_hint: {'center_x':0.5}
-            mode: 'fill'
-            multiline: True
-            font_size: self.parent.parent.height*0.3/12
-            fill_color_normal: app.dark_grey
-            fill_color_focus: app.dark_grey
-            active_line: False
-            max_text_length: 500
+
+            # duplicate text input to control line break position
+            MDTextField:
+                size_hint: 0.85, None
+                height: chat_input.height
+                pos_hint: {'right':1}
+                multiline: True
+                mode: 'fill'
+                fill_color_normal: app.background_color
+                fill_color_focus: app.background_color
+                radius: root.height*0.15/12,root.height*0.15/12,root.height*0.15/12,root.height*0.15/12
+            MDTextField:
+                id: chat_input
+                size_hint: None, None
+                width: send_message.x*0.975
+                height: root.height*0.75/12
+                pos_hint: {'x':0}
+                multiline: True
+                mode: 'fill'
+                fill_color_normal: app.background_color
+                fill_color_focus: app.background_color
+                max_height: root.height* 1/4
+                active_line: False
+                text_color_focus: app.primary_font_color
+                text_color_normal: app.primary_font_color
+                font_size: root.height*0.3/12
+                max_text_length: 500
+                radius: root.height*0.15/12,root.height*0.15/12,root.height*0.15/12,root.height*0.15/12
+            Button:
+                id: send_message
+                name: 'send_message'
+                size_hint: None, None
+                height: root.height*0.5/12
+                width: self.height
+                center_y: chat_input.center_y
+                pos_hint: {'right': 0.975}
+                background_color: 0,0,0,0
+                disabled: True if len(chat_input.text) > 500 else False
+                opacity: 0.5 if len(chat_input.text) > 500 else 1
+                on_press:
+                    app.play_sound('search.wav')
+                    root.press_button(self)
+                on_release:
+                    root.send_message(self)
+                    root.release_button(self)
+                Image:
+                    id: send_message_image
+                    size_hint: None,None
+                    width: self.parent.width
+                    height: self.parent.height
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    source: 'layout/img/send_button.png'
+                    color: app.primary_background_color
+
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: 1,1,1,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                texture: Gradient.vertical((0,0,0,0), (0,0,0,0.1))
+        size_hint: 1, 0.1/12
+        pos_hint: {'top':1-1.15/12}
+
 
 <PlantProfilePage>:
     id: plant_profile_page
-    size_hint: 1,1
-    pos_hint: {'center_x':0.5, 'center_y':0.5}
     mode: 'normal'
     # background
     FloatLayout:

@@ -13,22 +13,31 @@ user19: {}
 user2: {}
 user20:
   plant0:
-    flawed_trait: Sarcastic but witty
-    hobby: Root exploration
-    legacy: []
-    manner: Precise and concise
-    mundane_trait: Independent
     name: rose
-    positive_trait: Gratitude
+    positive_trait: confidence
+    mundane_trait: detail-oriented
+    flawed_trait: moody but introspective
+    hobby: gardening
+    manner: witty and humorous
+    legacy: []
     recent: []
   plant1:
-    flawed_trait: Overly self-critical but self-aware
-    hobby: Nature meditation
-    legacy: []
-    manner: Deliberate and measured
-    mundane_trait: Practical
     name: rose
-    positive_trait: Kindness
+    positive_trait: compassion
+    mundane_trait: structured
+    flawed_trait: sarcastic but witty
+    hobby: botanical art
+    manner: casual and friendly
+    legacy: []
+    recent: []
+  plant2:
+    name: red rose
+    positive_trait: creativity
+    mundane_trait: realistic
+    flawed_trait: overthinker but analytical
+    hobby: photosynthesis photography
+    manner: stereotypical country style
+    legacy: []
     recent: []
 user3: {}
 user4: {}
@@ -37,3 +46,13 @@ user6: {}
 user7: {}
 user8: {}
 user9: {}
+user21:
+  plant0:
+    name: rose
+    positive_trait: self-discipline
+    mundane_trait: organized
+    flawed_trait: impatient but driven
+    hobby: writing plant poetry
+    manner: formal and polite
+    legacy: []
+    recent: []

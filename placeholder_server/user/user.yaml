@@ -54,6 +54,10 @@ user20:
   email: aloha18@gmail.com
   password: Aloha123
   username: aloha18
+user21:
+  email: aloha19@gmail.com
+  password: Aloha123
+  username: aloha19
 user3:
   email: aloha@gmail.com
   password: Aloha123

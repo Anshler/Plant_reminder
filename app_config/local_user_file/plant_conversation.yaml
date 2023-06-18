@@ -1,18 +1,9 @@
 plant0:
-  flawed_trait: Sarcastic but witty
-  hobby: Root exploration
-  legacy: []
-  manner: Precise and concise
-  mundane_trait: Independent
   name: rose
-  positive_trait: Gratitude
-  recent: []
-plant1:
-  flawed_trait: Overly self-critical but self-aware
-  hobby: Nature meditation
+  positive_trait: self-discipline
+  mundane_trait: organized
+  flawed_trait: impatient but driven
+  hobby: writing plant poetry
+  manner: formal and polite
   legacy: []
-  manner: Deliberate and measured
-  mundane_trait: Practical
-  name: rose
-  positive_trait: Kindness
   recent: []

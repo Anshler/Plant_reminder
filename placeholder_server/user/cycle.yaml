@@ -28,6 +28,9 @@ user2: {}
 user20:
   end_cycle: 2023-06-25
   start_cycle: 2023-06-12
+user21:
+  end_cycle: 2023-07-02
+  start_cycle: 2023-06-19
 user3:
   end_cycle: 2023-06-18
   start_cycle: 2023-06-05

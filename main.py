@@ -24,6 +24,7 @@ from utils.plant_profile_management import *
 from utils.had_startup import *
 from utils.EncyclopediaCrawler import *
 from utils.transaction import *
+from virtual_pet.chatbot import PlantGPT
 
 Config.set('graphics', 'resizable', '1')
 Config.set('graphics', 'width', '350')
@@ -33,6 +34,7 @@ from kivy.core.window import Window
 from kivymd.app import MDApp
 from kivymd.uix.list import ThreeLineIconListItem
 from kivymd.uix.behaviors import CommonElevationBehavior
+from kivymd.uix.relativelayout import MDRelativeLayout
 
 # Declare Main pages ----------------------------------------
 class TestPage(Screen):
@@ -138,8 +140,8 @@ class HomePage(Screen):
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.represent_color = MDApp.get_running_app().primary_font_color
             if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar != 'layout/img/default_plant_avatar.png':
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.avatar = 'layout/img/default_plant_avatar.png'
-            if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar != '':
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar = ''
+            if MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar != 'layout/img/emoticon-outline.png':
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task_avatar = 'layout/img/emoticon-outline.png'
 
     def to_calendar(self):
         animate = Animation(
@@ -283,7 +285,12 @@ class PlantScreen(Screen):
         self.parent.current = 'profile_display'
 class PlantChatScreen(Screen):
     def on_pre_enter(self, *args):
-        pass
+        current_plant = self.parent.parent.current_plant
+        self.ids.scroll_view.scroll_y = 0
+        self.plant_name = MDApp.get_running_app().plant_list[current_plant]['name']
+        self.avatar = MDApp.get_running_app().plant_list[current_plant]['avatar']
+        self.represent_color = MDApp.get_running_app().plant_list[current_plant]['represent_color']
+
     def press_back(self, instance):  # Back button
         animate = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
@@ -305,6 +312,30 @@ class PlantChatScreen(Screen):
         self.parent.transition.duration = 0.5
         self.parent.transition.direction = 'right'
         self.parent.current = 'profile_display'
+    def press_button(self,instance):
+        change_size = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
+                                center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'send_message':
+            instance.opacity = 0.5
+            change_size.start(self.ids.send_message_image)
+    def release_button(self,instance):
+        change_size = Animation(width=instance.width, height=instance.height, disabled=False,
+                                center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
+        if instance.name == 'send_message':
+            instance.opacity = 1
+            change_size.start(self.ids.send_message_image)
+    def send_message(self,instance):
+        text = self.ids.chat_input.text.strip()
+        self.ids.chat_input.text = ''
+        current_username = MDApp.get_running_app().current_username
+        current_plant = self.parent.parent.current_plant
+        plant_conversation = MDApp.get_running_app().plant_conversation
+        if len(text) == 0:
+            return
+        model = PlantGPT(user_input=text, user=current_username, plant_conversation=plant_conversation, id=current_plant)
+        MDApp.get_running_app().plant_conversation[current_plant], answer, total_tokens_used = model.run()
+        print(total_tokens_used)
+        print(answer)
 class LineSeparator(FloatLayout):
     pass
 class CancelNewPlantPopup(Popup):
@@ -647,26 +678,22 @@ class PlantProfilePage(Screen):
         else: self.last_search = [name_filter,sort_filter]
 
         filtered_plant_list = MDApp.get_running_app().plant_list
-        filtered_plant_conversation = MDApp.get_running_app().plant_conversation
+        plant_conversation = MDApp.get_running_app().plant_conversation
         if filtered_plant_list == {} or filtered_plant_list is None:
             return
-
         if name_filter != '':
             filtered_plant_list = filter_dict_by_column(filtered_plant_list,'name',name_filter)
-            filtered_plant_conversation = filter_dict_by_column(filtered_plant_conversation,'name',name_filter)
-        if sort_filter != 'none_filter':
+        if filtered_plant_list != {} and filtered_plant_list is not None and sort_filter != 'none_filter':
             if sort_filter == 'A_Z_filter':
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list,'name', reverse=True)
-                filtered_plant_conversation = sort_dict_by_column(filtered_plant_conversation, 'name', reverse=True)
             elif sort_filter == 'Z_A_filter':
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list, 'name')
-                filtered_plant_conversation = sort_dict_by_column(filtered_plant_conversation, 'name')
             elif sort_filter == 'recently_added':
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list, 'date_added')
-                filtered_plant_conversation = sort_dict_by_column(filtered_plant_conversation, 'date_added')
             else:
                 filtered_plant_list = sort_dict_by_column(filtered_plant_list, 'date_added',reverse=True)
-                filtered_plant_conversation = sort_dict_by_column(filtered_plant_conversation, 'date_added', reverse=True)
+
+        filtered_plant_conversation = {a:plant_conversation[a] for a in filtered_plant_list}
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list(filtered_plant_list, filtered_plant_conversation)
     def to_calendar(self):
         animate = Animation(
@@ -689,58 +716,60 @@ class PlantProfilePage(Screen):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.clear_widgets()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox.clear_widgets()
 
-        if plant_list is not None:
-            if plant_list == {}:
+        if plant_list is not None and plant_list == {}:
+            available = 'You have no plant'
+            if self.last_search != ['','none_filter']:
+                available = 'No plant found'
+            default_plant = PlantSelector(height=Window.size[1] * 0.1)
+            default_plant.ids.default_text.color = (0.5,0.5,0.5,0.5)
+            default_plant.ids.default_text.pos_hint = {'center_x': 0.5,'center_y': 0.5}
+            default_plant.ids.default_text.size_hint_x = 1
+            default_plant.ids.default_text.halign = 'center'
+            default_plant.ids.default_text.shorten = False
+            default_plant.ids.date_added.text = ''
+            setattr(default_plant, 'name', available)
+            setattr(default_plant, 'avatar', '')
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
+                default_plant)
+
+            default_plant = PlantSelector(height=Window.size[1] * 0.1)
+            default_plant.ids.default_text.color = (0.5, 0.5, 0.5, 0.5)
+            default_plant.ids.default_text.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
+            default_plant.ids.default_text.size_hint_x = 1
+            default_plant.ids.default_text.halign = 'center'
+            default_plant.ids.default_text.shorten = False
+            default_plant.ids.date_added.text = ''
+            setattr(default_plant, 'name', available)
+            setattr(default_plant, 'avatar', '')
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox.add_widget(
+                default_plant)
+        elif plant_list is not None and plant_list != {}:
+            for callable_id in reversed(plant_list):
                 default_plant = PlantSelector(height=Window.size[1] * 0.1)
-                default_plant.ids.default_text.color = (0.5,0.5,0.5,0.5)
-                default_plant.ids.default_text.pos_hint = {'center_x': 0.5,'center_y': 0.5}
-                default_plant.ids.default_text.size_hint_x = 1
-                default_plant.ids.default_text.halign = 'center'
-                default_plant.ids.default_text.shorten = False
-                default_plant.ids.date_added.text = ''
-                setattr(default_plant, 'name', 'You have no plant')
-                setattr(default_plant, 'avatar', '')
+                setattr(default_plant, 'callable_id', callable_id)
+                setattr(default_plant, 'name', plant_list[callable_id]['name'])
+                setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
+                setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
+                setattr(default_plant, 'age', plant_list[callable_id]['age'])
+                setattr(default_plant, 'location', plant_list[callable_id]['location'])
+                setattr(default_plant, 'extra_notes', plant_list[callable_id]['extra_notes'])
+                setattr(default_plant, 'date_added', MDApp.get_running_app().plant_list[callable_id]['date_added'])
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
                     default_plant)
 
-                default_plant = PlantSelector(height=Window.size[1] * 0.1)
-                default_plant.ids.default_text.color = (0.5, 0.5, 0.5, 0.5)
-                default_plant.ids.default_text.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
-                default_plant.ids.default_text.size_hint_x = 1
-                default_plant.ids.default_text.halign = 'center'
-                default_plant.ids.default_text.shorten = False
-                default_plant.ids.date_added.text = ''
-                setattr(default_plant, 'name', 'You have no plant')
-                setattr(default_plant, 'avatar', '')
+                default_plant = PlantChatSelector(height=Window.size[1] * 0.1)
+                setattr(default_plant, 'callable_id', callable_id)
+                setattr(default_plant, 'name', plant_list[callable_id]['name'])
+                setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
+                setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
+                if plant_conversation[callable_id]['recent'] != []:
+                    recent = plant_conversation[callable_id]['recent'][-1]
+                else:
+                    recent = 'Type something to start a conversation'
+                setattr(default_plant, 'recent', recent)
+
                 MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox.add_widget(
                     default_plant)
-            else:
-                for callable_id in reversed(plant_list):
-                    default_plant = PlantSelector(height=Window.size[1] * 0.1)
-                    setattr(default_plant, 'callable_id', callable_id)
-                    setattr(default_plant, 'name', plant_list[callable_id]['name'])
-                    setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
-                    setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
-                    setattr(default_plant, 'age', plant_list[callable_id]['age'])
-                    setattr(default_plant, 'location', plant_list[callable_id]['location'])
-                    setattr(default_plant, 'extra_notes', plant_list[callable_id]['extra_notes'])
-                    setattr(default_plant, 'date_added', MDApp.get_running_app().plant_list[callable_id]['date_added'])
-                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box.add_widget(
-                        default_plant)
-
-                    default_plant = PlantChatSelector(height=Window.size[1] * 0.1)
-                    setattr(default_plant, 'callable_id', callable_id)
-                    setattr(default_plant, 'name', plant_list[callable_id]['name'])
-                    setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
-                    setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
-                    if plant_conversation[callable_id]['recent'] != []:
-                        recent = plant_conversation[callable_id]['recent'][-1]
-                    else:
-                        recent = 'Type something to start a conversation'
-                    setattr(default_plant, 'recent', recent)
-
-                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox.add_widget(
-                        default_plant)
     def change_mode(self,instance):
         mode = instance.name.split('_')[0]
         if self.mode != mode:
@@ -1278,13 +1307,12 @@ class MasterScreen(Screen):
         # update login status
         WriteHadLogin()
 
-        # update user id meta-config
-        update_current_user(MDApp.get_running_app().current_user)
+        # update user
+        MDApp.get_running_app().current_username = update_current_user(MDApp.get_running_app().current_user)
         MDApp.get_running_app().cycle = get_cycle()
         MDApp.get_running_app().calendar_full = get_calendar_full()
 
         # update current plant list
-        current_user = MDApp.get_running_app().current_user
         MDApp.get_running_app().plant_list = get_plant_list()
         MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
@@ -1369,6 +1397,7 @@ class LoginScreen(Screen):
             # set startup status
             WriteHadStartUp()
             MDApp.get_running_app().current_user = isUser[1]
+            MDApp.get_running_app().current_username = isUser[2].capitalize()
             # change screen
             self.parent.transition.duration = 0.5
             self.parent.transition.direction = 'up'
@@ -1561,6 +1590,7 @@ class ForgetPasswordNewPassScreen(Screen):
             # set startup status
             WriteHadStartUp()
             MDApp.get_running_app().current_user = isNew[1]
+            MDApp.get_running_app().current_username = isNew[2].capitalize()
             # change screen
             self.parent.transition.duration = 0.5
             self.parent.transition.direction = 'up'
@@ -1678,7 +1708,7 @@ class SignUpOTPScreen(Screen):
             # update
             update_plant_after_signup(new_user)
             MDApp.get_running_app().current_user = new_user
-
+            MDApp.get_running_app().current_username = self.parent.ids.sign_up_screen.ids.username_sign_up.text.capitalize()
             # change screen
             self.parent.transition.duration = 0.5
             self.parent.transition.direction = 'up'
@@ -1730,6 +1760,7 @@ class PlantApp(MDApp):
     background_image = background_image
 
     current_user = current_user
+    current_username = None
 
     plant_list = None
     plant_list_advanced = None

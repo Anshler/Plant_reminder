@@ -493,6 +493,65 @@ user20:
     - frequency: 1
       hour: '10:00'
       task: prune
+  plant2:
+    friday:
+    - frequency: 2
+      hour: '12:00'
+      task: fertilize
+    monday: []
+    saturday:
+    - frequency: 1
+      hour: 08:00
+      task: water
+    sunday: []
+    thursday:
+    - frequency: 1
+      hour: 08:00
+      task: water
+    - frequency: 1
+      hour: 08:00
+      task: mist
+    tuesday:
+    - frequency: 1
+      hour: 08:00
+      task: water
+    - frequency: 1
+      hour: 08:00
+      task: mist
+    wednesday:
+    - frequency: 1
+      hour: '10:00'
+      task: prune
+user21:
+  plant0:
+    friday:
+    - frequency: 2
+      hour: '12:00'
+      task: fertilize
+    monday: []
+    saturday:
+    - frequency: 1
+      hour: 08:00
+      task: water
+    sunday: []
+    thursday:
+    - frequency: 1
+      hour: 08:00
+      task: water
+    - frequency: 1
+      hour: 08:00
+      task: mist
+    tuesday:
+    - frequency: 1
+      hour: 08:00
+      task: water
+    - frequency: 1
+      hour: 08:00
+      task: mist
+    wednesday:
+    - frequency: 1
+      hour: '10:00'
+      task: prune
 user3:
   plant0:
     friday: []

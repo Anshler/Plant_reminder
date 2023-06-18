@@ -212,9 +212,9 @@ user20:
     location: ''
     name: rose
     represent_color:
-    - 0.07531846933943176
-    - 0.22248082160530847
-    - 0.993797716562305
+    - 0.48523887616414296
+    - 0.5839392860996513
+    - 0.3732916860944464
     - 1
   plant1:
     age: ''
@@ -224,9 +224,34 @@ user20:
     location: ''
     name: rose
     represent_color:
-    - 0.7853486329511697
-    - 0.3823047018969782
-    - 0.5412544857735265
+    - 0.8342180454085798
+    - 0.02575531147531962
+    - 0.11573414265616833
+    - 1
+  plant2:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/19
+    extra_notes: ''
+    location: ''
+    name: red rose
+    represent_color:
+    - 0.9264402699637581
+    - 0.760154235538604
+    - 0.018863705113203233
+    - 1
+user21:
+  plant0:
+    age: ''
+    avatar: layout/img/default_plant_avatar.png
+    date_added: 2023/06/19
+    extra_notes: ''
+    location: ''
+    name: rose
+    represent_color:
+    - 0.5390589932353911
+    - 0.7523000364267407
+    - 0.6078282058907568
     - 1
 user3:
   plant0:
