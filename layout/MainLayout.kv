@@ -1268,7 +1268,7 @@ WindowManager:
                     source: 'layout/img/logo.png'
                     allow_stretch: True
             LineSeparator:
-            # transaction
+            # donate_us
             # momo
             FloatLayout:
                 size_hint: 1,None
@@ -1305,7 +1305,7 @@ WindowManager:
                     background_color: app.background_color
                     on_press:
                         app.play_sound('search.wav')
-                        root.transaction()
+                        root.donate_us()
                     Image:
                         height: self.parent.height*0.8
                         width: self.height
@@ -1331,7 +1331,7 @@ WindowManager:
                     background_color: app.background_color
                     on_press:
                         app.play_sound('search.wav')
-                        root.transaction('paypal')
+                        root.donate_us('paypal')
                     Image:
                         height: self.parent.height*0.8
                         width: self.height
@@ -3714,6 +3714,44 @@ WindowManager:
                 height: self.parent.height
                 allow_stretch: True
 
+<Message>:
+    side: 'left'
+    text: ''
+    size_hint_y: None
+    _size: 0, 0
+    size: self._size
+    text_size: None, None
+
+    Label:
+        text: root.text
+        padding: 10, 10
+        size_hint: None, 1
+        size: self.texture_size
+        text_size: root.text_size
+        font_size: Window.size[1]/40
+        color: app.primary_font_color if root.side == 'left' else app.background_color
+
+        on_texture_size:
+            root.update_message_size(
+            root,
+            self.texture_size,
+            )
+
+        pos_hint:
+            (
+            {'x': 0.1, 'center_y': 0.5}
+            if root.side == 'left' else
+            {'right': 0.9, 'center_y': 0.5}
+            )
+
+        canvas.before:
+            Color:
+                rgba: app.dark_grey if root.side == 'left' else app.primary_background_color
+            RoundedRectangle:
+                size: self.texture_size
+                radius: dp(5), dp(5), dp(5), dp(5)
+                pos: self.pos
+
 <PlantChatScreen>:
     canvas:
         Color:
@@ -3724,7 +3762,7 @@ WindowManager:
     plant_name: 'plant'
     avatar: 'layout/img/default_plant_avatar.png'
     represent_color: 0,0,0,1
-
+    loaded: False
     FloatLayout: # Back_button_region
         size_hint: 1, 1.15/12
         pos_hint: {'center_x': 0.5, 'top': 1}
@@ -3803,26 +3841,20 @@ WindowManager:
 
     ScrollView:
         id: scroll_view
-        scroll_y: 0
+        always_overscroll: False
         size_hint: 1, None
-        height: root.height*(1-1.15/12*3.5)
-        pos_hint: {'center_x':0.5, 'top':1-1.15/12}
+        height: message_boxlayout.height if message_boxlayout.height < root.height*(1-1.15/12*3.5) else root.height*(1-1.15/12*3.5)
+        pos_hint: {'center_x':0.5, 'y':1.15/12*2.5}
+        on_scroll_stop:
+            root.load_legacy_button_display(self)
         BoxLayout:
+            id: message_boxlayout
             size_hint: 1,None
             height: self.minimum_height
             pos_hint: {'center_x':0.5, 'y':0}
             orientation: 'vertical'
-            padding: 10
-            spacing: 10
-            canvas:
-                Color:
-                    rgba: 1,0,0,1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-            FloatLayout:
-                size_hint: 1,None
-                height: 20
+            padding: 1
+            spacing: root.height*0.05
 
     BoxLayout: # input region
         size_hint: 1, None
@@ -3904,8 +3936,31 @@ WindowManager:
                 pos: self.pos
                 size: self.size
                 texture: Gradient.vertical((0,0,0,0), (0,0,0,0.1))
-        size_hint: 1, 0.1/12
+        size_hint: 1, 1.15/12
         pos_hint: {'top':1-1.15/12}
+
+    Button:
+        id: load_legacy_button
+        name: 'load_legacy_button'
+        disabled: True
+        opacity: 0
+        size_hint:  None, 0.05
+        width: self.height*5
+        pos_hint: {'center_x':0.5, 'top':1-1.3/12}
+        text: 'Load conversation'
+        font_size: self.height/2
+        color: app.secondary_font_color
+        background_normal: 'layout/img/otp_input.png'
+        background_down: 'layout/img/otp_input.png'
+        background_disabled_normal: 'layout/img/otp_input.png'
+        background_disabled_down: 'layout/img/otp_input.png'
+        background_color: app.secondary_background_color
+        on_press:
+            app.play_sound('search.wav')
+            root.press_button(self)
+        on_release:
+            root.release_button(self)
+            root.load_legacy(self)
 
 
 <PlantProfilePage>:
@@ -4006,7 +4061,7 @@ WindowManager:
                 app.play_sound('search.wav')
             on_release:
                 root.release_button(self)
-                root.start_filtering(self)
+                root.start_filtering()
             Image:
                 id: search_button_image
                 source: 'layout/img/search.png'

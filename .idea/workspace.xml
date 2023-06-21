@@ -2,14 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c8d3c64-286f-4f73-a94f-e05dc96f5b77" name="Changes" comment="update">
+      <change afterPath="$PROJECT_DIR$/placeholder_server/server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/placeholder_server/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ENV.py" beforeDir="false" afterPath="$PROJECT_DIR$/ENV.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_config/local_user_file/calendar_full.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/calendar_full.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_config/local_user_file/cycle.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/cycle.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_calendar.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_conversation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_conversation.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_selector.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_selector_advanced.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/meta_config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/meta_config.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/layout/MainLayout.kv" beforeDir="false" afterPath="$PROJECT_DIR$/layout/MainLayout.kv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" afterDir="false" />
@@ -21,9 +23,9 @@
       <change beforePath="$PROJECT_DIR$/placeholder_server/user/user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/user.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testt.py" beforeDir="false" afterPath="$PROJECT_DIR$/testt.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/plant_profile_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/plant_profile_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/transaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/transaction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/validation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/virtual_pet/chatbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_pet/chatbot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtual_pet/personality.py" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_pet/personality.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -51,6 +54,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
@@ -68,14 +72,17 @@
       <recent name="C:\Users\Chrysenberg69420\PycharmProjects\virtual_chatbot" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\placeholder_server\templates" />
+      <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\placeholder_server" />
       <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\chatbot" />
       <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\placeholder_server\user" />
       <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\utils" />
-      <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder" />
-      <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\placeholder_server" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.transaction">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Plant_reminder/placeholder_server/templates/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="chatbot (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Plant_reminder" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -90,72 +97,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/virtual_pet/chatbot.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="chatbot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Plant_reminder" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\chatbot\chatbot.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="image" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Plant_reminder" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../anaconda3/envs/Plant_reminder/Lib/site-packages/kivy/uix" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../anaconda3/envs/Plant_reminder/Lib/site-packages/kivy/uix/image.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Plant_reminder" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -186,6 +127,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="server" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Plant_reminder" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/placeholder_server" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/placeholder_server/server.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="testt" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Plant_reminder" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -208,13 +171,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="transaction" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Plant_reminder" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/transaction.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.chatbot (1)" />
+        <item itemvalue="Python.transaction" />
+        <item itemvalue="Python.server" />
+        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="Python.testt" />
-        <item itemvalue="Python.chatbot" />
-        <item itemvalue="Python.main (1)" />
-        <item itemvalue="Python.image" />
+        <item itemvalue="Python.chatbot (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -309,14 +294,14 @@
       <workItem from="1686979038325" duration="3497000" />
       <workItem from="1686994019775" duration="244000" />
       <workItem from="1687045517172" duration="13987000" />
-      <workItem from="1687091535789" duration="29217000" />
-    </task>
-    <task id="LOCAL-00017" summary="update">
-      <created>1684260078268</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1684260078268</updated>
+      <workItem from="1687091535789" duration="29456000" />
+      <workItem from="1687154041257" duration="1692000" />
+      <workItem from="1687186255056" duration="15262000" />
+      <workItem from="1687224174268" duration="3066000" />
+      <workItem from="1687299810884" duration="18526000" />
+      <workItem from="1687337718528" duration="982000" />
+      <workItem from="1687351186073" duration="10656000" />
+      <workItem from="1687362734760" duration="5088000" />
     </task>
     <task id="LOCAL-00018" summary="update">
       <created>1684294101410</created>
@@ -654,7 +639,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687059111980</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="update">
+      <created>1687121510726</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1687121510726</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -689,20 +681,22 @@
     <SUITE FILE_PATH="coverage/Plant_reminder$BotanySpider.coverage" NAME="BotanySpider Coverage Results" MODIFIED="1684941219746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$New_scraper.coverage" NAME="New_scraper Coverage Results" MODIFIED="1684944642790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$dict_encoding.coverage" NAME="dict_encoding Coverage Results" MODIFIED="1686152186127" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$transaction.coverage" NAME="transaction Coverage Results" MODIFIED="1687367290156" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$gpt3.coverage" NAME="gpt3 Coverage Results" MODIFIED="1686328033347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$server.coverage" NAME="server Coverage Results" MODIFIED="1687367091780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/placeholder_server" />
     <SUITE FILE_PATH="coverage/Plant_reminder$password_format_check.coverage" NAME="password_format_check Coverage Results" MODIFIED="1684332888974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$had_startup.coverage" NAME="had_startup Coverage Results" MODIFIED="1684337637147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$dict_filter.coverage" NAME="dict_filter Coverage Results" MODIFIED="1685943844357" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/virtual_chatbot$main.coverage" NAME="main Coverage Results" MODIFIED="1676883756855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$chatbot.coverage" NAME="chatbot Coverage Results" MODIFIED="1686991254215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$EncyclopediaCrawler__1_.coverage" NAME="EncyclopediaCrawler (1) Coverage Results" MODIFIED="1685131440154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/Plant_reminder$main.coverage" NAME="main Coverage Results" MODIFIED="1687121246986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$main.coverage" NAME="main Coverage Results" MODIFIED="1687352502199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/virtual_chatbot$testt.coverage" NAME="testt Coverage Results" MODIFIED="1676882858987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$otp.coverage" NAME="otp Coverage Results" MODIFIED="1684239521871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1686327900237" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$validation.coverage" NAME="validation Coverage Results" MODIFIED="1686065418241" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$plant_profile_management.coverage" NAME="plant_profile_management Coverage Results" MODIFIED="1686386008662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/Plant_reminder$testt.coverage" NAME="testt Coverage Results" MODIFIED="1687094769394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$testt.coverage" NAME="testt Coverage Results" MODIFIED="1687316403861" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$config.coverage" NAME="config Coverage Results" MODIFIED="1685539848205" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$threading.coverage" NAME="threading Coverage Results" MODIFIED="1686091290802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../anaconda3/envs/Plant_reminder/Lib" />
     <SUITE FILE_PATH="coverage/Plant_reminder$config_setting.coverage" NAME="config_setting Coverage Results" MODIFIED="1684229232057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />

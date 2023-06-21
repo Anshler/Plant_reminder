@@ -241,18 +241,43 @@ user20:
     - 0.018863705113203233
     - 1
 user21:
-  plant0:
-    age: ''
+  b7e4e04a-3330-4d6f-bdcd-232ca831eca8:
+    name: spikey rose
+    represent_color:
+    - 0.2848852610537501
+    - 0.6538558888417593
+    - 0.5048672918418466
+    - 1
     avatar: layout/img/default_plant_avatar.png
-    date_added: 2023/06/19
-    extra_notes: ''
+    age: ''
+    date_added: 2023/06/21
     location: ''
+    extra_notes: ''
+  cd903b75-9987-4971-9795-6fb2808a8467:
+    name: tulip
+    represent_color:
+    - 0.7320225799314706
+    - 0.49208184400077337
+    - 0.31604506981954605
+    - 1
+    avatar: layout/img/default_plant_avatar.png
+    age: '2023'
+    date_added: 2023/06/21
+    location: vietnam
+    extra_notes: don't give me task on monday
+  1e5f0fd8-3114-4566-8394-15b982947b96:
     name: rose
     represent_color:
-    - 0.5390589932353911
-    - 0.7523000364267407
-    - 0.6078282058907568
+    - 0.11408488322182742
+    - 0.933812490561848
+    - 0.6483143633780822
     - 1
+    avatar: layout/img/default_plant_avatar.png
+    age: ''
+    date_added: 2023/06/21
+    location: ''
+    extra_notes: ''
+user22: {}
 user3:
   plant0:
     age: ''

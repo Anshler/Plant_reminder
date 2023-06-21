@@ -10,6 +10,7 @@ from kivy.graphics import Color, Rectangle
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition, CardTransition, NoTransition
 from kivy.clock import Clock
+from kivy.metrics import dp
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.behaviors.touchripple import TouchRippleButtonBehavior
 from kivy.core.audio import SoundLoader
@@ -24,6 +25,7 @@ from utils.plant_profile_management import *
 from utils.had_startup import *
 from utils.EncyclopediaCrawler import *
 from utils.transaction import *
+from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
 from virtual_pet.chatbot import PlantGPT
 
 Config.set('graphics', 'resizable', '1')
@@ -95,9 +97,12 @@ class HomePage(Screen):
                             # Parse the event time
                             event_time = datetime.datetime.combine(day_date,
                                                                    datetime.datetime.strptime(time, '%H:%M').time())
-                            if event_time >= now:
+                            now_minute = now.replace(second=0, microsecond=0)
+                            if event_time >= now_minute:
                                 # Calculate the time difference between the next event and the current time
-                                time_difference = event_time - now
+                                if event_time == now_minute:
+                                    time_difference = 'Now'
+                                else: time_difference = event_time - now
 
                                 # Check if the current event is the closest event so far
                                 closest_event = event
@@ -112,12 +117,13 @@ class HomePage(Screen):
 
         if closest_event is not None:
             # assign the closest values
-            if closest_time_distance.days > 0:
-                # If there are days present, format the timedelta as X day HH:MM:SS
-                closest_time_distance = f"{closest_time_distance.days} day"
-            else:
-                # If there are no days, format the timedelta as HH:MM:SS
-                closest_time_distance = f"{closest_time_distance.seconds // 3600:02d}h {(closest_time_distance.seconds // 60) % 60:02d}m {closest_time_distance.seconds % 60:02d}s"
+            if type(closest_time_distance) is not str:
+                if closest_time_distance.days > 0:
+                    # If there are days present, format the timedelta as X day HH:MM:SS
+                    closest_time_distance = f"{closest_time_distance.days} day"
+                else:
+                    # If there are no days, format the timedelta as HH:MM:SS
+                    closest_time_distance = f"{closest_time_distance.seconds // 3600:02d}h {(closest_time_distance.seconds // 60) % 60:02d}m {closest_time_distance.seconds % 60:02d}s"
 
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.time_remain = str(closest_time_distance).split(',')[0]
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.home_page.ids.next_event.task = closest_event[0]['task']
@@ -198,7 +204,11 @@ class PlantChatSelector(FloatLayout):
         self.parent.parent.parent.parent.parent.parent.parent.ids.chat_button.disabled = True
 
         #update
-        self.parent.parent.parent.parent.parent.parent.parent.current_plant = self.callable_id
+        if self.parent.parent.parent.parent.parent.parent.parent.current_plant_chat != self.callable_id:
+            self.parent.parent.parent.parent.parent.parent.parent.different_plant = True
+            self.parent.parent.parent.parent.parent.parent.parent.current_plant_chat = self.callable_id
+        else:
+            self.parent.parent.parent.parent.parent.parent.parent.different_plant = False
         self.parent.parent.parent.parent.parent.parent.parent.plant_name = self.name
         self.parent.parent.parent.parent.parent.parent.parent.date_added = self.date_added
         self.parent.parent.parent.parent.parent.parent.parent.represent_color = self.represent_color
@@ -283,13 +293,107 @@ class PlantScreen(Screen):
         self.parent.transition.duration = 0.5
         self.parent.transition.direction = 'right'
         self.parent.current = 'profile_display'
+class Message(FloatLayout):
+    def update_message_size(self, message, texture_size):
+        # when the label is updated, we want to make sure the displayed size is
+        # proper
+
+        # if i set max_with to message.with, the long message work but short message failed
+        # if i set it to window's width, the short message work but long message failed
+        # honestly, i don't understand this max_width part, but it works if I alternate between them
+        max_width = message.width
+        if max_width == 0:
+            max_width = Window.size[0]
+        one_line = Window.size[1]  # a bit of  hack, YMMV
+        # if the texture is too big, limit its size
+        if texture_size[0] >= max_width * 2 / 3:
+            message.text_size = (max_width * 2 / 3, None)
+
+        # if it was limited, but is now too small to be limited, raise the limit
+        elif texture_size[1] > one_line:
+            message.text_size = (max_width * 2 / 3, None)
+            message._size = texture_size
+        # just set the size
+        else:
+            message._size = texture_size
 class PlantChatScreen(Screen):
     def on_pre_enter(self, *args):
-        current_plant = self.parent.parent.current_plant
-        self.ids.scroll_view.scroll_y = 0
+        current_plant = self.parent.parent.current_plant_chat
+        different_plant = self.parent.parent.different_plant
         self.plant_name = MDApp.get_running_app().plant_list[current_plant]['name']
         self.avatar = MDApp.get_running_app().plant_list[current_plant]['avatar']
         self.represent_color = MDApp.get_running_app().plant_list[current_plant]['represent_color']
+        self.ids.load_legacy_button.disabled = True
+        self.ids.load_legacy_button.opacity = 0
+        self.legacy_index = 0
+        if different_plant:
+            self.ids.message_boxlayout.clear_widgets()
+    def on_enter(self, *args):
+        current_plant = self.parent.parent.current_plant_chat
+        different_plant = self.parent.parent.different_plant
+        recent_plant_conversation = MDApp.get_running_app().plant_conversation[current_plant]['recent']
+
+        # load conversation
+        if different_plant and recent_plant_conversation != []:
+            self.ids.message_boxlayout.add_widget(FloatLayout(size_hint = (1,None), height= Window.size[1]*0.05))
+            for i in range(0, len(recent_plant_conversation), 3):
+                user_input = recent_plant_conversation[i + 1].split('user:')[1]
+                message = Message()
+                setattr(message, 'text', user_input)
+                setattr(message, 'side', 'right')
+                self.ids.message_boxlayout.add_widget(message)
+
+                assistant_reply = recent_plant_conversation[i + 2].split('assistant:')[1]
+                message = Message()
+                setattr(message, 'text', assistant_reply)
+                setattr(message, 'side', 'left')
+                self.ids.message_boxlayout.add_widget(message)
+        self.ids.scroll_view.scroll_y = 0
+    def load_legacy_button_display(self, instance):
+        show_button = Animation(disabled=False, opacity=1, duration = 0.25)
+        hide_button = Animation(disabled=True, opacity=0, duration=0.25)
+        if ((self.ids.message_boxlayout.height > instance.height and instance.scroll_y >= 1) or self.ids.message_boxlayout.height <= instance.height) and len(MDApp.get_running_app().plant_conversation[self.parent.parent.current_plant_chat]['legacy']) > self.legacy_index*9:
+            show_button.start(self.ids.load_legacy_button)
+        else:
+            hide_button.start(self.ids.load_legacy_button)
+    def load_legacy(self,instance):
+        current_plant = self.parent.parent.current_plant_chat
+        recent_plant_conversation = MDApp.get_running_app().plant_conversation[current_plant]['recent']
+        legacy_plant_conversation = MDApp.get_running_app().plant_conversation[current_plant]['legacy']
+
+        self.ids.message_boxlayout.clear_widgets()
+        self.ids.message_boxlayout.add_widget(FloatLayout(size_hint=(1, None), height=Window.size[1] * 0.05))
+        # load legacy chat
+        index = len(legacy_plant_conversation[-(self.legacy_index+1)*9:])
+        for i in range(0, index, 3):
+            user_input = legacy_plant_conversation[-index + i + 1].split('user:')[1]
+            message = Message()
+            setattr(message, 'text', user_input)
+            setattr(message, 'side', 'right')
+            self.ids.message_boxlayout.add_widget(message)
+
+            assistant_reply = legacy_plant_conversation[-index + i + 2].split('assistant:')[1]
+            message = Message()
+            setattr(message, 'text', assistant_reply)
+            setattr(message, 'side', 'left')
+            self.ids.message_boxlayout.add_widget(message)
+        # load current chat
+        for i in range(0, len(recent_plant_conversation), 3):
+            user_input = recent_plant_conversation[i + 1].split('user:')[1]
+            message = Message()
+            setattr(message, 'text', user_input)
+            setattr(message, 'side', 'right')
+            self.ids.message_boxlayout.add_widget(message)
+
+            assistant_reply = recent_plant_conversation[i + 2].split('assistant:')[1]
+            message = Message()
+            setattr(message, 'text', assistant_reply)
+            setattr(message, 'side', 'left')
+            self.ids.message_boxlayout.add_widget(message)
+        self.ids.scroll_view.scroll_y = 0.99
+        self.legacy_index += 1
+        instance.opacity = 0
+
 
     def press_back(self, instance):  # Back button
         animate = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
@@ -297,6 +401,7 @@ class PlantChatScreen(Screen):
         animate.start(self.ids.back_button_image)
 
     def release_back(self, instance):
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.start_filtering(mode='chat')
         animate = Animation(width=instance.width, height=instance.height, disabled=False,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
         animate.start(self.ids.back_button_image)
@@ -318,24 +423,50 @@ class PlantChatScreen(Screen):
         if instance.name == 'send_message':
             instance.opacity = 0.5
             change_size.start(self.ids.send_message_image)
+        elif instance.name == 'load_legacy_button':
+            instance.disabled = True
+            self.background_color = MDApp.get_running_app().press_word_button
     def release_button(self,instance):
         change_size = Animation(width=instance.width, height=instance.height, disabled=False,
                                 center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
         if instance.name == 'send_message':
             instance.opacity = 1
             change_size.start(self.ids.send_message_image)
+        elif instance.name == 'load_legacy_button':
+            self.background_color = MDApp.get_running_app().secondary_background_color
     def send_message(self,instance):
-        text = self.ids.chat_input.text.strip()
-        self.ids.chat_input.text = ''
-        current_username = MDApp.get_running_app().current_username
-        current_plant = self.parent.parent.current_plant
-        plant_conversation = MDApp.get_running_app().plant_conversation
-        if len(text) == 0:
+        user_input = self.ids.chat_input.text.strip()
+        if len(user_input) == 0:
             return
-        model = PlantGPT(user_input=text, user=current_username, plant_conversation=plant_conversation, id=current_plant)
-        MDApp.get_running_app().plant_conversation[current_plant], answer, total_tokens_used = model.run()
+
+        message = Message()
+        setattr(message, 'text', user_input)
+        setattr(message, 'side', 'right')
+        self.ids.message_boxlayout.add_widget(message)
+        self.ids.chat_input.text = ''
+        self.ids.scroll_view.scroll_y = 0
+
+
+        Clock.schedule_once(lambda dt: self.get_reply(user_input= user_input), 1.0)
+
+    def get_reply(self,user_input, *args):
+        current_username = MDApp.get_running_app().current_username
+        current_plant = self.parent.parent.current_plant_chat
+        plant_conversation = MDApp.get_running_app().plant_conversation
+        model = PlantGPT(user_input=user_input, user=current_username, plant_conversation=plant_conversation,
+                         id=current_plant)
+        MDApp.get_running_app().plant_conversation[current_plant], chat_reply, total_tokens_used = model.run()
+
+        save_conversation(MDApp.get_running_app().plant_conversation, MDApp.get_running_app().current_user)
+
+        message = Message()
+        setattr(message, 'text', chat_reply)
+        setattr(message, 'side', 'left')
+        MDApp.get_running_app().play_sound('message.wav')
+        self.ids.message_boxlayout.add_widget(message)
+        self.ids.scroll_view.scroll_y = 0
+
         print(total_tokens_used)
-        print(answer)
 class LineSeparator(FloatLayout):
     pass
 class CancelNewPlantPopup(Popup):
@@ -367,8 +498,8 @@ class ConfirmNextStepPopup(Popup):
         name_manual = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.manual_input_text.text.strip()
         toggle = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.toggle_manual.active
         valid = True
-        #if toggle:
-            #valid = get_chatgpt_classifier('plant\'s name: ' + name_manual, 'paid')
+        if toggle:
+            valid = get_chatgpt_classifier('plant\'s name: ' + name_manual, 'paid')
 
         if valid:
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.new_plant_step_manager.transition = CardTransition()
@@ -434,7 +565,7 @@ class ConfirmFinalStepPopup(Popup):
         self.dismiss()
     def confirm_auto(self, instance):
         schedule = {"monday": [],"tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],"thursday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],"saturday": [{"task": "water", "hour": "08:00", "frequency": 1}],"sunday": []}
-        #schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
+        schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
         self.confirm(schedule=schedule)
         update_calendar(MDApp.get_running_app().current_user)
         MDApp.get_running_app().calendar_full = get_calendar_full()
@@ -475,12 +606,11 @@ class DeletePlantPopup(Popup):
         MDApp.get_running_app().calendar_full = get_calendar_full()
 
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.current_plant = ''
         # reset if new calendar is empty
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = 'none_filter'
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
-
-
 
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.plant_screen.quit_screen()
         self.dismiss()
@@ -494,7 +624,7 @@ class NewPlantInfoScreen(Screen):
             prompt += '\nowner\'s location: ' + self.location
 
         self.result = {'Overview': '','Water': 'Water the red rose every 3-4 days, make sure the soil is evenly moist but not waterlogged.', 'Light': 'Red roses prefer full sunlight for at least 6 hours a day. Place the plant near a south or west-facing window.', 'Humidity': 'Red roses prefer a moderate to high humidity level. Mist the leaves regularly, especially during dry seasons.', 'Temperature': 'Red roses prefer temperatures between 18°C to 24°C. Avoid exposing the plant to temperatures below 4°C or above 35°C.', 'PH Level': 'Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.', 'Suggested Placement Area': 'Place the red rose in a spot with good air circulation and away from drafts. If kept outside, ensure it is not in direct sunlight all day. ', 'Others': 'Prune your rose regularly to remove dead or diseased parts and promote healthy growth. Provide support for the plant as it grows, as the branches can become heavy with flowers. Use a balanced fertilizer every two weeks during the growing season.'}
-        #self.result = get_chatgpt_assistant(prompt, 'paid')
+        self.result = get_chatgpt_assistant(prompt, 'paid')
 
         self.ids.overview.text = '• ' + self.result['Overview'].replace('. ', '\n• ')
         self.ids.water_tip.text = '• '+self.result['Water'].replace('. ', '\n• ')
@@ -629,6 +759,7 @@ class FilterScreenProfile(Screen):
 class PlantProfilePage(Screen):
     last_search = ['','none_filter']
     current_plant = ''
+    current_plant_chat = ''
     plant_name = ''
     location = ''
     date_added = ''
@@ -669,12 +800,13 @@ class PlantProfilePage(Screen):
         else:
             change_size.start(self.ids.search_button_image)
 
-    def start_filtering(self,instance):
+    def start_filtering(self, mode = None):
         sort_filter = self.ids.filter_button.content
         name_filter = self.ids.search_bar.text.strip()
 
         if [name_filter,sort_filter] == self.last_search:
-            return
+            if mode is None:
+                return
         else: self.last_search = [name_filter,sort_filter]
 
         filtered_plant_list = MDApp.get_running_app().plant_list
@@ -763,7 +895,7 @@ class PlantProfilePage(Screen):
                 setattr(default_plant, 'represent_color', plant_list[callable_id]['represent_color'])
                 setattr(default_plant, 'avatar', plant_list[callable_id]['avatar'])
                 if plant_conversation[callable_id]['recent'] != []:
-                    recent = plant_conversation[callable_id]['recent'][-1]
+                    recent = plant_conversation[callable_id]['recent'][-1].split(':',1)[1]
                 else:
                     recent = 'Type something to start a conversation'
                 setattr(default_plant, 'recent', recent)
@@ -825,7 +957,7 @@ class ConfirmEditCalendarPopup(Popup):
                                  {"task": "mist", "hour": "08:00", "frequency": 1}],
                     "friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],
                     "saturday": [{"task": "water", "hour": "08:00", "frequency": 1}], "sunday": []}
-        #schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
+        schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
 
         simple_edit_plant_schedule(current_user, plant_id, schedule)
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
@@ -1291,8 +1423,8 @@ class SettingScreen(Screen):
             change_size = Animation(size_hint=(0.8, 0.5), disabled=False,
                                     center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
             change_size.start(self.ids.logout_button)
-    def transaction(self,source = 'momo'):
-        deposit_money(source = source)
+    def donate_us(self,source = 'momo'):
+        donate_us(source = source)
 class MasterScreen(Screen):
     Previous_home_buttons = 0
     current_filter_screen = ''
@@ -1308,7 +1440,7 @@ class MasterScreen(Screen):
         WriteHadLogin()
 
         # update user
-        MDApp.get_running_app().current_username = update_current_user(MDApp.get_running_app().current_user)
+        MDApp.get_running_app().current_username, MDApp.get_running_app().subscription_status = update_current_user(MDApp.get_running_app().current_user)
         MDApp.get_running_app().cycle = get_cycle()
         MDApp.get_running_app().calendar_full = get_calendar_full()
 
@@ -1320,6 +1452,8 @@ class MasterScreen(Screen):
         MDApp.get_running_app().current_week_range = get_current_week_range()
         # update screen that contain the list
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.current_plant = ''
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.current_plant_chat = ''
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = 'none_filter'
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day = ''
@@ -1327,6 +1461,7 @@ class MasterScreen(Screen):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.mode = 'normal'
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_box_scrollview.scroll_y = 1
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.profile_display_chatbox_scrollview.scroll_y = 1
+
         #update current screen
         self.ids.utility_bars.ids.home_highlight.pos_hint = self.ids.utility_bars.ids.home.pos_hint
         self.Previous_home_buttons = 0
@@ -1397,7 +1532,6 @@ class LoginScreen(Screen):
             # set startup status
             WriteHadStartUp()
             MDApp.get_running_app().current_user = isUser[1]
-            MDApp.get_running_app().current_username = isUser[2].capitalize()
             # change screen
             self.parent.transition.duration = 0.5
             self.parent.transition.direction = 'up'
@@ -1590,7 +1724,6 @@ class ForgetPasswordNewPassScreen(Screen):
             # set startup status
             WriteHadStartUp()
             MDApp.get_running_app().current_user = isNew[1]
-            MDApp.get_running_app().current_username = isNew[2].capitalize()
             # change screen
             self.parent.transition.duration = 0.5
             self.parent.transition.direction = 'up'
@@ -1708,7 +1841,6 @@ class SignUpOTPScreen(Screen):
             # update
             update_plant_after_signup(new_user)
             MDApp.get_running_app().current_user = new_user
-            MDApp.get_running_app().current_username = self.parent.ids.sign_up_screen.ids.username_sign_up.text.capitalize()
             # change screen
             self.parent.transition.duration = 0.5
             self.parent.transition.direction = 'up'
@@ -1761,6 +1893,7 @@ class PlantApp(MDApp):
 
     current_user = current_user
     current_username = None
+    subscription_status = None
 
     plant_list = None
     plant_list_advanced = None

@@ -7,6 +7,7 @@ import yaml
 import random
 from utils.calendar_compiler import *
 from virtual_pet.personality import *
+import uuid
 # remove a plant from user profile------------------------------------------------------------------
 def simple_remove_key_plant_list(id, plant):
     # update local file
@@ -19,19 +20,13 @@ def simple_remove_key_plant_list(id, plant):
     plant_list_advanced.pop(plant)
     plant_calendar.pop(plant)
     plant_conversation.pop(plant)
-    plant_conversation = {a: plant_conversation[a] for a in plant_list}
-
-    plant_list = continuous_numbering(plant_list)
-    plant_list_advanced = continuous_numbering(plant_list_advanced)
-    plant_calendar = continuous_numbering(plant_calendar)
-    plant_conversation = continuous_numbering(plant_conversation)
 
     with open(resources.path('app_config.local_user_file', 'plant_selector.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_list, f)
+        yaml.safe_dump(plant_list, f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_list_advanced, f)
+        yaml.safe_dump(plant_list_advanced, f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_calendar, f)
+        yaml.safe_dump(plant_calendar, f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_conversation.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(plant_conversation, f, sort_keys= False)
 
@@ -50,28 +45,15 @@ def simple_remove_key_plant_list_(id, plant):
     plant_list_advanced[id].pop(plant)
     plant_calendar[id].pop(plant)
     plant_conversation[id].pop(plant)
-    plant_conversation[id] = {a: plant_conversation[id][a] for a in plant_list[id]}
-
-    plant_list[id] = continuous_numbering(plant_list[id])
-    plant_list_advanced[id] = continuous_numbering(plant_list_advanced[id])
-    plant_calendar[id] = continuous_numbering(plant_calendar[id])
-    plant_conversation[id] = continuous_numbering(plant_conversation[id])
 
     with open(resources.path('placeholder_server.user', 'plant_selector.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_list, f)
+        yaml.safe_dump(plant_list, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_list_advanced, f)
+        yaml.safe_dump(plant_list_advanced, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_calendar, f)
+        yaml.safe_dump(plant_calendar, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_conversation.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(plant_conversation, f, sort_keys= False)
-def continuous_numbering(data):
-    # Update plant's key name to maintain continuous numbering
-    updated_data = {}
-    for i, (key, value) in enumerate(data.items()):
-        new_key = f"plant{i}"
-        updated_data[new_key] = value
-    return updated_data
 
 # Add new plant to user profile---------------------------------------------------------------------------
 def simple_add_new_plant(id,name,represent_color,avatar,age,date_added,location,extra_notes,result,schedule):
@@ -85,9 +67,10 @@ def simple_add_new_plant(id,name,represent_color,avatar,age,date_added,location,
         advanced = dict()
         calendar = dict()
         conversation = dict()
-        new_plant = 'plant0'
-    else:
-        new_plant = 'plant' + str(len(basic))
+
+    new_plant = str(uuid.uuid4())
+    while new_plant in basic:
+        new_plant = str(uuid.uuid4())
 
     info = dict()
     info['name'] = name
@@ -116,18 +99,18 @@ def simple_add_new_plant(id,name,represent_color,avatar,age,date_added,location,
     }
 
     with open(resources.path('app_config.local_user_file', 'plant_selector.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(basic, f)
+        yaml.safe_dump(basic, f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(advanced, f)
+        yaml.safe_dump(advanced, f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar, f)
+        yaml.safe_dump(calendar, f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_conversation.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(conversation, f, sort_keys= False)
 
     my_thread = threading.Thread(target=simple_add_new_plant_, args=(
-        id, name, represent_color, avatar, age, date_added, location, extra_notes, result, schedule, conversation[new_plant]))
+        id, name, represent_color, avatar, age, date_added, location, extra_notes, result, schedule, new_plant, conversation[new_plant]))
     my_thread.start()
-def simple_add_new_plant_(id,name,represent_color,avatar,age,date_added,location,extra_notes,result,schedule,conversation_trait):
+def simple_add_new_plant_(id,name,represent_color,avatar,age,date_added,location,extra_notes,result,schedule, new_plant, conversation_trait):
     basic = retrieve_plant_list()
     advanced = retrieve_plant_list_advanced()
     calendar = retrieve_plant_calendar()
@@ -144,10 +127,6 @@ def simple_add_new_plant_(id,name,represent_color,avatar,age,date_added,location
         calendar[id] = dict()
         conversation[id] = dict()
 
-        new_plant = 'plant0'
-    else:
-        new_plant = 'plant' + str(len(basic[id]))
-
     info = dict()
     info['name'] = name
     info['represent_color'] = list(represent_color)
@@ -163,13 +142,13 @@ def simple_add_new_plant_(id,name,represent_color,avatar,age,date_added,location
     conversation[id][new_plant] = conversation_trait
 
     with open(resources.path('placeholder_server.user', 'plant_selector.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(basic, f)
+        yaml.safe_dump(basic, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(advanced, f)
+        yaml.safe_dump(advanced, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar, f)
+        yaml.safe_dump(calendar, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_conversation.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(conversation, f,sort_keys= False)
+        yaml.safe_dump(conversation, f, sort_keys= False)
 def clean_calendar(calendar):
     if calendar is None: return calendar
     # Only one fertilize in a week
@@ -203,11 +182,11 @@ def update_plant_after_signup(id):
     calendar_full = dict()
 
     with open(resources.path('app_config.local_user_file', 'plant_selector.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(basic, f)
+        yaml.safe_dump(basic, f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(advanced, f)
+        yaml.safe_dump(advanced, f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar, f)
+        yaml.safe_dump(calendar, f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_conversation.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(conversation, f,sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'cycle.yaml'), 'w', encoding='utf-8') as f:
@@ -217,8 +196,7 @@ def update_plant_after_signup(id):
 
     # make api call
     update_plant_after_signup_(id)
-    #my_thread = threading.Thread(target=update_plant_after_signup_, args=(id,))
-    #my_thread.start()
+
 def update_plant_after_signup_(id):
     # after sign up, the new user id is created, which is not yet in plant_selection list
     # so we create a relation by adding that new id
@@ -246,11 +224,11 @@ def update_plant_after_signup_(id):
     calendar_full[id] = dict()
 
     with open(resources.path('placeholder_server.user', 'plant_selector.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(basic, f)
+        yaml.safe_dump(basic, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(advanced, f)
+        yaml.safe_dump(advanced, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar, f)
+        yaml.safe_dump(calendar, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_conversation.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(conversation, f,sort_keys= False)
     with open(resources.path('placeholder_server.user', 'cycle.yaml'), 'w', encoding='utf-8') as f:
@@ -264,7 +242,7 @@ def simple_edit_plant_schedule(user_id, plant_id, schedule):
     calendar[plant_id] = clean_calendar(schedule)
 
     with open(resources.path('app_config.local_user_file', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar, f)
+        yaml.safe_dump(calendar, f, sort_keys= False)
 
     # make api call
     my_thread = threading.Thread(target=simple_edit_plant_schedule_, args=(user_id,plant_id,schedule))
@@ -276,7 +254,21 @@ def simple_edit_plant_schedule_(user_id, plant_id, schedule):
     calendar[user_id][plant_id] = schedule
 
     with open(resources.path('placeholder_server.user', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar, f)
+        yaml.safe_dump(calendar, f, sort_keys= False)
+
+# Save conversation-------------------------------------------------------------------------------
+def save_conversation(plant_conversation, id):
+    with open(resources.path('app_config.local_user_file', 'plant_conversation.yaml'), 'w', encoding='utf-8') as f:
+        yaml.safe_dump(plant_conversation, f,sort_keys= False)
+
+    # make api call
+    my_thread = threading.Thread(target=save_conversation_, args=(plant_conversation, id))
+    my_thread.start()
+def save_conversation_(plant_conversation, id):
+    conversation = retrieve_plant_conversation()
+    conversation[id] = plant_conversation
+    with open(resources.path('placeholder_server.user', 'plant_conversation.yaml'), 'w', encoding='utf-8') as f:
+        yaml.safe_dump(conversation, f,sort_keys= False)
 
 # api call to retrieve info
 def retrieve_plant_list():
@@ -296,6 +288,11 @@ def retrieve_username():
         open(resources.path('placeholder_server.user', 'user.yaml'), encoding='utf-8'))
     username = {a:user[a]['username'] for a in user}
     return username
+def retrieve_subscription_status():
+    user = yaml.safe_load(
+        open(resources.path('placeholder_server.user', 'user.yaml'), encoding='utf-8'))
+    username = {a:user[a]['subscription_status'] for a in user}
+    return username
 def update_current_user(id):
     # make api call to retrieve user info
     plant_list = retrieve_plant_list()
@@ -305,6 +302,7 @@ def update_current_user(id):
     cycle = retrieve_cycle()
     calendar_full = retrieve_calendar_full()
     username = retrieve_username()[id]
+    subscription_status = retrieve_subscription_status()[id]
 
     # update local file
     meta_config = yaml.safe_load(open(resources.path('app_config', 'meta_config.yaml'), encoding='utf-8'))
@@ -313,18 +311,18 @@ def update_current_user(id):
     with open(resources.path('app_config', 'meta_config.yaml'), 'w' ,encoding='utf-8') as f:
         yaml.safe_dump(meta_config, f)
     with open(resources.path('app_config.local_user_file', 'plant_selector.yaml'), 'w' ,encoding='utf-8') as f:
-        yaml.safe_dump(plant_list[id], f)
+        yaml.safe_dump(plant_list[id], f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_selector_advanced.yaml'), 'w' ,encoding='utf-8') as f:
-        yaml.safe_dump(plant_list_advanced[id], f)
+        yaml.safe_dump(plant_list_advanced[id], f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_calendar.yaml'), 'w' ,encoding='utf-8') as f:
-        yaml.safe_dump(plant_calendar[id], f)
+        yaml.safe_dump(plant_calendar[id], f, sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'plant_conversation.yaml'), 'w' ,encoding='utf-8') as f:
         yaml.safe_dump(plant_conversation[id], f,sort_keys= False)
     with open(resources.path('app_config.local_user_file', 'cycle.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(cycle[id],f)
     with open(resources.path('app_config.local_user_file', 'calendar_full.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(calendar_full[id],f)
-    return username.capitalize()
+    return username.capitalize(), subscription_status
 
 # load file from local
 def get_plant_list():

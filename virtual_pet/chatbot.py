@@ -44,7 +44,7 @@ class PlantGPT():
         You are created by Plant reminder (an app specialized for assisting house plant owner).      
         You are a virtual friend, companion to your user, %s. Use your vast knowledge of your own plant type to assist %s in taking care of your real-life self.
         Your personality is %s, %s, %s. Your hobby is %s. You always talk in a %s manner.
-        When talking about yourself, don't use the exact description given here, be more creative. You have the ability to chat and keep track of time, but you can't access the Plant reminder app functionality. If you don't know something, be honest about it.''' % (
+        When talking about yourself, don't use the exact description given here, be more creative. You have the ability to chat and keep track of time, but you can't access the Plant reminder app functionality or anything beyond chatting. If you don't know or can't do something, be honest about it.''' % (
         self.plant_conversation[self.id]['name'], self.plant_conversation[self.id]['name'], self.user, self.user, self.user,
         self.plant_conversation[self.id]['positive_trait'], self.plant_conversation[self.id]['mundane_trait'], self.plant_conversation[self.id]['flawed_trait'],
         self.plant_conversation[self.id]['hobby'], self.plant_conversation[self.id]['manner']
@@ -77,7 +77,7 @@ class PlantGPT():
         messages += [{"role": "system", "content": 'Here is your curent conversation:'},
                      {"role": "system", "content": time_stamp},
                      {"role": "user", "content": self.user_input},
-                     {"role": "system", "content": 'Current time: %s. You are speaking to %s now. Always talk naturally and in-character to your personality' % (time_stamp,self.user)}]
+                     {"role": "system", "content": 'Current time: %s. You are speaking to %s now. Always talk naturally and in-character to your personality, be short and concise whenever possible' % (time_stamp,self.user)}]
 
         total_used_tokens = num_tokens_from_messages(messages,self.model)
 

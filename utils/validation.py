@@ -11,21 +11,21 @@ from utils.plant_profile_management import *
 def simple_login_validation(username, password):
     if username == '' or password == '':
         print('can\'t login')
-        return False, None, None
+        return False, None
     try:
         # This would be an api call
         auth = yaml.safe_load(open('placeholder_server/user/user.yaml', encoding='utf-8'))
         if auth is None:
-            return False,None,None
+            return False,None
         for user in auth:
             if auth[user]['username'] == username.lower() and auth[user]['password'] == password:
-                return True, user, username
+                return True, user
             if auth[user]['email'] == username.lower() and auth[user]['password'] == password:
-                return True, user, username
+                return True, user
     except:
         pass
     print('can\'t login')
-    return False, None, None
+    return False, None
 
 # Verify if email exist
 def simple_email_validation(email) -> bool:
@@ -53,8 +53,8 @@ def simple_password_validation(email,password):
             auth[user]['password'] = password
             with open('placeholder_server/user/user.yaml', 'w', encoding='utf-8') as f:
                 yaml.safe_dump(auth, f)
-            return True, user, auth[user]['username']
-    return False, None, None
+            return True, user
+    return False, None
 
 # Verify if OTP match
 def simple_otp_validation(text) -> bool:
@@ -114,6 +114,7 @@ def simple_signup_vadilation(username, email, password):
     info['username'] = username.lower()
     info['email'] = email.lower()
     info['password'] = password
+    info['subscription_status'] = 'free'
 
     auth[new_user]=info
     plant_list[new_user] = dict()

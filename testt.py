@@ -1,3 +1,1 @@
-import datetime
-
-print(datetime.datetime.now().strftime("%Y-%b-%d %H:%M"))
+print(0 == -0)

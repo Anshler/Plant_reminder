@@ -1,88 +1,115 @@
 user0:
   email: anshler123456@gmail.com
   password: Anshler123456
+  subscription_status: free
   username: boboiboiz
 user1:
   email: anshler12345@gmail.com
   password: 111111aA
+  subscription_status: free
   username: boboiboiz2
 user10:
   email: aloha8@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha8
 user11:
   email: aloha9@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha9
 user12:
   email: aloha10@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha10
 user13:
   email: aloha11@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha11
 user14:
   email: aloha12@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha12
 user15:
   email: aloha13@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha13
 user16:
   email: aloha14@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha14
 user17:
   email: aloha15@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha15
 user18:
   email: aloha16@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha16
 user19:
   email: aloha17@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha17
 user2:
   email: awesome@gmail.com
   password: Awesome123
+  subscription_status: free
   username: awesome
 user20:
   email: aloha18@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha18
 user21:
   email: aloha19@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha19
+user22:
+  email: aloha20@gmail.com
+  password: Aloha123
+  subscription_status: free
+  username: aloha20
 user3:
   email: aloha@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha
 user4:
   email: aloha2@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha2
 user5:
   email: aloha3@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha3
 user6:
   email: aloha4@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha4
 user7:
   email: aloha5@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha5
 user8:
   email: aloha6@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha6
 user9:
   email: aloha7@gmail.com
   password: Aloha123
+  subscription_status: free
   username: aloha7
