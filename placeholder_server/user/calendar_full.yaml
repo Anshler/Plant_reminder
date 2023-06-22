@@ -7818,7 +7818,42 @@ user20:
 user21:
   2023-06-19_2023-06-25:
     friday:
-      '12:00':
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: &id015
+        - 0.035232170157044274
+        - 0.8873210563399039
+        - 0.3602795360035763
+        - 1
+        task: water
+      '10:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '1'
+        name: tulip
+        represent_color: &id018
+        - 0.7320225799314706
+        - 0.49208184400077337
+        - 0.31604506981954605
+        - 1
+        task: water
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '4'
+        name: rose
+        represent_color: &id017
+        - 0.3928847817055048
+        - 0.5620307007984784
+        - 0.4633701044471209
+        - 1
+        task: fertilize
+      '11:00':
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: prune
+      '13:00':
       - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
         frequency: '2'
         name: spikey rose
@@ -7827,1309 +7862,540 @@ user21:
         - 0.6538558888417593
         - 0.5048672918418466
         - 1
+        task: prune
+    monday:
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: water
+      '10:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: water
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '4'
+        name: rose
+        represent_color: *id015
+        task: fertilize
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '1'
+        name: rose
+        represent_color: *id017
+        task: water
+      '11:00':
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: prune
+      '12:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: mist
+    saturday:
+      '10:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: water
+      '12:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: mist
+      '15:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '1'
+        name: tulip
+        represent_color: *id018
+        task: prune
+      '17:00':
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '1'
+        name: rose
+        represent_color: *id017
+        task: water
+    sunday:
+      '10:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '1'
+        name: tulip
+        represent_color: *id018
+        task: water
+      '14:00':
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '4'
+        name: rose
+        represent_color: *id017
+        task: prune
+    thursday:
+      '10:00':
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '1'
+        name: rose
+        represent_color: *id017
+        task: water
+      '12:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '2'
+        name: tulip
+        represent_color: *id018
         task: fertilize
       '9:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '3'
-        name: tulip
-        represent_color: &id017
-        - 0.7320225799314706
-        - 0.49208184400077337
-        - 0.31604506981954605
-        - 1
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '2'
+        name: spikey rose
+        represent_color: *id016
         task: fertilize
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: &id015
-        - 0.11408488322182742
-        - 0.933812490561848
-        - 0.6483143633780822
-        - 1
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-      '11:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '4'
-        name: rose
-        represent_color: *id015
-        task: fertilize
-    saturday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '14:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
-        name: tulip
-        represent_color: *id017
-        task: mist
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    sunday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-      '16:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '4'
-        name: tulip
-        represent_color: *id017
-        task: prune
-    thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-      '11:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '4'
-        name: tulip
-        represent_color: *id017
-        task: prune
     tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
       '10:00':
       - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
         frequency: '1'
         name: tulip
-        represent_color: *id017
+        represent_color: *id018
         task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
+      '13:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '2'
+        name: spikey rose
+        represent_color: *id016
+        task: prune
+      '14:00':
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '4'
         name: rose
-        represent_color: *id015
+        represent_color: *id017
         task: prune
     wednesday:
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: water
       '10:00':
       - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
         frequency: '1'
         name: spikey rose
         represent_color: *id016
-        task: prune
-      '20:03':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        task: water
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
         frequency: '2'
+        name: rose
+        represent_color: *id015
+        task: mist
+      '12:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: mist
+      '14:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '1'
         name: tulip
-        represent_color: *id017
+        represent_color: *id018
         task: mist
   2023-06-26_2023-07-02:
-    friday: {}
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+    friday:
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
         frequency: '1'
         name: rose
         represent_color: *id015
         task: water
+      '10:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '1'
+        name: tulip
+        represent_color: *id018
+        task: water
+      '11:00':
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: prune
+    monday:
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: water
+      '10:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: water
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '1'
+        name: rose
+        represent_color: *id017
+        task: water
+      '11:00':
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: prune
+      '12:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: mist
     saturday:
-      08:00:
+      '10:00':
       - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
         frequency: '1'
         name: spikey rose
         represent_color: *id016
         task: water
       '12:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: mist
+      '15:00':
       - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
         frequency: '1'
         name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+        represent_color: *id018
+        task: prune
+      '17:00':
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
         frequency: '1'
         name: rose
-        represent_color: *id015
-        task: prune
+        represent_color: *id017
+        task: water
     sunday:
       '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
         frequency: '1'
-        name: rose
-        represent_color: *id015
+        name: tulip
+        represent_color: *id018
         task: water
     thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
       '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
         frequency: '1'
         name: rose
-        represent_color: *id015
+        represent_color: *id017
         task: water
     tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
       '10:00':
       - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
         frequency: '1'
         name: tulip
-        represent_color: *id017
+        represent_color: *id018
         task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+    wednesday:
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
         frequency: '1'
         name: rose
         represent_color: *id015
-        task: prune
-    wednesday:
+        task: water
       '10:00':
       - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
         frequency: '1'
         name: spikey rose
         represent_color: *id016
-        task: prune
+        task: water
+      '12:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: mist
+      '14:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '1'
+        name: tulip
+        represent_color: *id018
+        task: mist
   2023-07-03_2023-07-09:
     friday:
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: water
+      '10:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '1'
+        name: tulip
+        represent_color: *id018
+        task: water
+      '11:00':
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: prune
+      '13:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '2'
+        name: spikey rose
+        represent_color: *id016
+        task: prune
+    monday:
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: water
+      '10:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: water
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '1'
+        name: rose
+        represent_color: *id017
+        task: water
+      '11:00':
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: prune
       '12:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: mist
+    saturday:
+      '10:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: water
+      '12:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: mist
+      '15:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '1'
+        name: tulip
+        represent_color: *id018
+        task: prune
+      '17:00':
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '1'
+        name: rose
+        represent_color: *id017
+        task: water
+    sunday:
+      '10:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '1'
+        name: tulip
+        represent_color: *id018
+        task: water
+    thursday:
+      '10:00':
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '1'
+        name: rose
+        represent_color: *id017
+        task: water
+      '12:00':
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '2'
+        name: tulip
+        represent_color: *id018
+        task: fertilize
+      '9:00':
       - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
         frequency: '2'
         name: spikey rose
         represent_color: *id016
         task: fertilize
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-    saturday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '14:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
-        name: tulip
-        represent_color: *id017
-        task: mist
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    sunday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-    thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
     tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
       '10:00':
       - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
         frequency: '1'
         name: tulip
-        represent_color: *id017
+        represent_color: *id018
         task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
+      '13:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '2'
+        name: spikey rose
+        represent_color: *id016
         task: prune
     wednesday:
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '1'
+        name: rose
+        represent_color: *id015
+        task: water
       '10:00':
       - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
         frequency: '1'
         name: spikey rose
         represent_color: *id016
-        task: prune
+        task: water
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
+        frequency: '2'
+        name: rose
+        represent_color: *id015
+        task: mist
+      '12:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: mist
       '14:00':
       - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
+        frequency: '1'
         name: tulip
-        represent_color: *id017
+        represent_color: *id018
         task: mist
   2023-07-10_2023-07-16:
     friday:
-      '9:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '3'
-        name: tulip
-        represent_color: *id017
-        task: fertilize
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
         frequency: '1'
         name: rose
         represent_color: *id015
         task: water
-    saturday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    sunday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
       '10:00':
       - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
         frequency: '1'
         name: tulip
-        represent_color: *id017
+        represent_color: *id018
         task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    wednesday:
-      '10:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: prune
-  2023-07-17_2023-07-23:
-    friday:
-      '12:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '2'
-        name: spikey rose
-        represent_color: *id016
-        task: fertilize
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
       '11:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '4'
-        name: rose
-        represent_color: *id015
-        task: fertilize
-    saturday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '14:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
-        name: tulip
-        represent_color: *id017
-        task: mist
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
         frequency: '1'
         name: rose
         represent_color: *id015
         task: prune
-    sunday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+    monday:
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
         frequency: '1'
         name: rose
         represent_color: *id015
         task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
+      '10:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: water
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
+        frequency: '1'
         name: rose
-        represent_color: *id015
-        task: mist
-      '16:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '4'
-        name: tulip
         represent_color: *id017
-        task: prune
-    thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
         task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
       '11:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '4'
-        name: tulip
-        represent_color: *id017
-        task: prune
-    tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
         frequency: '1'
         name: rose
         represent_color: *id015
         task: prune
-    wednesday:
-      '10:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: prune
-      '14:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
-        name: tulip
-        represent_color: *id017
-        task: mist
-  2023-07-24_2023-07-30:
-    friday: {}
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    saturday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    sunday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    wednesday:
-      '10:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: prune
-  2023-07-31_2023-08-06:
-    friday:
       '12:00':
       - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '2'
+        frequency: '1'
         name: spikey rose
         represent_color: *id016
-        task: fertilize
-      '9:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '3'
-        name: tulip
-        represent_color: *id017
-        task: fertilize
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
         task: mist
     saturday:
-      08:00:
+      '10:00':
       - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
         frequency: '1'
         name: spikey rose
         represent_color: *id016
         task: water
       '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
         frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '14:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
-        name: tulip
-        represent_color: *id017
+        name: spikey rose
+        represent_color: *id016
         task: mist
       '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
+        frequency: '1'
+        name: tulip
+        represent_color: *id018
+        task: prune
+      '17:00':
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
         frequency: '1'
         name: rose
-        represent_color: *id015
-        task: prune
+        represent_color: *id017
+        task: water
     sunday:
       '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
         frequency: '1'
-        name: rose
-        represent_color: *id015
+        name: tulip
+        represent_color: *id018
         task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
     thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
       '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+      - callable_id: 47c4beba-f730-4974-b09f-49a3ea1d4572
         frequency: '1'
         name: rose
-        represent_color: *id015
+        represent_color: *id017
         task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
     tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
       '10:00':
       - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
         frequency: '1'
         name: tulip
-        represent_color: *id017
+        represent_color: *id018
         task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
+    wednesday:
+      09:00:
+      - callable_id: 54f3fdcf-f9d8-4247-8282-0cc299f317dd
         frequency: '1'
         name: rose
         represent_color: *id015
-        task: prune
-    wednesday:
+        task: water
       '10:00':
       - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
         frequency: '1'
         name: spikey rose
         represent_color: *id016
-        task: prune
+        task: water
+      '12:00':
+      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
+        frequency: '1'
+        name: spikey rose
+        represent_color: *id016
+        task: mist
       '14:00':
       - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
-        name: tulip
-        represent_color: *id017
-        task: mist
-  2023-08-07_2023-08-13:
-    friday: {}
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    saturday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
         frequency: '1'
         name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    sunday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
+        represent_color: *id018
         task: mist
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    wednesday:
-      '10:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: prune
-  2023-08-14_2023-08-20:
-    friday:
-      '12:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '2'
-        name: spikey rose
-        represent_color: *id016
-        task: fertilize
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-      '11:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '4'
-        name: rose
-        represent_color: *id015
-        task: fertilize
-    saturday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '14:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
-        name: tulip
-        represent_color: *id017
-        task: mist
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    sunday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-      '16:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '4'
-        name: tulip
-        represent_color: *id017
-        task: prune
-    thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-      '11:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '4'
-        name: tulip
-        represent_color: *id017
-        task: prune
-    tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    wednesday:
-      '10:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: prune
-      '14:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
-        name: tulip
-        represent_color: *id017
-        task: mist
-  2023-08-21_2023-08-27:
-    friday:
-      '9:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '3'
-        name: tulip
-        represent_color: *id017
-        task: fertilize
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    saturday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    sunday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    wednesday:
-      '10:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: prune
-  2023-08-28_2023-09-03:
-    friday:
-      '12:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '2'
-        name: spikey rose
-        represent_color: *id016
-        task: fertilize
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-    saturday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '14:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
-        name: tulip
-        represent_color: *id017
-        task: mist
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    sunday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-    thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-      '10:30':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '2'
-        name: rose
-        represent_color: *id015
-        task: mist
-    tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    wednesday:
-      '10:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: prune
-      '14:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '2'
-        name: tulip
-        represent_color: *id017
-        task: mist
-  2023-09-04_2023-09-10:
-    friday: {}
-    monday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    saturday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      '12:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    sunday:
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    thursday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: water
-    tuesday:
-      08:00:
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: water
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: mist
-      '10:00':
-      - callable_id: cd903b75-9987-4971-9795-6fb2808a8467
-        frequency: '1'
-        name: tulip
-        represent_color: *id017
-        task: water
-      '15:00':
-      - callable_id: 1e5f0fd8-3114-4566-8394-15b982947b96
-        frequency: '1'
-        name: rose
-        represent_color: *id015
-        task: prune
-    wednesday:
-      '10:00':
-      - callable_id: b7e4e04a-3330-4d6f-bdcd-232ca831eca8
-        frequency: '1'
-        name: spikey rose
-        represent_color: *id016
-        task: prune
 user22: {}
 user3:
   2023-06-05_2023-06-11:
@@ -9137,7 +8403,7 @@ user3:
       '12:00':
       - callable_id: plant1
         name: qfaef
-        represent_color: &id019
+        represent_color: &id020
         - 0.9508023917511459
         - 0.13047738360905448
         - 0.9247062077727404
@@ -9145,7 +8411,7 @@ user3:
         task: fertilize
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: &id020
+        represent_color: &id021
         - 0.803921568627451
         - 0.25225821915266666
         - 0.25225821915266666
@@ -9153,7 +8419,7 @@ user3:
         task: fertilize
       - callable_id: plant3
         name: asf
-        represent_color: &id021
+        represent_color: &id022
         - 0.14720410817250174
         - 0.9428944200151591
         - 0.8945088012973189
@@ -9163,7 +8429,7 @@ user3:
       '10:00':
       - callable_id: plant0
         name: fern
-        represent_color: &id018
+        represent_color: &id019
         - 1
         - 1
         - 0.070745550758051
@@ -9172,128 +8438,128 @@ user3:
       '14:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: mist
     saturday:
       08:00:
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: water
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: water
       - callable_id: plant3
         name: asf
-        represent_color: *id021
+        represent_color: *id022
         task: water
       '16:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: water
     sunday:
       '14:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: prune
     thursday:
       08:00:
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: water
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: mist
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: water
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: mist
       - callable_id: plant3
         name: asf
-        represent_color: *id021
+        represent_color: *id022
         task: water
       - callable_id: plant3
         name: asf
-        represent_color: *id021
+        represent_color: *id022
         task: mist
       '10:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: mist
     tuesday:
       08:00:
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: water
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: mist
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: water
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: mist
       - callable_id: plant3
         name: asf
-        represent_color: *id021
+        represent_color: *id022
         task: water
       - callable_id: plant3
         name: asf
-        represent_color: *id021
+        represent_color: *id022
         task: mist
       09:00:
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: prune
       '13:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: fertilize
       '16:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: mist
     wednesday:
       '10:00':
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: prune
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: prune
       - callable_id: plant3
         name: asf
-        represent_color: *id021
+        represent_color: *id022
         task: prune
       '11:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: water
       '15:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: prune
   2023-06-12_2023-06-18:
     friday: {}
@@ -9301,85 +8567,85 @@ user3:
       '10:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: water
       '14:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: mist
     saturday:
       08:00:
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: water
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: water
       - callable_id: plant3
         name: asf
-        represent_color: *id021
+        represent_color: *id022
         task: water
       '16:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: water
     sunday: {}
     thursday:
       08:00:
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: water
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: mist
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: water
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: mist
       - callable_id: plant3
         name: asf
-        represent_color: *id021
+        represent_color: *id022
         task: water
       - callable_id: plant3
         name: asf
-        represent_color: *id021
+        represent_color: *id022
         task: mist
       '10:00':
       - callable_id: plant0
         name: fern
-        represent_color: *id018
+        represent_color: *id019
         task: mist
     tuesday:
       08:00:
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: water
       - callable_id: plant1
         name: qfaef
-        represent_color: *id019
+        represent_color: *id020
         task: mist
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: water
       - callable_id: plant2
         name: sgv drgvwefe
-        represent_color: *id020
+        represent_color: *id021
         task: mist
       - callable_id: plant3
         name: asf
-        represent_color: *id021
+        represent_color: *id022
         task: water
       - callable_id: plant3
 user6: {}
@@ -9389,7 +8655,7 @@ user7:
       '12:00':
       - callable_id: plant0
         name: awdwf
-        represent_color: &id022
+        represent_color: &id023
         - 0.6198112991656985
         - 0.3183338678973716
         - 0.3453700829516875
@@ -9400,34 +8666,34 @@ user7:
       08:00:
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: water
     sunday: {}
     thursday:
       08:00:
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: water
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: mist
     tuesday:
       08:00:
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: water
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: mist
     wednesday:
       '10:00':
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: prune
   2023-06-12_2023-06-18:
     friday: {}
@@ -9436,34 +8702,34 @@ user7:
       08:00:
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: water
     sunday: {}
     thursday:
       08:00:
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: water
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: mist
     tuesday:
       08:00:
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: water
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: mist
     wednesday:
       '10:00':
       - callable_id: plant0
         name: awdwf
-        represent_color: *id022
+        represent_color: *id023
         task: prune
 user8: {}
 user9: {}

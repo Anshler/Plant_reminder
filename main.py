@@ -15,6 +15,7 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.behaviors.touchripple import TouchRippleButtonBehavior
 from kivy.core.audio import SoundLoader
 from kivy.factory import Factory
+from functools import partial
 from utils.dict_encoding import *
 from utils.random_color import *
 from utils.config import *
@@ -323,10 +324,12 @@ class PlantChatScreen(Screen):
         self.plant_name = MDApp.get_running_app().plant_list[current_plant]['name']
         self.avatar = MDApp.get_running_app().plant_list[current_plant]['avatar']
         self.represent_color = MDApp.get_running_app().plant_list[current_plant]['represent_color']
+        self.ids.energy_count.text = MDApp.get_running_app().root.ids.master_screen.ids.energy_count.text
+
         self.ids.load_legacy_button.disabled = True
         self.ids.load_legacy_button.opacity = 0
-        self.legacy_index = 0
         if different_plant:
+            self.legacy_index = 0
             self.ids.message_boxlayout.clear_widgets()
     def on_enter(self, *args):
         current_plant = self.parent.parent.current_plant_chat
@@ -438,16 +441,18 @@ class PlantChatScreen(Screen):
         user_input = self.ids.chat_input.text.strip()
         if len(user_input) == 0:
             return
+        if MDApp.get_running_app().energy >= 1:
+            message = Message()
+            setattr(message, 'text', user_input)
+            setattr(message, 'side', 'right')
+            self.ids.message_boxlayout.add_widget(message)
+            self.ids.chat_input.text = ''
+            self.ids.scroll_view.scroll_y = 0
 
-        message = Message()
-        setattr(message, 'text', user_input)
-        setattr(message, 'side', 'right')
-        self.ids.message_boxlayout.add_widget(message)
-        self.ids.chat_input.text = ''
-        self.ids.scroll_view.scroll_y = 0
-
-
-        Clock.schedule_once(lambda dt: self.get_reply(user_input= user_input), 1.0)
+            Clock.schedule_once(lambda dt: self.get_reply(user_input= user_input), 1.0)
+        else:
+            Factory.GoProPopup(
+                title='You are low on energy. Please purchase more energy or wait until recovered').open()
 
     def get_reply(self,user_input, *args):
         current_username = MDApp.get_running_app().current_username
@@ -456,7 +461,7 @@ class PlantChatScreen(Screen):
         model = PlantGPT(user_input=user_input, user=current_username, plant_conversation=plant_conversation,
                          id=current_plant)
         MDApp.get_running_app().plant_conversation[current_plant], chat_reply, total_tokens_used = model.run()
-
+        MDApp.get_running_app().root.ids.master_screen.recalculate(energy= -total_tokens_used)
         save_conversation(MDApp.get_running_app().plant_conversation, MDApp.get_running_app().current_user)
 
         message = Message()
@@ -499,7 +504,8 @@ class ConfirmNextStepPopup(Popup):
         toggle = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.toggle_manual.active
         valid = True
         if toggle:
-            valid = get_chatgpt_classifier('plant\'s name: ' + name_manual, 'paid')
+            valid, total_tokens_used = get_chatgpt_classifier('plant\'s name: ' + name_manual)
+            MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
 
         if valid:
             MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.new_plant_step_manager.transition = CardTransition()
@@ -511,19 +517,14 @@ class ConfirmNextStepPopup(Popup):
         else:
             self.dismiss()
             Factory.FailConfirmPopup().open()
-class ConfirmFinalStepPopup(Popup):
-    auto_calendar_prompt = ''
-    def press_button(self, instance):
-        instance.disabled = True
-        instance.color = MDApp.get_running_app().press_word_button
-
-    def release_button(self, instance):
-        instance.disabled = False
-        if instance.text == 'yes, please':
-            instance.color = MDApp.get_running_app().wrong_pass_warn
+class PlantCreationSucessfull(Popup):
+    def on_pre_open(self):
+        self.confirm()
+        if MDApp.get_running_app().seed <= 1:
+            self.title = 'Plant creation successful! You have %d seed left' % MDApp.get_running_app().seed
         else:
-            instance.color = MDApp.get_running_app().primary_font_color
-    def confirm(self,schedule = dict()):
+            self.title = 'Plant creation successful! You have %d seeds left' % MDApp.get_running_app().seed
+    def confirm(self):
         name_auto = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.specie_detection.strip()
         name_manual = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.manual_input_text.text.strip()
         toggle = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.toggle_manual.active
@@ -541,45 +542,81 @@ class ConfirmFinalStepPopup(Popup):
 
         # advanced info
         result = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.new_plant_step2.result
-        self.auto_calendar_prompt = 'Plan\'s name: '+name
-        if location.strip() != '':
-            self.auto_calendar_prompt += '\nOwner\'s location: '+location.strip()
-        if extra_notes.strip() != '':
-            self.auto_calendar_prompt += '\nOwner\'s request: '+extra_notes.strip()
-        self.auto_calendar_prompt += '\nJobs to perform:\n' + result['Water'] +'\n' + result['Humidity'] + '\n' + result['Others']
         # add new plant to plant list
         current_user = MDApp.get_running_app().current_user
-        simple_add_new_plant(current_user,name,represent_color,avatar,age,date_added,location,extra_notes, result, schedule)
+        simple_add_new_plant(current_user,name,represent_color,avatar,age,date_added,location,extra_notes, result)
 
         MDApp.get_running_app().plant_list = get_plant_list()
         MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
         MDApp.get_running_app().plant_conversation = get_plant_conversation()
+        # update seed count
+        MDApp.get_running_app().root.ids.master_screen.recalculate(seed=-1)
         # reset plant filter
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.last_search = ['','none_filter']
         # update screen
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
+class ConfirmFinalStepPopup(Popup):
+    def on_pre_open(self):
+        if MDApp.get_running_app().subscription_status == 'free':
+            self.ids.pro_feature_chat.opacity = 1
+        else:
+            self.ids.pro_feature_chat.opacity = 0
+
+    def press_button(self, instance):
+        instance.disabled = True
+        instance.color = MDApp.get_running_app().press_word_button
+
+    def release_button(self, instance):
+        instance.disabled = False
+        if instance.text == 'yes, please':
+            instance.color = MDApp.get_running_app().wrong_pass_warn
+        else:
+            instance.color = MDApp.get_running_app().primary_font_color
+
     def confirm_manual(self, instance):
-        self.confirm()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
         self.dismiss()
     def confirm_auto(self, instance):
-        schedule = {"monday": [],"tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],"thursday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],"saturday": [{"task": "water", "hour": "08:00", "frequency": 1}],"sunday": []}
-        schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
-        self.confirm(schedule=schedule)
-        update_calendar(MDApp.get_running_app().current_user)
-        MDApp.get_running_app().calendar_full = get_calendar_full()
-        MDApp.get_running_app().cycle = get_cycle()
+        if MDApp.get_running_app().subscription_status != 'free':
+            if MDApp.get_running_app().energy >= 1:
+                new_plant_id = list(MDApp.get_running_app().plant_list.keys())[-1]
+                plant_info = MDApp.get_running_app().plant_list[new_plant_id]
+                result = MDApp.get_running_app().plant_list_advanced[new_plant_id]
 
-        # filter by id of new plant
-        new_plant_id = list(MDApp.get_running_app().plant_list.keys())[-1]
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = new_plant_id
+                # create prompt
+                auto_calendar_prompt = 'Plan\'s name: ' + plant_info['name']
+                if plant_info['location'].strip() != '':
+                    auto_calendar_prompt += '\nOwner\'s location: ' + plant_info['location'].strip()
+                if plant_info['extra_notes'].strip() != '':
+                    auto_calendar_prompt += '\nOwner\'s request: ' + plant_info['extra_notes'].strip()
+                auto_calendar_prompt += '\nJobs to perform:\n' + result['Water'] + '\n' + result['Humidity'] + '\n' + \
+                                             result['Others']
+                schedule = {"monday": [],"tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],"thursday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],"saturday": [{"task": "water", "hour": "08:00", "frequency": 1}],"sunday": []}
+                schedule, total_tokens_used = get_chatgpt_calendar(auto_calendar_prompt)
+                MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
 
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
-        self.dismiss()
+                simple_edit_plant_schedule(MDApp.get_running_app().current_user, new_plant_id, schedule)
+                update_calendar(MDApp.get_running_app().current_user)
+                MDApp.get_running_app().calendar_full = get_calendar_full()
+                MDApp.get_running_app().cycle = get_cycle()
+
+                # filter by id of new plant
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = new_plant_id
+
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
+                self.dismiss()
+                MDApp.get_running_app().play_sound('sliding.wav')
+            else:
+                self.dismiss()
+                Factory.GoProPopupFromCalendarCreation(
+                    title='You are low on energy. Please purchase more energy or wait until recovered').open()
+        else:
+            self.dismiss()
+            Factory.GoProPopupFromCalendarCreation().open()
 
 class DeletePlantPopup(Popup):
     def press_button(self, instance):
@@ -596,6 +633,9 @@ class DeletePlantPopup(Popup):
         current_user = MDApp.get_running_app().current_user
 
         simple_remove_key_plant_list(current_user, current_plant)
+        # update seed count
+        MDApp.get_running_app().root.ids.master_screen.recalculate(seed=1)
+
         MDApp.get_running_app().plant_list = get_plant_list()
         MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
         MDApp.get_running_app().plant_calendar = get_plant_calendar()
@@ -611,7 +651,6 @@ class DeletePlantPopup(Popup):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = 'none_filter'
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
-
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.plant_screen.quit_screen()
         self.dismiss()
 class NewPlantInfoScreen(Screen):
@@ -624,7 +663,9 @@ class NewPlantInfoScreen(Screen):
             prompt += '\nowner\'s location: ' + self.location
 
         self.result = {'Overview': '','Water': 'Water the red rose every 3-4 days, make sure the soil is evenly moist but not waterlogged.', 'Light': 'Red roses prefer full sunlight for at least 6 hours a day. Place the plant near a south or west-facing window.', 'Humidity': 'Red roses prefer a moderate to high humidity level. Mist the leaves regularly, especially during dry seasons.', 'Temperature': 'Red roses prefer temperatures between 18°C to 24°C. Avoid exposing the plant to temperatures below 4°C or above 35°C.', 'PH Level': 'Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.', 'Suggested Placement Area': 'Place the red rose in a spot with good air circulation and away from drafts. If kept outside, ensure it is not in direct sunlight all day. ', 'Others': 'Prune your rose regularly to remove dead or diseased parts and promote healthy growth. Provide support for the plant as it grows, as the branches can become heavy with flowers. Use a balanced fertilizer every two weeks during the growing season.'}
-        self.result = get_chatgpt_assistant(prompt, 'paid')
+        total_tokens_used = 1
+        self.result, total_tokens_used = get_chatgpt_assistant(prompt)
+        MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
 
         self.ids.overview.text = '• ' + self.result['Overview'].replace('. ', '\n• ')
         self.ids.water_tip.text = '• '+self.result['Water'].replace('. ', '\n• ')
@@ -756,6 +797,33 @@ class FilterScreenProfile(Screen):
         self.parent.transition.duration = 0.2
         self.parent.current = 'filter_null'
 
+class GoProPopup(Popup):
+    def press_button(self,instance):
+        instance.disabled = True
+        instance.color = MDApp.get_running_app().press_word_button
+    def release_button(self,instance):
+        instance.disabled = False
+        if instance.text == 'cancel':
+            instance.color = MDApp.get_running_app().primary_font_color
+        else:
+            instance.color = MDApp.get_running_app().wrong_pass_warn
+    def to_dismiss(self):
+        self.dismiss()
+    def to_shopping(self):
+        self.dismiss()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_shopping()
+class GoProPopupFromCalendarCreation(GoProPopup):
+    def to_dismiss(self):
+        self.dismiss()
+        Factory.ConfirmFinalStepPopup().open()
+    def to_shopping(self):
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
+        self.dismiss()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_shopping()
+class GoProPopupFromCalendarEdit(GoProPopup):
+    def to_dismiss(self):
+        self.dismiss()
+        Factory.ConfirmEditCalendarPopup().open()
 class PlantProfilePage(Screen):
     last_search = ['','none_filter']
     current_plant = ''
@@ -766,15 +834,21 @@ class PlantProfilePage(Screen):
     represent_color = [0,0,0,0]
 
     def add_new_plant(self,instance):
-        self.ids.overlay.canvas.clear()
-        with self.ids.overlay.canvas:
-            Color(0,0,0,0.5)
-            Rectangle(pos=self.pos, size=self.size)
-        self.ids.profile_and_add.transition = CardTransition()
-        self.ids.profile_and_add.transition.mode = 'push'
-        self.ids.profile_and_add.transition.duration = 0.25
-        self.ids.profile_and_add.transition.direction = 'up'
-        self.ids.profile_and_add.current = 'new_plant_screen'
+        if MDApp.get_running_app().seed > 0:
+            if MDApp.get_running_app().energy >= 1:
+                self.ids.overlay.canvas.clear()
+                with self.ids.overlay.canvas:
+                    Color(0,0,0,0.5)
+                    Rectangle(pos=self.pos, size=self.size)
+                self.ids.profile_and_add.transition = CardTransition()
+                self.ids.profile_and_add.transition.mode = 'push'
+                self.ids.profile_and_add.transition.duration = 0.25
+                self.ids.profile_and_add.transition.direction = 'up'
+                self.ids.profile_and_add.current = 'new_plant_screen'
+            else:
+                Factory.GoProPopup(title = 'You are low on energy. Please purchase more energy or wait until recovered').open()
+        else:
+            Factory.GoProPopup(title = 'You ran out of seed! Purchase more seeds; or remove a plant').open()
 
     def load_filter_selector(self,instance):
         self.ids.filter_selector_manager.transition = SlideTransition()
@@ -837,7 +911,16 @@ class PlantProfilePage(Screen):
         self.parent.transition.duration = 0.25
         self.parent.transition.direction = 'left'
         self.parent.current = 'calendar_page'
-
+    def to_shopping(self):
+        animate = Animation(
+            pos_hint=MDApp.get_running_app().root.ids.master_screen.ids.utility_bars.ids.shopping.pos_hint,
+            duration=0.1)
+        animate.start(MDApp.get_running_app().root.ids.master_screen.ids.utility_bars.ids.home_highlight)
+        MDApp.get_running_app().root.ids.master_screen.Previous_home_buttons = 5
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.transition = SlideTransition()
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.transition.duration = 0.25
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.transition.direction = 'left'
+        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.current = 'shopping_page'
     def update_plant_list(self, plant_list = None, plant_conversation = None):
         if plant_list is None:
             plant_list = MDApp.get_running_app().plant_list
@@ -904,10 +987,12 @@ class PlantProfilePage(Screen):
                     default_plant)
     def change_mode(self,instance):
         mode = instance.name.split('_')[0]
-        if self.mode != mode:
+        if MDApp.get_running_app().subscription_status != 'free' and self.mode != mode:
             self.mode = mode
             self.ids.normal_and_chat.transition = NoTransition()
             self.ids.normal_and_chat.current = mode+'_profile'
+        elif mode == 'chat':
+            Factory.GoProPopup().open()
 
 
 class HourLayout(FloatLayout):
@@ -923,7 +1008,11 @@ class EmptyTaskWidget(FloatLayout):
 class HourBoxWidget(FloatLayout):
     pass
 class ConfirmEditCalendarPopup(Popup):
-    auto_calendar_prompt = ''
+    def on_pre_open(self):
+        if MDApp.get_running_app().subscription_status == 'free':
+            self.ids.pro_feature_chat.opacity = 1
+        else:
+            self.ids.pro_feature_chat.opacity = 0
 
     def press_button(self, instance):
         instance.disabled = True
@@ -937,39 +1026,51 @@ class ConfirmEditCalendarPopup(Popup):
             instance.color = MDApp.get_running_app().primary_font_color
 
     def confirm_auto(self):
-        # advanced info
-        current_user = MDApp.get_running_app().current_user
-        plant_id = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content
-        plant_info = MDApp.get_running_app().plant_list[plant_id]
-        plant_info_advanced = MDApp.get_running_app().plant_list_advanced[plant_id]
-        self.auto_calendar_prompt = 'Plan\'s name: ' + plant_info['name']
-        if plant_info['location'].strip() != '':
-            self.auto_calendar_prompt += '\nOwner\'s location: ' + plant_info['location'].strip()
-        if plant_info['extra_notes'].strip() != '':
-            self.auto_calendar_prompt += '\nOwner\'s request: ' + plant_info['extra_notes'].strip()
-        self.auto_calendar_prompt += '\nJobs to perform:\n' + plant_info_advanced['Water'] + '\n' + \
-                                     plant_info_advanced['Humidity'] + '\n' + plant_info_advanced['Others']
-        # get schedule
-        schedule = {"monday": [], "tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},
-                                              {"task": "mist", "hour": "08:00", "frequency": 1}],
-                    "wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],
-                    "thursday": [{"task": "water", "hour": "08:00", "frequency": 1},
-                                 {"task": "mist", "hour": "08:00", "frequency": 1}],
-                    "friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],
-                    "saturday": [{"task": "water", "hour": "08:00", "frequency": 1}], "sunday": []}
-        schedule = get_chatgpt_calendar(self.auto_calendar_prompt, 'paid')
+        if MDApp.get_running_app().subscription_status != 'free':
+            if MDApp.get_running_app().energy >= 1:
+                # advanced info
+                current_user = MDApp.get_running_app().current_user
+                plant_id = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content
+                plant_info = MDApp.get_running_app().plant_list[plant_id]
+                plant_info_advanced = MDApp.get_running_app().plant_list_advanced[plant_id]
+                auto_calendar_prompt = 'Plan\'s name: ' + plant_info['name']
+                if plant_info['location'].strip() != '':
+                    auto_calendar_prompt += '\nOwner\'s location: ' + plant_info['location'].strip()
+                if plant_info['extra_notes'].strip() != '':
+                    auto_calendar_prompt += '\nOwner\'s request: ' + plant_info['extra_notes'].strip()
+                auto_calendar_prompt += '\nJobs to perform:\n' + plant_info_advanced['Water'] + '\n' + \
+                                             plant_info_advanced['Humidity'] + '\n' + plant_info_advanced['Others']
+                # get schedule
+                schedule = {"monday": [], "tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},
+                                                      {"task": "mist", "hour": "08:00", "frequency": 1}],
+                            "wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],
+                            "thursday": [{"task": "water", "hour": "08:00", "frequency": 1},
+                                         {"task": "mist", "hour": "08:00", "frequency": 1}],
+                            "friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],
+                            "saturday": [{"task": "water", "hour": "08:00", "frequency": 1}], "sunday": []}
+                schedule, total_tokens_used = get_chatgpt_calendar(auto_calendar_prompt)
+                MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
 
-        simple_edit_plant_schedule(current_user, plant_id, schedule)
-        MDApp.get_running_app().plant_calendar = get_plant_calendar()
-        # update calendar full
-        update_calendar(MDApp.get_running_app().current_user)
-        MDApp.get_running_app().calendar_full = get_calendar_full()
-        MDApp.get_running_app().cycle = get_cycle()
+                simple_edit_plant_schedule(current_user, plant_id, schedule)
+                MDApp.get_running_app().plant_calendar = get_plant_calendar()
+                # update calendar full
+                update_calendar(MDApp.get_running_app().current_user)
+                MDApp.get_running_app().calendar_full = get_calendar_full()
+                MDApp.get_running_app().cycle = get_cycle()
 
-        # update calendar display in calendar page
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
-        MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
-        self.dismiss()
+                # update calendar display in calendar page
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.scroll_view.scroll_y = 1
+                self.dismiss()
+                MDApp.get_running_app().play_sound('sliding.wav')
+            else:
+                self.dismiss()
+                Factory.GoProPopupFromCalendarEdit(
+                    title='You are low on energy. Please purchase more energy or wait until recovered').open()
+        else:
+            self.dismiss()
+            Factory.GoProPopupFromCalendarEdit().open()
 class PlantButton(ButtonBehavior, FloatLayout):
     def press_button(self,instance):
         for a in range (len(self.parent.children)):
@@ -1198,6 +1299,7 @@ class CalendarPage(Screen):
             Factory.ConfirmEditCalendarPopup().open()
 
 
+
 class CommunityPage(Screen):
     pass
 class SearchResult(ThreeLineIconListItem):
@@ -1378,8 +1480,34 @@ class WikiPage(Screen):
             change_size.start(self.ids.search_button_image)
 
     pass
-class ShoppingPage(Screen):
+class PurchaseWaitingPopUP(Popup):
     pass
+class ShoppingPage(Screen):
+    def press_button(self, instance):
+        instance.disabled = True
+        self.ids[instance.name.split('_button')[0] + '_background'].color = MDApp.get_running_app().press_word_button
+
+    def release_button(self, instance):
+        instance.disabled = False
+        self.ids[instance.name.split('_button')[0]+'_background'].color = MDApp.get_running_app().background_color
+    def purchase(self, energy = 0, seed = 0, subscription_status = '', price = ''):
+        self.popup = Factory.PurchaseWaitingPopUP()
+        self.popup.open()
+        Clock.schedule_once(partial(self.purchase_, energy, seed, subscription_status, price), 1)
+
+    def purchase_(self, energy,seed,subscription_status,price,dt):
+        energy = energy*100
+        seed = seed
+        response = press_paypal_button(price)
+        if response:
+            MDApp.get_running_app().root.ids.master_screen.recalculate(energy= energy, seed=seed,subscription_status=subscription_status)
+            MDApp.get_running_app().play_sound('success.wav')
+            self.popup.dismiss()
+        else:
+            self.popup.dismiss()
+            MDApp.get_running_app().play_sound('unsuccess.wav')
+            Factory.FailConfirmPopup(title = 'Purchase unsuccessful. Please check connection and try again').open()
+
 
 class MainPagesManager(ScreenManager):
     pass
@@ -1440,10 +1568,12 @@ class MasterScreen(Screen):
         WriteHadLogin()
 
         # update user
-        MDApp.get_running_app().current_username, MDApp.get_running_app().subscription_status = update_current_user(MDApp.get_running_app().current_user)
+        MDApp.get_running_app().current_username, MDApp.get_running_app().subscription_status, MDApp.get_running_app().energy, MDApp.get_running_app().seed = update_current_user(MDApp.get_running_app().current_user)
         MDApp.get_running_app().cycle = get_cycle()
         MDApp.get_running_app().calendar_full = get_calendar_full()
-
+        # update item count
+        self.ids.energy_count.text = str(round(MDApp.get_running_app().energy,2))
+        self.ids.seed_count.text = str(MDApp.get_running_app().seed)
         # update current plant list
         MDApp.get_running_app().plant_list = get_plant_list()
         MDApp.get_running_app().plant_list_advanced = get_plant_list_advanced()
@@ -1454,6 +1584,17 @@ class MasterScreen(Screen):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.update_plant_list()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.current_plant = ''
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.current_plant_chat = ''
+
+        if MDApp.get_running_app().subscription_status == 'free':
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.pro_feature_chat.opacity = 1
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_background.color = MDApp.get_running_app().background_color
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_button.disabled = False
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_checkmark.opacity = 0
+        else:
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.pro_feature_chat.opacity = 0
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_background.color = MDApp.get_running_app().secondary_background_color
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_button.disabled = True
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_checkmark.opacity = 0.5
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = 'none_filter'
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.current_day = ''
@@ -1486,8 +1627,42 @@ class MasterScreen(Screen):
         WriteHadLogin(False)
         self.parent.transition = FadeTransition()
         self.parent.current = 'login_screen'
+    def recalculate(self,energy = 0, seed = 0, subscription_status = ''):
+        change_energy = False
+        change_seed = False
+        change_subscription_status = False
+        if energy != 0:
+            MDApp.get_running_app().energy += energy / 100
+            MDApp.get_running_app().root.ids.master_screen.ids.energy_count.text = str(
+                round(MDApp.get_running_app().energy, 2))
+            MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.plant_chat_screen.ids.energy_count.text = MDApp.get_running_app().root.ids.master_screen.ids.energy_count.text
+            change_energy = True
+        if seed != 0:
+            MDApp.get_running_app().seed += seed
+            MDApp.get_running_app().root.ids.master_screen.ids.seed_count.text = str(MDApp.get_running_app().seed)
+            change_seed = True
+        if subscription_status != '':
+            if subscription_status == 'free':
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.pro_feature_chat.opacity = 1
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_background.color = MDApp.get_running_app().background_color
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_button.disabled = False
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_checkmark.opacity = 0
+            else:
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.pro_feature_chat.opacity = 0
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_background.color = MDApp.get_running_app().secondary_background_color
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_button.disabled = True
+                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.shopping_page.ids.pro_tier_checkmark.opacity = 0.5
+            MDApp.get_running_app().subscription_status = subscription_status
+            change_subscription_status = True
 
-
+        if True in [change_energy, change_seed, change_subscription_status]:
+            save_recalculate(id=MDApp.get_running_app().current_user,
+                             change_energy=change_energy,
+                             energy=MDApp.get_running_app().energy,
+                             change_seed=change_seed,
+                             seed=MDApp.get_running_app().seed,
+                             change_subscription_status=change_subscription_status,
+                             subscription_status=MDApp.get_running_app().subscription_status)
 
 class StartUp(Screen):
     def on_kv_post(self, *args):
@@ -1894,6 +2069,8 @@ class PlantApp(MDApp):
     current_user = current_user
     current_username = None
     subscription_status = None
+    energy = None
+    seed = None
 
     plant_list = None
     plant_list_advanced = None

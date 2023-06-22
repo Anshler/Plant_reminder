@@ -1396,6 +1396,50 @@ WindowManager:
                     state: 'play'
                     options: {'eos': 'loop', 'fit_mode':'cover'}
 
+                FloatLayout: # energy and seed value display
+                    id: item_count_display
+                    size_hint: 1,1
+                    pos_hint: {'center_x':0.5, 'center_y':0.5}
+                    Image:
+                        id: energy_image
+                        size_hint: None, 0.03
+                        width: self.height
+                        pos_hint: {'x':0.05, 'top':0.99}
+                        source: 'layout/img/energy.png'
+                        color: app.primary_font_color
+                        fit_mode: 'fill'
+                    Label:
+                        id: energy_count
+                        size_hint: 1, 0.04
+                        x: energy_image.right*1.1
+                        center_y: energy_image.center_y
+                        valign: 'center'
+                        text: '0'
+                        text_size: self.size
+                        font_size: self.height*0.75
+                        color: app.primary_font_color
+                    Image:
+                        id: seed_image
+                        size_hint: None, 0.025
+                        width: self.height
+                        center_x: energy_image.center_x
+                        top: energy_image.y*0.99
+                        source: 'layout/img/seed.png'
+                        color: app.primary_font_color
+                        fit_mode: 'fill'
+                    Label:
+                        id: seed_count
+                        size_hint: 1, 0.04
+                        x: energy_count.x
+                        center_y: seed_image.center_y
+                        valign: 'center'
+                        text: '0'
+                        text_size: self.size
+                        font_size: self.height*0.75
+                        color: app.primary_font_color
+
+
+
             Button:
                 id: swipe
                 background_color: 0,0,0,0
@@ -1897,6 +1941,19 @@ WindowManager:
                 root.release_button(self)
                 root.confirm(self)
 
+<PlantCreationSucessfull>:
+    auto_dismiss: True
+    size_hint: 0.8,0.2
+    pos_hint: {'center_x': 0.5, 'y': 0.5}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: ''
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/7
+    separator_color: 0.5,0.5,0.5,0.25
+    on_dismiss: Factory.ConfirmFinalStepPopup().open()
+
 <ConfirmFinalStepPopup>:
     auto_dismiss: False
     size_hint: 0.9,0.5
@@ -1908,6 +1965,7 @@ WindowManager:
     title_color: app.primary_font_color
     title_size: self.height/16
     separator_color: 0.5,0.5,0.5,0.25
+
     FloatLayout:
         size_hint: 1,1
         pos_hint: {'center_x':0.5, 'center_y':0.5}
@@ -1957,6 +2015,24 @@ WindowManager:
             on_release:
                 root.release_button(self)
                 root.confirm_auto(self)
+        Label:
+            id: pro_feature_chat
+            size_hint:  0.25, 0.15
+
+            canvas.before:
+                Color:
+                    rgba: (212/255,0,222/255,1)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+            pos_hint: {'center_x':0.75,'top':0.95}
+            text: 'PRO'
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height*0.75
+            color: app.background_color
+            bold: True
 
 <PlantColorPickerPopUp>:
     auto_dismiss: False
@@ -2629,7 +2705,7 @@ WindowManager:
                         app.play_sound('next.wav')
                         root.press_button(self)
                     on_release:
-                        Factory.ConfirmFinalStepPopup().open()
+                        Factory.PlantCreationSucessfull().open()
                         root.release_button(self)
                 # line separator
                 LineSeparator:
@@ -3826,18 +3902,6 @@ WindowManager:
             font_size: self.height/3
             valign: 'center'
             color: app.primary_font_color
-        # online status
-        Label:
-            size_hint: 0.5,1
-            pos_hint: {'center_y':0.3}
-            x: avatar_image.right*1.1
-            text: 'online'
-            shorten: True
-            shorten_from: 'right'
-            text_size: self.size
-            font_size: self.height/4
-            valign: 'center'
-            color: app.primary_font_color
 
     ScrollView:
         id: scroll_view
@@ -3962,6 +4026,87 @@ WindowManager:
             root.release_button(self)
             root.load_legacy(self)
 
+    # online status
+    Image:
+        id: energy_image
+        size_hint: None, 0.03
+        width: self.height
+        pos_hint: {'top':0.945}
+        x: avatar_image.right
+        source: 'layout/img/energy.png'
+        color: app.primary_font_color
+        fit_mode: 'fill'
+    Label:
+        id: energy_count
+        size_hint: 1, 0.035
+        x: energy_image.right
+        center_y: energy_image.center_y
+        valign: 'center'
+        text: '0'
+        text_size: self.size
+        font_size: self.height*0.75
+        color: app.primary_font_color
+
+<GoProPopup>:
+    auto_dismiss: False
+    size_hint: 0.8,0.25
+    pos_hint: {'center_x': 0.5, 'y': 0.5}
+    background: 'layout/img/white_blank.png'
+    background_color: app.background_color
+    title: 'This is a Pro feature only. Upgrade to Pro Tier or higher to unlock'
+    title_align: 'center'
+    title_color: app.primary_font_color
+    title_size: self.height/9
+    separator_color: 0.5,0.5,0.5,0.25
+    FloatLayout:
+        size_hint: 1,1
+        pos_hint: {'center_x':0.5, 'center_y':0.5}
+
+        # line decorator
+        FloatLayout:
+            size_hint: None, 1
+            width: '2dp'
+            pos_hint: {'center_x':0.5, 'y':0}
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.25
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'right':0.5, 'y':0}
+            text: 'cancel'
+            color: app.primary_font_color
+            bold: True
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/3
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.to_dismiss()
+        Button:
+            size_hint: 0.5,1
+            pos_hint: {'x':0.5, 'y':0}
+            text: 'go to store'
+            bold: True
+            color: app.wrong_pass_warn
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height/3
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('sliding.wav')
+                root.press_button(self)
+            on_release:
+                root.release_button(self)
+                root.to_shopping()
 
 <PlantProfilePage>:
     id: plant_profile_page
@@ -4110,6 +4255,25 @@ WindowManager:
                 app.play_sound('next2.wav')
             on_release:
                 root.change_mode(self)
+        Label:
+            id: pro_feature_chat
+            size_hint:  None, 0.3
+            width: self.height*2.5
+            canvas.before:
+                Color:
+                    rgba: (212/255,0,222/255,1)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+            center_x: chat_button.right*0.75 + chat_button.center_x*0.25
+            center_y: chat_button.top
+            text: 'PRO'
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height*0.75
+            color: app.background_color
+            bold: True
 
     ScreenManager: # contain profile page and page for new plant item
         id: profile_and_add
@@ -4437,6 +4601,24 @@ WindowManager:
             on_release:
                 root.release_button(self)
                 root.confirm_auto()
+        Label:
+            id: pro_feature_chat
+            size_hint:  0.25, 0.15
+
+            canvas.before:
+                Color:
+                    rgba: (212/255,0,222/255,1)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+            pos_hint: {'center_x':0.75,'top':0.95}
+            text: 'PRO'
+            text_size: self.size
+            valign: 'center'
+            halign: 'center'
+            font_size: self.height*0.75
+            color: app.background_color
+            bold: True
 
 <PlantButton>:
     size_hint: 1,None
@@ -5269,11 +5451,631 @@ WindowManager:
             id: encyclopedia_search_item
             name: 'encyclopedia_search_item'
 
+<PurchaseWaitingPopUP>:
+    auto_dismiss: False
+    size_hint: 1,1
+    pos_hint: {'x':1, 'y':1}
+
 <ShoppingPage>:
+    FloatLayout:
+        canvas:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                texture: Gradient.vertical(app.background_color, app.background_color_fade)
+        size_hint: 1, 0.2
+        pos_hint: {'y':0.8}
+    FloatLayout:
+        canvas:
+            Color:
+                rgba: app.background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size_hint: 1, 0.8
+        pos_hint: {'y':0}
+
+    FloatLayout:
+        id: pro_tier
+        price: '1.99'
+        size_hint: None, 1/3
+        width: root.width*0.75
+        pos_hint: {'center_x':0.5,'top':1-1.3/12}
+        Image:
+            id: pro_tier_background
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            source: ''
+            color: app.background_color
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.5
+                Line:
+                    width: 2.
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+            id: pro_tier_box
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            orientation: 'vertical'
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: 'Pro Tier'
+                color: app.primary_font_color
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/10
+                bold: True
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: self.parent.parent.price+'$'
+                color: app.primary_font_color
+                bold: True
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/10
+            LineSeparator:
+            Label:
+                size_hint: 1,1
+                pos_hint: {'x':0.1}
+                text: '• 15 seeds'
+                color: app.secondary_font_color
+                text_size: self.size
+                valign: 'center'
+                font_size: self.parent.height/15
+            Label:
+                size_hint: 1,1
+                pos_hint: {'x':0.1}
+                text: '• 300 energy points'
+                color: app.secondary_font_color
+                text_size: self.size
+                valign: 'center'
+                font_size: self.parent.height/15
+            Label:
+                size_hint: 1,1
+                pos_hint: {'x':0.1}
+                text: '• Access virtual-pet chat mode'
+                color: app.secondary_font_color
+                text_size: self.size
+                valign: 'center'
+                font_size: self.parent.height/15
+            Label:
+                size_hint: 0.8,1
+                pos_hint: {'center_x':0.5}
+                text: '• Automated schedule creation'
+                color: app.secondary_font_color
+                text_size: self.size
+                valign: 'center'
+                font_size: self.parent.height/15
+
+        Image:
+            id: pro_tier_checkmark
+            size_hint: 0.75,0.75
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            source: 'layout/img/check-bold.png'
+            color: app.primary_background_color
+            fit_mode: 'contain'
+        Button:
+            id: pro_tier_button
+            name: 'pro_tier_button'
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('search.wav')
+                root.press_button(self)
+            on_release:
+                root.purchase(300, 15, 'pro', root.ids.pro_tier.price)
+                root.release_button(self)
+
     Image:
-        source: 'layout/img/shopping.png'
-        keep_ratio: True
-        color: 1, 1, 1, 1  # Set image color to full opacity
+        id: energy_image
+        size_hint: None,0.05
+        width: self.height
+        pos_hint: {'x':0.1, 'center_y':0.5}
+        source: 'layout/img/energy.png'
+        color: app.primary_font_color
+        fit_mode: 'contain'
+    Label:
+        size_hint: 1,0.05
+        x: energy_image.right*1.1
+        center_y: energy_image.center_y
+        text: 'Energy'
+        color: app.primary_font_color
+        valign: 'center'
+        text_size: self.size
+        font_size: self.height*0.75
+        bold: True
+
+    # buy 50 energy
+    FloatLayout:
+        id: energy_50
+        price: '0.49'
+        size_hint: None, 0.09
+        width: self.height
+        pos_hint: {'center_x':0.2,'center_y':0.4}
+        Image:
+            id: energy_50_background
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            source: ''
+            color: app.background_color
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.5
+                Line:
+                    width: 2.
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+            id: energy_50_box
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            orientation: 'vertical'
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: '+50'
+                color: app.primary_font_color
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+                bold: True
+            LineSeparator:
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: self.parent.parent.price+'$'
+                color: app.primary_font_color
+                bold: True
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+        Button:
+            id: energy_50_button
+            name: 'energy_50_button'
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('search.wav')
+                root.press_button(self)
+            on_release:
+                root.purchase(energy=50, price=root.ids.energy_50.price)
+                root.release_button(self)
+    # buy 200 energy
+    FloatLayout:
+        id: energy_200
+        price: '1.49'
+        size_hint: None, 0.09
+        width: self.height
+        pos_hint: {'center_x':0.4,'center_y':0.4}
+        Image:
+            id: energy_200_background
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            source: ''
+            color: app.background_color
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.5
+                Line:
+                    width: 2.
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+            id: energy_200_box
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            orientation: 'vertical'
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: '+200'
+                color: app.primary_font_color
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+                bold: True
+            LineSeparator:
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: self.parent.parent.price+'$'
+                color: app.primary_font_color
+                bold: True
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+        Button:
+            id: energy_200_button
+            name: 'energy_200_button'
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('search.wav')
+                root.press_button(self)
+            on_release:
+                root.purchase(energy=200, price=root.ids.energy_200.price)
+                root.release_button(self)
+    # buy 500 energy
+    FloatLayout:
+        id: energy_500
+        price: '2.99'
+        size_hint: None, 0.09
+        width: self.height
+        pos_hint: {'center_x':0.6,'center_y':0.4}
+        Image:
+            id: energy_500_background
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            source: ''
+            color: app.background_color
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.5
+                Line:
+                    width: 2.
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+            id: energy_500_box
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            orientation: 'vertical'
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: '+500'
+                color: app.primary_font_color
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+                bold: True
+            LineSeparator:
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: self.parent.parent.price+'$'
+                color: app.primary_font_color
+                bold: True
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+        Button:
+            id: energy_500_button
+            name: 'energy_500_button'
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('search.wav')
+                root.press_button(self)
+            on_release:
+                root.purchase(energy=500, price=root.ids.energy_500.price)
+                root.release_button(self)
+    # buy 2000 energy
+    FloatLayout:
+        id: energy_2000
+        price: '9.99'
+        size_hint: None, 0.09
+        width: self.height
+        pos_hint: {'center_x':0.8,'center_y':0.4}
+        Image:
+            id: energy_2000_background
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            source: ''
+            color: app.background_color
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.5
+                Line:
+                    width: 2.
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+            id: energy_2000_box
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            orientation: 'vertical'
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: '+2000'
+                color: app.primary_font_color
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+                bold: True
+            LineSeparator:
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: self.parent.parent.price+'$'
+                color: app.primary_font_color
+                bold: True
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+        Button:
+            id: energy_2000_button
+            name: 'energy_2000_button'
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('search.wav')
+                root.press_button(self)
+            on_release:
+                root.purchase(energy=2000, price=root.ids.energy_2000.price)
+                root.release_button(self)
+
+    Image:
+        id: seed_image
+        size_hint: None,0.05
+        width: self.height
+        pos_hint: {'x':0.1, 'center_y':0.3}
+        source: 'layout/img/seed.png'
+        color: app.primary_font_color
+        fit_mode: 'contain'
+    Label:
+        size_hint: 1,0.05
+        x: seed_image.right*1.1
+        center_y: seed_image.center_y
+        text: 'Seeds'
+        color: app.primary_font_color
+        valign: 'center'
+        text_size: self.size
+        font_size: self.height*0.75
+        bold: True
+
+    # buy 5 seeds
+    FloatLayout:
+        id: seed_5
+        price: '0.99'
+        size_hint: None, 0.09
+        width: self.height
+        pos_hint: {'center_x':0.2,'center_y':0.2}
+        Image:
+            id: seed_5_background
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            source: ''
+            color: app.background_color
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.5
+                Line:
+                    width: 2.
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+            id: seed_5_box
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            orientation: 'vertical'
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: '+5'
+                color: app.primary_font_color
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+                bold: True
+            LineSeparator:
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: self.parent.parent.price+'$'
+                color: app.primary_font_color
+                bold: True
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+        Button:
+            id: seed_5_button
+            name: 'seed_5_button'
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('search.wav')
+                root.press_button(self)
+            on_release:
+                root.purchase(seed=5, price=root.ids.seed_5.price)
+                root.release_button(self)
+    # buy 10 seeds
+    FloatLayout:
+        id: seed_10
+        price: '1.49'
+        size_hint: None, 0.09
+        width: self.height
+        pos_hint: {'center_x':0.4,'center_y':0.2}
+        Image:
+            id: seed_10_background
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            source: ''
+            color: app.background_color
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.5
+                Line:
+                    width: 2.
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+            id: seed_10_box
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            orientation: 'vertical'
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: '+10'
+                color: app.primary_font_color
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+                bold: True
+            LineSeparator:
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: self.parent.parent.price+'$'
+                color: app.primary_font_color
+                bold: True
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+        Button:
+            id: seed_10_button
+            name: 'seed_10_button'
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('search.wav')
+                root.press_button(self)
+            on_release:
+                root.purchase(seed=10, price=root.ids.seed_10.price)
+                root.release_button(self)
+    # buy 25 seeds
+    FloatLayout:
+        id: seed_25
+        price: '2.99'
+        size_hint: None, 0.09
+        width: self.height
+        pos_hint: {'center_x':0.6,'center_y':0.2}
+        Image:
+            id: seed_25_background
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            source: ''
+            color: app.background_color
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.5
+                Line:
+                    width: 2.
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+            id: seed_25_box
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            orientation: 'vertical'
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: '+25'
+                color: app.primary_font_color
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+                bold: True
+            LineSeparator:
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: self.parent.parent.price+'$'
+                color: app.primary_font_color
+                bold: True
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+        Button:
+            id: seed_25_button
+            name: 'seed_25_button'
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('search.wav')
+                root.press_button(self)
+            on_release:
+                root.purchase(seed=25, price=root.ids.seed_25.price)
+                root.release_button(self)
+    # buy 50 seeds
+    FloatLayout:
+        id: seed_50
+        price: '4.49'
+        size_hint: None, 0.09
+        width: self.height
+        pos_hint: {'center_x':0.8,'center_y':0.2}
+        Image:
+            id: seed_50_background
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            source: ''
+            color: app.background_color
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.5
+                Line:
+                    width: 2.
+                    rectangle: (self.x, self.y, self.width, self.height)
+
+            id: seed_50_box
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            orientation: 'vertical'
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: '+50'
+                color: app.primary_font_color
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+                bold: True
+            LineSeparator:
+            Label:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5}
+                text: self.parent.parent.price+'$'
+                color: app.primary_font_color
+                bold: True
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
+                font_size: self.parent.height/4
+        Button:
+            id: seed_50_button
+            name: 'seed_50_button'
+            size_hint: 1,1
+            pos_hint: {'center_x':0.5,'center_y':0.5}
+            background_color: 0,0,0,0
+            on_press:
+                app.play_sound('search.wav')
+                root.press_button(self)
+            on_release:
+                root.purchase(seed=50, price=root.ids.seed_50.price)
+                root.release_button(self)
 
 <UtilityBars>:
     FloatLayout:

@@ -115,6 +115,8 @@ def simple_signup_vadilation(username, email, password):
     info['email'] = email.lower()
     info['password'] = password
     info['subscription_status'] = 'free'
+    info['energy'] = 100
+    info['seed'] = 3
 
     auth[new_user]=info
     plant_list[new_user] = dict()
@@ -124,13 +126,13 @@ def simple_signup_vadilation(username, email, password):
     calendar_full[new_user] = dict()
 
     with open(resources.path('placeholder_server.user', 'user.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(auth, f)
+        yaml.safe_dump(auth, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_selector.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_list, f)
+        yaml.safe_dump(plant_list, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_list_advanced, f)
+        yaml.safe_dump(plant_list_advanced, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_calendar, f)
+        yaml.safe_dump(plant_calendar, f, sort_keys= False)
     with open(resources.path('placeholder_server.user', 'cycle.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(cycle,f)
     with open(resources.path('placeholder_server.user', 'calendar_full.yaml'), 'w', encoding='utf-8') as f:

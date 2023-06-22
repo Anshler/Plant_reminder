@@ -87,6 +87,7 @@ class PlantGPT():
             stop = ['user:','assistant:']
         )
         reply = response["choices"][0]["message"]["content"]
+        total_used_tokens += num_tokens_from_messages([{'key': reply}], self.model)
         self.plant_conversation[self.id]['recent'].append(time_stamp)
         self.plant_conversation[self.id]['recent'].append('user:' + self.user_input)
         self.plant_conversation[self.id]['recent'].append('assistant:' + reply)

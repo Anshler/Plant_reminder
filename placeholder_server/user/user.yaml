@@ -71,13 +71,17 @@ user20:
 user21:
   email: aloha19@gmail.com
   password: Aloha123
-  subscription_status: free
+  subscription_status: pro
   username: aloha19
+  energy: 346.12
+  seed: 15
 user22:
   email: aloha20@gmail.com
   password: Aloha123
   subscription_status: free
   username: aloha20
+  energy: 100
+  seed: 3
 user3:
   email: aloha@gmail.com
   password: Aloha123
