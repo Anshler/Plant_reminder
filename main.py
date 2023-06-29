@@ -451,8 +451,8 @@ class PlantChatScreen(Screen):
 
             Clock.schedule_once(lambda dt: self.get_reply(user_input= user_input), 1.0)
         else:
-            Factory.GoProPopup(
-                title='You are low on energy. Please purchase more energy or wait until recovered').open()
+            Factory.GoPrePopup(
+                title='You are low on energy. Purchase more energy or wait to recover').open()
 
     def get_reply(self,user_input, *args):
         current_username = MDApp.get_running_app().current_username
@@ -612,11 +612,11 @@ class ConfirmFinalStepPopup(Popup):
                 MDApp.get_running_app().play_sound('sliding.wav')
             else:
                 self.dismiss()
-                Factory.GoProPopupFromCalendarCreation(
-                    title='You are low on energy. Please purchase more energy or wait until recovered').open()
+                Factory.GoPrePopupFromCalendarCreation(
+                    title='You are low on energy. Purchase more energy or wait to recover').open()
         else:
             self.dismiss()
-            Factory.GoProPopupFromCalendarCreation().open()
+            Factory.GoPrePopupFromCalendarCreation().open()
 
 class DeletePlantPopup(Popup):
     def press_button(self, instance):
@@ -706,7 +706,7 @@ class PlantColorPickerPopUp(Popup):
 class YearButton(Button):
     def press_button(self, instance):
         instance.disabled = True
-        instance.background_color = MDApp.get_running_app().highlight_button
+        instance.background_color = MDApp.get_running_app().secondary_background_color
 
     def release_button(self, instance):
         text = instance.text if instance.text != 'None' else ''
@@ -797,7 +797,7 @@ class FilterScreenProfile(Screen):
         self.parent.transition.duration = 0.2
         self.parent.current = 'filter_null'
 
-class GoProPopup(Popup):
+class GoPrePopup(Popup):
     def press_button(self,instance):
         instance.disabled = True
         instance.color = MDApp.get_running_app().press_word_button
@@ -812,7 +812,7 @@ class GoProPopup(Popup):
     def to_shopping(self):
         self.dismiss()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_shopping()
-class GoProPopupFromCalendarCreation(GoProPopup):
+class GoPrePopupFromCalendarCreation(GoPrePopup):
     def to_dismiss(self):
         self.dismiss()
         Factory.ConfirmFinalStepPopup().open()
@@ -820,7 +820,7 @@ class GoProPopupFromCalendarCreation(GoProPopup):
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
         self.dismiss()
         MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_shopping()
-class GoProPopupFromCalendarEdit(GoProPopup):
+class GoPrePopupFromCalendarEdit(GoPrePopup):
     def to_dismiss(self):
         self.dismiss()
         Factory.ConfirmEditCalendarPopup().open()
@@ -846,9 +846,9 @@ class PlantProfilePage(Screen):
                 self.ids.profile_and_add.transition.direction = 'up'
                 self.ids.profile_and_add.current = 'new_plant_screen'
             else:
-                Factory.GoProPopup(title = 'You are low on energy. Please purchase more energy or wait until recovered').open()
+                Factory.GoPrePopup(title = 'You are low on energy. Purchase more energy or wait to recover').open()
         else:
-            Factory.GoProPopup(title = 'You ran out of seed! Purchase more seeds; or remove a plant').open()
+            Factory.GoPrePopup(title = 'You ran out of seed! Purchase more seeds, or remove a plant').open()
 
     def load_filter_selector(self,instance):
         self.ids.filter_selector_manager.transition = SlideTransition()
@@ -987,12 +987,13 @@ class PlantProfilePage(Screen):
                     default_plant)
     def change_mode(self,instance):
         mode = instance.name.split('_')[0]
-        if MDApp.get_running_app().subscription_status != 'free' and self.mode != mode:
-            self.mode = mode
-            self.ids.normal_and_chat.transition = NoTransition()
-            self.ids.normal_and_chat.current = mode+'_profile'
+        if MDApp.get_running_app().subscription_status != 'free':
+            if self.mode != mode:
+                self.mode = mode
+                self.ids.normal_and_chat.transition = NoTransition()
+                self.ids.normal_and_chat.current = mode+'_profile'
         elif mode == 'chat':
-            Factory.GoProPopup().open()
+            Factory.GoPrePopup().open()
 
 
 class HourLayout(FloatLayout):
@@ -1066,11 +1067,11 @@ class ConfirmEditCalendarPopup(Popup):
                 MDApp.get_running_app().play_sound('sliding.wav')
             else:
                 self.dismiss()
-                Factory.GoProPopupFromCalendarEdit(
-                    title='You are low on energy. Please purchase more energy or wait until recovered').open()
+                Factory.GoPrePopupFromCalendarEdit(
+                    title='You are low on energy. Purchase more energy or wait to recover').open()
         else:
             self.dismiss()
-            Factory.GoProPopupFromCalendarEdit().open()
+            Factory.GoPrePopupFromCalendarEdit().open()
 class PlantButton(ButtonBehavior, FloatLayout):
     def press_button(self,instance):
         for a in range (len(self.parent.children)):
@@ -1223,7 +1224,7 @@ class CalendarPage(Screen):
         day_list = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
         for day in day_list:
             self.ids[day].background_color = (0,0,0,0)
-        instance.background_color = (1,1,1,0.5)
+        instance.background_color = list(MDApp.get_running_app().background_color[:3])+[0.5]
 
         self.ids.task_display.clear_widgets()
 
@@ -1351,7 +1352,7 @@ class FilterScreen(Screen):
         self.ids.none_filter.background_color = (0,0,0,0)
         self.ids.comname_filter.background_color = (0, 0, 0, 0)
         self.ids.sciname_filter.background_color = (0, 0, 0, 0)
-        instance.background_color = MDApp.get_running_app().highlight_button
+        instance.background_color = MDApp.get_running_app().secondary_background_color
     def shut_selector(self,instance):
         self.parent.parent.parent.parent.ids.filter_button.content = instance.content
         self.parent.transition.direction = 'up'
@@ -2098,16 +2099,6 @@ class PlantApp(MDApp):
     @property
     def secondary_background_color(self):
         return self.theme_list[self.theme]['secondary_background_color']
-    @property
-    def secondary_background_color_fade(self):
-        color = list(self.secondary_background_color)
-        color[3] = 0
-        return tuple(color)
-    @property
-    def background_color_fade(self):
-        color = list(self.background_color)
-        color[3] = 0
-        return tuple(color)
     @property
     def wrong_pass_warn(self):
         return self.theme_list[self.theme]['wrong_pass_warn']

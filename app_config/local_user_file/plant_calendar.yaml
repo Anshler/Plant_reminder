@@ -1,112 +1,35 @@
-b7e4e04a-3330-4d6f-bdcd-232ca831eca8:
+2cedb4ce-da97-445a-9e0b-299c601ba14d:
   monday:
   - task: water
-    hour: '10:00'
+    hour: 09:00
     frequency: 1
-  - task: mist
+  - task: fertilize
     hour: '12:00'
-    frequency: 1
-  tuesday:
-  - task: prune
-    hour: '13:00'
     frequency: 2
+  tuesday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: prune
+    hour: '12:00'
+    frequency: 4
   wednesday:
   - task: water
-    hour: '10:00'
-    frequency: 1
-  - task: mist
-    hour: '12:00'
+    hour: 09:00
     frequency: 1
   thursday:
-  - task: fertilize
-    hour: '9:00'
-    frequency: 2
-  friday:
-  - task: prune
-    hour: '13:00'
-    frequency: 2
-  saturday:
   - task: water
-    hour: '10:00'
+    hour: 09:00
     frequency: 1
   - task: mist
     hour: '12:00'
+    frequency: 2
+  friday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  saturday:
+  - task: water
+    hour: 09:00
     frequency: 1
   sunday: []
-cd903b75-9987-4971-9795-6fb2808a8467:
-  monday: []
-  tuesday:
-  - task: water
-    hour: '10:00'
-    frequency: 1
-  wednesday:
-  - task: mist
-    hour: '14:00'
-    frequency: 1
-  thursday:
-  - task: fertilize
-    hour: '12:00'
-    frequency: 2
-  friday:
-  - task: water
-    hour: '10:00'
-    frequency: 1
-  saturday:
-  - task: prune
-    hour: '15:00'
-    frequency: 1
-  sunday:
-  - task: water
-    hour: '10:00'
-    frequency: 1
-54f3fdcf-f9d8-4247-8282-0cc299f317dd:
-  monday:
-  - task: water
-    hour: 09:00
-    frequency: 1
-  - task: fertilize
-    hour: '10:00'
-    frequency: 4
-  - task: prune
-    hour: '11:00'
-    frequency: 1
-  wednesday:
-  - task: water
-    hour: 09:00
-    frequency: 1
-  - task: mist
-    hour: '10:00'
-    frequency: 2
-  friday:
-  - task: water
-    hour: 09:00
-    frequency: 1
-  - task: prune
-    hour: '11:00'
-    frequency: 1
-47c4beba-f730-4974-b09f-49a3ea1d4572:
-  monday:
-  - task: water
-    hour: '10:00'
-    frequency: 1
-  tuesday:
-  - task: prune
-    hour: '14:00'
-    frequency: 4
-  wednesday: []
-  thursday:
-  - task: water
-    hour: '10:00'
-    frequency: 1
-  friday:
-  - task: fertilize
-    hour: '10:00'
-    frequency: 4
-  saturday:
-  - task: water
-    hour: '17:00'
-    frequency: 1
-  sunday:
-  - task: prune
-    hour: '14:00'
-    frequency: 4

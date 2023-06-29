@@ -1,48 +1,12 @@
-b7e4e04a-3330-4d6f-bdcd-232ca831eca8:
-  name: spikey rose
-  represent_color:
-  - 0.2848852610537501
-  - 0.6538558888417593
-  - 0.5048672918418466
-  - 1
-  avatar: layout/img/default_plant_avatar.png
-  age: ''
-  date_added: 2023/06/21
-  location: ''
-  extra_notes: ''
-cd903b75-9987-4971-9795-6fb2808a8467:
-  name: tulip
-  represent_color:
-  - 0.7320225799314706
-  - 0.49208184400077337
-  - 0.31604506981954605
-  - 1
-  avatar: layout/img/default_plant_avatar.png
-  age: '2023'
-  date_added: 2023/06/21
-  location: vietnam
-  extra_notes: don't give me task on monday
-54f3fdcf-f9d8-4247-8282-0cc299f317dd:
+2cedb4ce-da97-445a-9e0b-299c601ba14d:
   name: rose
   represent_color:
-  - 0.035232170157044274
-  - 0.8873210563399039
-  - 0.3602795360035763
+  - 0.12712446447641368
+  - 0.1285764863829435
+  - 0.5190718933113615
   - 1
   avatar: layout/img/default_plant_avatar.png
   age: ''
-  date_added: 2023/06/23
-  location: ''
-  extra_notes: ''
-47c4beba-f730-4974-b09f-49a3ea1d4572:
-  name: rose
-  represent_color:
-  - 0.3928847817055048
-  - 0.5620307007984784
-  - 0.4633701044471209
-  - 1
-  avatar: layout/img/default_plant_avatar.png
-  age: ''
-  date_added: 2023/06/23
+  date_added: 2023/06/29
   location: ''
   extra_notes: ''

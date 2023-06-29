@@ -1396,6 +1396,12 @@ WindowManager:
                     state: 'play'
                     options: {'eos': 'loop', 'fit_mode':'cover'}
 
+                Image:
+                    id: background_tint
+                    #source: ''
+                    fit_mode:'fill'
+                    texture: Gradient.vertical(list(app.background_color[:3])+[0], list(app.background_color[:3])+[0.25])
+
                 FloatLayout: # energy and seed value display
                     id: item_count_display
                     size_hint: 1,1
@@ -1481,7 +1487,7 @@ WindowManager:
                 center_y: self.parent.center_y
                 canvas:
                     Color:
-                        rgba: 176/255, 211/255, 141/255, 1
+                        rgba: app.secondary_background_color
                     Ellipse:
                         pos: self.pos
                         size: self.size
@@ -2026,7 +2032,7 @@ WindowManager:
                     size: self.size
                     pos: self.pos
             pos_hint: {'center_x':0.75,'top':0.95}
-            text: 'PRO'
+            text: 'PRE'
             text_size: self.size
             valign: 'center'
             halign: 'center'
@@ -3769,7 +3775,7 @@ WindowManager:
 
     FloatLayout: # Back_button_region
         size_hint: 1, 1.15/12
-        pos_hint: {'center_x': 0.5, 'top': 1}
+        pos_hint: {'center_x': 0.5, 'center_y': 10.5/12}
         Button:
             id: back_button
             size_hint: None, 0.9/1.25
@@ -4047,13 +4053,13 @@ WindowManager:
         font_size: self.height*0.75
         color: app.primary_font_color
 
-<GoProPopup>:
+<GoPrePopup>:
     auto_dismiss: False
     size_hint: 0.8,0.25
     pos_hint: {'center_x': 0.5, 'y': 0.5}
     background: 'layout/img/white_blank.png'
     background_color: app.background_color
-    title: 'This is a Pro feature only. Upgrade to Pro Tier or higher to unlock'
+    title: 'This is a Premium feature only. Upgrade to Premium or higher to unlock'
     title_align: 'center'
     title_color: app.primary_font_color
     title_size: self.height/9
@@ -4112,23 +4118,16 @@ WindowManager:
     id: plant_profile_page
     mode: 'normal'
     # background
-    FloatLayout:
-        canvas:
-            Rectangle:
-                pos: self.pos
-                size: self.size
-                texture: Gradient.vertical(app.background_color, app.background_color_fade)
+    Image:
         size_hint: 1, 0.2
         pos_hint: {'y':0.8}
-    FloatLayout:
-        canvas:
-            Color:
-                rgba: app.background_color
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        fit_mode: 'fill'
+        texture: Gradient.vertical(app.background_color, list(app.background_color[:3])+[0])
+
+    Image:
         size_hint: 1, 0.8
         pos_hint: {'y':0}
+        color: app.background_color
 
     Button:
         id: overlay2
@@ -4232,7 +4231,7 @@ WindowManager:
             background_normal: 'layout/img/otp_input.png'
             background_down: 'layout/img/otp_input.png'
             background_disabled_normal: 'layout/img/otp_input.png'
-            background_color: app.secondary_background_color if root.mode == 'normal' else app.dark_grey
+            background_color: app.highlight_button if root.mode == 'normal' else app.dark_grey
             on_press:
                 app.play_sound('next2.wav')
             on_release:
@@ -4250,7 +4249,7 @@ WindowManager:
             background_normal: 'layout/img/otp_input.png'
             background_down: 'layout/img/otp_input.png'
             background_disabled_normal: 'layout/img/otp_input.png'
-            background_color: app.secondary_background_color if root.mode != 'normal' else app.dark_grey
+            background_color: app.highlight_button if root.mode != 'normal' else app.dark_grey
             on_press:
                 app.play_sound('next2.wav')
             on_release:
@@ -4267,7 +4266,7 @@ WindowManager:
                     pos: self.pos
             center_x: chat_button.right*0.75 + chat_button.center_x*0.25
             center_y: chat_button.top
-            text: 'PRO'
+            text: 'PRE'
             text_size: self.size
             valign: 'center'
             halign: 'center'
@@ -4373,7 +4372,7 @@ WindowManager:
                 icon: 'seed-plus'
                 icon_color: app.primary_background_color
                 icon_size: self.height*0.7
-                md_bg_color: app.highlight_button
+                md_bg_color: app.secondary_background_color
                 on_press: app.play_sound('search.wav')
                 on_release: root.add_new_plant(self)
             FloatLayout:
@@ -4612,7 +4611,7 @@ WindowManager:
                     size: self.size
                     pos: self.pos
             pos_hint: {'center_x':0.75,'top':0.95}
-            text: 'PRO'
+            text: 'PRE'
             text_size: self.size
             valign: 'center'
             halign: 'center'
@@ -4838,7 +4837,7 @@ WindowManager:
                         color: app.primary_background_color
                         background_normal: ''
                         background_down: ''
-                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        background_color: list(app.background_color[:3])+[0.5] if self.text == root.current_day else (0,0,0,0)
                         on_press:
                             app.play_sound('next2.wav')
                         on_release:
@@ -4857,7 +4856,7 @@ WindowManager:
                         color: app.primary_background_color
                         background_normal: ''
                         background_down: ''
-                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        background_color: list(app.background_color[:3])+[0.5] if self.text == root.current_day else (0,0,0,0)
                         on_press:
                             app.play_sound('next2.wav')
                         on_release:
@@ -4876,7 +4875,7 @@ WindowManager:
                         color: app.primary_background_color
                         background_normal: ''
                         background_down: ''
-                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        background_color: list(app.background_color[:3])+[0.5] if self.text == root.current_day else (0,0,0,0)
                         on_press:
                             app.play_sound('next2.wav')
                         on_release:
@@ -4895,7 +4894,7 @@ WindowManager:
                         color: app.primary_background_color
                         background_normal: ''
                         background_down: ''
-                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        background_color: list(app.background_color[:3])+[0.5] if self.text == root.current_day else (0,0,0,0)
                         on_press:
                             app.play_sound('next2.wav')
                         on_release:
@@ -4914,7 +4913,7 @@ WindowManager:
                         color: app.primary_background_color
                         background_normal: ''
                         background_down: ''
-                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        background_color: list(app.background_color[:3])+[0.5] if self.text == root.current_day else (0,0,0,0)
                         on_press:
                             app.play_sound('next2.wav')
                         on_release:
@@ -4933,7 +4932,7 @@ WindowManager:
                         color: app.primary_background_color
                         background_normal: ''
                         background_down: ''
-                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        background_color: list(app.background_color[:3])+[0.5] if self.text == root.current_day else (0,0,0,0)
                         on_press:
                             app.play_sound('next2.wav')
                         on_release:
@@ -4952,7 +4951,7 @@ WindowManager:
                         color: app.primary_background_color
                         background_normal: ''
                         background_down: ''
-                        background_color: (1,1,1,0.5) if self.text == root.current_day else (0,0,0,0)
+                        background_color: list(app.background_color[:3])+[0.5] if self.text == root.current_day else (0,0,0,0)
                         on_press:
                             app.play_sound('next2.wav')
                         on_release:
@@ -5141,7 +5140,7 @@ WindowManager:
             color: app.primary_font_color
             background_down: 'layout/img/white_blank.png'
             background_normal: 'layout/img/white_blank.png'
-            background_color: app.highlight_button
+            background_color: app.secondary_background_color
             valign: 'center'
             font_size: self.height*0.4
             on_press:
@@ -5186,7 +5185,7 @@ WindowManager:
     BoxLayout:
         canvas:
             Color:
-                rgba: app.highlight_button
+                rgba: app.secondary_background_color
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -5259,23 +5258,16 @@ WindowManager:
 
 <WikiPage>:
     # background
-    FloatLayout:
-        canvas:
-            Rectangle:
-                pos: self.pos
-                size: self.size
-                texture: Gradient.vertical(app.secondary_background_color, app.secondary_background_color_fade)
+    Image:
         size_hint: 1, 0.2
         pos_hint: {'y':0.8}
-    FloatLayout:
-        canvas:
-            Color:
-                rgba: app.secondary_background_color
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        fit_mode: 'fill'
+        texture: Gradient.vertical(app.secondary_background_color, list(app.secondary_background_color[:3])+[0])
+
+    Image:
         size_hint: 1, 0.8
         pos_hint: {'y':0}
+        color: app.secondary_background_color
     #------------------------------------------------------------------
     BoxLayout: # text
         size_hint: 0.8,1/12
@@ -5457,23 +5449,16 @@ WindowManager:
     pos_hint: {'x':1, 'y':1}
 
 <ShoppingPage>:
-    FloatLayout:
-        canvas:
-            Rectangle:
-                pos: self.pos
-                size: self.size
-                texture: Gradient.vertical(app.background_color, app.background_color_fade)
+    Image:
         size_hint: 1, 0.2
         pos_hint: {'y':0.8}
-    FloatLayout:
-        canvas:
-            Color:
-                rgba: app.background_color
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        fit_mode: 'fill'
+        texture: Gradient.vertical(app.background_color, list(app.background_color[:3])+[0])
+
+    Image:
         size_hint: 1, 0.8
         pos_hint: {'y':0}
+        color: app.background_color
 
     FloatLayout:
         id: pro_tier
@@ -5502,7 +5487,7 @@ WindowManager:
             Label:
                 size_hint: 1,1
                 pos_hint: {'center_x':0.5}
-                text: 'Pro Tier'
+                text: 'Premium'
                 color: app.primary_font_color
                 text_size: self.size
                 halign: 'center'
@@ -5570,7 +5555,7 @@ WindowManager:
                 app.play_sound('search.wav')
                 root.press_button(self)
             on_release:
-                root.purchase(300, 15, 'pro', root.ids.pro_tier.price)
+                root.purchase(300, 15, 'premium', root.ids.pro_tier.price)
                 root.release_button(self)
 
     Image:
@@ -6106,7 +6091,7 @@ WindowManager:
             pos_hint: {'center_x': 1.00001/12, 'center_y': 0.5}
             canvas:
                 Color:
-                    rgba: app.highlight_button
+                    rgba: app.secondary_background_color
                 Rectangle:
                     pos: self.pos
                     size: self.size

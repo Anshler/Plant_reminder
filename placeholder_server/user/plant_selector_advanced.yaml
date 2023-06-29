@@ -459,26 +459,6 @@ user21:
       You can use a fertilizer with a balanced NPK ratio of 10-10-10 or 5-5-5 in early
       spring and mid-summer. Prune roses in late winter or early spring to remove
       dead or diseased wood. Deadheading spent blooms can promote reblooming.
-  47c4beba-f730-4974-b09f-49a3ea1d4572:
-    Overview: The rose is a woody perennial flowering plant with over 100 species,
-      and thousands of cultivars. They are popular for their variety and the beauty
-      of their blooms. Roses are commonly used in gardens, as gifts, and for commercial
-      production of perfumes and cosmetics.
-    Water: Water the roses deeply about once a week. Make sure the soil is moist but
-      not waterlogged. During hot and dry spells, additional watering may be necessary.
-    Light: Most rose varieties prefer full sunlight, meaning at least six hours of
-      direct sunlight per day. Some varieties can also tolerate partial shade.
-    Humidity: Roses prefer drier air, but they can tolerate moderate humidity. Higher
-      humidity can lead to fungal diseases.
-    Temperature: Roses are hardy and can tolerate a range of temperatures. Most varieties
-      prefer a temperature range of 60 to 75 degrees Fahrenheit.
-    PH Level: 'Roses prefer slightly acidic soil, with a pH range of 6.0-6.5. '
-    Suggested Placement Area: Roses can be grown indoors in pots, but they are more
-      commonly grown outdoors in gardens or containers. Plant them in well-draining
-      soil and in an area with good air circulation.
-    Others: Roses benefit from regular fertilization and pruning. It's also important
-      to inspect them regularly for pests and diseases, and treat them promptly if
-      necessary.
 user22: {}
 user3:
   plant0:
@@ -588,3 +568,36 @@ user7:
       not waterlogged.
 user8: {}
 user9: {}
+user23: {}
+user24:
+  2cedb4ce-da97-445a-9e0b-299c601ba14d:
+    Overview: Roses are beautiful flowering plants known for their fragrant and vibrant
+      flowers. They come in various colors and can add beauty to any garden or indoor
+      space.
+    Water: Roses generally require regular watering, especially during the growing
+      season. It's important to keep the soil evenly moist, but not waterlogged. Water
+      deeply and thoroughly, ensuring that the water reaches the roots. Avoid overhead
+      watering as it can lead to the development of fungal diseases.
+    Light: Roses thrive in full sun, ideally receiving at least 6-8 hours of direct
+      sunlight each day. They require bright and direct light for proper growth and
+      flower production.
+    Humidity: Roses can tolerate a wide range of humidity levels but generally prefer
+      average to slightly higher humidity. Normal room humidity is usually sufficient,
+      but if the air is particularly dry, you can increase humidity around the plant
+      by using a humidifier or placing a tray of water nearby.
+    Temperature: "Most roses prefer moderate temperatures between 60-75\xB0F (15-24\xB0\
+      C) during the day and slightly cooler temperatures around 50-60\xB0F (10-15\xB0\
+      C) at night. However, different rose varieties have different temperature requirements,\
+      \ so it's always best to choose varieties that are suitable for your climate."
+    PH Level: Roses prefer slightly acidic to neutral soil with a pH range between
+      6.0 and 7.0. You can check the soil pH using a pH testing kit available at garden
+      centers. If the soil is too acidic, you can add organic matter or lime to adjust
+      the pH level.
+    Suggested Placement Area: Roses are typically grown outdoors in sunny areas, either
+      in garden beds or containers. They require ample space for their roots to spread
+      and good air circulation. When growing roses indoors, choose a location near
+      a bright window where they can receive adequate sunlight.
+    Others: Roses benefit from regular feeding with a balanced rose fertilizer during
+      the growing season. Pruning is also essential to maintain their shape and promote
+      new growth. Regularly monitor for common pests and diseases like aphids, black
+      spot, and powdery mildew, and take appropriate measures to protect the plant.

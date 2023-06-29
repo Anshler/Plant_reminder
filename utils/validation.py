@@ -115,7 +115,7 @@ def simple_signup_vadilation(username, email, password):
     info['email'] = email.lower()
     info['password'] = password
     info['subscription_status'] = 'free'
-    info['energy'] = 100
+    info['energy'] = 50.0
     info['seed'] = 3
 
     auth[new_user]=info
