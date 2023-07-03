@@ -5,11 +5,6 @@ try:
 except ImportError:
     import importlib_resources as resources
 
-def request_permissions():
-    if platform == 'android':
-        from android.permissions import request_permissions, Permission
-        request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
-
 def get_file_path(file:str):
     if platform == 'android':
         import android

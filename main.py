@@ -1,3 +1,4 @@
+import os
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
@@ -21,6 +22,8 @@ from kivy.utils import platform
 from kivy.resources import resource_add_path
 if platform == 'android':
     import android
+    from android.permissions import request_permissions, Permission
+    request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
     project_dir = android.PythonActivity.mActivity.getFilesDir().getAbsolutePath()
     resource_add_path(project_dir)
     from utils.dict_encoding import *
@@ -48,7 +51,6 @@ else:
     from utils.transaction import *
     from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
     from virtual_pet.chatbot import PlantGPT
-
 
 Config.set('graphics', 'fullscreen', 'auto')
 Config.set('graphics', 'window_state', 'maximized')
@@ -2134,7 +2136,7 @@ class PlantApp(MDApp):
     def dark_grey(self):
         return self.theme_list[self.theme]['dark_grey']
     def play_sound(self, filename):
-        sound = SoundLoader.load('soundfx/'+filename)
+        sound = SoundLoader.load(self.get_file_path('soundfx/'+filename))
         if sound:
             sound.volume = self.volume
             sound.play()
@@ -2145,6 +2147,12 @@ class PlantApp(MDApp):
         kv = Builder.load_file('layout/MainLayout.kv')
         return kv
 
+    def get_file_path(self,file: str):
+        if platform == 'android':
+            import android
+            return os.path.join(android.storage.app_storage_path(), file)
+        else:
+            return file
 
 if __name__ == '__main__':
     PlantApp().run()

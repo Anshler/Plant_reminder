@@ -39,7 +39,7 @@ WindowManager:
             size: self.size
     Image:
         id: logo
-        source: 'layout/img/logo.png'
+        source: app.get_file_path('layout/img/logo.png')
         size_hint: 1/3,None
         height: self.width
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
@@ -83,7 +83,7 @@ WindowManager:
         FloatLayout:
             pos_hint: {'center_x':0.5, 'center_y':0.6275}
             Image:
-                source: 'layout/img/psswrd.png'
+                source: app.get_file_path('layout/img/psswrd.png')
                 size_hint: 1,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -103,7 +103,7 @@ WindowManager:
         FloatLayout:
             pos_hint: {'center_x':0.5,'center_y':0.8875}
             Image:
-                source: 'layout/img/usrnm.png'
+                source: app.get_file_path('layout/img/usrnm.png')
                 size_hint: 1,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -134,7 +134,7 @@ WindowManager:
             Image:
                 id: login_button_image
                 color: 1, 1, 1, 1  # Set image color to full opacity
-                source: 'layout/img/login.png'
+                source: app.get_file_path('layout/img/login.png')
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
@@ -234,7 +234,7 @@ WindowManager:
                 root.release_button(self)
             Image:
                 id: login_google_image
-                source: 'layout/img/signin_google.png'
+                source: app.get_file_path('layout/img/signin_google.png')
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
@@ -265,7 +265,7 @@ WindowManager:
                 root.release_button(self)
             Image:
                 id: login_facebook_image
-                source: 'layout/img/signin_facebook.png'
+                source: app.get_file_path('layout/img/signin_facebook.png')
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
@@ -311,7 +311,7 @@ WindowManager:
                 root.release_back(self)
             Image:
                 id: back_button_image
-                source: 'layout/img/backbutton.png'
+                source: app.get_file_path('layout/img/backbutton.png')
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 width: self.parent.width
@@ -358,7 +358,7 @@ WindowManager:
             Image:
                 id: next_forget_button_image
                 color: 1, 1, 1, 1  # Set image color to full opacity
-                source: 'layout/img/login.png'
+                source: app.get_file_path('layout/img/login.png')
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
@@ -378,7 +378,7 @@ WindowManager:
         FloatLayout:
             pos_hint: {'center_x':0.5,'center_y':0.8875}
             Image:
-                source: 'layout/img/email.png'
+                source: app.get_file_path('layout/img/email.png')
                 size_hint: 1,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -433,7 +433,7 @@ WindowManager:
                 root.release_back(self)
             Image:
                 id: back_button_image
-                source: 'layout/img/backbutton.png'
+                source: app.get_file_path('layout/img/backbutton.png')
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 width: self.parent.width
@@ -563,7 +563,7 @@ WindowManager:
             on_release: root.to_new_pass(self)
             Image:
                 id: confirm_otp_button_image
-                source: 'layout/img/login.png'
+                source: app.get_file_path('layout/img/login.png')
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
@@ -649,7 +649,7 @@ WindowManager:
         FloatLayout:
             pos_hint: {'center_x':0.5, 'center_y':0.6275}
             Image:
-                source: 'layout/img/psswrd.png'
+                source: app.get_file_path('layout/img/psswrd.png')
                 size_hint: 1,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -668,7 +668,7 @@ WindowManager:
         FloatLayout:
             pos_hint: {'center_x':0.5,'center_y':0.8875}
             Image:
-                source: 'layout/img/psswrd.png'
+                source: app.get_file_path('layout/img/psswrd.png')
                 size_hint: 1,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -698,7 +698,7 @@ WindowManager:
             on_release: root.login(self)
             Image:
                 id: confirm_new_pass_button_image
-                source: 'layout/img/login.png'
+                source: app.get_file_path('layout/img/login.png')
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
@@ -750,7 +750,7 @@ WindowManager:
             on_release: root.signup(self)
             Image:
                 id: sign_up_button_image
-                source: 'layout/img/login.png'
+                source: app.get_file_path('layout/img/login.png')
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
@@ -806,7 +806,7 @@ WindowManager:
         FloatLayout:
             pos_hint: {'center_x':0.5, 'center_y':0.1125}
             Image:
-                source: 'layout/img/psswrd.png'
+                source: app.get_file_path('layout/img/psswrd.png')
                 size_hint: 1,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -826,7 +826,7 @@ WindowManager:
         FloatLayout:
             pos_hint: {'center_x':0.5, 'center_y':0.3725}
             Image:
-                source: 'layout/img/psswrd.png'
+                source: app.get_file_path('layout/img/psswrd.png')
                 size_hint: 1,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -846,7 +846,7 @@ WindowManager:
         FloatLayout:
             pos_hint: {'center_x':0.5, 'center_y':0.6275}
             Image:
-                source: 'layout/img/email.png'
+                source: app.get_file_path('layout/img/email.png')
                 size_hint: 1,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -864,7 +864,7 @@ WindowManager:
         FloatLayout:
             pos_hint: {'center_x':0.5,'center_y':0.8875}
             Image:
-                source: 'layout/img/usrnm.png'
+                source: app.get_file_path('layout/img/usrnm.png')
                 size_hint: 1,None
                 height: self.width/6
                 pos_hint: {'center_x':0.5,'center_y':0.5}
@@ -922,7 +922,7 @@ WindowManager:
                 root.release_button(self)
             Image:
                 id: login_google_image
-                source: 'layout/img/signin_google.png'
+                source: app.get_file_path('layout/img/signin_google.png')
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
@@ -953,7 +953,7 @@ WindowManager:
                 root.release_button(self)
             Image:
                 id: login_facebook_image
-                source: 'layout/img/signin_facebook.png'
+                source: app.get_file_path('layout/img/signin_facebook.png')
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
@@ -999,7 +999,7 @@ WindowManager:
                 root.release_back(self)
             Image:
                 id: back_button_image
-                source: 'layout/img/backbutton.png'
+                source: app.get_file_path('layout/img/backbutton.png')
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 width: self.parent.width
@@ -1129,7 +1129,7 @@ WindowManager:
             on_release: root.to_master_screen(self)
             Image:
                 id: confirm_otp_button_image
-                source: 'layout/img/login.png'
+                source: app.get_file_path('layout/img/login.png')
                 width: self.parent.width
                 height: self.parent.height
                 center_x: self.parent.center_x
@@ -1183,7 +1183,7 @@ WindowManager:
     auto_dismiss: False
     size_hint: 0.8,0.2
     pos_hint: {'center_x': 0.5, 'y': 0.5}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'Are you sure you want to logout?'
     title_align: 'left'
@@ -1265,7 +1265,7 @@ WindowManager:
                     size_hint: None, 0.5
                     width: self.height
                     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                    source: 'layout/img/logo.png'
+                    source: app.get_file_path('layout/img/logo.png')
                     allow_stretch: True
             LineSeparator:
             # donate_us
@@ -1311,7 +1311,7 @@ WindowManager:
                         width: self.height
                         x: self.parent.x
                         center_y: self.parent.center_y
-                        source: 'layout/img/MoMo_logo.png'
+                        source: app.get_file_path('layout/img/MoMo_logo.png')
             # paypal
             FloatLayout:
                 size_hint: 1,None
@@ -1337,7 +1337,7 @@ WindowManager:
                         width: self.height
                         x: self.parent.x
                         center_y: self.parent.center_y
-                        source: 'layout/img/Paypal_logo.png'
+                        source: app.get_file_path('layout/img/Paypal_logo.png')
             LineSeparator:
             # logout
             FloatLayout:
@@ -1411,7 +1411,7 @@ WindowManager:
                         size_hint: None, 0.03
                         width: self.height
                         pos_hint: {'x':0.05, 'top':0.99}
-                        source: 'layout/img/energy.png'
+                        source: app.get_file_path('layout/img/energy.png')
                         color: app.primary_font_color
                         fit_mode: 'fill'
                     Label:
@@ -1430,7 +1430,7 @@ WindowManager:
                         width: self.height
                         center_x: energy_image.center_x
                         top: energy_image.y*0.99
-                        source: 'layout/img/seed.png'
+                        source: app.get_file_path('layout/img/seed.png')
                         color: app.primary_font_color
                         fit_mode: 'fill'
                     Label:
@@ -1492,7 +1492,7 @@ WindowManager:
                         pos: self.pos
                         size: self.size
             Image:
-                source: 'layout/img/setting_icon.png'
+                source: app.get_file_path('layout/img/setting_icon.png')
                 height: self.parent.height*0.8
                 width: self.height
                 center_x: self.parent.center_x
@@ -1524,12 +1524,12 @@ WindowManager:
         name: 'shopping_page'
 
 <NotificationButton>:
-    avatar: 'layout/img/default_plant_avatar.png'
+    avatar: app.get_file_path('layout/img/default_plant_avatar.png')
     time_remain: 'You\'re free this week!'
     task: 'No task'
     represent_color: app.primary_font_color
     name: ''
-    task_avatar: 'layout/img/emoticon-outline.png'
+    task_avatar: app.get_file_path('layout/img/emoticon-outline.png')
     callable_id: ''
     day: ''
 
@@ -1673,8 +1673,8 @@ WindowManager:
     Button:
         size_hint: 1,1
         pos_hint: {'center_x': 0.5, 'center_y':0.5}
-        background_down: 'layout/img/white_blank.png'
-        background_normal: 'layout/img/white_blank.png'
+        background_down: app.get_file_path('layout/img/white_blank.png')
+        background_normal: app.get_file_path('layout/img/white_blank.png')
         background_color: 0,0,0,0
         on_press:
             app.play_sound('next.wav')
@@ -1748,8 +1748,8 @@ WindowManager:
     Button:
         size_hint: 1,1
         pos_hint: {'center_x': 0.5, 'center_y':0.5}
-        background_down: 'layout/img/white_blank.png'
-        background_normal: 'layout/img/white_blank.png'
+        background_down: app.get_file_path('layout/img/white_blank.png')
+        background_normal: app.get_file_path('layout/img/white_blank.png')
         background_color: 0,0,0,0
         on_press:
             app.play_sound('next.wav')
@@ -1817,7 +1817,7 @@ WindowManager:
     auto_dismiss: False
     size_hint: 0.8,0.2
     pos_hint: {'center_x': 0.5, 'y': 0.5}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'Are you sure you want to quit creation?'
     title_align: 'left'
@@ -1878,7 +1878,7 @@ WindowManager:
     auto_dismiss: True
     size_hint: 0.8,0.2
     pos_hint: {'center_x': 0.5, 'y': 0.5}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'Unable to confirm the specie of your plant, please try again'
     title_align: 'left'
@@ -1890,7 +1890,7 @@ WindowManager:
     auto_dismiss: False
     size_hint: 0.8,0.2
     pos_hint: {'center_x': 0.5, 'y': 0.5}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'Are you sure all of the information is correct?'
     title_align: 'left'
@@ -1951,7 +1951,7 @@ WindowManager:
     auto_dismiss: True
     size_hint: 0.8,0.2
     pos_hint: {'center_x': 0.5, 'y': 0.5}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: ''
     title_align: 'center'
@@ -1964,7 +1964,7 @@ WindowManager:
     auto_dismiss: False
     size_hint: 0.9,0.5
     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'Do you want to automatically create a schedule for your plant? (based on the information you provided)'
     title_align: 'left'
@@ -2044,7 +2044,7 @@ WindowManager:
     auto_dismiss: False
     size_hint: 1,0.8
     pos_hint: {'center_x': 0.5, 'y': 1.15/12}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'Pick a color to represent your plant'
     title_align: 'left'
@@ -2120,7 +2120,7 @@ WindowManager:
     auto_dismiss: False
     size_hint: 0.8,0.2
     pos_hint: {'center_x': 0.5, 'y': 0.5}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'Are you sure you want to delete this profile?'
     title_align: 'left'
@@ -2182,8 +2182,8 @@ WindowManager:
     pos_hint: {'center_x':0.5}
     valign: 'center'
     halign: 'center'
-    background_down: 'layout/img/white_blank.png'
-    background_normal: 'layout/img/white_blank.png'
+    background_down: app.get_file_path('layout/img/white_blank.png')
+    background_normal: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     text_size: self.size
     color: app.primary_font_color
@@ -2199,7 +2199,7 @@ WindowManager:
     auto_dismiss: True
     size_hint: 0.5, 0.8
     pos_hint: {'x': 0.4, 'y': 1.15/12}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'Pick a year'
     title_align: 'center'
@@ -2294,7 +2294,7 @@ WindowManager:
                             height: self.parent.height
                             center_x: self.parent.center_x
                             center_y: self.parent.center_y
-                            source: 'layout/img/overview.png'
+                            source: app.get_file_path('layout/img/overview.png')
                             allow_stretch: True
                             color: app.primary_background_color
             MDLabel:
@@ -2347,7 +2347,7 @@ WindowManager:
                             height: self.parent.height
                             center_x: self.parent.center_x
                             center_y: self.parent.center_y
-                            source: 'layout/img/water.png'
+                            source: app.get_file_path('layout/img/water.png')
                             allow_stretch: True
                             color: app.primary_background_color
             MDLabel:
@@ -2400,7 +2400,7 @@ WindowManager:
                             height: self.parent.height
                             center_x: self.parent.center_x
                             center_y: self.parent.center_y
-                            source: 'layout/img/light.png'
+                            source: app.get_file_path('layout/img/light.png')
                             allow_stretch: True
                             color: app.primary_background_color
             MDLabel:
@@ -2453,7 +2453,7 @@ WindowManager:
                             height: self.parent.height
                             center_x: self.parent.center_x
                             center_y: self.parent.center_y
-                            source: 'layout/img/humidity.png'
+                            source: app.get_file_path('layout/img/humidity.png')
                             allow_stretch: True
                             color: app.primary_background_color
             MDLabel:
@@ -2506,7 +2506,7 @@ WindowManager:
                             height: self.parent.height
                             center_x: self.parent.center_x
                             center_y: self.parent.center_y
-                            source: 'layout/img/temperature.png'
+                            source: app.get_file_path('layout/img/temperature.png')
                             allow_stretch: True
                             color: app.primary_background_color
             MDLabel:
@@ -2559,7 +2559,7 @@ WindowManager:
                             height: self.parent.height
                             center_x: self.parent.center_x
                             center_y: self.parent.center_y
-                            source: 'layout/img/ph_level.png'
+                            source: app.get_file_path('layout/img/ph_level.png')
                             allow_stretch: True
                             color: app.primary_background_color
             MDLabel:
@@ -2612,7 +2612,7 @@ WindowManager:
                             height: self.parent.height
                             center_x: self.parent.center_x
                             center_y: self.parent.center_y
-                            source: 'layout/img/placement.png'
+                            source: app.get_file_path('layout/img/placement.png')
                             allow_stretch: True
                             color: app.primary_background_color
             MDLabel:
@@ -2665,7 +2665,7 @@ WindowManager:
                             height: self.parent.height
                             center_x: self.parent.center_x
                             center_y: self.parent.center_y
-                            source: 'layout/img/others.png'
+                            source: app.get_file_path('layout/img/others.png')
                             allow_stretch: True
                             color: app.primary_background_color
             MDLabel:
@@ -2732,7 +2732,7 @@ WindowManager:
             size_hint: None, 0.03
             width: self.height*2
             pos_hint: {'center_x': 0.5, 'center_y': 0.975}
-            source: 'layout/img/two_dash.png'
+            source: app.get_file_path('layout/img/two_dash.png')
             color: app.primary_font_color
             allow_stretch: True
         Button:
@@ -2828,7 +2828,7 @@ WindowManager:
                                         height: self.parent.height
                                         center_x: self.parent.center_x
                                         center_y: self.parent.center_y
-                                        source: 'layout/img/camera.png'
+                                        source: app.get_file_path('layout/img/camera.png')
                                         allow_stretch: True
                                         color: app.primary_background_color
                             FloatLayout:
@@ -2841,7 +2841,7 @@ WindowManager:
                                     size_hint: None, 0.7
                                     width: self.height
                                     pos_hint: {'center_x': 0.5, 'center_y': 0.45}
-                                    source: 'layout/img/color_wheel.png'
+                                    source: app.get_file_path('layout/img/color_wheel.png')
                                     allow_stretch: True
                                     color: root.represent_color
                                 FitImage:
@@ -2849,7 +2849,7 @@ WindowManager:
                                     size_hint: None, 0.6
                                     width: self.height
                                     pos_hint: {'center_x': 0.5, 'center_y': 0.45}
-                                    source: 'layout/img/default_plant_avatar.png'
+                                    source: app.get_file_path('layout/img/default_plant_avatar.png')
                                     allow_stretch: True
                                     radius: self.height/2, self.height/2, self.height/2, self.height/2
                                 Button:
@@ -2871,7 +2871,7 @@ WindowManager:
                                         height: self.parent.height
                                         center_x: self.parent.center_x
                                         center_y: self.parent.center_y
-                                        source: 'layout/img/camera.png'
+                                        source: app.get_file_path('layout/img/camera.png')
                                         allow_stretch: True
                                         color: app.primary_font_color
                                 # color picker
@@ -2902,7 +2902,7 @@ WindowManager:
                                         height: self.parent.height
                                         center_x: self.parent.center_x
                                         center_y: self.parent.center_y
-                                        source: 'layout/img/color_picker.png'
+                                        source: app.get_file_path('layout/img/color_picker.png')
                                         allow_stretch: True
                                         color: 0.5,0.5,0.5,0.5
                             # line separator
@@ -2942,7 +2942,7 @@ WindowManager:
                                         height: self.parent.height
                                         center_x: self.parent.center_x
                                         center_y: self.parent.center_y
-                                        source: 'layout/img/manual_input.png'
+                                        source: app.get_file_path('layout/img/manual_input.png')
                                         allow_stretch: True
                                         color: app.primary_background_color
 
@@ -3007,7 +3007,7 @@ WindowManager:
                                         height: self.parent.height
                                         center_x: self.parent.center_x
                                         center_y: self.parent.center_y
-                                        source: 'layout/img/age.png'
+                                        source: app.get_file_path('layout/img/age.png')
                                         allow_stretch: True
                                         color: app.primary_background_color
 
@@ -3044,7 +3044,7 @@ WindowManager:
                                     height: self.parent.height
                                     center_x: self.parent.center_x
                                     center_y: self.parent.center_y
-                                    source: 'layout/img/arrow_up.png'
+                                    source: app.get_file_path('layout/img/arrow_up.png')
                                     allow_stretch: True
                                     color: app.primary_background_color
 
@@ -3083,7 +3083,7 @@ WindowManager:
                                         height: self.parent.height
                                         center_x: self.parent.center_x
                                         center_y: self.parent.center_y
-                                        source: 'layout/img/location.png'
+                                        source: app.get_file_path('layout/img/location.png')
                                         allow_stretch: True
                                         color: app.primary_background_color
 
@@ -3137,7 +3137,7 @@ WindowManager:
                                         height: self.parent.height
                                         center_x: self.parent.center_x
                                         center_y: self.parent.center_y
-                                        source: 'layout/img/extra_note.png'
+                                        source: app.get_file_path('layout/img/extra_note.png')
                                         allow_stretch: True
                                         color: app.primary_background_color
 
@@ -3289,7 +3289,7 @@ WindowManager:
                                 height: self.parent.height
                                 center_x: self.parent.center_x
                                 center_y: self.parent.center_y
-                                source: 'layout/img/color.png'
+                                source: app.get_file_path('layout/img/color.png')
                                 allow_stretch: True
                                 color: app.primary_background_color
                         Image:
@@ -3298,7 +3298,7 @@ WindowManager:
                             width: self.height
                             pos_hint: {'x': 0.6, 'center_y':0.5}
                             allow_stretch: True
-                            source: 'layout/img/otp_input.png'
+                            source: app.get_file_path('layout/img/otp_input.png')
                             color: 0,0,0,0
                 # Line separator
                 LineSeparator:
@@ -3352,7 +3352,7 @@ WindowManager:
                                 height: self.parent.height
                                 center_x: self.parent.center_x
                                 center_y: self.parent.center_y
-                                source: 'layout/img/overview.png'
+                                source: app.get_file_path('layout/img/overview.png')
                                 allow_stretch: True
                                 color: app.primary_background_color
                 MDLabel:
@@ -3402,7 +3402,7 @@ WindowManager:
                                 height: self.parent.height
                                 center_x: self.parent.center_x
                                 center_y: self.parent.center_y
-                                source: 'layout/img/water.png'
+                                source: app.get_file_path('layout/img/water.png')
                                 allow_stretch: True
                                 color: app.primary_background_color
                 MDLabel:
@@ -3452,7 +3452,7 @@ WindowManager:
                                 height: self.parent.height
                                 center_x: self.parent.center_x
                                 center_y: self.parent.center_y
-                                source: 'layout/img/light.png'
+                                source: app.get_file_path('layout/img/light.png')
                                 allow_stretch: True
                                 color: app.primary_background_color
                 MDLabel:
@@ -3502,7 +3502,7 @@ WindowManager:
                                 height: self.parent.height
                                 center_x: self.parent.center_x
                                 center_y: self.parent.center_y
-                                source: 'layout/img/humidity.png'
+                                source: app.get_file_path('layout/img/humidity.png')
                                 allow_stretch: True
                                 color: app.primary_background_color
                 MDLabel:
@@ -3552,7 +3552,7 @@ WindowManager:
                                 height: self.parent.height
                                 center_x: self.parent.center_x
                                 center_y: self.parent.center_y
-                                source: 'layout/img/temperature.png'
+                                source: app.get_file_path('layout/img/temperature.png')
                                 allow_stretch: True
                                 color: app.primary_background_color
                 MDLabel:
@@ -3602,7 +3602,7 @@ WindowManager:
                                 height: self.parent.height
                                 center_x: self.parent.center_x
                                 center_y: self.parent.center_y
-                                source: 'layout/img/ph_level.png'
+                                source: app.get_file_path('layout/img/ph_level.png')
                                 allow_stretch: True
                                 color: app.primary_background_color
                 MDLabel:
@@ -3652,7 +3652,7 @@ WindowManager:
                                 height: self.parent.height
                                 center_x: self.parent.center_x
                                 center_y: self.parent.center_y
-                                source: 'layout/img/placement.png'
+                                source: app.get_file_path('layout/img/placement.png')
                                 allow_stretch: True
                                 color: app.primary_background_color
                 MDLabel:
@@ -3702,7 +3702,7 @@ WindowManager:
                                 height: self.parent.height
                                 center_x: self.parent.center_x
                                 center_y: self.parent.center_y
-                                source: 'layout/img/others.png'
+                                source: app.get_file_path('layout/img/others.png')
                                 allow_stretch: True
                                 color: app.primary_background_color
                 MDLabel:
@@ -3789,7 +3789,7 @@ WindowManager:
                 root.release_back(self)
             Image:
                 id: back_button_image
-                source: 'layout/img/backbutton.png'
+                source: app.get_file_path('layout/img/backbutton.png')
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 width: self.parent.width
@@ -3842,7 +3842,7 @@ WindowManager:
             pos: self.pos
             size: self.size
     plant_name: 'plant'
-    avatar: 'layout/img/default_plant_avatar.png'
+    avatar: app.get_file_path('layout/img/default_plant_avatar.png')
     represent_color: 0,0,0,1
     loaded: False
     FloatLayout: # Back_button_region
@@ -3867,7 +3867,7 @@ WindowManager:
                 root.release_back(self)
             Image:
                 id: back_button_image
-                source: 'layout/img/arrow-left.png'
+                source: app.get_file_path('layout/img/arrow-left.png')
                 color: app.primary_background_color
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
@@ -3995,7 +3995,7 @@ WindowManager:
                     height: self.parent.height
                     center_x: self.parent.center_x
                     center_y: self.parent.center_y
-                    source: 'layout/img/send_button.png'
+                    source: app.get_file_path('layout/img/send_button.png')
                     color: app.primary_background_color
 
     FloatLayout:
@@ -4020,10 +4020,10 @@ WindowManager:
         text: 'Load conversation'
         font_size: self.height/2
         color: app.secondary_font_color
-        background_normal: 'layout/img/otp_input.png'
-        background_down: 'layout/img/otp_input.png'
-        background_disabled_normal: 'layout/img/otp_input.png'
-        background_disabled_down: 'layout/img/otp_input.png'
+        background_normal: app.get_file_path('layout/img/otp_input.png')
+        background_down: app.get_file_path('layout/img/otp_input.png')
+        background_disabled_normal: app.get_file_path('layout/img/otp_input.png')
+        background_disabled_down: app.get_file_path('layout/img/otp_input.png')
         background_color: app.secondary_background_color
         on_press:
             app.play_sound('search.wav')
@@ -4039,7 +4039,7 @@ WindowManager:
         width: self.height
         pos_hint: {'top':0.945}
         x: avatar_image.right
-        source: 'layout/img/energy.png'
+        source: app.get_file_path('layout/img/energy.png')
         color: app.primary_font_color
         fit_mode: 'fill'
     Label:
@@ -4057,7 +4057,7 @@ WindowManager:
     auto_dismiss: False
     size_hint: 0.8,0.25
     pos_hint: {'center_x': 0.5, 'y': 0.5}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'This is a Premium feature only. Upgrade to Premium or higher to unlock'
     title_align: 'center'
@@ -4166,7 +4166,7 @@ WindowManager:
                 root.load_filter_selector(self)
             Image:
                 id: filter_button_image
-                source: 'layout/img/filter.png'
+                source: app.get_file_path('layout/img/filter.png')
                 size: self.parent.size
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
@@ -4208,7 +4208,7 @@ WindowManager:
                 root.start_filtering()
             Image:
                 id: search_button_image
-                source: 'layout/img/search.png'
+                source: app.get_file_path('layout/img/search.png')
                 size: self.parent.size
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
@@ -4228,9 +4228,9 @@ WindowManager:
             text: 'normal'
             font_size: self.parent.height/4
             color: app.background_color if root.mode == 'normal' else app.secondary_font_color
-            background_normal: 'layout/img/otp_input.png'
-            background_down: 'layout/img/otp_input.png'
-            background_disabled_normal: 'layout/img/otp_input.png'
+            background_normal: app.get_file_path('layout/img/otp_input.png')
+            background_down: app.get_file_path('layout/img/otp_input.png')
+            background_disabled_normal: app.get_file_path('layout/img/otp_input.png')
             background_color: app.highlight_button if root.mode == 'normal' else app.dark_grey
             on_press:
                 app.play_sound('next2.wav')
@@ -4246,9 +4246,9 @@ WindowManager:
             text: 'chat'
             font_size: self.parent.height/4
             color: app.background_color if root.mode != 'normal' else app.secondary_font_color
-            background_normal: 'layout/img/otp_input.png'
-            background_down: 'layout/img/otp_input.png'
-            background_disabled_normal: 'layout/img/otp_input.png'
+            background_normal: app.get_file_path('layout/img/otp_input.png')
+            background_down: app.get_file_path('layout/img/otp_input.png')
+            background_disabled_normal: app.get_file_path('layout/img/otp_input.png')
             background_color: app.highlight_button if root.mode != 'normal' else app.dark_grey
             on_press:
                 app.play_sound('next2.wav')
@@ -4544,7 +4544,7 @@ WindowManager:
     auto_dismiss: False
     size_hint: 0.9,0.5
     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'Do you want to automatically create a new schedule for your plant? (based on the information you provided when creating)'
     title_align: 'left'
@@ -4632,7 +4632,7 @@ WindowManager:
         disabled: True
         size_hint: 1,1
         pos_hint: {'center_x':0.5, 'center_y': 0.5}
-        background_disabled_normal: 'layout/img/white_blank.png'
+        background_disabled_normal: app.get_file_path('layout/img/white_blank.png')
         background_color: root.background_color
 
     FloatLayout:
@@ -4672,7 +4672,7 @@ WindowManager:
     auto_dismiss: True
     size_hint: 0.8, 0.5
     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-    background: 'layout/img/white_blank.png'
+    background: app.get_file_path('layout/img/white_blank.png')
     background_color: app.background_color
     title: 'Select a plant'
     title_align: 'center'
@@ -4747,7 +4747,7 @@ WindowManager:
                             root.load_filter_selector(self)
                         Image:
                             id: filter_button_image
-                            source: 'layout/img/filter.png' if filter_button.content == 'none_filter' else 'layout/img/filter_active.png'
+                            source: app.get_file_path('layout/img/filter.png') if filter_button.content == 'none_filter' else app.get_file_path('layout/img/filter_active.png')
                             size: self.parent.size
                             center_x: self.parent.center_x
                             center_y: self.parent.center_y
@@ -5026,7 +5026,7 @@ WindowManager:
 
 <CommunityPage>:
     Image:
-        source: 'layout/img/community.png'
+        source: app.get_file_path('layout/img/community.png')
         keep_ratio: True
         color: 1, 1, 1, 1  # Set image color to full opacity
 
@@ -5115,7 +5115,7 @@ WindowManager:
                 root.release_back(self)
             Image:
                 id: back_button_image
-                source: 'layout/img/backbutton.png'
+                source: app.get_file_path('layout/img/backbutton.png')
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 width: self.parent.width
@@ -5138,8 +5138,8 @@ WindowManager:
             text: '  Common name'
             text_size: self.size
             color: app.primary_font_color
-            background_down: 'layout/img/white_blank.png'
-            background_normal: 'layout/img/white_blank.png'
+            background_down: app.get_file_path('layout/img/white_blank.png')
+            background_normal: app.get_file_path('layout/img/white_blank.png')
             background_color: app.secondary_background_color
             valign: 'center'
             font_size: self.height*0.4
@@ -5154,8 +5154,8 @@ WindowManager:
             text: '  Scientific name'
             text_size: self.size
             color: app.primary_font_color
-            background_down: 'layout/img/white_blank.png'
-            background_normal: 'layout/img/white_blank.png'
+            background_down: app.get_file_path('layout/img/white_blank.png')
+            background_normal: app.get_file_path('layout/img/white_blank.png')
             background_color: 0,0,0,0
             valign: 'center'
             font_size: self.height*0.4
@@ -5170,8 +5170,8 @@ WindowManager:
             text: '  None'
             text_size: self.size
             color: app.primary_font_color
-            background_down: 'layout/img/white_blank.png'
-            background_normal: 'layout/img/white_blank.png'
+            background_down: app.get_file_path('layout/img/white_blank.png')
+            background_normal: app.get_file_path('layout/img/white_blank.png')
             background_color: 0,0,0,0
             valign: 'center'
             font_size: self.height*0.4
@@ -5197,8 +5197,8 @@ WindowManager:
             text: '  Recently added'
             text_size: self.size
             color: app.primary_font_color
-            background_down: 'layout/img/white_blank.png'
-            background_normal: 'layout/img/white_blank.png'
+            background_down: app.get_file_path('layout/img/white_blank.png')
+            background_normal: app.get_file_path('layout/img/white_blank.png')
             background_color: app.background_color
             valign: 'center'
             font_size: self.height*0.4
@@ -5213,8 +5213,8 @@ WindowManager:
             text: '  A to Z'
             text_size: self.size
             color: app.primary_font_color
-            background_down: 'layout/img/white_blank.png'
-            background_normal: 'layout/img/white_blank.png'
+            background_down: app.get_file_path('layout/img/white_blank.png')
+            background_normal: app.get_file_path('layout/img/white_blank.png')
             background_color: 0,0,0,0
             valign: 'center'
             font_size: self.height*0.4
@@ -5229,8 +5229,8 @@ WindowManager:
             text: '  Z to A'
             text_size: self.size
             color: app.primary_font_color
-            background_down: 'layout/img/white_blank.png'
-            background_normal: 'layout/img/white_blank.png'
+            background_down: app.get_file_path('layout/img/white_blank.png')
+            background_normal: app.get_file_path('layout/img/white_blank.png')
             background_color: 0,0,0,0
             valign: 'center'
             font_size: self.height*0.4
@@ -5245,8 +5245,8 @@ WindowManager:
             text: '  Oldest'
             text_size: self.size
             color: app.primary_font_color
-            background_down: 'layout/img/white_blank.png'
-            background_normal: 'layout/img/white_blank.png'
+            background_down: app.get_file_path('layout/img/white_blank.png')
+            background_normal: app.get_file_path('layout/img/white_blank.png')
             background_color: 0,0,0,0
             valign: 'center'
             font_size: self.height*0.4
@@ -5300,7 +5300,7 @@ WindowManager:
                 root.load_filter_selector(self)
             Image:
                 id: filter_button_image
-                source: 'layout/img/filter.png'
+                source: app.get_file_path('layout/img/filter.png')
                 size: self.parent.size
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
@@ -5341,7 +5341,7 @@ WindowManager:
                 root.release_button(self)
             Image:
                 id: search_button_image
-                source: 'layout/img/search.png'
+                source: app.get_file_path('layout/img/search.png')
                 size: self.parent.size
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
@@ -5542,7 +5542,7 @@ WindowManager:
             id: pro_tier_checkmark
             size_hint: 0.75,0.75
             pos_hint: {'center_x':0.5,'center_y':0.5}
-            source: 'layout/img/check-bold.png'
+            source: app.get_file_path('layout/img/check-bold.png')
             color: app.primary_background_color
             fit_mode: 'contain'
         Button:
@@ -5563,7 +5563,7 @@ WindowManager:
         size_hint: None,0.05
         width: self.height
         pos_hint: {'x':0.1, 'center_y':0.5}
-        source: 'layout/img/energy.png'
+        source: app.get_file_path('layout/img/energy.png')
         color: app.primary_font_color
         fit_mode: 'contain'
     Label:
@@ -5815,7 +5815,7 @@ WindowManager:
         size_hint: None,0.05
         width: self.height
         pos_hint: {'x':0.1, 'center_y':0.3}
-        source: 'layout/img/seed.png'
+        source: app.get_file_path('layout/img/seed.png')
         color: app.primary_font_color
         fit_mode: 'contain'
     Label:
@@ -6108,7 +6108,7 @@ WindowManager:
             on_release:
                 root.home_buttons_animation(self)
             Image:
-                source: 'layout/img/home_button.png'
+                source: app.get_file_path('layout/img/home_button.png')
                 height: self.parent.height*0.6
                 width: self.height
                 center_x: self.parent.center_x
@@ -6127,7 +6127,7 @@ WindowManager:
             on_release:
                 root.home_buttons_animation(self)
             Image:
-                source: 'layout/img/plant_button.png'
+                source: app.get_file_path('layout/img/plant_button.png')
                 height: self.parent.height*0.6
                 width: self.height
                 center_x: self.parent.center_x
@@ -6144,7 +6144,7 @@ WindowManager:
             on_release:
                 root.home_buttons_animation(self)
             Image:
-                source: 'layout/img/calendar_button.png'
+                source: app.get_file_path('layout/img/calendar_button.png')
                 height: self.parent.height*0.6
                 width: self.height
                 center_x: self.parent.center_x
@@ -6161,7 +6161,7 @@ WindowManager:
             on_release:
                 root.home_buttons_animation(self)
             Image:
-                source: 'layout/img/community_button.png'
+                source: app.get_file_path('layout/img/community_button.png')
                 height: self.parent.height*0.6
                 width: self.height
                 center_x: self.parent.center_x
@@ -6178,7 +6178,7 @@ WindowManager:
             on_release:
                 root.home_buttons_animation(self)
             Image:
-                source: 'layout/img/wiki_button.png'
+                source: app.get_file_path('layout/img/wiki_button.png')
                 height: self.parent.height*0.6
                 width: self.height
                 center_x: self.parent.center_x
@@ -6195,7 +6195,7 @@ WindowManager:
             on_release:
                 root.home_buttons_animation(self)
             Image:
-                source: 'layout/img/shopping_button.png'
+                source: app.get_file_path('layout/img/shopping_button.png')
                 height: self.parent.height*0.6
                 width: self.height
                 center_x: self.parent.center_x
