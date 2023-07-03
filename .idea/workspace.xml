@@ -2,32 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c8d3c64-286f-4f73-a94f-e05dc96f5b77" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/utils/android_port.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ENV.py" beforeDir="false" afterPath="$PROJECT_DIR$/ENV.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/calendar_full.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/calendar_full.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/cycle.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/cycle.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_calendar.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_conversation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_conversation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_selector.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_selector_advanced.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/meta_config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/meta_config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gpt3.py" beforeDir="false" afterPath="$PROJECT_DIR$/gpt3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/cycle.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/cycle.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_conversation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_conversation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/user.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/calendar_compiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/calendar_compiler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/had_startup.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/had_startup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/otp_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/otp_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/plant_profile_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/plant_profile_management.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/transaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/transaction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/validation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -344,14 +319,7 @@
       <workItem from="1688113657707" duration="598000" />
       <workItem from="1688284167186" duration="1239000" />
       <workItem from="1688354513887" duration="369000" />
-      <workItem from="1688355676945" duration="2680000" />
-    </task>
-    <task id="LOCAL-00022" summary="update">
-      <created>1684347713020</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1684347713020</updated>
+      <workItem from="1688355676945" duration="2733000" />
     </task>
     <task id="LOCAL-00023" summary="update">
       <created>1684419844863</created>
@@ -689,7 +657,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688059736485</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="update">
+      <created>1688358419266</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1688358419266</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
