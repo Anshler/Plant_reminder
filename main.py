@@ -21,8 +21,6 @@ from functools import partial
 from kivy.utils import platform
 if platform == 'android':
     import android
-    from android.storage import app_storage_path
-    from android import mActivity
     from android.permissions import request_permissions, Permission
     request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
 from utils.dict_encoding import *
@@ -2132,18 +2130,8 @@ class PlantApp(MDApp):
         self.today = datetime.datetime.today().strftime('%A, %d %B')
         kv = Builder.load_file('layout/MainLayout.kv')
         return kv
-
     def get_file_path(self,file: str):
-        if platform == 'android':
-            context = mActivity.getApplicationContext()
-            result = context.getExternalFilesDir(None)  # don't forget the argument
-            if result:
-                storage_path = str(result.toString())
-            else:
-                storage_path = app_storage_path()
-            return os.path.join(storage_path, file)
-        else:
-            return file
+        return file
 
 if __name__ == '__main__':
     PlantApp().run()

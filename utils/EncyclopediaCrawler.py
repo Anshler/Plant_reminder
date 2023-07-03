@@ -1,13 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
-import scrapy
 import re
 
-class SearchDisplayItems(scrapy.Item):
-    url = scrapy.Field()
-    name = scrapy.Field()
-    type = scrapy.Field()
-    info = scrapy.Field()
+class SearchDisplayItems:
+    def __init__(self, url='', type='', name='', info=''):
+        self.fields = {
+            'url': url,
+            'type': type,
+            'name': name,
+            'info': info
+        }
+    def __getitem__(self, key):
+        return self.fields[key]
+    def __setitem__(self, key, value):
+        self.fields[key] = value
 
 def SearchDisplay(url):
     item_list = []
@@ -30,16 +36,13 @@ def SearchDisplay(url):
         item['url'] = element_url
         try:
             item['name'] = name_info[0]
-        except:
-            item['name'] = ''
+        except: pass
         try:
             item['type'] = name_info[1]
-        except:
-            item['type'] = ''
+        except: pass
         try:
             item['info'] = name_info[2]
-        except:
-            item['info'] = ''
+        except: pass
         item_list.append(item)
 
     for element in fieldsets[-1].find_all('a'):

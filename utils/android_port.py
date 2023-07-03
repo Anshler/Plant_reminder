@@ -1,5 +1,6 @@
 import os
 from kivy.utils import platform
+from kivy.resources import resource_find
 if platform == 'android':
     from android.storage import app_storage_path
     from android import mActivity
@@ -8,7 +9,7 @@ else:
         from importlib import resources
     except ImportError:
         import importlib_resources as resources
-def get_file_path(file:str):
+def get_external_file_path(file:str):
     if platform == 'android':
         context = mActivity.getApplicationContext()
         result = context.getExternalFilesDir(None)  # don't forget the argument
@@ -23,3 +24,5 @@ def get_file_path(file:str):
             return resources.path('', file[0])
         else:
             return resources.path('.'.join(file[:-1]), file[-1])
+def get_file_path(file:str):
+    return file
