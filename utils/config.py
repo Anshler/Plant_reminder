@@ -1,6 +1,14 @@
 # set configuration e.g: theme
 import yaml
-from utils.android_port import get_file_path
+from kivy.utils import platform
+from kivy.resources import resource_add_path
+if platform == 'android':
+    import android
+    project_dir = android.PythonActivity.mActivity.getFilesDir().getAbsolutePath()
+    resource_add_path(project_dir)
+    from utils.android_port import get_file_path
+else:
+    from utils.android_port import get_file_path
 
 meta_config = yaml.safe_load(open(get_file_path('app_config/meta_config.yaml'),encoding='utf-8'))
 theme_list = yaml.safe_load(open(get_file_path('app_config/theme.yaml'),encoding='utf-8'))

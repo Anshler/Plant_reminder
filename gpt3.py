@@ -2,9 +2,20 @@ from pychatgpt import ChatGPT
 import openai
 import tiktoken
 import json
-from utils.plant_profile_management import clean_calendar
-from ENV import OPENAI_API_KEY
-from utils.android_port import get_file_path
+from kivy.utils import platform
+from kivy.resources import resource_add_path
+if platform == 'android':
+    import android
+    project_dir = android.PythonActivity.mActivity.getFilesDir().getAbsolutePath()
+    resource_add_path(project_dir)
+    from utils.plant_profile_management import clean_calendar
+    from ENV import OPENAI_API_KEY
+    from utils.android_port import get_file_path
+else:
+    from utils.plant_profile_management import clean_calendar
+    from ENV import OPENAI_API_KEY
+    from utils.android_port import get_file_path
+
 botanical_assistant = open(get_file_path('app_config/botanical_assistant.txt'),encoding='utf-8').read()
 real_plant_classifier = open(get_file_path('app_config/real_plant_classifier.txt'),encoding='utf-8').read()
 calendar_builder = open(get_file_path('app_config/calendar_builder.txt'),encoding='utf-8').read()

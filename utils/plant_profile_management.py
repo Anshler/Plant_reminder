@@ -1,10 +1,20 @@
 import threading
 import yaml
 import random
-from utils.calendar_compiler import *
-from virtual_pet.personality import *
+from kivy.utils import platform
+from kivy.resources import resource_add_path
+if platform == 'android':
+    import android
+    project_dir = android.PythonActivity.mActivity.getFilesDir().getAbsolutePath()
+    resource_add_path(project_dir)
+    from utils.calendar_compiler import *
+    from virtual_pet.personality import *
+    from utils.android_port import get_file_path
+else:
+    from utils.calendar_compiler import *
+    from virtual_pet.personality import *
+    from utils.android_port import get_file_path
 import uuid
-from utils.android_port import get_file_path
 # remove a plant from user profile------------------------------------------------------------------
 def simple_remove_key_plant_list(id, plant):
     # update local file

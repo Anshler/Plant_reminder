@@ -16,18 +16,39 @@ from kivy.uix.behaviors.touchripple import TouchRippleButtonBehavior
 from kivy.core.audio import SoundLoader
 from kivy.factory import Factory
 from functools import partial
-from utils.dict_encoding import *
-from utils.random_color import *
-from utils.config import *
-from utils.dict_filter import *
-from utils.format_check import isPasswordFormat,isUsernameFormat
-from utils.validation import *
-from utils.plant_profile_management import *
-from utils.had_startup import *
-from utils.EncyclopediaCrawler import *
-from utils.transaction import *
-from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
-from virtual_pet.chatbot import PlantGPT
+
+from kivy.utils import platform
+from kivy.resources import resource_add_path
+if platform == 'android':
+    import android
+    project_dir = android.PythonActivity.mActivity.getFilesDir().getAbsolutePath()
+    resource_add_path(project_dir)
+    from utils.dict_encoding import *
+    from utils.random_color import *
+    from utils.config import *
+    from utils.dict_filter import *
+    from utils.format_check import isPasswordFormat, isUsernameFormat
+    from utils.validation import *
+    from utils.plant_profile_management import *
+    from utils.had_startup import *
+    from utils.EncyclopediaCrawler import *
+    from utils.transaction import *
+    from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
+    from virtual_pet.chatbot import PlantGPT
+else:
+    from utils.dict_encoding import *
+    from utils.random_color import *
+    from utils.config import *
+    from utils.dict_filter import *
+    from utils.format_check import isPasswordFormat, isUsernameFormat
+    from utils.validation import *
+    from utils.plant_profile_management import *
+    from utils.had_startup import *
+    from utils.EncyclopediaCrawler import *
+    from utils.transaction import *
+    from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
+    from virtual_pet.chatbot import PlantGPT
+
 
 Config.set('graphics', 'fullscreen', 'auto')
 Config.set('graphics', 'window_state', 'maximized')

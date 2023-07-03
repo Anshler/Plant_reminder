@@ -1,1 +1,35 @@
-{}
+2cedb4ce-da97-445a-9e0b-299c601ba14d:
+  monday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: fertilize
+    hour: '12:00'
+    frequency: 2
+  tuesday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: prune
+    hour: '12:00'
+    frequency: 4
+  wednesday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  thursday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: mist
+    hour: '12:00'
+    frequency: 2
+  friday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  saturday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  sunday: []
