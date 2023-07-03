@@ -19,38 +19,24 @@ from kivy.factory import Factory
 from functools import partial
 
 from kivy.utils import platform
-from kivy.resources import resource_add_path
 if platform == 'android':
     import android
+    from android.storage import app_storage_path
+    from android import mActivity
     from android.permissions import request_permissions, Permission
     request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
-    project_dir = android.PythonActivity.mActivity.getFilesDir().getAbsolutePath()
-    resource_add_path(project_dir)
-    from utils.dict_encoding import *
-    from utils.random_color import *
-    from utils.config import *
-    from utils.dict_filter import *
-    from utils.format_check import isPasswordFormat, isUsernameFormat
-    from utils.validation import *
-    from utils.plant_profile_management import *
-    from utils.had_startup import *
-    from utils.EncyclopediaCrawler import *
-    from utils.transaction import *
-    from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
-    from virtual_pet.chatbot import PlantGPT
-else:
-    from utils.dict_encoding import *
-    from utils.random_color import *
-    from utils.config import *
-    from utils.dict_filter import *
-    from utils.format_check import isPasswordFormat, isUsernameFormat
-    from utils.validation import *
-    from utils.plant_profile_management import *
-    from utils.had_startup import *
-    from utils.EncyclopediaCrawler import *
-    from utils.transaction import *
-    from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
-    from virtual_pet.chatbot import PlantGPT
+from utils.dict_encoding import *
+from utils.random_color import *
+from utils.config import *
+from utils.dict_filter import *
+from utils.format_check import isPasswordFormat, isUsernameFormat
+from utils.validation import *
+from utils.plant_profile_management import *
+from utils.had_startup import *
+from utils.EncyclopediaCrawler import *
+from utils.transaction import *
+from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
+from virtual_pet.chatbot import PlantGPT
 
 Config.set('graphics', 'fullscreen', 'auto')
 Config.set('graphics', 'window_state', 'maximized')
@@ -2149,8 +2135,13 @@ class PlantApp(MDApp):
 
     def get_file_path(self,file: str):
         if platform == 'android':
-            import android
-            return os.path.join(android.storage.app_storage_path(), file)
+            context = mActivity.getApplicationContext()
+            result = context.getExternalFilesDir(None)  # don't forget the argument
+            if result:
+                storage_path = str(result.toString())
+            else:
+                storage_path = app_storage_path()
+            return os.path.join(storage_path, file)
         else:
             return file
 

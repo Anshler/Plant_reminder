@@ -2,17 +2,8 @@
 # this would all be replaced with api call
 import yaml
 import subprocess
-from kivy.utils import platform
-from kivy.resources import resource_add_path
-if platform == 'android':
-    import android
-    project_dir = android.PythonActivity.mActivity.getFilesDir().getAbsolutePath()
-    resource_add_path(project_dir)
-    from utils.plant_profile_management import *
-    from utils.android_port import get_file_path
-else:
-    from utils.plant_profile_management import *
-    from utils.android_port import get_file_path
+from utils.plant_profile_management import *
+from utils.android_port import get_file_path
 
 # Verify if username and password match/exist
 def simple_login_validation(username, password):

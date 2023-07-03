@@ -2,15 +2,7 @@ import datetime
 import yaml
 import numpy as np
 import threading
-from kivy.utils import platform
-from kivy.resources import resource_add_path
-if platform == 'android':
-    import android
-    project_dir = android.PythonActivity.mActivity.getFilesDir().getAbsolutePath()
-    resource_add_path(project_dir)
-    from utils.android_port import get_file_path
-else:
-    from utils.android_port import get_file_path
+from utils.android_port import get_file_path
 
 
 def update_calendar(id):

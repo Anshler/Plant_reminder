@@ -6,15 +6,7 @@ from langchain.schema import Document
 import tiktoken
 import openai
 import datetime
-from kivy.utils import platform
-from kivy.resources import resource_add_path
-if platform == 'android':
-    import android
-    project_dir = android.PythonActivity.mActivity.getFilesDir().getAbsolutePath()
-    resource_add_path(project_dir)
-    from ENV import OPENAI_API_KEY
-else:
-    from ENV import OPENAI_API_KEY
+from ENV import OPENAI_API_KEY
 
 
 openai.api_key = OPENAI_API_KEY

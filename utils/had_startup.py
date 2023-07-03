@@ -1,15 +1,7 @@
 # Check if user had login at least once in the past
 # if not, open signup screen, else, open login screen
 import yaml
-from kivy.utils import platform
-from kivy.resources import resource_add_path
-if platform == 'android':
-    import android
-    project_dir = android.PythonActivity.mActivity.getFilesDir().getAbsolutePath()
-    resource_add_path(project_dir)
-    from utils.android_port import get_file_path
-else:
-    from utils.android_port import get_file_path
+from utils.android_port import get_file_path
 def ReadHadStartup() -> bool:
     historical_startup = yaml.safe_load(open(get_file_path('app_config/had_startup.yaml'),'r'))
     status = historical_startup['had_startup']
