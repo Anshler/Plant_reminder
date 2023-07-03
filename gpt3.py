@@ -1,17 +1,13 @@
 from pychatgpt import ChatGPT
-try:
-    from importlib import resources
-except ImportError:
-    import importlib_resources as resources
 import openai
 import tiktoken
 import json
 from utils.plant_profile_management import clean_calendar
 from ENV import OPENAI_API_KEY
-
-botanical_assistant = open(resources.path('app_config','botanical_assistant.txt'),encoding='utf-8').read()
-real_plant_classifier = open(resources.path('app_config','real_plant_classifier.txt'),encoding='utf-8').read()
-calendar_builder = open(resources.path('app_config','calendar_builder.txt'),encoding='utf-8').read()
+from utils.android_port import get_file_path
+botanical_assistant = open(get_file_path('app_config/botanical_assistant.txt'),encoding='utf-8').read()
+real_plant_classifier = open(get_file_path('app_config/real_plant_classifier.txt'),encoding='utf-8').read()
+calendar_builder = open(get_file_path('app_config/calendar_builder.txt'),encoding='utf-8').read()
 session_token = ''
 openai.api_key = OPENAI_API_KEY
 

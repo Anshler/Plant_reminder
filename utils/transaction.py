@@ -4,14 +4,13 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from urllib.parse import urlparse, parse_qs
-
 def donate_us(source = 'momo'):
     if source == 'momo':
         webbrowser.open("https://me.momo.vn/3GIoiAigigT8iEukCpIy")
     elif source == 'paypal':
         webbrowser.open('https://paypal.me/plantreminder')
 
-def press_paypal_button(amount):
+def press_paypal_button(user, energy, seed, subscription_status, amount):
     try:
         master_url = 'http://localhost:8928/transaction'
         create_payment_url = master_url + '/payment'
@@ -22,7 +21,7 @@ def press_paypal_button(amount):
         if response.status_code == 200:
             print('create object successful')
             response_json = response.json()
-            #payment_id = response_json.get('paymentID')
+            payment_id = response_json.get('paymentID')
             redirect_url = response_json.get('redirect_url')
         else:
             print('Failed to create payment:', response.text)
@@ -35,20 +34,11 @@ def press_paypal_button(amount):
         # Wait for the payment completion URL
         wait = WebDriverWait(driver, 90)  # Replace with the actual completion URL
         element = wait.until(EC.url_contains(master_url))
-        # Extract the URL
-        try:
-            completion_url = driver.current_url
-            parsed_url = urlparse(completion_url)
-            query_params = parse_qs(parsed_url.query)
-            payer_id = query_params.get('PayerID', [''])[0]
-            payment_id = query_params.get('paymentId', [''])[0]
-        except Exception as e:
-            print(e)
-            return False
 
         # Send request to execute payment
-        response = requests.post(execute_payment_url, data={'paymentID': payment_id, 'payerID': payer_id})
-        print(response)
+        response = requests.post(execute_payment_url, data={'paymentID': payment_id,
+                                                            'userID': user, 'energy': energy, 'seed': seed,
+                                                            'subscription_status': subscription_status})
         if response.status_code == 200:
             success = response.json().get('success')
             if success:
@@ -58,6 +48,25 @@ def press_paypal_button(amount):
         else:
             return False
     except: return False
+
+def get_payer_id(payment_id):
+    payment_url = f"https://api.paypal.com/v1/payments/payment/{payment_id}"
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer YOUR_ACCESS_TOKEN'  # Replace with your PayPal access token
+    }
+
+    try:
+        response = requests.get(payment_url, headers=headers)
+        if response.status_code == 200:
+            payment_data = response.json()
+            payer_id = payment_data['payer']['payer_info']['payer_id']
+            return payer_id
+        else:
+            return None
+    except Exception as e:
+        print(e)
+        return None
 # Call the function to initiate the PayPal payment
 #press_paypal_button('4.00')
 

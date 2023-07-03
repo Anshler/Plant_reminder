@@ -1,12 +1,9 @@
 # validation for signup, signin, ...
 # this would all be replaced with api call
-try:
-    from importlib import resources
-except ImportError:
-    import importlib_resources as resources
 import yaml
 import subprocess
 from utils.plant_profile_management import *
+from utils.android_port import get_file_path
 # Verify if username and password match/exist
 def simple_login_validation(username, password):
     if username == '' or password == '':
@@ -14,7 +11,7 @@ def simple_login_validation(username, password):
         return False, None
     try:
         # This would be an api call
-        auth = yaml.safe_load(open('placeholder_server/user/user.yaml', encoding='utf-8'))
+        auth = yaml.safe_load(open(get_file_path('placeholder_server/user/user.yaml'), encoding='utf-8'))
         if auth is None:
             return False,None
         for user in auth:
@@ -34,7 +31,7 @@ def simple_email_validation(email) -> bool:
         return False
     try:
         # This would be an api call
-        auth = yaml.safe_load(open('placeholder_server/user/user.yaml', encoding='utf-8'))
+        auth = yaml.safe_load(open(get_file_path('placeholder_server/user/user.yaml'), encoding='utf-8'))
         if auth is None:
             return False
         for user in auth:
@@ -46,31 +43,31 @@ def simple_email_validation(email) -> bool:
 
 # Verify if new password is different from old
 def simple_password_validation(email,password):
-    with open('placeholder_server/user/user.yaml', 'r', encoding='utf-8') as f:
+    with open(get_file_path('placeholder_server/user/user.yaml'), 'r', encoding='utf-8') as f:
         auth = yaml.safe_load(f)
     for user in auth:
         if auth[user]['email'] == email.lower() and auth[user]['password'] != password:
             auth[user]['password'] = password
-            with open('placeholder_server/user/user.yaml', 'w', encoding='utf-8') as f:
+            with open(get_file_path('placeholder_server/user/user.yaml'), 'w', encoding='utf-8') as f:
                 yaml.safe_dump(auth, f)
             return True, user
     return False, None
 
 # Verify if OTP match
 def simple_otp_validation(text) -> bool:
-    otp = open(resources.path('placeholder_server','otp.txt')).read()
+    otp = open(get_file_path('placeholder_server/otp.txt')).read()
     if text == otp:
         return True
     return False
 
 def get_otp():
     # Call the OTP program as a separate process
-    subprocess.Popen("python " + str(resources.path('utils', 'otp_generator.py')))
+    subprocess.Popen("python " + str(get_file_path('utils/otp_generator.py')))
 
 def simple_new_user_validation(username) -> bool:
     # This would be an api call
     try:
-        auth = yaml.safe_load(open('placeholder_server/user/user.yaml', encoding='utf-8'))
+        auth = yaml.safe_load(open(get_file_path('placeholder_server/user/user.yaml'), encoding='utf-8'))
         if auth is None:
             return True
         for user in auth:
@@ -81,7 +78,7 @@ def simple_new_user_validation(username) -> bool:
 def simple_new_email_validation(email) -> bool:
     # This would be an api call
     try:
-        auth = yaml.safe_load(open('placeholder_server/user/user.yaml', encoding='utf-8'))
+        auth = yaml.safe_load(open(get_file_path('placeholder_server/user/user.yaml'), encoding='utf-8'))
         if auth is None:
             return True
         for user in auth:
@@ -92,7 +89,7 @@ def simple_new_email_validation(email) -> bool:
 
 def simple_signup_vadilation(username, email, password):
     # This would be an api call
-    auth = yaml.safe_load(open('placeholder_server/user/user.yaml', encoding='utf-8'))
+    auth = yaml.safe_load(open(get_file_path('placeholder_server/user/user.yaml'), encoding='utf-8'))
     plant_list = retrieve_plant_list()
     plant_list_advanced = retrieve_plant_list_advanced()
     plant_calendar = retrieve_plant_calendar()
@@ -125,16 +122,16 @@ def simple_signup_vadilation(username, email, password):
     cycle[new_user] = dict()
     calendar_full[new_user] = dict()
 
-    with open(resources.path('placeholder_server.user', 'user.yaml'), 'w', encoding='utf-8') as f:
+    with open(get_file_path('placeholder_server/user/user.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(auth, f, sort_keys= False)
-    with open(resources.path('placeholder_server.user', 'plant_selector.yaml'), 'w', encoding='utf-8') as f:
+    with open(get_file_path('placeholder_server/user/plant_selector.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(plant_list, f, sort_keys= False)
-    with open(resources.path('placeholder_server.user', 'plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
+    with open(get_file_path('placeholder_server/user/plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(plant_list_advanced, f, sort_keys= False)
-    with open(resources.path('placeholder_server.user', 'plant_calendar.yaml'), 'w', encoding='utf-8') as f:
+    with open(get_file_path('placeholder_server/user/plant_calendar.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(plant_calendar, f, sort_keys= False)
-    with open(resources.path('placeholder_server.user', 'cycle.yaml'), 'w', encoding='utf-8') as f:
+    with open(get_file_path('placeholder_server/user/cycle.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(cycle,f)
-    with open(resources.path('placeholder_server.user', 'calendar_full.yaml'), 'w', encoding='utf-8') as f:
+    with open(get_file_path('placeholder_server/user/calendar_full.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(calendar_full,f)
     return new_user

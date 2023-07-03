@@ -1,17 +1,14 @@
 import datetime
 import yaml
-try:
-    from importlib import resources
-except ImportError:
-    import importlib_resources as resources
 import numpy as np
 import threading
+from utils.android_port import get_file_path
 
 def update_calendar(id):
     # cycle is the first monday to final sunday when the previous calendar was first created.
     cycle = get_cycle()
-    task_list = yaml.safe_load(open(resources.path('app_config.local_user_file', 'plant_calendar.yaml'), encoding='utf-8'))
-    plant_list = yaml.safe_load(open(resources.path('app_config.local_user_file', 'plant_selector.yaml'), encoding='utf-8'))
+    task_list = yaml.safe_load(open(get_file_path('app_config/local_user_file/plant_calendar.yaml'), encoding='utf-8'))
+    plant_list = yaml.safe_load(open(get_file_path('app_config/local_user_file/plant_selector.yaml'), encoding='utf-8'))
     # number of weeks is smallest common multiple of all the task frequency
     frequencies = []
     for plant in task_list.values():
@@ -63,9 +60,9 @@ def update_calendar(id):
 
     calendar_full = add_task_to_calendar(data, task_list, plant_list)
 
-    with open(resources.path('app_config.local_user_file', 'cycle.yaml'), 'w', encoding='utf-8') as f:
+    with open(get_file_path('app_config/local_user_file/cycle.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(cycle,f)
-    with open(resources.path('app_config.local_user_file', 'calendar_full.yaml'), 'w', encoding='utf-8') as f:
+    with open(get_file_path('app_config/local_user_file/calendar_full.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(calendar_full,f)
 
     # make api call
@@ -78,9 +75,9 @@ def update_calendar_(id,current_cycle, current_calendar_full):
     cycle[id] = current_cycle
     calendar_full[id] = current_calendar_full
     # this will be an api call in the future
-    with open(resources.path('placeholder_server.user', 'cycle.yaml'), 'w', encoding='utf-8') as f:
+    with open(get_file_path('placeholder_server/user/cycle.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(cycle,f)
-    with open(resources.path('placeholder_server.user', 'calendar_full.yaml'), 'w', encoding='utf-8') as f:
+    with open(get_file_path('placeholder_server/user/calendar_full.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(calendar_full,f)
 
 def add_task_to_calendar(calendar, task_list, plant_list):
@@ -105,17 +102,17 @@ def add_task_to_calendar(calendar, task_list, plant_list):
     return calendar
 
 def get_cycle():
-    cycle = yaml.safe_load(open(resources.path('app_config.local_user_file', 'cycle.yaml'), encoding='utf-8'))
+    cycle = yaml.safe_load(open(get_file_path('app_config/local_user_file/cycle.yaml'), encoding='utf-8'))
     return cycle
 def get_calendar_full():
-    calendar_full = yaml.safe_load(open(resources.path('app_config.local_user_file', 'calendar_full.yaml'), encoding='utf-8'))
+    calendar_full = yaml.safe_load(open(get_file_path('app_config/local_user_file/calendar_full.yaml'), encoding='utf-8'))
     return calendar_full
 
 def retrieve_cycle():
-    cycle = yaml.safe_load(open(resources.path('placeholder_server.user', 'cycle.yaml'), encoding='utf-8'))
+    cycle = yaml.safe_load(open(get_file_path('placeholder_server/user/cycle.yaml'), encoding='utf-8'))
     return cycle
 def retrieve_calendar_full():
-    calendar_full = yaml.safe_load(open(resources.path('placeholder_server.user', 'calendar_full.yaml'), encoding='utf-8'))
+    calendar_full = yaml.safe_load(open(get_file_path('placeholder_server/user/calendar_full.yaml'), encoding='utf-8'))
     return calendar_full
 
 def get_current_week_range():

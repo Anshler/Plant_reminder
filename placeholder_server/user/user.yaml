@@ -129,5 +129,12 @@ user24:
   email: aloha31@gmail.com
   password: Aloha123
   subscription_status: free
-  energy: 382.68
-  seed: 22
+  energy: 682.6800000000001
+  seed: 27
+user25:
+  username: aloha21
+  email: aloha21@gmail.com
+  password: Aloha123
+  subscription_status: free
+  energy: 50.0
+  seed: 3

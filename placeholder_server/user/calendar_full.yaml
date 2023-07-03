@@ -8520,6 +8520,7 @@ user24:
         name: rose
         represent_color: *id018
         task: water
+user25: {}
 user3:
   2023-06-05_2023-06-11:
     friday:
