@@ -74,5 +74,5 @@ def SearchItem(url):
     return info, descryption
 
 
-items, pages = SearchDisplay('https://www.botanyvn.com/cnt.asp?param=edir&q=chim%20te&t=comname')
+#items, pages = SearchDisplay('https://www.botanyvn.com/cnt.asp?param=edir&q=chim%20te&t=comname')
 #info, descryption = SearchItem('https://www.botanyvn.com/cnt.asp?param=edir&v=Acanthophippium%20striatum&list=species')

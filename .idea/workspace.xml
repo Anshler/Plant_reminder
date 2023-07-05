@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c8d3c64-286f-4f73-a94f-e05dc96f5b77" name="Changes" comment="update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ENV.py" beforeDir="false" afterPath="$PROJECT_DIR$/ENV.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/cycle.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/cycle.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/meta_config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/meta_config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/cycle.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/cycle.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_conversation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_conversation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/user.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/EncyclopediaCrawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/EncyclopediaCrawler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -335,14 +324,7 @@
       <workItem from="1688372171100" duration="4233000" />
       <workItem from="1688378235108" duration="400000" />
       <workItem from="1688477978879" duration="687000" />
-      <workItem from="1688521244009" duration="375000" />
-    </task>
-    <task id="LOCAL-00028" summary="update">
-      <created>1685048590019</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1685048590019</updated>
+      <workItem from="1688521244009" duration="543000" />
     </task>
     <task id="LOCAL-00029" summary="update">
       <created>1685112071800</created>
@@ -680,7 +662,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688376425661</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="update">
+      <created>1688521775429</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1688521775430</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -726,7 +715,7 @@
     <SUITE FILE_PATH="coverage/virtual_chatbot$main.coverage" NAME="main Coverage Results" MODIFIED="1676883756855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$chatbot.coverage" NAME="chatbot Coverage Results" MODIFIED="1686991254215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$EncyclopediaCrawler__1_.coverage" NAME="EncyclopediaCrawler (1) Coverage Results" MODIFIED="1685131440154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/Plant_reminder$main.coverage" NAME="main Coverage Results" MODIFIED="1688478059569" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Plant_reminder$main.coverage" NAME="main Coverage Results" MODIFIED="1688521691368" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/virtual_chatbot$testt.coverage" NAME="testt Coverage Results" MODIFIED="1676882858987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Plant_reminder$otp.coverage" NAME="otp Coverage Results" MODIFIED="1684239521871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/Plant_reminder$app_layout.coverage" NAME="app_layout Coverage Results" MODIFIED="1686327900237" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
