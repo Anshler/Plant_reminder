@@ -1,4 +1,3 @@
-from pychatgpt import ChatGPT
 import openai
 import tiktoken
 import json
@@ -19,10 +18,11 @@ def get_chatgpt_classifier(prompt, mode ='paid'):
         try:
             wrapper_prompt = real_plant_classifier
             if mode == 'free':
-                model = ChatGPT(session_token)
-                prompt = wrapper_prompt + '\n' + prompt
-                resp = model.send_message(prompt)
-                resp = resp['message']
+                #model = ChatGPT(session_token)
+                #prompt = wrapper_prompt + '\n' + prompt
+                #resp = model.send_message(prompt)
+                #resp = resp['message']
+                pass
             else:
                 messages = [
                     {"role": "system", "content": wrapper_prompt},
@@ -45,11 +45,12 @@ def get_chatgpt_assistant(prompt, mode='paid'):
         try:
             wrapper_prompt = botanical_assistant.split('[PROMPT]')
             if mode == 'free':
-                model = ChatGPT(session_token)
-                wrapper_prompt = botanical_assistant.split('[PROMPT]')
-                prompt = wrapper_prompt[0] + prompt + wrapper_prompt[1]
-                resp = model.send_message(prompt)
-                resp = resp['message']
+                #model = ChatGPT(session_token)
+                #wrapper_prompt = botanical_assistant.split('[PROMPT]')
+                #prompt = wrapper_prompt[0] + prompt + wrapper_prompt[1]
+                #resp = model.send_message(prompt)
+                #resp = resp['message']
+                pass
             else:
                 messages = [
                         {"role": "system", "content": wrapper_prompt[0]},
@@ -74,11 +75,12 @@ def get_chatgpt_calendar(prompt, mode='paid'):
         try:
             wrapper_prompt = calendar_builder.split('[PROMPT]')
             if mode == 'free':
-                model = ChatGPT(session_token)
-                wrapper_prompt = botanical_assistant.split('[PROMPT]')
-                prompt = wrapper_prompt[0] + prompt + wrapper_prompt[1]
-                resp = model.send_message(prompt)
-                resp = resp['message']
+                #model = ChatGPT(session_token)
+                #wrapper_prompt = botanical_assistant.split('[PROMPT]')
+                #prompt = wrapper_prompt[0] + prompt + wrapper_prompt[1]
+                #resp = model.send_message(prompt)
+                #resp = resp['message']
+                pass
             else:
                 messages = [
                         {"role": "system", "content": wrapper_prompt[0]},
