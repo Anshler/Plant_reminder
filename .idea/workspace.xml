@@ -4,19 +4,6 @@
     <list default="true" id="1c8d3c64-286f-4f73-a94f-e05dc96f5b77" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ENV.py" beforeDir="false" afterPath="$PROJECT_DIR$/ENV.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_calendar.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_conversation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_conversation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_selector.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_selector_advanced.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/MainLayout.kv" beforeDir="false" afterPath="$PROJECT_DIR$/layout/MainLayout.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_conversation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_conversation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/user.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testt.py" beforeDir="false" afterPath="$PROJECT_DIR$/testt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtual_pet/chatbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_pet/chatbot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -362,14 +349,8 @@
       <workItem from="1688614213780" duration="44000" />
       <workItem from="1688615526993" duration="507000" />
       <workItem from="1688617007268" duration="7049000" />
-      <workItem from="1688632133290" duration="5576000" />
-    </task>
-    <task id="LOCAL-00031" summary="update">
-      <created>1685190922676</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1685190922676</updated>
+      <workItem from="1688632133290" duration="5754000" />
+      <workItem from="1688639467159" duration="94000" />
     </task>
     <task id="LOCAL-00032" summary="update">
       <created>1685374454683</created>
@@ -707,7 +688,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688615926749</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="update">
+      <created>1688639295986</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1688639295986</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
