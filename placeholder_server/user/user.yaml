@@ -142,6 +142,6 @@ user26:
   username: aloha22
   email: aloha22@gmail.com
   password: Aloha123
-  subscription_status: free
-  energy: 50.0
-  seed: 3
+  subscription_status: premium
+  energy: 5.299999999999999
+  seed: 1

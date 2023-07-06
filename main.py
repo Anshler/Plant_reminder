@@ -34,10 +34,10 @@ from utils.had_startup import *
 from utils.EncyclopediaCrawler import *
 from utils.transaction import *
 from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
-from virtual_pet.chatbot import PlantGPT
+from virtual_pet.chatbot import chat_with_plant_gpt
 
-Config.set('graphics', 'fullscreen', 'auto')
-Config.set('graphics', 'window_state', 'maximized')
+#Config.set('graphics', 'fullscreen', 'auto')
+#Config.set('graphics', 'window_state', 'maximized')
 
 from kivy.core.window import Window
 from kivymd.app import MDApp
@@ -464,20 +464,29 @@ class PlantChatScreen(Screen):
         current_username = MDApp.get_running_app().current_username
         current_plant = self.parent.parent.current_plant_chat
         plant_conversation = MDApp.get_running_app().plant_conversation
-        model = PlantGPT(user_input=user_input, user=current_username, plant_conversation=plant_conversation,
-                         id=current_plant)
-        MDApp.get_running_app().plant_conversation[current_plant], chat_reply, total_tokens_used = model.run()
-        MDApp.get_running_app().root.ids.master_screen.recalculate(energy= -total_tokens_used)
-        save_conversation(MDApp.get_running_app().plant_conversation, MDApp.get_running_app().current_user)
+        MDApp.get_running_app().plant_conversation[current_plant], chat_reply, total_tokens_used = chat_with_plant_gpt(
+            user_input=user_input, user=current_username, plant_conversation=plant_conversation[current_plant])
 
-        message = Message()
-        setattr(message, 'text', chat_reply)
-        setattr(message, 'side', 'left')
-        MDApp.get_running_app().play_sound('message.wav')
-        self.ids.message_boxlayout.add_widget(message)
+        if chat_reply != '' and chat_reply is not None:
+            MDApp.get_running_app().root.ids.master_screen.recalculate(energy= -total_tokens_used)
+            save_conversation(MDApp.get_running_app().plant_conversation, MDApp.get_running_app().current_user)
+
+            message = Message()
+            setattr(message, 'text', chat_reply)
+            setattr(message, 'side', 'left')
+            MDApp.get_running_app().play_sound('message.wav')
+            self.ids.message_boxlayout.add_widget(message)
+            print(total_tokens_used)
+        else:
+            message = Message()
+            setattr(message, 'color', MDApp.get_running_app().wrong_pass_warn)
+            setattr(message, 'text', 'Message failed to deliver, would you care to try again later?')
+            setattr(message, 'side', 'left')
+            MDApp.get_running_app().play_sound('message.wav')
+            self.ids.message_boxlayout.add_widget(message)
         self.ids.scroll_view.scroll_y = 0
 
-        print(total_tokens_used)
+
 class LineSeparator(FloatLayout):
     pass
 class CancelNewPlantPopup(Popup):

@@ -3803,6 +3803,7 @@ WindowManager:
     _size: 0, 0
     size: self._size
     text_size: None, None
+    color: app.primary_font_color
 
     Label:
         text: root.text
@@ -3811,7 +3812,7 @@ WindowManager:
         size: self.texture_size
         text_size: root.text_size
         font_size: Window.size[1]/40
-        color: app.primary_font_color if root.side == 'left' else app.background_color
+        color: root.color if root.side == 'left' else app.background_color
 
         on_texture_size:
             root.update_message_size(
