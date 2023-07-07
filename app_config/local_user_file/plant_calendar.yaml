@@ -1,2 +1,51 @@
 7590580c-e284-4910-ba4c-02a587834473: {}
-281cd5f5-f100-4755-a153-be190848cea0: {}
+281cd5f5-f100-4755-a153-be190848cea0:
+  monday:
+  - task: water
+    hour: 08:00
+    frequency: 1
+  - task: support
+    hour: '14:00'
+    frequency: 1
+  tuesday:
+  - task: water
+    hour: 08:00
+    frequency: 1
+  - task: support
+    hour: '14:00'
+    frequency: 1
+  wednesday:
+  - task: water
+    hour: 08:00
+    frequency: 1
+  - task: support
+    hour: '14:00'
+    frequency: 1
+  thursday:
+  - task: water
+    hour: 08:00
+    frequency: 1
+  - task: support
+    hour: '14:00'
+    frequency: 1
+  friday:
+  - task: water
+    hour: 08:00
+    frequency: 1
+  - task: support
+    hour: '14:00'
+    frequency: 1
+  saturday:
+  - task: water
+    hour: 08:00
+    frequency: 1
+  - task: support
+    hour: '14:00'
+    frequency: 1
+  sunday:
+  - task: water
+    hour: 08:00
+    frequency: 1
+  - task: support
+    hour: '14:00'
+    frequency: 1
