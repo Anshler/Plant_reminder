@@ -11,10 +11,9 @@ def chat_with_plant_gpt(user_input, user, plant_conversation):
 
     try:
         response = requests.post(url, json=data)
-        print(response.status_code)
         if response.status_code == 200:
             result = response.json()
-            return result['conversation'], result['chat_reply'], result['total_used_tokens']
+            return result['conversation'], result['chat_reply'], result['total_tokens_used']
         else:
             print(f"Request failed with status code {response.status_code}")
             return plant_conversation, '', 0

@@ -1,51 +1,102 @@
-7590580c-e284-4910-ba4c-02a587834473: {}
+7590580c-e284-4910-ba4c-02a587834473:
+  monday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: prune
+    hour: '10:00'
+    frequency: 2
+  - task: fertilize
+    hour: '14:00'
+    frequency: 3
+  tuesday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: prune
+    hour: '10:00'
+    frequency: 2
+  wednesday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  thursday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: prune
+    hour: '10:00'
+    frequency: 2
+  friday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  saturday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: prune
+    hour: '10:00'
+    frequency: 2
+  sunday:
+  - task: water
+    hour: 09:00
+    frequency: 1
 281cd5f5-f100-4755-a153-be190848cea0:
   monday:
   - task: water
     hour: 08:00
     frequency: 1
-  - task: support
-    hour: '14:00'
-    frequency: 1
-  tuesday:
-  - task: water
-    hour: 08:00
-    frequency: 1
-  - task: support
-    hour: '14:00'
-    frequency: 1
+  - task: prune
+    hour: '10:00'
+    frequency: 4
+  tuesday: []
   wednesday:
   - task: water
     hour: 08:00
     frequency: 1
-  - task: support
-    hour: '14:00'
-    frequency: 1
-  thursday:
-  - task: water
-    hour: 08:00
-    frequency: 1
-  - task: support
-    hour: '14:00'
-    frequency: 1
+  thursday: []
   friday:
-  - task: water
-    hour: 08:00
-    frequency: 1
-  - task: support
-    hour: '14:00'
-    frequency: 1
-  saturday:
-  - task: water
-    hour: 08:00
-    frequency: 1
-  - task: support
-    hour: '14:00'
-    frequency: 1
+  - task: prune
+    hour: '10:00'
+    frequency: 4
+  saturday: []
   sunday:
   - task: water
     hour: 08:00
     frequency: 1
-  - task: support
-    hour: '14:00'
+  - task: prune
+    hour: '10:00'
+    frequency: 4
+b3cd6a51-ec50-48cd-b7f4-0fdb5899b678:
+  monday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: fertilize
+    hour: '10:00'
+    frequency: 2
+  tuesday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  wednesday: []
+  thursday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  friday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: prune
+    hour: '10:00'
+    frequency: 4
+  saturday: []
+  sunday:
+  - task: water
+    hour: 09:00
+    frequency: 1
+  - task: mist
+    hour: '10:00'
     frequency: 1

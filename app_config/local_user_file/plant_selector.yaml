@@ -22,3 +22,15 @@
   date_added: 2023/07/06
   location: ''
   extra_notes: ''
+b3cd6a51-ec50-48cd-b7f4-0fdb5899b678:
+  name: rose
+  represent_color:
+  - 1
+  - 0.30000000000000004
+  - 0.30000000000000004
+  - 1
+  avatar: layout/img/default_plant_avatar.png
+  age: ''
+  date_added: 2023/07/08
+  location: ''
+  extra_notes: ''

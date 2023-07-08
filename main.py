@@ -36,8 +36,8 @@ from utils.transaction import *
 from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
 from virtual_pet.chatbot import chat_with_plant_gpt
 
-Config.set('graphics', 'fullscreen', 'auto')
-Config.set('graphics', 'window_state', 'maximized')
+#Config.set('graphics', 'fullscreen', 'auto')
+#Config.set('graphics', 'window_state', 'maximized')
 
 from kivy.core.window import Window
 from kivymd.app import MDApp
@@ -607,24 +607,29 @@ class ConfirmFinalStepPopup(Popup):
                     auto_calendar_prompt += '\nOwner\'s request: ' + plant_info['extra_notes'].strip()
                 auto_calendar_prompt += '\nJobs to perform:\n' + result['Water'] + '\n' + result['Humidity'] + '\n' + \
                                              result['Others']
-                schedule = {"monday": [],"tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],"thursday": [{"task": "water", "hour": "08:00", "frequency": 1},{"task": "mist", "hour": "08:00", "frequency": 1}],"friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],"saturday": [{"task": "water", "hour": "08:00", "frequency": 1}],"sunday": []}
+
                 schedule, total_tokens_used = get_chatgpt_calendar(auto_calendar_prompt)
-                MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
+                if total_tokens_used != 0:
+                    MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
 
-                simple_edit_plant_schedule(MDApp.get_running_app().current_user, new_plant_id, schedule)
-                update_calendar(MDApp.get_running_app().current_user)
-                MDApp.get_running_app().calendar_full = get_calendar_full()
-                MDApp.get_running_app().cycle = get_cycle()
+                    simple_edit_plant_schedule(MDApp.get_running_app().current_user, new_plant_id, schedule)
+                    update_calendar(MDApp.get_running_app().current_user)
+                    MDApp.get_running_app().calendar_full = get_calendar_full()
+                    MDApp.get_running_app().cycle = get_cycle()
 
-                # filter by id of new plant
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = new_plant_id
+                    # filter by id of new plant
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.filter_button.content = new_plant_id
 
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
-                self.dismiss()
-                MDApp.get_running_app().play_sound('sliding.wav')
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.quit_screen()
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.to_calendar()
+                    self.dismiss()
+                    MDApp.get_running_app().play_sound('sliding.wav')
+                else:
+                    self.dismiss()
+                    Factory.GoPrePopupFromCalendarCreation(
+                        title='Failed to create a schedule. Try again later').open()
             else:
                 self.dismiss()
                 Factory.GoPrePopupFromCalendarCreation(
@@ -677,11 +682,12 @@ class NewPlantInfoScreen(Screen):
         if self.location != '':
             prompt += '\nowner\'s location: ' + self.location
 
-        self.result = {'Overview': '','Water': 'Water the red rose every 3-4 days, make sure the soil is evenly moist but not waterlogged.', 'Light': 'Red roses prefer full sunlight for at least 6 hours a day. Place the plant near a south or west-facing window.', 'Humidity': 'Red roses prefer a moderate to high humidity level. Mist the leaves regularly, especially during dry seasons.', 'Temperature': 'Red roses prefer temperatures between 18°C to 24°C. Avoid exposing the plant to temperatures below 4°C or above 35°C.', 'PH Level': 'Red roses prefer slightly acidic soil with a pH level between 6.0 to 6.5.', 'Suggested Placement Area': 'Place the red rose in a spot with good air circulation and away from drafts. If kept outside, ensure it is not in direct sunlight all day. ', 'Others': 'Prune your rose regularly to remove dead or diseased parts and promote healthy growth. Provide support for the plant as it grows, as the branches can become heavy with flowers. Use a balanced fertilizer every two weeks during the growing season.'}
-        total_tokens_used = 1
         self.result, total_tokens_used = get_chatgpt_assistant(prompt)
-        MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
-
+        if total_tokens_used != 0:
+            self.ids.confirm_new_plant.disabled = False
+            MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
+        else:
+            self.ids.confirm_new_plant.disabled = True
         self.ids.overview.text = '• ' + self.result['Overview'].replace('. ', '\n• ')
         self.ids.water_tip.text = '• '+self.result['Water'].replace('. ', '\n• ')
         self.ids.light_tip.text = '• '+self.result['Light'].replace('. ', '\n• ')
@@ -1057,29 +1063,27 @@ class ConfirmEditCalendarPopup(Popup):
                 auto_calendar_prompt += '\nJobs to perform:\n' + plant_info_advanced['Water'] + '\n' + \
                                              plant_info_advanced['Humidity'] + '\n' + plant_info_advanced['Others']
                 # get schedule
-                schedule = {"monday": [], "tuesday": [{"task": "water", "hour": "08:00", "frequency": 1},
-                                                      {"task": "mist", "hour": "08:00", "frequency": 1}],
-                            "wednesday": [{"task": "prune", "hour": "10:00", "frequency": 1}],
-                            "thursday": [{"task": "water", "hour": "08:00", "frequency": 1},
-                                         {"task": "mist", "hour": "08:00", "frequency": 1}],
-                            "friday": [{"task": "fertilize", "hour": "12:00", "frequency": 2}],
-                            "saturday": [{"task": "water", "hour": "08:00", "frequency": 1}], "sunday": []}
                 schedule, total_tokens_used = get_chatgpt_calendar(auto_calendar_prompt)
-                MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
+                if total_tokens_used != 0:
+                    MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
 
-                simple_edit_plant_schedule(current_user, plant_id, schedule)
-                MDApp.get_running_app().plant_calendar = get_plant_calendar()
-                # update calendar full
-                update_calendar(MDApp.get_running_app().current_user)
-                MDApp.get_running_app().calendar_full = get_calendar_full()
-                MDApp.get_running_app().cycle = get_cycle()
+                    simple_edit_plant_schedule(current_user, plant_id, schedule)
+                    MDApp.get_running_app().plant_calendar = get_plant_calendar()
+                    # update calendar full
+                    update_calendar(MDApp.get_running_app().current_user)
+                    MDApp.get_running_app().calendar_full = get_calendar_full()
+                    MDApp.get_running_app().cycle = get_cycle()
 
-                # update calendar display in calendar page
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
-                MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.scroll_view.scroll_y = 1
-                self.dismiss()
-                MDApp.get_running_app().play_sound('sliding.wav')
+                    # update calendar display in calendar page
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.update_calendar_list()
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.change_day()
+                    MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.calendar_page.ids.scroll_view.scroll_y = 1
+                    self.dismiss()
+                    MDApp.get_running_app().play_sound('sliding.wav')
+                else:
+                    self.dismiss()
+                    Factory.GoPrePopupFromCalendarEdit(
+                        title='Failed to create a schedule. Try again later').open()
             else:
                 self.dismiss()
                 Factory.GoPrePopupFromCalendarEdit(
