@@ -1,8 +1,6 @@
-import os
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
-from kivy.config import Config
 from kivy.animation import Animation
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
@@ -11,7 +9,6 @@ from kivy.graphics import Color, Rectangle
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition, SlideTransition, CardTransition, NoTransition
 from kivy.clock import Clock
-from kivy.metrics import dp
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.behaviors.touchripple import TouchRippleButtonBehavior
 from kivy.core.audio import SoundLoader
@@ -20,7 +17,6 @@ from functools import partial
 
 from kivy.utils import platform
 if platform == 'android':
-    import android
     from android.permissions import request_permissions, Permission
     request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
 from utils.dict_encoding import *
@@ -33,7 +29,7 @@ from utils.plant_profile_management import *
 from utils.had_startup import *
 from utils.EncyclopediaCrawler import *
 from utils.transaction import *
-from gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
+from virtual_pet.gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
 from virtual_pet.chatbot import chat_with_plant_gpt
 
 #Config.set('graphics', 'fullscreen', 'auto')
@@ -43,7 +39,7 @@ from kivy.core.window import Window
 from kivymd.app import MDApp
 from kivymd.uix.list import ThreeLineIconListItem
 from kivymd.uix.behaviors import CommonElevationBehavior
-from kivymd.uix.relativelayout import MDRelativeLayout
+
 
 # Declare Main pages ----------------------------------------
 class TestPage(Screen):

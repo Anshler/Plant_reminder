@@ -2,29 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c8d3c64-286f-4f73-a94f-e05dc96f5b77" name="Changes" comment="update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ENV.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/botanical_assistant.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/calendar_builder.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/calendar_full.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/calendar_full.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/cycle.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/cycle.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_calendar.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_conversation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_conversation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_selector.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/local_user_file/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app_config/local_user_file/plant_selector_advanced.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_config/real_plant_classifier.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gpt3.py" beforeDir="false" afterPath="$PROJECT_DIR$/gpt3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layout/MainLayout.kv" beforeDir="false" afterPath="$PROJECT_DIR$/layout/MainLayout.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gpt3.py" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_pet/gpt3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/calendar_full.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/cycle.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/cycle.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_calendar.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_conversation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_conversation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/plant_selector_advanced.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/placeholder_server/user/user.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/placeholder_server/user/user.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testt.py" beforeDir="false" afterPath="$PROJECT_DIR$/testt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtual_pet/chatbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_pet/chatbot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,11 +50,11 @@
       <recent name="C:\Users\Chrysenberg69420\PycharmProjects\virtual_chatbot" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\virtual_pet" />
       <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\placeholder_server\templates" />
       <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\placeholder_server" />
       <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\chatbot" />
       <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\placeholder_server\user" />
-      <recent name="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\utils" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
@@ -158,7 +137,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gpt3.py" />
+      <option name="SCRIPT_NAME" value="D:\Users\Chrysenberg69420\PycharmProjects\Plant_reminder\virtual_pet\gpt3.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -377,14 +356,7 @@
       <workItem from="1688731179272" duration="724000" />
       <workItem from="1688732020229" duration="119000" />
       <workItem from="1688788170605" duration="6924000" />
-      <workItem from="1688798481573" duration="573000" />
-    </task>
-    <task id="LOCAL-00035" summary="update">
-      <created>1685553761719</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1685553761720</updated>
+      <workItem from="1688798481573" duration="669000" />
     </task>
     <task id="LOCAL-00036" summary="update">
       <created>1685556934035</created>
@@ -722,7 +694,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688731337499</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="update">
+      <created>1688799087476</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1688799087476</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

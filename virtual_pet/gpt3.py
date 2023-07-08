@@ -53,12 +53,3 @@ def get_chatgpt_calendar(prompt):
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
         return False, 0
-
-prompt = '''Plan's name: red rose
-Owner's location: kansas
-Jobs to perform:
-Water the red rose every 3-4 days, make sure the soil is evenly moist but not waterlogged.
-Red roses prefer a moderate to high humidity level. Mist the leaves regularly, especially during dry seasons.
-Prune your rose regularly to remove dead or diseased parts and promote healthy growth. Provide support for the plant as it grows, as the branches can become heavy with flowers. '''
-
-#print(get_chatgpt_assistant(prompt,'paid'))
