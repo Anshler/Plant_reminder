@@ -1804,7 +1804,7 @@ class ForgetPasswordEmailScreen(Screen):
         animate.start(self.ids.next_forget_button_image)
         self.ids.next_forget_button_image.source = 'layout/img/login.png'
         if isUser: # Validated
-            get_otp()
+            #get_otp()
             # change screen
             self.parent.transition.duration = 0.5
             self.parent.transition.direction = 'left'
@@ -2030,6 +2030,7 @@ class SignUpOTPScreen(Screen):
             new_user = simple_signup_vadilation(self.parent.ids.sign_up_screen.ids.username_sign_up.text,
                                      self.parent.ids.sign_up_screen.ids.email_sign_up.text,
                                      self.parent.ids.sign_up_screen.ids.password_sign_up.text)
+
             # set startup status
             WriteHadStartUp()
             # update

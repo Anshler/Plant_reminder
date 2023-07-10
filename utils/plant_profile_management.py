@@ -169,48 +169,6 @@ def update_plant_after_signup(id):
     with open(get_file_path('app_config/local_user_file/calendar_full.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(calendar_full, f)
 
-    # make api call
-    update_plant_after_signup_(id)
-
-def update_plant_after_signup_(id):
-    # after sign up, the new user id is created, which is not yet in plant_selection list
-    # so we create a relation by adding that new id
-    # make api call
-    basic = retrieve_plant_list()
-    advanced = retrieve_plant_list_advanced()
-    calendar = retrieve_plant_calendar()
-    conversation = retrieve_plant_conversation()
-    cycle = retrieve_cycle()
-    calendar_full = retrieve_calendar_full()
-
-    if basic is None:
-        basic = dict()
-        advanced = dict()
-        calendar = dict()
-        conversation = dict()
-        cycle = dict()
-        calendar_full = dict()
-
-    basic[id] = dict()
-    advanced[id] = dict()
-    calendar[id] = dict()
-    conversation[id] = dict()
-    cycle[id] = dict()
-    calendar_full[id] = dict()
-
-    with open(get_file_path('placeholder_server/user/plant_selector.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(basic, f, sort_keys= False)
-    with open(get_file_path('placeholder_server/user/plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(advanced, f, sort_keys= False)
-    with open(get_file_path('placeholder_server/user/plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar, f, sort_keys= False)
-    with open(get_file_path('placeholder_server/user/plant_conversation.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(conversation, f,sort_keys= False)
-    with open(get_file_path('placeholder_server/user/cycle.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(cycle,f)
-    with open(get_file_path('placeholder_server/user/calendar_full.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar_full,f)
-
 # Edit plant's calendar---------------------------------------------------------------------------------------
 def simple_edit_plant_schedule(user_id, plant_id, schedule):
     calendar = get_plant_calendar()

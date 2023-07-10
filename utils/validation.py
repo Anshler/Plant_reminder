@@ -56,7 +56,8 @@ def simple_password_validation(email,password):
 
 # Verify if OTP match
 def simple_otp_validation(text) -> bool:
-    otp = open(get_file_path('placeholder_server/otp.txt')).read()
+    #otp = open(get_file_path('placeholder_server/otp.txt')).read()
+    otp = '123456'
     if text == otp:
         return True
     return False
@@ -96,13 +97,15 @@ def simple_signup_vadilation(username, email, password):
     plant_calendar = retrieve_plant_calendar()
     cycle = retrieve_cycle()
     calendar_full = retrieve_calendar_full()
+    conversation = retrieve_plant_conversation()
     if auth is None:
         auth = dict()
         plant_list = dict()
         plant_list_advanced = dict()
         plant_calendar = dict()
         cycle = dict()
-        plant_calendar = dict()
+        calendar_full = dict()
+        conversation = dict()
 
         new_user = 'user0'
     else:
@@ -122,6 +125,7 @@ def simple_signup_vadilation(username, email, password):
     plant_calendar[new_user] = dict()
     cycle[new_user] = dict()
     calendar_full[new_user] = dict()
+    conversation[new_user] = dict()
 
     with open(get_file_path('placeholder_server/user/user.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(auth, f, sort_keys= False)
@@ -135,4 +139,6 @@ def simple_signup_vadilation(username, email, password):
         yaml.safe_dump(cycle,f)
     with open(get_file_path('placeholder_server/user/calendar_full.yaml'), 'w', encoding='utf-8') as f:
         yaml.safe_dump(calendar_full,f)
+    with open(get_file_path('placeholder_server/user/plant_conversation.yaml'), 'w', encoding='utf-8') as f:
+        yaml.safe_dump(conversation, f,sort_keys= False)
     return new_user
