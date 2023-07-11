@@ -19,7 +19,7 @@ from functools import partial
 from kivy.utils import platform
 if platform == 'android':
     from android.permissions import request_permissions, Permission
-    request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
+    request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE, Permission.INTERNET])
 from utils.dict_encoding import *
 from utils.random_color import *
 from utils.config import *
