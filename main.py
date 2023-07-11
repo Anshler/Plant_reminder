@@ -1871,7 +1871,7 @@ class ForgetPasswordOTPScreen(Screen):
         change_color.start(instance)
         # Make api call to resend code
         # request function()
-        get_otp()
+        #get_otp()
     def press_back(self,instance):
         animate = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
@@ -1968,7 +1968,7 @@ class SignUpScreen(Screen):
 
             # Send info with api call
             # request function()
-            get_otp()
+            #get_otp()
         else:
             # if validation failed
             animate = Animation(color = MDApp.get_running_app().wrong_pass_warn,
@@ -2057,7 +2057,7 @@ class SignUpOTPScreen(Screen):
         change_color.start(instance)
         # Make api call to resend code
         # request function()
-        get_otp()
+        #get_otp()
     def press_back(self,instance):
         animate = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
