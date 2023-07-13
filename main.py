@@ -1804,7 +1804,7 @@ class ForgetPasswordEmailScreen(Screen):
         animate.start(self.ids.next_forget_button_image)
         self.ids.next_forget_button_image.source = 'layout/img/login.png'
         if isUser: # Validated
-            #get_otp()
+            MDApp.get_running_app().otp = get_otp(self.ids.email_forget.text)
             # change screen
             self.parent.transition.duration = 0.5
             self.parent.transition.direction = 'left'
@@ -1834,6 +1834,13 @@ class ForgetPasswordEmailScreen(Screen):
             else: closest_screen = closest_screen.parent
 
 class ForgetPasswordOTPScreen(Screen):
+    def on_pre_enter(self, *args):
+        self.ids.otp_pass1.text = ''
+        self.ids.otp_pass2.text = ''
+        self.ids.otp_pass3.text = ''
+        self.ids.otp_pass4.text = ''
+        self.ids.otp_pass5.text = ''
+        self.ids.otp_pass6.text = ''
     def press_confirm_animation(self,instance): # Shrink button
         animate = Animation(width=instance.width*0.95, height= instance.height*0.95, disabled = True,
                             center_x = instance.center_x, center_y = instance.center_y, duration=0.01)
@@ -1844,7 +1851,7 @@ class ForgetPasswordOTPScreen(Screen):
         # request function()
         otp = str(self.ids.otp_pass1.text + self.ids.otp_pass2.text + self.ids.otp_pass3.text + \
               self.ids.otp_pass4.text + self.ids.otp_pass5.text + self.ids.otp_pass6.text)
-        isOTP = simple_otp_validation(otp)
+        isOTP = simple_otp_validation(MDApp.get_running_app().otp, otp)
         animate = Animation(width=instance.width, height=instance.height, disabled=False,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
         animate.start(self.ids.confirm_otp_button_image)
@@ -1871,7 +1878,7 @@ class ForgetPasswordOTPScreen(Screen):
         change_color.start(instance)
         # Make api call to resend code
         # request function()
-        #get_otp()
+        MDApp.get_running_app().otp = get_otp(self.parent.ids.forget_password_email_screen.ids.email_forget.text)
     def press_back(self,instance):
         animate = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
@@ -1968,7 +1975,7 @@ class SignUpScreen(Screen):
 
             # Send info with api call
             # request function()
-            #get_otp()
+            MDApp.get_running_app().otp = get_otp(self.ids.email_sign_up.text)
         else:
             # if validation failed
             animate = Animation(color = MDApp.get_running_app().wrong_pass_warn,
@@ -2011,6 +2018,13 @@ class SignUpScreen(Screen):
             self.parent.transition.direction = 'left'
             self.parent.current = 'login_screen'
 class SignUpOTPScreen(Screen):
+    def on_pre_enter(self, *args):
+        self.ids.otp_pass1.text = ''
+        self.ids.otp_pass2.text = ''
+        self.ids.otp_pass3.text = ''
+        self.ids.otp_pass4.text = ''
+        self.ids.otp_pass5.text = ''
+        self.ids.otp_pass6.text = ''
     def press_confirm_animation(self,instance): # Shrink button
         animate = Animation(width=instance.width*0.95, height= instance.height*0.95, disabled = True,
                             center_x = instance.center_x, center_y = instance.center_y, duration=0.01)
@@ -2021,7 +2035,7 @@ class SignUpOTPScreen(Screen):
         # request function()
         otp = str(self.ids.otp_pass1.text + self.ids.otp_pass2.text + self.ids.otp_pass3.text + \
               self.ids.otp_pass4.text + self.ids.otp_pass5.text + self.ids.otp_pass6.text)
-        isOTP = simple_otp_validation(otp)
+        isOTP = simple_otp_validation(MDApp.get_running_app().otp, otp)
         animate = Animation(width=instance.width, height=instance.height, disabled=False,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
         animate.start(self.ids.confirm_otp_button_image)
@@ -2057,7 +2071,7 @@ class SignUpOTPScreen(Screen):
         change_color.start(instance)
         # Make api call to resend code
         # request function()
-        #get_otp()
+        MDApp.get_running_app().otp = get_otp(self.parent.ids.sign_up_screen.ids.email_sign_up.text)
     def press_back(self,instance):
         animate = Animation(width=instance.width * 0.95, height=instance.height * 0.95, disabled=True,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
@@ -2103,6 +2117,7 @@ class PlantApp(MDApp):
     current_week_range = None
     current_day = None
 
+    otp = None
     @property
     def primary_font_color(self):
         return self.theme_list[self.theme]['primary_font_color']

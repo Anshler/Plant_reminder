@@ -4,7 +4,7 @@ import yaml
 import subprocess
 from utils.plant_profile_management import *
 from utils.android_port import get_file_path
-
+import requests
 # Verify if username and password match/exist
 def simple_login_validation(username, password):
     if username == '' or password == '':
@@ -55,16 +55,26 @@ def simple_password_validation(email,password):
     return False, None
 
 # Verify if OTP match
-def simple_otp_validation(text) -> bool:
-    #otp = open(get_file_path('placeholder_server/otp.txt')).read()
-    otp = '123456'
-    if text == otp:
+def simple_otp_validation(true_otp, otp) -> bool:
+    if true_otp[:6] == otp:
         return True
     return False
 
-def get_otp():
-    # Call the OTP program as a separate process
-    subprocess.Popen("python " + str(get_file_path('utils/otp_generator.py')))
+def get_otp(email) -> str:
+    url = "http://localhost:8928/otp"  # Replace with the appropriate URL of your Node.js server
+
+    data = {"email": email}
+    try:
+        response = requests.post(url, json=data)
+        if response.status_code == 200:
+            result = response.json()
+            return result['otp']
+        else:
+            print(f"Request failed with status code {response.status_code}")
+            return 'ERROR!'
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        return 'ERROR!'
 
 def simple_new_user_validation(username) -> bool:
     # This would be an api call

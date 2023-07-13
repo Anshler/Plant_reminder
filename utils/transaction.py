@@ -38,7 +38,7 @@ def press_paypal_button(user, energy, seed, subscription_status, amount):
         # Send request to execute payment
         response = requests.post(execute_payment_url, data={'paymentID': payment_id,
                                                             'userID': user, 'energy': energy, 'seed': seed,
-                                                            'subscription_status': subscription_status})
+                                                            'subscription_status': subscription_status,'amount':amount})
         if response.status_code == 200:
             success = response.json().get('success')
             if success:
