@@ -1767,13 +1767,14 @@ class LoginScreen(Screen):
 
         # Forget password-----------------------------------
         elif instance.name == 'forget_password':
-            change_size.start(self.ids.forget_password_image)
-            change_color += Animation(color=MDApp.get_running_app().secondary_font_color, duration=0.1)
-            change_color.start(instance)
+            #change_size.start(self.ids.forget_password_image)
+            #change_color += Animation(color=MDApp.get_running_app().secondary_font_color, duration=0.1)
+            #change_color.start(instance)
             # change screen
-            self.parent.transition.duration = 0.5
-            self.parent.transition.direction = 'left'
-            self.parent.current = 'forget_password_email_screen'
+            #self.parent.transition.duration = 0.5
+            #self.parent.transition.direction = 'left'
+            #self.parent.current = 'forget_password_email_screen'
+            pass
 
         # Sign up-------------------------------------------
         else:
@@ -1950,17 +1951,15 @@ class SignUpScreen(Screen):
     def signup(self,instance): # Expand button and validate
         isNewUser = False
         if not isUsernameFormat(self.ids.username_sign_up.text):
-            self.ids.wrong.text = 'username is insufficient'
-        elif not simple_new_user_validation(self.ids.username_sign_up.text):
-            self.ids.wrong.text = 'username already exist'
+            self.ids.wrong.text = 'Username is insufficient'
         elif not isUsernameFormat(self.ids.email_sign_up.text):
-            self.ids.wrong.text = 'email is insufficient'
-        elif not simple_new_email_validation(self.ids.email_sign_up.text):
-            self.ids.wrong.text = 'an account with this email already existed'
+            self.ids.wrong.text = 'Email is insufficient'
         elif not isPasswordFormat(self.ids.password_sign_up.text):
-            self.ids.wrong.text = 'password must be at least 8 characters,\n contain numbers and capital letters'
+            self.ids.wrong.text = 'Password must be at least 8 characters,\n contain numbers and capital letters'
         else:
-            isNewUser = True
+            message, isNewUser = simple_new_user_validation(self.ids.username_sign_up.text,self.ids.email_sign_up.text)
+            if not isNewUser:
+                self.ids.wrong.text = message
 
         animate = Animation(width=instance.width, height=instance.height, disabled = False,
                             center_x=instance.center_x, center_y=instance.center_y, duration=0.01)
@@ -2041,21 +2040,28 @@ class SignUpOTPScreen(Screen):
         animate.start(self.ids.confirm_otp_button_image)
         self.ids.confirm_otp_button_image.source = 'layout/img/login.png'
         if isOTP:
-            new_user = simple_signup_vadilation(self.parent.ids.sign_up_screen.ids.username_sign_up.text,
+            signup_status, new_user = simple_signup_vadilation(self.parent.ids.sign_up_screen.ids.username_sign_up.text,
                                      self.parent.ids.sign_up_screen.ids.email_sign_up.text,
                                      self.parent.ids.sign_up_screen.ids.password_sign_up.text)
-
-            # set startup status
-            WriteHadStartUp()
-            # update
-            update_plant_after_signup(new_user)
-            MDApp.get_running_app().current_user = new_user
-            # change screen
-            self.parent.transition.duration = 0.5
-            self.parent.transition.direction = 'up'
-            self.parent.current = 'master_screen'
+            if signup_status:
+                # set startup status
+                WriteHadStartUp()
+                # update
+                update_plant_after_signup(new_user)
+                MDApp.get_running_app().current_user = new_user
+                # change screen
+                self.parent.transition.duration = 0.5
+                self.parent.transition.direction = 'up'
+                self.parent.current = 'master_screen'
+            else:
+                # Validation failed
+                self.ids.wrong_otp.text = 'failed to validate'
+                animate = Animation(color=MDApp.get_running_app().wrong_pass_warn,
+                                    duration=0.2) + Animation(duration=1) + Animation(color=(0, 0, 0, 0), duration=0.5)
+                animate.start(self.ids.wrong_otp)
         else:
             # Validation failed
+            self.ids.wrong_otp.text = 'wrong otp'
             animate = Animation(color=MDApp.get_running_app().wrong_pass_warn,
                                 duration=0.2) + Animation(duration=1) + Animation(color=(0, 0, 0, 0), duration=0.5)
             animate.start(self.ids.wrong_otp)
