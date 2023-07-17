@@ -8,7 +8,6 @@ import requests
 # Verify if username and password match/exist
 def simple_login_validation(username, password):
     if username == '' or password == '':
-        print('can\'t login')
         return False, None
     try:
         url = 'http://localhost:8948/api/v1/auth/login?hl=en'
@@ -18,11 +17,14 @@ def simple_login_validation(username, password):
         }
         data = {
             'username': username.lower(),
+            'email': username.lower(),
             'password': password
         }
 
         response = requests.post(url, headers=headers, json=data)
         if response.status_code == 200:
+            # now we update local file content, they're not yet ported to server schema
+            content = response.json()
             auth = yaml.safe_load(open(get_file_path('placeholder_server/user/user.yaml'), encoding='utf-8'))
             if auth is None:
                 auth = dict()
@@ -34,43 +36,10 @@ def simple_login_validation(username, password):
                 conversation = dict()
 
                 new_user = 'user0'
-
-                info = dict()
-                info['username'] = username.lower()
-                info['subscription_status'] = 'free'
-                info['energy'] = 50.0
-                info['seed'] = 3
-
-                auth[new_user] = info
-                plant_list[new_user] = dict()
-                plant_list_advanced[new_user] = dict()
-                plant_calendar[new_user] = dict()
-                cycle[new_user] = dict()
-                calendar_full[new_user] = dict()
-                conversation[new_user] = dict()
-
-                with open(get_file_path('placeholder_server/user/user.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(auth, f, sort_keys=False)
-                with open(get_file_path('placeholder_server/user/plant_selector.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(plant_list, f, sort_keys=False)
-                with open(get_file_path('placeholder_server/user/plant_selector_advanced.yaml'), 'w',
-                          encoding='utf-8') as f:
-                    yaml.safe_dump(plant_list_advanced, f, sort_keys=False)
-                with open(get_file_path('placeholder_server/user/plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(plant_calendar, f, sort_keys=False)
-                with open(get_file_path('placeholder_server/user/cycle.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(cycle, f)
-                with open(get_file_path('placeholder_server/user/calendar_full.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(calendar_full, f)
-                with open(get_file_path('placeholder_server/user/plant_conversation.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(conversation, f, sort_keys=False)
-                return True, new_user
             else:
                 for user in auth:
-                    if auth[user]['username'] == username.lower():
+                    if auth[user]['email'] == username.lower() or auth[user]['username'] == username.lower():
                         return True, user
-
-                new_user = 'user' + str(len(auth))
 
                 plant_list = retrieve_plant_list()
                 plant_list_advanced = retrieve_plant_list_advanced()
@@ -79,37 +48,41 @@ def simple_login_validation(username, password):
                 calendar_full = retrieve_calendar_full()
                 conversation = retrieve_plant_conversation()
 
-                info = dict()
-                info['username'] = username.lower()
-                info['subscription_status'] = 'free'
-                info['energy'] = 50.0
-                info['seed'] = 3
+                new_user = 'user' + str(len(auth))
 
-                auth[new_user] = info
-                plant_list[new_user] = dict()
-                plant_list_advanced[new_user] = dict()
-                plant_calendar[new_user] = dict()
-                cycle[new_user] = dict()
-                calendar_full[new_user] = dict()
-                conversation[new_user] = dict()
+            info = dict()
+            info['username'] = content['username']
+            info['email'] = content['email']
+            info['subscription_status'] = 'free'
+            info['energy'] = 50.0
+            info['seed'] = 3
 
-                with open(get_file_path('placeholder_server/user/user.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(auth, f, sort_keys=False)
-                with open(get_file_path('placeholder_server/user/plant_selector.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(plant_list, f, sort_keys=False)
-                with open(get_file_path('placeholder_server/user/plant_selector_advanced.yaml'), 'w',
-                          encoding='utf-8') as f:
-                    yaml.safe_dump(plant_list_advanced, f, sort_keys=False)
-                with open(get_file_path('placeholder_server/user/plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(plant_calendar, f, sort_keys=False)
-                with open(get_file_path('placeholder_server/user/cycle.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(cycle, f)
-                with open(get_file_path('placeholder_server/user/calendar_full.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(calendar_full, f)
-                with open(get_file_path('placeholder_server/user/plant_conversation.yaml'), 'w', encoding='utf-8') as f:
-                    yaml.safe_dump(conversation, f, sort_keys=False)
-                return True, new_user
-        else: return False, None
+            auth[new_user] = info
+            plant_list[new_user] = dict()
+            plant_list_advanced[new_user] = dict()
+            plant_calendar[new_user] = dict()
+            cycle[new_user] = dict()
+            calendar_full[new_user] = dict()
+            conversation[new_user] = dict()
+
+            with open(get_file_path('placeholder_server/user/user.yaml'), 'w', encoding='utf-8') as f:
+                yaml.safe_dump(auth, f, sort_keys=False)
+            with open(get_file_path('placeholder_server/user/plant_selector.yaml'), 'w', encoding='utf-8') as f:
+                yaml.safe_dump(plant_list, f, sort_keys=False)
+            with open(get_file_path('placeholder_server/user/plant_selector_advanced.yaml'), 'w',
+                      encoding='utf-8') as f:
+                yaml.safe_dump(plant_list_advanced, f, sort_keys=False)
+            with open(get_file_path('placeholder_server/user/plant_calendar.yaml'), 'w', encoding='utf-8') as f:
+                yaml.safe_dump(plant_calendar, f, sort_keys=False)
+            with open(get_file_path('placeholder_server/user/cycle.yaml'), 'w', encoding='utf-8') as f:
+                yaml.safe_dump(cycle, f)
+            with open(get_file_path('placeholder_server/user/calendar_full.yaml'), 'w', encoding='utf-8') as f:
+                yaml.safe_dump(calendar_full, f)
+            with open(get_file_path('placeholder_server/user/plant_conversation.yaml'), 'w', encoding='utf-8') as f:
+                yaml.safe_dump(conversation, f, sort_keys=False)
+            return True, new_user
+        else:
+            return False, None
     except:
         return False, None
 
@@ -164,7 +137,7 @@ def get_otp(email) -> str:
         print(f"An error occurred: {e}")
         return 'ERROR!'
 
-def simple_new_user_validation(username,email,password = '') -> bool:
+def simple_new_user_validation(username,email) -> bool:
     # check if username and email is available
     try:
         url = 'http://localhost:8948/api/v1/auth/register_validation?hl=en'
@@ -221,6 +194,7 @@ def simple_signup_vadilation(username, email, password):
 
             info = dict()
             info['username'] = username.lower()
+            info['email'] = email.lower()
             info['subscription_status'] = 'free'
             info['energy'] = 50.0
             info['seed'] = 3
@@ -237,8 +211,7 @@ def simple_signup_vadilation(username, email, password):
                 yaml.safe_dump(auth, f, sort_keys=False)
             with open(get_file_path('placeholder_server/user/plant_selector.yaml'), 'w', encoding='utf-8') as f:
                 yaml.safe_dump(plant_list, f, sort_keys=False)
-            with open(get_file_path('placeholder_server/user/plant_selector_advanced.yaml'), 'w',
-                      encoding='utf-8') as f:
+            with open(get_file_path('placeholder_server/user/plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
                 yaml.safe_dump(plant_list_advanced, f, sort_keys=False)
             with open(get_file_path('placeholder_server/user/plant_calendar.yaml'), 'w', encoding='utf-8') as f:
                 yaml.safe_dump(plant_calendar, f, sort_keys=False)
@@ -253,55 +226,3 @@ def simple_signup_vadilation(username, email, password):
             return False, ''
     except:
         return False, ''
-
-    auth = yaml.safe_load(open(get_file_path('placeholder_server/user/user.yaml'), encoding='utf-8'))
-    plant_list = retrieve_plant_list()
-    plant_list_advanced = retrieve_plant_list_advanced()
-    plant_calendar = retrieve_plant_calendar()
-    cycle = retrieve_cycle()
-    calendar_full = retrieve_calendar_full()
-    conversation = retrieve_plant_conversation()
-    if auth is None:
-        auth = dict()
-        plant_list = dict()
-        plant_list_advanced = dict()
-        plant_calendar = dict()
-        cycle = dict()
-        calendar_full = dict()
-        conversation = dict()
-
-        new_user = 'user0'
-    else:
-        new_user = 'user'+str(len(auth))
-
-    info = dict()
-    info['username'] = username.lower()
-    info['email'] = email.lower()
-    info['password'] = password
-    info['subscription_status'] = 'free'
-    info['energy'] = 50.0
-    info['seed'] = 3
-
-    auth[new_user]=info
-    plant_list[new_user] = dict()
-    plant_list_advanced[new_user] = dict()
-    plant_calendar[new_user] = dict()
-    cycle[new_user] = dict()
-    calendar_full[new_user] = dict()
-    conversation[new_user] = dict()
-
-    with open(get_file_path('placeholder_server/user/user.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(auth, f, sort_keys= False)
-    with open(get_file_path('placeholder_server/user/plant_selector.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_list, f, sort_keys= False)
-    with open(get_file_path('placeholder_server/user/plant_selector_advanced.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_list_advanced, f, sort_keys= False)
-    with open(get_file_path('placeholder_server/user/plant_calendar.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(plant_calendar, f, sort_keys= False)
-    with open(get_file_path('placeholder_server/user/cycle.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(cycle,f)
-    with open(get_file_path('placeholder_server/user/calendar_full.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(calendar_full,f)
-    with open(get_file_path('placeholder_server/user/plant_conversation.yaml'), 'w', encoding='utf-8') as f:
-        yaml.safe_dump(conversation, f,sort_keys= False)
-    return new_user

@@ -41,7 +41,6 @@ from kivymd.app import MDApp
 from kivymd.uix.list import ThreeLineIconListItem
 from kivymd.uix.behaviors import CommonElevationBehavior
 
-
 # Declare Main pages ----------------------------------------
 class TestPage(Screen):
     pass
@@ -1079,7 +1078,7 @@ class ConfirmEditCalendarPopup(Popup):
                     MDApp.get_running_app().play_sound('sliding.wav')
                 else:
                     self.dismiss()
-                    Factory.GoPrePopupFromCalendarEdit(
+                    Factory.GoPrePopup(
                         title='Failed to create a schedule. Try again later').open()
             else:
                 self.dismiss()
@@ -1515,7 +1514,7 @@ class ShoppingPage(Screen):
     def purchase_(self, energy,seed,subscription_status,price,dt):
         energy = energy*100
         seed = seed
-        response = press_paypal_button(user=MDApp.get_running_app().current_user,
+        response = press_paypal_button(username=MDApp.get_running_app().current_username,
                                        energy=energy, seed=seed, subscription_status=subscription_status,
                                        amount=price)
         if response:

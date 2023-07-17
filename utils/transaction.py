@@ -10,7 +10,7 @@ def donate_us(source = 'momo'):
     elif source == 'paypal':
         webbrowser.open('https://paypal.me/plantreminder')
 
-def press_paypal_button(user, energy, seed, subscription_status, amount):
+def press_paypal_button(username, energy, seed, subscription_status, amount):
     try:
         master_url = 'http://localhost:8948/transaction'
         create_payment_url = master_url + '/payment'
@@ -37,7 +37,7 @@ def press_paypal_button(user, energy, seed, subscription_status, amount):
 
         # Send request to execute payment
         response = requests.post(execute_payment_url, data={'paymentID': payment_id,
-                                                            'userID': user, 'energy': energy, 'seed': seed,
+                                                            'userID': username, 'energy': energy, 'seed': seed,
                                                             'subscription_status': subscription_status,'amount':amount})
         if response.status_code == 200:
             success = response.json().get('success')
