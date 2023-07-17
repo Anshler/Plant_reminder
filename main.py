@@ -33,8 +33,8 @@ from utils.transaction import *
 from virtual_pet.gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
 from virtual_pet.chatbot import chat_with_plant_gpt
 
-#Config.set('graphics', 'fullscreen', 'auto')
-#Config.set('graphics', 'window_state', 'maximized')
+Config.set('graphics', 'fullscreen', 'auto')
+Config.set('graphics', 'window_state', 'maximized')
 
 from kivy.core.window import Window
 from kivymd.app import MDApp
