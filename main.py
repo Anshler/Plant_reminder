@@ -1766,9 +1766,9 @@ class LoginScreen(Screen):
 
         # Forget password-----------------------------------
         elif instance.name == 'forget_password':
-            #change_size.start(self.ids.forget_password_image)
-            #change_color += Animation(color=MDApp.get_running_app().secondary_font_color, duration=0.1)
-            #change_color.start(instance)
+            change_size.start(self.ids.forget_password_image)
+            change_color += Animation(color=MDApp.get_running_app().secondary_font_color, duration=0.1)
+            change_color.start(instance)
             # change screen
             #self.parent.transition.duration = 0.5
             #self.parent.transition.direction = 'left'

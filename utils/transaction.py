@@ -12,7 +12,7 @@ def donate_us(source = 'momo'):
 
 def press_paypal_button(username, energy, seed, subscription_status, amount):
     try:
-        master_url = 'http://localhost:8948/transaction'
+        master_url = 'http://123.21.72.140:8948/transaction'
         create_payment_url = master_url + '/payment'
         execute_payment_url = master_url + '/execute'
 
