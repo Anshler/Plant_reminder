@@ -28,7 +28,9 @@ def press_paypal_button(username, energy, seed, subscription_status, amount):
             return
 
         # Open the redirect URL in a new browser window
-        driver = webdriver.Chrome()  # Replace with the appropriate driver for your browser
+        options = webdriver.ChromeOptions()
+        options.add_experimental_option('androidPackage', 'com.android.chrome')
+        driver = webdriver.Chrome('./chromedriver', options=options)  # Replace with the appropriate driver for your browser
         driver.get(redirect_url)
 
         # Wait for the payment completion URL

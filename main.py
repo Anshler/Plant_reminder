@@ -35,6 +35,7 @@ from virtual_pet.chatbot import chat_with_plant_gpt
 
 Config.set('graphics', 'fullscreen', 'auto')
 Config.set('graphics', 'window_state', 'maximized')
+Config.set('kivy','pause_on_minimize', 1)
 
 from kivy.core.window import Window
 from kivymd.app import MDApp
