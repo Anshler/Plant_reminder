@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from urllib.parse import urlparse, parse_qs
+from kivy.utils import platform
 def donate_us(source = 'momo'):
     if source == 'momo':
         webbrowser.open("https://me.momo.vn/3GIoiAigigT8iEukCpIy")
@@ -28,9 +29,12 @@ def press_paypal_button(username, energy, seed, subscription_status, amount):
             return
 
         # Open the redirect URL in a new browser window
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option('androidPackage', 'com.android.chrome')
-        driver = webdriver.Chrome('./chromedriver', options=options)  # Replace with the appropriate driver for your browser
+        if platform == 'android':
+            options = webdriver.ChromeOptions()
+            options.add_experimental_option('androidPackage', 'com.android.chrome')
+            driver = webdriver.Chrome('./chromedriver', options=options)  # Replace with the appropriate driver for your browser
+        else:
+            driver = webdriver.Chrome()
         driver.get(redirect_url)
 
         # Wait for the payment completion URL
