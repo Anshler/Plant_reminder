@@ -35,9 +35,11 @@ from virtual_pet.chatbot import chat_with_plant_gpt
 
 if platform == 'android':
     Config.set('graphics', 'fullscreen', 'auto')
+Config.set('kivy', 'window_icon', get_file_path('layout/img/logo.png'))
 Config.set('graphics', 'window_state', 'maximized')
 Config.set('kivy','pause_on_minimize', 1)
 
+from kivy.uix.relativelayout import RelativeLayout
 from kivy_gradient import Gradient
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.textfield import MDTextField
@@ -2128,6 +2130,8 @@ class PlantApp(MDApp):
     current_day = None
 
     otp = None
+
+    icon = get_file_path('layout/img/logo.png')
     @property
     def primary_font_color(self):
         return self.theme_list[self.theme]['primary_font_color']
@@ -2156,10 +2160,10 @@ class PlantApp(MDApp):
     def dark_grey(self):
         return self.theme_list[self.theme]['dark_grey']
     def play_sound(self, filename):
-        sound = SoundLoader.load(self.get_file_path('soundfx/'+filename))
-        if sound:
-            sound.volume = self.volume
-            sound.play()
+        #sound = SoundLoader.load(self.get_file_path('soundfx/'+filename))
+        #if sound:
+            #sound.volume = self.volume
+            #sound.play()
         pass
 
     def build(self):
