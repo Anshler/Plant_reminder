@@ -38,6 +38,9 @@ if platform == 'android':
 Config.set('graphics', 'window_state', 'maximized')
 Config.set('kivy','pause_on_minimize', 1)
 
+from kivy_gradient import Gradient
+from kivymd.icon_definitions import md_icons
+from kivymd.uix.textfield import MDTextField
 from kivy.core.window import Window
 from kivymd.app import MDApp
 from kivymd.uix.list import ThreeLineIconListItem
@@ -478,7 +481,7 @@ class PlantChatScreen(Screen):
         else:
             message = Message()
             setattr(message, 'color', MDApp.get_running_app().wrong_pass_warn)
-            setattr(message, 'text', 'Message failed to deliver, would you care to try again later?')
+            setattr(message, 'text', 'Message failed to deliver, please try again later')
             setattr(message, 'side', 'left')
             MDApp.get_running_app().play_sound('message.wav')
             self.ids.message_boxlayout.add_widget(message)
@@ -2157,6 +2160,7 @@ class PlantApp(MDApp):
         if sound:
             sound.volume = self.volume
             sound.play()
+        pass
 
     def build(self):
         self.now = datetime.datetime.now().strftime('%H:%M')
