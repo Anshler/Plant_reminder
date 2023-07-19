@@ -33,9 +33,10 @@ from utils.transaction import *
 from virtual_pet.gpt3 import get_chatgpt_assistant, get_chatgpt_classifier, get_chatgpt_calendar
 from virtual_pet.chatbot import chat_with_plant_gpt
 
-#Config.set('graphics', 'fullscreen', 'auto')
-#Config.set('graphics', 'window_state', 'maximized')
-#Config.set('kivy','pause_on_minimize', 1)
+if platform == 'android':
+    Config.set('graphics', 'fullscreen', 'auto')
+Config.set('graphics', 'window_state', 'maximized')
+Config.set('kivy','pause_on_minimize', 1)
 
 from kivy.core.window import Window
 from kivymd.app import MDApp
@@ -516,7 +517,7 @@ class ConfirmNextStepPopup(Popup):
         toggle = MDApp.get_running_app().root.ids.master_screen.ids.main_pages.ids.plant_profile_page.ids.new_plant_screen.ids.toggle_manual.active
         valid = True
         if toggle:
-            valid, total_tokens_used = get_chatgpt_classifier('plant\'s name: ' + name_manual)
+            valid, total_tokens_used = get_chatgpt_classifier(username=MDApp.get_running_app().current_username, prompt=str('plant\'s name: ' + name_manual))
             MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
 
         if valid:
@@ -605,7 +606,7 @@ class ConfirmFinalStepPopup(Popup):
                 auto_calendar_prompt += '\nJobs to perform:\n' + result['Water'] + '\n' + result['Humidity'] + '\n' + \
                                              result['Others']
 
-                schedule, total_tokens_used = get_chatgpt_calendar(auto_calendar_prompt)
+                schedule, total_tokens_used = get_chatgpt_calendar(username=MDApp.get_running_app().current_username, prompt=auto_calendar_prompt)
                 if total_tokens_used != 0:
                     MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
 
@@ -679,7 +680,7 @@ class NewPlantInfoScreen(Screen):
         if self.location != '':
             prompt += '\nowner\'s location: ' + self.location
 
-        self.result, total_tokens_used = get_chatgpt_assistant(prompt)
+        self.result, total_tokens_used = get_chatgpt_assistant(username=MDApp.get_running_app().current_username, prompt=prompt)
         if total_tokens_used != 0:
             self.ids.confirm_new_plant.disabled = False
             MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
@@ -1060,7 +1061,7 @@ class ConfirmEditCalendarPopup(Popup):
                 auto_calendar_prompt += '\nJobs to perform:\n' + plant_info_advanced['Water'] + '\n' + \
                                              plant_info_advanced['Humidity'] + '\n' + plant_info_advanced['Others']
                 # get schedule
-                schedule, total_tokens_used = get_chatgpt_calendar(auto_calendar_prompt)
+                schedule, total_tokens_used = get_chatgpt_calendar(username=MDApp.get_running_app().current_username, prompt=auto_calendar_prompt)
                 if total_tokens_used != 0:
                     MDApp.get_running_app().root.ids.master_screen.recalculate(energy=-total_tokens_used)
 

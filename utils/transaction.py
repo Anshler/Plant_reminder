@@ -3,8 +3,7 @@ import requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from urllib.parse import urlparse, parse_qs
-from kivy.utils import platform
+import time
 def donate_us(source = 'momo'):
     if source == 'momo':
         webbrowser.open("https://me.momo.vn/3GIoiAigigT8iEukCpIy")
@@ -29,30 +28,26 @@ def press_paypal_button(username, energy, seed, subscription_status, amount):
             return
 
         # Open the redirect URL in a new browser window
-        if platform == 'android':
-            options = webdriver.ChromeOptions()
-            options.add_experimental_option('androidPackage', 'com.android.chrome')
-            driver = webdriver.Chrome('./chromedriver', options=options)  # Replace with the appropriate driver for your browser
-        else:
-            driver = webdriver.Chrome()
-        driver.get(redirect_url)
-
-        # Wait for the payment completion URL
-        wait = WebDriverWait(driver, 90)  # Replace with the actual completion URL
-        element = wait.until(EC.url_contains(master_url))
-
-        # Send request to execute payment
-        response = requests.post(execute_payment_url, data={'paymentID': payment_id,
-                                                            'userID': username, 'energy': energy, 'seed': seed,
-                                                            'subscription_status': subscription_status,'amount':amount})
-        if response.status_code == 200:
-            success = response.json().get('success')
-            if success:
-                return True
-            else:
-                return False
-        else:
-            return False
+        webbrowser.open_new(redirect_url)
+        # Time interval to check the current URL (in seconds)
+        check_interval = 5
+        # Time limit to wait for the desired URL to appear (in seconds)
+        timeout = 60
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            # Send request to execute payment
+            response = requests.post(execute_payment_url, data={'paymentID': payment_id,
+                                                                'userID': username, 'energy': energy, 'seed': seed,
+                                                                'subscription_status': subscription_status,
+                                                                'amount': amount})
+            if response.status_code == 200:
+                success = response.json().get('success')
+                if success:
+                    return True
+                else:
+                    return False
+            time.sleep(check_interval)
+        return False
     except: return False
 
 def get_payer_id(payment_id):
@@ -74,6 +69,5 @@ def get_payer_id(payment_id):
         print(e)
         return None
 # Call the function to initiate the PayPal payment
-#press_paypal_button('4.00')
-
+#press_paypal_button('yoyo',5,5,'','4.00')
 
