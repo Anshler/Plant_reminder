@@ -53,7 +53,7 @@ def simple_login_validation(username, password):
             info = dict()
             info['username'] = content['username']
             info['email'] = content['email']
-            info['subscription_status'] = 'free'
+            info['subscription_status'] = content['subscription_status']
             info['energy'] = 50.0
             info['seed'] = 3
 
@@ -172,6 +172,8 @@ def simple_signup_vadilation(username, email, password):
 
         response = requests.post(url, headers=headers, json=data)
         if response.status_code == 200:
+            # get subscription status
+            content = response.json()
             auth = yaml.safe_load(open(get_file_path('placeholder_server/user/user.yaml'), encoding='utf-8'))
             plant_list = retrieve_plant_list()
             plant_list_advanced = retrieve_plant_list_advanced()
@@ -195,7 +197,7 @@ def simple_signup_vadilation(username, email, password):
             info = dict()
             info['username'] = username.lower()
             info['email'] = email.lower()
-            info['subscription_status'] = 'free'
+            info['subscription_status'] = content['subscription_status']
             info['energy'] = 50.0
             info['seed'] = 3
 
