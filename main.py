@@ -40,6 +40,7 @@ Config.set('graphics', 'window_state', 'maximized')
 Config.set('kivy','pause_on_minimize', 1)
 
 from kivy.uix.relativelayout import RelativeLayout
+import kivymd.uix.relativelayout
 from kivy_gradient import Gradient
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.textfield import MDTextField
