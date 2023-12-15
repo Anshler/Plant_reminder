@@ -8,4 +8,4 @@ Functionalities include:
 - Virtual pet interaction with each plant using ChatGPT, diversed personality
 - Detailed plant information lookup from Vietnam Plant Data Center
   
-Server is down so all functions are down. Only Windows port is usable (as in, start the screen), android version is totally broken.
+Server is down so all functions are down. Only Windows port is usable (as in, start the screen), Android version is totally broken.
