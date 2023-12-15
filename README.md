@@ -1,6 +1,6 @@
 # <img src="./layout/img/logo.png" alt="My Logo" style="width: 1em; height: 1em;"> Plant Reminder
 
-Front-end Elements for the Plant Reminder App (My Uni's Startup Project)
+Front-end Elements for the Plant Reminder App 🪴 (My Uni's Startup Project)
 
 Functionalities include: 
 - Keep track of plants with weekly care calendar and alarms for each care task
