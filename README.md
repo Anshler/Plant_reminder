@@ -1,5 +1,6 @@
+<div style="text-align: center;">
 # <img src="./layout/img/logo.png" alt="My Logo" style="width: 1em; height: 1em;"> Plant Reminder
-
+</div>
 
 Front-end Elements for the Plant Reminder App 🪴 (My Uni's Startup Project)
 
