@@ -8,6 +8,4 @@ Functionalities include:
 - Virtual pet interaction with each plant using ChatGPT, diversed personality
 - Detailed plant information lookup from Vietnam Plant Data Center
   
-Server is down so most function is down. Only Windows port is usable, android version is totally broken.
-
-The App is easily jailbreak-able so you can enter w/o logging in. Just change both values in [had_startup.yaml](./app_config/had_startup.yaml) to ```true```
+Server is down so most function is down. Only Windows port is usable (as in, start the screen), android version is totally broken.
