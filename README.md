@@ -1,4 +1,4 @@
-# Plant_reminder <img src="./layout/img/logo.png" alt="My Logo" style="width: 1em; height: 1em;">
+# <img src="./layout/img/logo.png" alt="My Logo" style="width: 1em; height: 1em;"> Plant_reminder
 
 Front-end Elements for the Plant Reminder App (My Uni's Startup Project)
 
