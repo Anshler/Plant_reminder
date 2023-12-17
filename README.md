@@ -13,7 +13,7 @@ Server is down so all functions are down. Only Windows port is usable (as in, st
 ## Screenshot
 
 ### Main screen
-<img src="./layout/screenshot/1.png" alt="GitHub Logo" style="width: 20%;"> <img src="./layout/screenshot/2.png" alt="GitHub Logo" style="width: 20%;"> <img src="./layout/screenshot/3.png" alt="GitHub Logo" style="width: 20%;">
+<img src="./layout/screenshot/1.png" alt="GitHub Logo" style="width: 20%;"> <img src="./layout/screenshot/3.png" alt="GitHub Logo" style="width: 20%;">
 
 ### Functionalities
 - Plants management
