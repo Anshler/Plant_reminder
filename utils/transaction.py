@@ -3,13 +3,13 @@ import requests
 import time
 def donate_us(source = 'momo'):
     if source == 'momo':
-        webbrowser.open("https://me.momo.vn/3GIoiAigigT8iEukCpIy")
+        webbrowser.open("https://me.momo.vn/YOUR_MOMO_WALLET")
     elif source == 'paypal':
-        webbrowser.open('https://paypal.me/plantreminder')
+        webbrowser.open('https://paypal.me/YOUR_PAYPAL_WALLET')
 
 def press_paypal_button(username, energy, seed, subscription_status, amount):
     try:
-        master_url = 'http://123.21.72.140:8948/transaction'
+        master_url = 'http://localhost:8948/transaction'
         create_payment_url = master_url + '/payment'
         execute_payment_url = master_url + '/execute'
 
@@ -51,7 +51,7 @@ def get_payer_id(payment_id):
     payment_url = f"https://api.paypal.com/v1/payments/payment/{payment_id}"
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer YOUR_ACCESS_TOKEN'  # Replace with your PayPal access token
+        'Authorization': 'YOUR_ACCESS_TOKEN'  # Replace with your PayPal access token
     }
 
     try:
