@@ -1,7 +1,7 @@
 import requests
 
 def chat_with_plant_gpt(user_input, user, plant_conversation):
-    url = "http://123.21.72.140:8948/chat"  # Replace with the appropriate URL of your Node.js server
+    url = "http://localhost:8948/chat"  # Replace with the appropriate URL of your Node.js server
 
     data = {
         "user_input": user_input,
