@@ -20,6 +20,7 @@ Server is down so all functions are down. Only Windows port is usable (as in, st
 ### Functionalities
 - Plants management
 
+<img src="./layout/screenshot/3.png" alt="GitHub Logo" style="width: 20%;"> <img src="./layout/screenshot/4.png" alt="GitHub Logo" style="width: 20%;"> <img src="./layout/screenshot/5.png" alt="GitHub Logo" style="width: 20%;"> <img src="./layout/screenshot/6.png" alt="GitHub Logo" style="width: 20%;">
 - Search from VPDC
 
 <img src="./layout/screenshot/10.png" alt="GitHub Logo" style="width: 20%;"> <img src="./layout/screenshot/11.png" alt="GitHub Logo" style="width: 20%;">
