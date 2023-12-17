@@ -10,7 +10,7 @@ def simple_login_validation(username, password):
     if username == '' or password == '':
         return False, None
     try:
-        url = 'http://123.21.72.140:8948/api/v1/auth/login?hl=en'
+        url = 'http://localhost:8948/api/v1/auth/login?hl=en'
         headers = {
             'accept': 'application/json',
             'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ def simple_otp_validation(true_otp, otp) -> bool:
     return False
 
 def get_otp(email) -> str:
-    url = "http://123.21.72.140:8948/otp"  # Replace with the appropriate URL of your Node.js server
+    url = "http://localhost:8948/otp"  # Replace with the appropriate URL of your Node.js server
 
     data = {"email": email}
     try:
@@ -140,7 +140,7 @@ def get_otp(email) -> str:
 def simple_new_user_validation(username,email) -> bool:
     # check if username and email is available
     try:
-        url = 'http://123.21.72.140:8948/api/v1/auth/register_validation?hl=en'
+        url = 'http://localhost:8948/api/v1/auth/register_validation?hl=en'
         headers = {
             'accept': 'application/json',
             'Content-Type': 'application/json'
@@ -159,7 +159,7 @@ def simple_new_user_validation(username,email) -> bool:
 def simple_signup_vadilation(username, email, password):
     # actual signup
     try:
-        url = 'http://123.21.72.140:8948/api/v1/auth/register?hl=en'
+        url = 'http://localhost:8948/api/v1/auth/register?hl=en'
         headers = {
             'accept': 'application/json',
             'Content-Type': 'application/json'
