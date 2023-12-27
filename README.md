@@ -1,6 +1,6 @@
 # <img src="./layout/img/logo.png" alt="My Logo" style="width: 1em; height: 1em;"> Plant Reminder
 
-Client-side code for the Plant Reminder App 🪴 (My Uni's Compulsory Startup Project)
+Client-side code for the Plant Reminder App 🪴📱 (My Uni's Compulsory Startup Project)
 
 ## Features 
 - Keep track of plants with weekly care calendar and notification for each care task
