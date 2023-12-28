@@ -5,7 +5,7 @@ Client-side code for the Plant Reminder App 🪴📱 (My Uni's Compulsory Startu
 ## Features 
 - Keep track of plants with weekly care calendar and notification for each care task
 - Automatic information overview and smart calendar creation with ChatGPT
-- Virtual pet interaction with each plant using ChatGPT, diversed personality
+- Virtual pet interaction with each plant using ChatGPT, diversed personality, vector-based long term memory
 - Detailed plant information lookup from Vietnam Plant Data Center (VPDC)
   
 ## Status
